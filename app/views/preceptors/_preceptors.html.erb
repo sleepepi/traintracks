@@ -1,0 +1,58 @@
+<div style="float:right">
+  Per Page
+  <span class="per_page selected">40</span>
+  <% if false %>
+  <% [10,25,50].each do |count| %>
+    <span class="per_page">
+      <% if current_user.tags_per_page != count %>
+        <%= link_to count, "#", 'data-count' => count, 'data-object' => 'tags', id: "count_#{count}" %>
+      <% else %>
+        <span class="selected"><%= count %></span>
+      <% end %>
+    </span>
+  <% end %>
+  <% end %>
+</div>
+
+<div style="clear:both"></div>
+
+<div class="frame">
+  <table style="width:100%">
+
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Degree</th>
+      <th>Status</th>
+      <th>Hospital affiliation</th>
+      <th>Hospital appointment</th>
+      <th>Other support</th>
+      <th>Rank</th>
+      <th>Research interest</th>
+      <th>Program role</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @preceptors.each do |preceptor| %>
+    <tr>
+      <td><%= preceptor.first_name %></td>
+      <td><%= preceptor.last_name %></td>
+      <td><%= preceptor.degree %></td>
+      <td><%= preceptor.status %></td>
+      <td><%= preceptor.hospital_affiliation %></td>
+      <td><%= preceptor.hospital_appointment %></td>
+      <td><%= preceptor.other_support %></td>
+      <td><%= preceptor.rank %></td>
+      <td><%= preceptor.research_interest %></td>
+      <td><%= preceptor.program_role %></td>
+      <td><%= link_to 'Show', preceptor %></td>
+      <td><%= link_to 'Edit', edit_preceptor_path(preceptor) %></td>
+      <td><%= link_to 'Destroy', preceptor, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>
+
+<center><%= paginate @preceptors %></center>

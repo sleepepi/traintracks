@@ -35,6 +35,14 @@ Contour.setup do |config|
       links: []
     },
     {
+      name: 'Applicants', display: 'signed_in', path: 'applicants_path', position: 'left',
+      links: [{ name: '+ New', path: 'new_applicant_path' }]
+    },
+    {
+      name: 'Preceptors', display: 'signed_in', path: 'preceptors_path', position: 'left',
+      links: [{ name: '+ New', path: 'new_preceptor_path' }]
+    },
+    {
       name: 'Users', display: 'signed_in', path: 'users_path', position: 'left', condition: 'current_user.system_admin?',
       links: []
     }

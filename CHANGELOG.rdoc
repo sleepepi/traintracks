@@ -1,5 +1,9 @@
 == 0.1.0
 
+* Enhancements
+  * Preceptors can now be managed
+  * Applicants and Trainees can now be managed
+
 == 0.0.0
 
 * Skeleton files to initialize Rails application with testing framework and continuous integration

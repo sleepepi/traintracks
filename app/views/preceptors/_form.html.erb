@@ -1,0 +1,67 @@
+<% width = '1074px' %>
+
+<%= form_for(@preceptor) do |f| %>
+  <% if @preceptor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@preceptor.errors.count, "error") %> prohibited this preceptor from being saved:</h2>
+
+      <ul>
+      <% @preceptor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend><%= @title %></legend>
+
+    <div class="field">
+      <%= f.label :first_name %><br />
+      <%= f.text_field :first_name %>
+    </div>
+    <div class="field">
+      <%= f.label :last_name %><br />
+      <%= f.text_field :last_name %>
+    </div>
+    <div class="field">
+      <%= f.label :degree %><br />
+      <%= f.text_field :degree %>
+    </div>
+    <div class="field">
+      <%= f.label :status %><br />
+      <%= f.select :status, Preceptor::STATUS %>
+    </div>
+    <div class="field">
+      <%= f.label :hospital_affiliation %><br />
+      <%= f.text_field :hospital_affiliation %>
+    </div>
+    <div class="field">
+      <%= f.label :hospital_appointment %><br />
+      <%= f.text_field :hospital_appointment %>
+    </div>
+    <div class="field">
+      <%= f.label :other_support %><br />
+      <%= f.check_box :other_support %>
+    </div>
+    <div class="field">
+      <%= f.label :rank %><br />
+      <%= f.text_field :rank %>
+    </div>
+    <div class="field">
+      <%= f.label :research_interest %><br />
+      <%= f.text_area :research_interest, rows: 7, style: "width:#{width}" %>
+    </div>
+    <div class="field">
+      <%= f.label :program_role %><br />
+      <%= f.text_field :program_role %>
+    </div>
+  </fieldset>
+
+  <div class="actions">
+    <% form_name = @preceptor.new_record? ? 'new_preceptor' : "edit_preceptor_#{@preceptor.id}" %>
+    <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + (@preceptor.new_record? ? "Create Preceptor" : "Update Preceptor"), "$('##{form_name}').submit();", class: "button positive" %>
+    <%= cancel %>
+    <br />
+  </div>
+<% end %>

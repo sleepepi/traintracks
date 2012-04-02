@@ -1,0 +1,152 @@
+<div style="float:right">
+  Per Page
+  <span class="per_page selected">40</span>
+  <% if false %>
+  <% [10,25,50].each do |count| %>
+    <span class="per_page">
+      <% if current_user.tags_per_page != count %>
+        <%= link_to count, "#", 'data-count' => count, 'data-object' => 'tags', id: "count_#{count}" %>
+      <% else %>
+        <span class="selected"><%= count %></span>
+      <% end %>
+    </span>
+  <% end %>
+  <% end %>
+</div>
+
+<div style="clear:both"></div>
+
+<div class="frame">
+  <table style="width:100%">
+
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Middle initial</th>
+      <th>Applicant type</th>
+      <th>Accepted</th>
+      <th>Advisor</th>
+      <th>Applicant number</th>
+      <th>Concentration major</th>
+      <th>Current institution</th>
+      <th>Cv</th>
+      <th>Degree sought</th>
+      <th>Department program</th>
+      <th>Disabled</th>
+      <th>Disadvantaged</th>
+      <th>Enrolled</th>
+      <th>Expected year</th>
+      <th>Offered</th>
+      <th>Preferred preceptor</th>
+      <th>Primary preceptor</th>
+      <th>Secondary preceptor</th>
+      <th>Previous institutions</th>
+      <th>Review date</th>
+      <th>Reviewed</th>
+      <th>Summer</th>
+      <th>Tge</th>
+      <th>Thesis</th>
+      <th>Urm</th>
+      <th>Year</th>
+      <th>Degree type</th>
+      <th>Degrees</th>
+      <th>Notes</th>
+      <th>Residency</th>
+      <th>Year department program</th>
+      <th>Training period start date</th>
+      <th>Training period end date</th>
+      <th>Email</th>
+      <th>Appointment type</th>
+      <th>Status</th>
+      <th>Current position or source of support</th>
+      <th>Address1</th>
+      <th>Address2</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Country</th>
+      <th>Zip code</th>
+      <th>Coursework comp</th>
+      <th>Fax</th>
+      <th>Grant years</th>
+      <th>Phone</th>
+      <th>Presentations</th>
+      <th>Pubs not prev rep</th>
+      <th>Research description</th>
+      <th>Source of support</th>
+      <th>Supported by tg</th>
+      <th>Tg years</th>
+      <th>Research project title</th>
+      <th>Trainee code</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @applicants.each do |applicant| %>
+    <tr>
+      <td><%= applicant.first_name %></td>
+      <td><%= applicant.last_name %></td>
+      <td><%= applicant.middle_initial %></td>
+      <td><%= applicant.applicant_type %></td>
+      <td><%= applicant.accepted %></td>
+      <td><%= applicant.advisor %></td>
+      <td><%= applicant.applicant_number %></td>
+      <td><%= applicant.concentration_major %></td>
+      <td><%= applicant.current_institution %></td>
+      <td><%= applicant.cv %></td>
+      <td><%= applicant.degree_sought %></td>
+      <td><%= applicant.department_program %></td>
+      <td><%= applicant.disabled %></td>
+      <td><%= applicant.disadvantaged %></td>
+      <td><%= applicant.enrolled %></td>
+      <td><%= applicant.expected_year %></td>
+      <td><%= applicant.offered %></td>
+      <td><%= applicant.preferred_preceptor_id %></td>
+      <td><%= applicant.primary_preceptor_id %></td>
+      <td><%= applicant.secondary_preceptor_id %></td>
+      <td><%= applicant.previous_institutions %></td>
+      <td><%= applicant.review_date %></td>
+      <td><%= applicant.reviewed %></td>
+      <td><%= applicant.summer %></td>
+      <td><%= applicant.tge %></td>
+      <td><%= applicant.thesis %></td>
+      <td><%= applicant.urm %></td>
+      <td><%= applicant.year %></td>
+      <td><%= applicant.degree_type %></td>
+      <td><%= applicant.degrees %></td>
+      <td><%= applicant.notes %></td>
+      <td><%= applicant.residency %></td>
+      <td><%= applicant.year_department_program %></td>
+      <td><%= applicant.training_period_start_date %></td>
+      <td><%= applicant.training_period_end_date %></td>
+      <td><%= applicant.email %></td>
+      <td><%= applicant.appointment_type %></td>
+      <td><%= applicant.status %></td>
+      <td><%= applicant.current_position_or_source_of_support %></td>
+      <td><%= applicant.address1 %></td>
+      <td><%= applicant.address2 %></td>
+      <td><%= applicant.city %></td>
+      <td><%= applicant.state %></td>
+      <td><%= applicant.country %></td>
+      <td><%= applicant.zip_code %></td>
+      <td><%= applicant.coursework_comp %></td>
+      <td><%= applicant.fax %></td>
+      <td><%= applicant.grant_years %></td>
+      <td><%= applicant.phone %></td>
+      <td><%= applicant.presentations %></td>
+      <td><%= applicant.pubs_not_prev_rep %></td>
+      <td><%= applicant.research_description %></td>
+      <td><%= applicant.source_of_support %></td>
+      <td><%= applicant.supported_by_tg %></td>
+      <td><%= applicant.tg_years %></td>
+      <td><%= applicant.research_project_title %></td>
+      <td><%= applicant.trainee_code %></td>
+      <td><%= link_to 'Show', applicant %></td>
+      <td><%= link_to 'Edit', edit_applicant_path(applicant) %></td>
+      <td><%= link_to 'Destroy', applicant, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>
+
+<center><%= paginate @applicants %></center>

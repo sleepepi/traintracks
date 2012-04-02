@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  degree: MyString
+  status: MyString
+  hospital_affiliation: MyString
+  hospital_appointment: MyString
+  other_support: false
+  rank: MyString
+  research_interest: MyText
+  program_role: MyString
+  deleted: false
+
+two:
+  first_name: MyString
+  last_name: MyString
+  degree: MyString
+  status: MyString
+  hospital_affiliation: MyString
+  hospital_appointment: MyString
+  other_support: false
+  rank: MyString
+  research_interest: MyText
+  program_role: MyString
+  deleted: false

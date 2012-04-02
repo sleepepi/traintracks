@@ -1,0 +1,286 @@
+<% @title = "Applicant: #{@applicant.name}" %>
+<h1><%= @title %></h1>
+
+<%= link_to image_tag('gentleface/16/doc_edit.png', alt: '') + "Edit Applicant", edit_applicant_path(@applicant), class: 'button' %>
+<%= link_to image_tag('gentleface/16/doc_delete.png', alt: '') + "Delete Applicant", @applicant, confirm: "Are you sure you want to delete Applicant #{@applicant.name}?", method: :delete, class: 'button negative' %>
+<%= link_to image_tag('gentleface/16/folder_open.png', alt: '') + "View All Applicants", applicants_path, class: 'button' %>
+<div style="clear:both"></div>
+
+<fieldset>
+  <legend><%= @title %></legend>
+
+  <p>
+    <b>Middle initial:</b>
+    <%= @applicant.middle_initial %>
+  </p>
+
+  <p>
+    <b>Applicant type:</b>
+    <%= @applicant.applicant_type %>
+  </p>
+
+  <p>
+    <b>Accepted:</b>
+    <%= @applicant.accepted %>
+  </p>
+
+  <p>
+    <b>Advisor:</b>
+    <%= @applicant.advisor %>
+  </p>
+
+  <p>
+    <b>Applicant number:</b>
+    <%= @applicant.applicant_number %>
+  </p>
+
+  <p>
+    <b>Concentration major:</b>
+    <%= @applicant.concentration_major %>
+  </p>
+
+  <p>
+    <b>Current institution:</b>
+    <%= @applicant.current_institution %>
+  </p>
+
+  <p>
+    <b>Cv:</b>
+    <%= @applicant.cv %>
+  </p>
+
+  <p>
+    <b>Degree sought:</b>
+    <%= @applicant.degree_sought %>
+  </p>
+
+  <p>
+    <b>Department program:</b>
+    <%= @applicant.department_program %>
+  </p>
+
+  <p>
+    <b>Disabled:</b>
+    <%= @applicant.disabled %>
+  </p>
+
+  <p>
+    <b>Disadvantaged:</b>
+    <%= @applicant.disadvantaged %>
+  </p>
+
+  <p>
+    <b>Enrolled:</b>
+    <%= @applicant.enrolled %>
+  </p>
+
+  <p>
+    <b>Expected year:</b>
+    <%= @applicant.expected_year %>
+  </p>
+
+  <p>
+    <b>Offered:</b>
+    <%= @applicant.offered %>
+  </p>
+
+  <p>
+    <b>Preferred preceptor:</b>
+    <%= @applicant.preferred_preceptor_id %>
+  </p>
+
+  <p>
+    <b>Primary preceptor:</b>
+    <%= @applicant.primary_preceptor_id %>
+  </p>
+
+  <p>
+    <b>Secondary preceptor:</b>
+    <%= @applicant.secondary_preceptor_id %>
+  </p>
+
+  <p>
+    <b>Previous institutions:</b>
+    <%= @applicant.previous_institutions %>
+  </p>
+
+  <p>
+    <b>Review date:</b>
+    <%= @applicant.review_date %>
+  </p>
+
+  <p>
+    <b>Reviewed:</b>
+    <%= @applicant.reviewed %>
+  </p>
+
+  <p>
+    <b>Summer:</b>
+    <%= @applicant.summer %>
+  </p>
+
+  <p>
+    <b>TGE:</b>
+    <%= @applicant.tge %>
+  </p>
+
+  <p>
+    <b>Thesis:</b>
+    <%= @applicant.thesis %>
+  </p>
+
+  <p>
+    <b>Urm:</b>
+    <%= @applicant.urm %>
+  </p>
+
+  <p>
+    <b>Year:</b>
+    <%= @applicant.year %>
+  </p>
+
+  <p>
+    <b>Degree type:</b>
+    <%= @applicant.degree_type %>
+  </p>
+
+  <p>
+    <b>Degrees:</b>
+    <%= @applicant.degrees %>
+  </p>
+
+  <p>
+    <b>Notes:</b>
+    <%= @applicant.notes %>
+  </p>
+
+  <p>
+    <b>Residency:</b>
+    <%= @applicant.residency %>
+  </p>
+
+  <p>
+    <b>Year department program:</b>
+    <%= @applicant.year_department_program %>
+  </p>
+
+  <p>
+    <b>Training period start date:</b>
+    <%= @applicant.training_period_start_date %>
+  </p>
+
+  <p>
+    <b>Training period end date:</b>
+    <%= @applicant.training_period_end_date %>
+  </p>
+
+  <p>
+    <b>Email:</b>
+    <%= @applicant.email %>
+  </p>
+
+  <p>
+    <b>Appointment type:</b>
+    <%= @applicant.appointment_type %>
+  </p>
+
+  <p>
+    <b>Status:</b>
+    <%= @applicant.status %>
+  </p>
+
+  <p>
+    <b>Current position or source of support:</b>
+    <%= @applicant.current_position_or_source_of_support %>
+  </p>
+
+  <p>
+    <b>Address1:</b>
+    <%= @applicant.address1 %>
+  </p>
+
+  <p>
+    <b>Address2:</b>
+    <%= @applicant.address2 %>
+  </p>
+
+  <p>
+    <b>City:</b>
+    <%= @applicant.city %>
+  </p>
+
+  <p>
+    <b>State:</b>
+    <%= @applicant.state %>
+  </p>
+
+  <p>
+    <b>Country:</b>
+    <%= @applicant.country %>
+  </p>
+
+  <p>
+    <b>Zip code:</b>
+    <%= @applicant.zip_code %>
+  </p>
+
+  <p>
+    <b>Coursework comp:</b>
+    <%= @applicant.coursework_comp %>
+  </p>
+
+  <p>
+    <b>Fax:</b>
+    <%= @applicant.fax %>
+  </p>
+
+  <p>
+    <b>Grant years:</b>
+    <%= @applicant.grant_years %>
+  </p>
+
+  <p>
+    <b>Phone:</b>
+    <%= @applicant.phone %>
+  </p>
+
+  <p>
+    <b>Presentations:</b>
+    <%= @applicant.presentations %>
+  </p>
+
+  <p>
+    <b>Pubs not prev rep:</b>
+    <%= @applicant.pubs_not_prev_rep %>
+  </p>
+
+  <p>
+    <b>Research description:</b>
+    <%= @applicant.research_description %>
+  </p>
+
+  <p>
+    <b>Source of support:</b>
+    <%= @applicant.source_of_support %>
+  </p>
+
+  <p>
+    <b>Supported by TG:</b>
+    <%= @applicant.supported_by_tg %>
+  </p>
+
+  <p>
+    <b>TG years:</b>
+    <%= @applicant.tg_years %>
+  </p>
+
+  <p>
+    <b>Research project title:</b>
+    <%= @applicant.research_project_title %>
+  </p>
+
+  <p>
+    <b>Trainee code:</b>
+    <%= @applicant.trainee_code %>
+  </p>
+</fieldset>
