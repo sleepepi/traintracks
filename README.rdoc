@@ -1,6 +1,6 @@
 = Training Grant {<img src="https://secure.travis-ci.org/remomueller/training_grant.png"/>}[http://travis-ci.org/remomueller/training_grant] {<img src="https://gemnasium.com/remomueller/training_grant.png" alt="Dependency Status" />}[https://gemnasium.com/remomueller/training_grant]
 
-... Using Rails 3.2+ and Ruby 1.9.3+.
+Training Grant Management Application that manages new applicants, trainees, and preceptors over a 10-year time period. Using Rails 3.2+ and Ruby 1.9.3+.
 
 == Installation
 
