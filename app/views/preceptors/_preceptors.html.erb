@@ -20,8 +20,7 @@
   <table style="width:100%">
 
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
+      <th>Name</th>
       <th>Degree</th>
       <th>Status</th>
       <th>Hospital affiliation</th>
@@ -32,13 +31,11 @@
       <th>Program role</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
 
   <% @preceptors.each do |preceptor| %>
     <tr>
-      <td><%= preceptor.first_name %></td>
-      <td><%= preceptor.last_name %></td>
+      <td><%= link_to preceptor.name, preceptor %></td>
       <td><%= preceptor.degree %></td>
       <td><%= preceptor.status %></td>
       <td><%= preceptor.hospital_affiliation %></td>
@@ -47,7 +44,6 @@
       <td><%= preceptor.rank %></td>
       <td><%= preceptor.research_interest %></td>
       <td><%= preceptor.program_role %></td>
-      <td><%= link_to 'Show', preceptor %></td>
       <td><%= link_to 'Edit', edit_preceptor_path(preceptor) %></td>
       <td><%= link_to 'Destroy', preceptor, confirm: 'Are you sure?', method: :delete %></td>
     </tr>

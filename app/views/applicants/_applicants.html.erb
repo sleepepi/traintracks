@@ -20,8 +20,7 @@
   <table style="width:100%">
 
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
+      <th>Name</th>
       <th>Middle initial</th>
       <th>Applicant type</th>
       <th>Accepted</th>
@@ -79,13 +78,11 @@
       <th>Trainee code</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
 
   <% @applicants.each do |applicant| %>
     <tr>
-      <td><%= applicant.first_name %></td>
-      <td><%= applicant.last_name %></td>
+      <td><%= link_to applicant.name, applicant %></td>
       <td><%= applicant.middle_initial %></td>
       <td><%= applicant.applicant_type %></td>
       <td><%= applicant.accepted %></td>
@@ -141,7 +138,6 @@
       <td><%= applicant.tg_years %></td>
       <td><%= applicant.research_project_title %></td>
       <td><%= applicant.trainee_code %></td>
-      <td><%= link_to 'Show', applicant %></td>
       <td><%= link_to 'Edit', edit_applicant_path(applicant) %></td>
       <td><%= link_to 'Destroy', applicant, confirm: 'Are you sure?', method: :delete %></td>
     </tr>
