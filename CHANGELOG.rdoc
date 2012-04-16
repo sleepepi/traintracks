@@ -2,7 +2,7 @@
 
 * Enhancements
   * Preceptors can now be managed
-  * Applicants and Trainees can now be managed
+  * Applicants (Predoc and Postdoc) and Trainees can now be managed
 
 == 0.0.0
 
