@@ -1,3 +1,13 @@
+# Global functions referenced from HTML
+@applicantAssuranceCheck = () ->
+  if !$('#applicant_assurance').is(':checked')
+    alert 'Please read and check the Application Assurance and Sign Off before submitting your application.'
+    return false
+  if !confirm('Submit application for review? No more edits will be possible.')
+    return false
+  true
+
+
 jQuery ->
   $(".datepicker").datepicker
     showOtherMonths: true

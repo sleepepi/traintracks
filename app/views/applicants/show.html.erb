@@ -21,7 +21,7 @@
 
   <p>
     <b>Accepted:</b>
-    <%= @applicant.accepted %>
+    <%= simple_check @applicant.accepted %>
   </p>
 
   <p>
@@ -46,7 +46,7 @@
 
   <p>
     <b>Cv:</b>
-    <%= @applicant.cv %>
+    <%= simple_check @applicant.cv %>
   </p>
 
   <p>
@@ -61,17 +61,17 @@
 
   <p>
     <b>Disabled:</b>
-    <%= @applicant.disabled %>
+    <%= simple_check @applicant.disabled %>
   </p>
 
   <p>
     <b>Disadvantaged:</b>
-    <%= @applicant.disadvantaged %>
+    <%= simple_check @applicant.disadvantaged %>
   </p>
 
   <p>
     <b>Enrolled:</b>
-    <%= @applicant.enrolled %>
+    <%= simple_check @applicant.enrolled %>
   </p>
 
   <p>
@@ -81,7 +81,7 @@
 
   <p>
     <b>Offered:</b>
-    <%= @applicant.offered %>
+    <%= simple_check @applicant.offered %>
   </p>
 
   <p>
@@ -111,17 +111,17 @@
 
   <p>
     <b>Reviewed:</b>
-    <%= @applicant.reviewed %>
+    <%= simple_check @applicant.reviewed %>
   </p>
 
   <p>
     <b>Summer:</b>
-    <%= @applicant.summer %>
+    <%= simple_check @applicant.summer %>
   </p>
 
   <p>
-    <b>TGE:</b>
-    <%= @applicant.tge %>
+    <b>US Citizen or Permanent Resident:</b>
+    <%= simple_check @applicant.tge %>
   </p>
 
   <p>
@@ -130,13 +130,18 @@
   </p>
 
   <p>
-    <b>Urm:</b>
-    <%= @applicant.urm %>
+    <b>Under-Represented Minority:</b>
+    <%= simple_check @applicant.urm %>
   </p>
 
   <p>
-    <b>Year:</b>
-    <%= @applicant.year %>
+    <b>Submitted:</b>
+    <%= simple_time @applicant.submitted_at %>
+  </p>
+
+  <p>
+    <b>Applicant assurance:</b>
+    <%= simple_check @applicant.assurance %>
   </p>
 
   <p>
@@ -191,7 +196,7 @@
 
   <p>
     <b>Current position or source of support:</b>
-    <%= @applicant.current_position_or_source_of_support %>
+    <%= @applicant.current_title %>
   </p>
 
   <p>
@@ -226,17 +231,7 @@
 
   <p>
     <b>Coursework comp:</b>
-    <%= @applicant.coursework_comp %>
-  </p>
-
-  <p>
-    <b>Fax:</b>
-    <%= @applicant.fax %>
-  </p>
-
-  <p>
-    <b>Grant years:</b>
-    <%= @applicant.grant_years %>
+    <%= @applicant.coursework_completed %>
   </p>
 
   <p>
@@ -250,7 +245,7 @@
   </p>
 
   <p>
-    <b>Pubs not prev rep:</b>
+    <b>Publications (Not Previously Reported):</b>
     <%= @applicant.pubs_not_prev_rep %>
   </p>
 
@@ -265,13 +260,13 @@
   </p>
 
   <p>
-    <b>Supported by TG:</b>
-    <%= @applicant.supported_by_tg %>
+    <b>Supported by Training Grant:</b>
+    <%= simple_check @applicant.supported_by_tg %>
   </p>
 
   <p>
-    <b>TG years:</b>
-    <%= @applicant.tg_years %>
+    <b>Training grant years:</b>
+    <%= @applicant.training_grant_years %>
   </p>
 
   <p>
@@ -282,5 +277,15 @@
   <p>
     <b>Trainee code:</b>
     <%= @applicant.trainee_code %>
+  </p>
+
+  <p>
+    <b>Desired start date:</b>
+    <%= @applicant.desired_start_date %>
+  </p>
+
+  <p>
+    <b>Marital status:</b>
+    <%= @applicant.marital_status %>
   </p>
 </fieldset>

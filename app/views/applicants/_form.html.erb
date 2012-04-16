@@ -14,36 +14,64 @@
   <% end %>
 
   <fieldset>
-    <legend><%= @title %></legend>
+    <legend>Applicant Info (Predoc Postdoc)</legend>
 
     <div class="field">
-      <%= f.label :first_name %><br />
-      <%= f.text_field :first_name %>
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
     </div>
-    <div class="field">
-      <%= f.label :last_name %><br />
-      <%= f.text_field :last_name %>
-    </div>
-    <div class="field">
-      <%= f.label :middle_initial %><br />
-      <%= f.text_field :middle_initial %>
-    </div>
+
+    <table class="blank padded">
+      <tr>
+        <td style="vertical-align:top">
+          <div class="field">
+            <%= f.label :first_name %><br />
+            <%= f.text_field :first_name %>
+          </div>
+        </td>
+        <td style="vertical-align:top">
+          <div class="field">
+            <%= f.label :last_name %><br />
+            <%= f.text_field :last_name %>
+          </div>
+        </td>
+        <td style="vertical-align:top">
+          <div class="field">
+            <%= f.label :middle_initial %><br />
+            <%= f.text_field :middle_initial %>
+          </div>
+        </td>
+      </tr>
+    </table>
     <div class="field">
       <%= f.label :applicant_type %><br />
       <%= f.select :applicant_type, Applicant::APPLICANT_TYPE %>
     </div>
+
     <div class="field">
-      <%= f.label :accepted %><br />
-      <%= f.check_box :accepted %>
+      <%= f.label :summer %><br />
+      <%= f.check_box :summer %>
     </div>
+
+    <div class="field">
+      <%= f.label :tge, "US Citizen or Permanent Resident" %><br />
+      <span class="quiet">Please note that only citizens and permanent residents are eligible for training grant support</span><br />
+      <%= f.check_box :tge %>
+    </div>
+
+    <div class="field">
+      <%= f.label :desired_start_date %><br />
+      <%= f.text_field :desired_start_date, class: 'datepicker', value: @applicant.desired_start_date ? @applicant.desired_start_date.strftime('%m/%d/%Y') : '' %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Education</legend>
     <div class="field">
       <%= f.label :advisor %><br />
       <%= f.text_field :advisor %>
     </div>
-    <div class="field">
-      <%= f.label :applicant_number %><br />
-      <%= f.number_field :applicant_number %>
-    </div>
+
     <div class="field">
       <%= f.label :concentration_major %><br />
       <%= f.text_field :concentration_major %>
@@ -64,114 +92,77 @@
       <%= f.label :department_program %><br />
       <%= f.text_field :department_program %>
     </div>
+
     <div class="field">
-      <%= f.label :disabled %><br />
-      <%= f.check_box :disabled %>
-    </div>
-    <div class="field">
-      <%= f.label :disadvantaged %><br />
-      <%= f.check_box :disadvantaged %>
-    </div>
-    <div class="field">
-      <%= f.label :enrolled %><br />
-      <%= f.check_box :enrolled %>
-    </div>
-    <div class="field">
-      <%= f.label :expected_year %><br />
+      <%= f.label :expected_year, "Expected Graduation Year" %><br />
       <%= f.number_field :expected_year %>
     </div>
-    <div class="field">
-      <%= f.label :offered %><br />
-      <%= f.check_box :offered %>
-    </div>
+
     <div class="field">
       <%= f.label :preferred_preceptor_id %><br />
-      <%= f.number_field :preferred_preceptor_id %>
+      <%= f.select :preferred_preceptor_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
     </div>
-    <div class="field">
-      <%= f.label :primary_preceptor_id %><br />
-      <%= f.number_field :primary_preceptor_id %>
-    </div>
-    <div class="field">
-      <%= f.label :secondary_preceptor_id %><br />
-      <%= f.number_field :secondary_preceptor_id %>
-    </div>
+
     <div class="field">
       <%= f.label :previous_institutions %><br />
       <%= f.text_area :previous_institutions, rows: 7, style: "width:#{width}" %>
     </div>
-    <div class="field">
-      <%= f.label :review_date %><br />
-      <%= f.date_select :review_date %>
-    </div>
-    <div class="field">
-      <%= f.label :reviewed %><br />
-      <%= f.check_box :reviewed %>
-    </div>
-    <div class="field">
-      <%= f.label :summer %><br />
-      <%= f.check_box :summer %>
-    </div>
-    <div class="field">
-      <%= f.label :tge, "TGE" %><br />
-      <%= f.check_box :tge %>
-    </div>
+
     <div class="field">
       <%= f.label :thesis %><br />
       <%= f.text_field :thesis %>
     </div>
-    <div class="field">
-      <%= f.label :urm %><br />
-      <%= f.check_box :urm %>
-    </div>
-    <div class="field">
-      <%= f.label :year %><br />
-      <%= f.number_field :year %>
-    </div>
-    <div class="field">
-      <%= f.label :degree_type %><br />
-      <%= f.text_field :degree_type %>
-    </div>
+
     <div class="field">
       <%= f.label :degrees %><br />
       <%= f.text_field :degrees %>
     </div>
+
     <div class="field">
-      <%= f.label :notes %><br />
-      <%= f.text_area :notes, rows: 7, style: "width:#{width}" %>
+      <%= f.label :current_title %><br />
+      <%= f.text_field :current_title %>
     </div>
+
+  </fieldset>
+
+  <fieldset>
+    <legend>Demographic Information</legend>
+    <table class="blank padded">
+      <tr>
+        <td style="vertical-align:top">
+          <div class="field">
+            <%= f.label :disabled %><br />
+            <%= f.check_box :disabled %>
+          </div>
+        </td>
+        <td style="vertical-align:top">
+          <div class="field">
+            <%= f.label :disadvantaged %><br />
+            <%= f.check_box :disadvantaged %>
+          </div>
+        </td>
+        <td style="vertical-align:top">
+          <div class="field">
+            <%= f.label :urm, "Under-Represented Minority" %><br />
+            <%= f.check_box :urm %>
+          </div>
+        </td>
+      </tr>
+    </table>
+
     <div class="field">
-      <%= f.label :residency %><br />
-      <%= f.text_field :residency %>
+      <%= f.label :marital_status %><br />
+      <%= f.select :marital_status, [['---', nil]] + Applicant::MARITAL_STATUS %>
     </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Contact Information</legend>
     <div class="field">
-      <%= f.label :year_department_program %><br />
-      <%= f.text_field :year_department_program %>
+      <%= f.label :phone %><br />
+      <%= f.text_field :phone %>
     </div>
-    <div class="field">
-      <%= f.label :training_period_start_date %><br />
-      <%= f.date_select :training_period_start_date %>
-    </div>
-    <div class="field">
-      <%= f.label :training_period_end_date %><br />
-      <%= f.date_select :training_period_end_date %>
-    </div>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.text_field :email %>
-    </div>
-    <div class="field">
-      <%= f.label :appointment_type %><br />
-      <%= f.text_field :appointment_type %>
-    </div>
-    <div class="field">
-      <%= f.label :status %><br />
-      <%= f.select :status, Applicant::STATUS %>
-    </div>
-    <div class="field">
-      <%= f.label :current_position_or_source_of_support %><br />
-      <%= f.text_field :current_position_or_source_of_support %>
-    </div>
+
     <div class="field">
       <%= f.label :address1 %><br />
       <%= f.text_field :address1 %>
@@ -196,30 +187,43 @@
       <%= f.label :zip_code %><br />
       <%= f.text_field :zip_code %>
     </div>
+
+  </fieldset>
+
+  <fieldset>
+    <legend>Postdoc Only</legend>
+
     <div class="field">
-      <%= f.label :coursework_comp %><br />
-      <%= f.text_area :coursework_comp, rows: 7, style: "width:#{width}" %>
+      <%= f.label :residency %><br />
+      <%= f.text_field :residency %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Trainee Only</legend>
+    <div class="field">
+      <%= f.label :research_project_title %><br />
+      <%= f.text_field :research_project_title %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Annual Only</legend>
+
+    <div class="field">
+      <%= f.label :coursework_completed %><br />
+      <%= f.text_area :coursework_completed, rows: 7, style: "width:#{width}" %>
     </div>
     <div class="field">
-      <%= f.label :fax %><br />
-      <%= f.text_field :fax %>
+      <%= f.label :pubs_not_prev_rep, "Publications (Not Previously Reported)" %><br />
+      <%= f.text_field :pubs_not_prev_rep %>
     </div>
-    <div class="field">
-      <%= f.label :grant_years %><br />
-      <%= f.text_field :grant_years %>
-    </div>
-    <div class="field">
-      <%= f.label :phone %><br />
-      <%= f.text_field :phone %>
-    </div>
+
     <div class="field">
       <%= f.label :presentations %><br />
       <%= f.text_area :presentations, rows: 7, style: "width:#{width}" %>
     </div>
-    <div class="field">
-      <%= f.label :pubs_not_prev_rep %><br />
-      <%= f.text_field :pubs_not_prev_rep %>
-    </div>
+
     <div class="field">
       <%= f.label :research_description %><br />
       <%= f.text_area :research_description, rows: 7, style: "width:#{width}" %>
@@ -228,28 +232,119 @@
       <%= f.label :source_of_support %><br />
       <%= f.text_field :source_of_support %>
     </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Admin Only</legend>
+    <div class="field">
+      <%= f.label :accepted %><br />
+      <%= f.check_box :accepted %>
+    </div>
+    <div class="field">
+      <%= f.label :applicant_number %><br />
+      <%= f.number_field :applicant_number %>
+    </div>
+
+    <div class="field">
+      <%= f.label :enrolled %><br />
+      <%= f.check_box :enrolled %>
+    </div>
+
+    <div class="field">
+      <%= f.label :review_date %><br />
+      <%= f.text_field :review_date, class: 'datepicker', value: @applicant.review_date ? @applicant.review_date.strftime('%m/%d/%Y') : '' %>
+    </div>
+    <div class="field">
+      <%= f.label :reviewed %><br />
+      <%= f.check_box :reviewed %>
+    </div>
+
+    <div class="field">
+      <%= f.label :offered %><br />
+      <%= f.check_box :offered %>
+    </div>
+
+    <div class="field">
+      <%= f.label :degree_type %><br />
+      <%= f.text_field :degree_type %>
+    </div>
+
+    <div class="field">
+      <%= f.label :primary_preceptor_id %><br />
+      <%= f.select :primary_preceptor_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
+    </div>
+    <div class="field">
+      <%= f.label :secondary_preceptor_id %><br />
+      <%= f.select :secondary_preceptor_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
+    </div>
+
+    <div class="field">
+      <%= f.label :trainee_code %><br />
+      <%= f.text_field :trainee_code %>
+    </div>
+
+    <div class="field">
+      <%= f.label :appointment_type, "Appointment Type (Remove/Merge)" %><br />
+      <%= f.text_field :appointment_type %>
+    </div>
+
+    <div class="field">
+      <%= f.label :year_department_program, "Year Department (To Be Hidden)" %><br />
+      <%= f.text_field :year_department_program %>
+    </div>
+
+    <div class="field">
+      <%= f.label :status %><br />
+      <%= f.select :status, Applicant::STATUS %>
+    </div>
+
+    <div class="field">
+      <%= f.label :training_grant_years %><br />
+      <%= f.text_field :training_grant_years %>
+    </div>
+
     <div class="field">
       <%= f.label :supported_by_tg, "Supported by TG" %><br />
       <%= f.check_box :supported_by_tg %>
     </div>
+
     <div class="field">
-      <%= f.label :tg_years, "TG Years" %><br />
-      <%= f.text_field :tg_years %>
+      <%= f.label :training_period_start_date %><br />
+      <%= f.text_field :training_period_start_date, class: 'datepicker', value: @applicant.training_period_start_date ? @applicant.training_period_start_date.strftime('%m/%d/%Y') : '' %>
     </div>
     <div class="field">
-      <%= f.label :research_project_title %><br />
-      <%= f.text_field :research_project_title %>
+      <%= f.label :training_period_end_date %><br />
+      <%= f.text_field :training_period_end_date, class: 'datepicker', value: @applicant.training_period_end_date ? @applicant.training_period_end_date.strftime('%m/%d/%Y') : '' %>
     </div>
+
     <div class="field">
-      <%= f.label :trainee_code %><br />
-      <%= f.text_field :trainee_code %>
+      <%= f.label :notes %><br />
+      <%= f.text_area :notes, rows: 7, style: "width:#{width}" %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Applicant Assurance and Sign Off</legend>
+    <ul>
+      <li>I certify that the above information is true and correct to the best of my knowledge.</li>
+    </ul>
+
+    <div class="field">
+      <%= f.check_box :assurance %> <%= f.label :assurance, 'Please tick to confirm that you have read and understand the above text' %><br />
     </div>
   </fieldset>
 
   <div class="actions">
     <% form_name = @applicant.new_record? ? 'new_applicant' : "edit_applicant_#{@applicant.id}" %>
-    <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + (@applicant.new_record? ? "Create Applicant" : "Update Applicant"), "$('##{form_name}').submit();", class: "button positive" %>
-    <%= cancel %>
+    <%= hidden_field_tag 'publish', '0' %>
+    <%# if current_user.administrator? %>
+      <%#= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + "Save Applicant", "$('##{form_name}').submit();", class: "button positive" %>
+      <%#= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + (@applicant.new_record? ? "Create Applicant" : "Update Applicant"), "$('##{form_name}').submit();", class: "button positive" %>
+    <%# else %>
+      <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + (@applicant.new_record? ? "Save Draft" : "Update Draft"), "$('#publish').val('0');$('##{form_name}').submit();", class: "button" %>
+      <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + "Submit Application for Review", "if(applicantAssuranceCheck() == false){return false;};$('#publish').val('1');$('##{form_name}').submit();", class: "button positive" %>
+    <%# end %>
+    <%= link_to image_tag('gentleface/16/cancel.png', alt: '') + 'Cancel', @applicant.new_record? ? root_path : @applicant, class: 'button negative' %>
     <br />
   </div>
 <% end %>

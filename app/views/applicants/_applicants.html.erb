@@ -20,9 +20,8 @@
   <table style="width:100%">
 
     <tr>
-      <th>Name</th>
-      <th>Middle initial</th>
-      <th>Applicant type</th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.last_name', 'Name', 'applicants_search') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.applicant_type', 'Type', 'applicants_search') %></th>
       <th>Accepted</th>
       <th>Advisor</th>
       <th>Applicant number</th>
@@ -43,10 +42,9 @@
       <th>Review date</th>
       <th>Reviewed</th>
       <th>Summer</th>
-      <th>Tge</th>
+      <th>TGE</th>
       <th>Thesis</th>
-      <th>Urm</th>
-      <th>Year</th>
+      <th>URM</th>
       <th>Degree type</th>
       <th>Degrees</th>
       <th>Notes</th>
@@ -54,9 +52,9 @@
       <th>Year department program</th>
       <th>Training period start date</th>
       <th>Training period end date</th>
-      <th>Email</th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.email', 'Email', 'applicants_search') %></th>
       <th>Appointment type</th>
-      <th>Status</th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.status', 'Status', 'applicants_search') %></th>
       <th>Current position or source of support</th>
       <th>Address1</th>
       <th>Address2</th>
@@ -65,17 +63,18 @@
       <th>Country</th>
       <th>Zip code</th>
       <th>Coursework comp</th>
-      <th>Fax</th>
-      <th>Grant years</th>
       <th>Phone</th>
       <th>Presentations</th>
       <th>Pubs not prev rep</th>
       <th>Research description</th>
       <th>Source of support</th>
       <th>Supported by tg</th>
-      <th>Tg years</th>
+      <th>Training grant years</th>
       <th>Research project title</th>
       <th>Trainee code</th>
+      <th>Desired start date</th>
+      <th>Marital status</th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.submitted_at', 'Submitted', 'applicants_search') %></th>
       <th></th>
       <th></th>
     </tr>
@@ -83,32 +82,30 @@
   <% @applicants.each do |applicant| %>
     <tr>
       <td><%= link_to applicant.name, applicant %></td>
-      <td><%= applicant.middle_initial %></td>
       <td><%= applicant.applicant_type %></td>
-      <td><%= applicant.accepted %></td>
+      <td><%= simple_check applicant.accepted %></td>
       <td><%= applicant.advisor %></td>
       <td><%= applicant.applicant_number %></td>
       <td><%= applicant.concentration_major %></td>
       <td><%= applicant.current_institution %></td>
-      <td><%= applicant.cv %></td>
+      <td><%= simple_check applicant.cv %></td>
       <td><%= applicant.degree_sought %></td>
       <td><%= applicant.department_program %></td>
-      <td><%= applicant.disabled %></td>
-      <td><%= applicant.disadvantaged %></td>
-      <td><%= applicant.enrolled %></td>
+      <td><%= simple_check applicant.disabled %></td>
+      <td><%= simple_check applicant.disadvantaged %></td>
+      <td><%= simple_check applicant.enrolled %></td>
       <td><%= applicant.expected_year %></td>
-      <td><%= applicant.offered %></td>
-      <td><%= applicant.preferred_preceptor_id %></td>
-      <td><%= applicant.primary_preceptor_id %></td>
-      <td><%= applicant.secondary_preceptor_id %></td>
+      <td><%= simple_check applicant.offered %></td>
+      <td><%= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor %></td>
+      <td><%= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor %></td>
+      <td><%= link_to applicant.secondary_preceptor.name, applicant.secondary_preceptor if applicant.secondary_preceptor %></td>
       <td><%= applicant.previous_institutions %></td>
       <td><%= applicant.review_date %></td>
-      <td><%= applicant.reviewed %></td>
-      <td><%= applicant.summer %></td>
-      <td><%= applicant.tge %></td>
+      <td><%= simple_check applicant.reviewed %></td>
+      <td><%= simple_check applicant.summer %></td>
+      <td><%= simple_check applicant.tge %></td>
       <td><%= applicant.thesis %></td>
-      <td><%= applicant.urm %></td>
-      <td><%= applicant.year %></td>
+      <td><%= simple_check applicant.urm %></td>
       <td><%= applicant.degree_type %></td>
       <td><%= applicant.degrees %></td>
       <td><%= applicant.notes %></td>
@@ -119,25 +116,26 @@
       <td><%= applicant.email %></td>
       <td><%= applicant.appointment_type %></td>
       <td><%= applicant.status %></td>
-      <td><%= applicant.current_position_or_source_of_support %></td>
+      <td><%= applicant.current_title %></td>
       <td><%= applicant.address1 %></td>
       <td><%= applicant.address2 %></td>
       <td><%= applicant.city %></td>
       <td><%= applicant.state %></td>
       <td><%= applicant.country %></td>
       <td><%= applicant.zip_code %></td>
-      <td><%= applicant.coursework_comp %></td>
-      <td><%= applicant.fax %></td>
-      <td><%= applicant.grant_years %></td>
+      <td><%= applicant.coursework_completed %></td>
       <td><%= applicant.phone %></td>
       <td><%= applicant.presentations %></td>
       <td><%= applicant.pubs_not_prev_rep %></td>
       <td><%= applicant.research_description %></td>
       <td><%= applicant.source_of_support %></td>
-      <td><%= applicant.supported_by_tg %></td>
-      <td><%= applicant.tg_years %></td>
+      <td><%= simple_check applicant.supported_by_tg %></td>
+      <td><%= applicant.training_grant_years %></td>
       <td><%= applicant.research_project_title %></td>
       <td><%= applicant.trainee_code %></td>
+      <td><%= applicant.desired_start_date %></td>
+      <td><%= applicant.marital_status %></td>
+      <td><%= simple_time applicant.submitted_at %></td>
       <td><%= link_to 'Edit', edit_applicant_path(applicant) %></td>
       <td><%= link_to 'Destroy', applicant, confirm: 'Are you sure?', method: :delete %></td>
     </tr>

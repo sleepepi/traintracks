@@ -46,6 +46,10 @@ module ApplicationHelper
     end
   end
 
+  def simple_check(checked)
+    image_tag("gentleface/16/#{checked ? 'checkbox_checked' : 'checkbox_unchecked'}.png", alt: '', style: 'vertical-align:text-bottom')
+  end
+
   def sort_field_helper(order, sort_field, display_name, search_form_id  = 'search_form')
     result = ''
     if order == sort_field
