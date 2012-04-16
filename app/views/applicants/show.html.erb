@@ -86,17 +86,17 @@
 
   <p>
     <b>Preferred preceptor:</b>
-    <%= @applicant.preferred_preceptor_id %>
+    <%= link_to @applicant.preferred_preceptor.name, @applicant.preferred_preceptor if @applicant.preferred_preceptor %>
   </p>
 
   <p>
     <b>Primary preceptor:</b>
-    <%= @applicant.primary_preceptor_id %>
+    <%= link_to @applicant.primary_preceptor.name, @applicant.primary_preceptor if @applicant.primary_preceptor %>
   </p>
 
   <p>
     <b>Secondary preceptor:</b>
-    <%= @applicant.secondary_preceptor_id %>
+    <%= link_to @applicant.secondary_preceptor.name, @applicant.secondary_preceptor if @applicant.secondary_preceptor %>
   </p>
 
   <p>
