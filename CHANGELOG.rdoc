@@ -1,6 +1,7 @@
 == 0.2.0
 
 * Enhancements
+  * Dashboard with quick applicant statistics added
   * Applicant page restructured
     * General Information
     * Contact Information
