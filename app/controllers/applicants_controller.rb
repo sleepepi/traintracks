@@ -1,5 +1,6 @@
 class ApplicantsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :check_administrator
 
   def index
     # current_user.update_attribute :applicants_per_page, params[:applicants_per_page].to_i if params[:applicants_per_page].to_i >= 10 and params[:applicants_per_page].to_i <= 200
@@ -91,6 +92,34 @@ class ApplicantsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to applicants_url }
       format.json { head :no_content }
+    end
+  end
+
+  private
+
+  def post_params
+    if current_user.administrator?
+      params[:applicant]
+    else
+      params[:applicant].slice(
+        # Applicant Information
+        :email, :first_name, :last_name, :middle_initial, :applicant_type, :summer, :tge, :desired_start_date,
+        # Education
+        :advisor, :concentration_major, :current_institution, :cv, :degree_sought, :department_program, :expected_year,
+        :preferred_preceptor_id, :previous_institutions, :thesis, :degrees, :current_title,
+        # Demographic Information
+        :disabled, :disadvantaged, :urm, :marital_status,
+        # Contact Information
+        :phone, :address1, :address2, :city, :state, :country, :zip_code,
+        # Postdoc Only
+        :residency,
+        # Trainee Only
+        :research_project_title,
+        # Annual Only
+        :coursework_completed, :pubs_not_prev_rep, :presentations, :research_description, :source_of_support,
+        # Applicant Assurance
+        :assurance
+       )
     end
   end
 end

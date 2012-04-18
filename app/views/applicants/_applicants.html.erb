@@ -69,7 +69,7 @@
         <th>Pubs not prev rep</th>
         <th>Research description</th>
         <th>Source of support</th>
-        <th>Supported by tg</th>
+        <th>Supported by TG</th>
         <th>Training grant years</th>
         <th>Research project title</th>
         <th>Trainee code</th>
@@ -86,29 +86,29 @@
         <tr class="<%= 'first' if index == 0 %>">
           <td><%= link_to applicant.name, applicant %></td>
           <td><%= applicant.applicant_type %></td>
-          <td><%= simple_check applicant.accepted %></td>
-          <td><%= simple_check applicant.offered %></td>
-          <td><%= simple_check applicant.enrolled %></td>
+          <td style="text-align:center"><%= simple_check applicant.accepted %></td>
+          <td style="text-align:center"><%= simple_check applicant.offered %></td>
+          <td style="text-align:center"><%= simple_check applicant.enrolled %></td>
           <td><%= applicant.advisor %></td>
           <td><%= applicant.cv_number %></td>
           <td><%= applicant.concentration_major %></td>
           <td><%= applicant.current_institution %></td>
-          <td><%= simple_check applicant.cv %></td>
+          <td style="text-align:center"><%= simple_check applicant.cv %></td>
           <td><%= applicant.degree_sought %></td>
           <td><%= applicant.department_program %></td>
-          <td><%= simple_check applicant.disabled %></td>
-          <td><%= simple_check applicant.disadvantaged %></td>
+          <td style="text-align:center"><%= simple_check applicant.disabled %></td>
+          <td style="text-align:center"><%= simple_check applicant.disadvantaged %></td>
           <td><%= applicant.expected_year %></td>
           <td><%= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor %></td>
           <td><%= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor %></td>
           <td><%= link_to applicant.secondary_preceptor.name, applicant.secondary_preceptor if applicant.secondary_preceptor %></td>
           <td><%= applicant.previous_institutions %></td>
           <td><%= applicant.review_date %></td>
-          <td><%= simple_check applicant.reviewed %></td>
-          <td><%= simple_check applicant.summer %></td>
-          <td><%= simple_check applicant.tge %></td>
+          <td style="text-align:center"><%= simple_check applicant.reviewed %></td>
+          <td style="text-align:center"><%= simple_check applicant.summer %></td>
+          <td style="text-align:center"><%= simple_check applicant.tge %></td>
           <td><%= applicant.thesis %></td>
-          <td><%= simple_check applicant.urm %></td>
+          <td style="text-align:center"><%= simple_check applicant.urm %></td>
           <td><%= applicant.degree_type %></td>
           <td><%= applicant.degrees %></td>
           <td><%= applicant.notes %></td>
@@ -132,15 +132,19 @@
           <td><%= applicant.pubs_not_prev_rep %></td>
           <td><%= applicant.research_description %></td>
           <td><%= applicant.source_of_support %></td>
-          <td><%= simple_check applicant.supported_by_tg %></td>
+          <td style="text-align:center"><%= simple_check applicant.supported_by_tg %></td>
           <td><%= applicant.training_grant_years %></td>
           <td><%= applicant.research_project_title %></td>
           <td><%= applicant.trainee_code %></td>
           <td><%= applicant.desired_start_date %></td>
           <td><%= applicant.marital_status %></td>
           <td><%= simple_time applicant.submitted_at %></td>
-          <td><%= link_to 'Edit', edit_applicant_path(applicant) %></td>
-          <td><%= link_to 'Destroy', applicant, confirm: 'Are you sure?', method: :delete %></td>
+          <td>
+            <%= link_to image_tag('gentleface/16/doc_edit.png', alt: '', size: '16x16'), edit_applicant_path(applicant) %>
+          </td>
+          <td>
+            <%= link_to image_tag('gentleface/16/doc_delete.png', alt: '', size: '16x16'), applicant, confirm: "Are you sure you want to delete Applicant #{applicant.name}?", method: :delete %>
+          </td>
         </tr>
       <% end %>
     </tbody>

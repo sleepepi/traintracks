@@ -1,5 +1,6 @@
 class PreceptorsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :check_administrator
 
   def index
     # current_user.update_attribute :preceptors_per_page, params[:preceptors_per_page].to_i if params[:preceptors_per_page].to_i >= 10 and params[:preceptors_per_page].to_i <= 200

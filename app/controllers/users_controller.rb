@@ -45,6 +45,7 @@ class UsersController < ApplicationController
     @user = User.current.find_by_id(params[:id])
     if @user and @user.update_attributes(params[:user])
       @user.update_attribute :system_admin, params[:system_admin]
+      @user.update_attribute :administrator, params[:administrator]
       @user.update_attribute :status, params[:status]
       redirect_to(@user, notice: 'User was successfully updated.')
     elsif @user

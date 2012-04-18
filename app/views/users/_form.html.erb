@@ -33,6 +33,10 @@
       <%= label_tag :system_admin %><br />
       <%= check_box_tag :system_admin, '1', @user.system_admin %>
     </div>
+    <div class="field">
+      <%= label_tag :administrator %><br />
+      <%= check_box_tag :administrator, '1', @user.administrator %>
+    </div>
   </fieldset>
   <div class="actions">
     <% form_name = @user.new_record? ? 'new_user' : "edit_user_#{@user.id}" %>

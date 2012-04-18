@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ApplicantsControllerTest < ActionController::TestCase
   setup do
-    login(users(:valid))
+    login(users(:administrator))
     @applicant = applicants(:one)
   end
 

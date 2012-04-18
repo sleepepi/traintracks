@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PreceptorsControllerTest < ActionController::TestCase
   setup do
-    login(users(:valid))
+    login(users(:administrator))
     @preceptor = preceptors(:one)
   end
 

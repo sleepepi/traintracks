@@ -90,7 +90,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 			wrapper.css
 			({
 				'width': width+'px',
-				'height':  ($(window).height() - $(this).offset().top - 200) + 'px', // settings.height+'px',
+				'max-height':  ($(window).height() - $(this).offset().top - 200) + 'px', // settings.height+'px',
 				'overflow': 'auto'
 			});
 

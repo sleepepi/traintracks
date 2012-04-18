@@ -25,6 +25,7 @@
       <% if current_user.system_admin? %>
         <th style="white-space:nowrap"><%== sort_field_helper(@order, 'users.status', 'Status', 'users_search') %></th>
         <th style="white-space:nowrap"><%== sort_field_helper(@order, 'users.system_admin', 'System Admin', 'users_search') %></th>
+        <th style="white-space:nowrap"><%== sort_field_helper(@order, 'users.administrator', 'Administrator', 'users_search') %></th>
         <th></th>
         <th></th>
       <% end %>
@@ -37,7 +38,8 @@
       <td><%= recent_activity(user.current_sign_in_at) %></td>
       <% if current_user.system_admin? %>
         <td><%= user.status %></td>
-        <td style="text-align:center"><%= check_box_tag 'user', 'system_admin', user.system_admin?, disabled: true %></td>
+        <td style="text-align:center"><%= simple_check user.system_admin? %></td>
+        <td style="text-align:center"><%= simple_check user.administrator? %></td>
         <td style="vertical-align:middle"><%= link_to image_tag('gentleface/16/doc_edit.png', alt: ''), edit_user_path(user) %></td>
         <td style="vertical-align:middle">
           <% unless current_user == user %>

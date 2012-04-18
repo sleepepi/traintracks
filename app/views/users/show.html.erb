@@ -24,7 +24,12 @@
 
     <p>
       <b>System Admin:</b>
-      <%= @user.system_admin? %>
+      <%= simple_check @user.system_admin? %>
+    </p>
+
+    <p>
+      <b>Administrator:</b>
+      <%= simple_check @user.administrator? %>
     </p>
 
   <% end %>
