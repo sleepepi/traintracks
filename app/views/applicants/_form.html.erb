@@ -236,19 +236,25 @@
 
   <% if current_user.administrator? %>
     <fieldset>
-      <legend>Admin Only</legend>
+      <legend>Administrator Only</legend>
       <div class="field">
         <%= f.label :accepted %><br />
         <%= f.check_box :accepted %>
       </div>
+
       <div class="field">
-        <%= f.label :cv_number, 'CV number' %><br />
-        <%= f.number_field :cv_number %>
+        <%= f.label :offered %><br />
+        <%= f.check_box :offered %>
       </div>
 
       <div class="field">
         <%= f.label :enrolled %><br />
         <%= f.check_box :enrolled %>
+      </div>
+
+      <div class="field">
+        <%= f.label :cv_number, 'CV number' %><br />
+        <%= f.number_field :cv_number %>
       </div>
 
       <div class="field">
@@ -258,11 +264,6 @@
       <div class="field">
         <%= f.label :reviewed %><br />
         <%= f.check_box :reviewed %>
-      </div>
-
-      <div class="field">
-        <%= f.label :offered %><br />
-        <%= f.check_box :offered %>
       </div>
 
       <div class="field">

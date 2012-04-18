@@ -7,16 +7,16 @@
 <div style="clear:both"></div>
 
 <fieldset>
-  <legend><%= @title %></legend>
-
-  <p>
-    <b>Middle initial:</b>
-    <%= @applicant.middle_initial %>
-  </p>
+  <legend>Applicant Info (Predoc Postdoc)</legend>
 
   <p>
     <b>Reference number:</b>
     <%= @applicant.reference_number %>
+  </p>
+
+  <p>
+    <b>Email:</b>
+    <%= @applicant.email %>
   </p>
 
   <p>
@@ -25,18 +25,26 @@
   </p>
 
   <p>
-    <b>Accepted:</b>
-    <%= simple_check @applicant.accepted %>
+    <b>Summer:</b>
+    <%= simple_check @applicant.summer %>
   </p>
 
+  <p>
+    <b>US Citizen or Permanent Resident:</b>
+    <%= simple_check @applicant.tge %>
+  </p>
+
+  <p>
+    <b>Desired start date:</b>
+    <%= @applicant.desired_start_date %>
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend>Education</legend>
   <p>
     <b>Advisor:</b>
     <%= @applicant.advisor %>
-  </p>
-
-  <p>
-    <b>CV number:</b>
-    <%= @applicant.cv_number %>
   </p>
 
   <p>
@@ -65,28 +73,8 @@
   </p>
 
   <p>
-    <b>Disabled:</b>
-    <%= simple_check @applicant.disabled %>
-  </p>
-
-  <p>
-    <b>Disadvantaged:</b>
-    <%= simple_check @applicant.disadvantaged %>
-  </p>
-
-  <p>
-    <b>Enrolled:</b>
-    <%= simple_check @applicant.enrolled %>
-  </p>
-
-  <p>
     <b>Expected year:</b>
     <%= @applicant.expected_year %>
-  </p>
-
-  <p>
-    <b>Offered:</b>
-    <%= simple_check @applicant.offered %>
   </p>
 
   <p>
@@ -110,48 +98,8 @@
   </p>
 
   <p>
-    <b>Review date:</b>
-    <%= @applicant.review_date %>
-  </p>
-
-  <p>
-    <b>Reviewed:</b>
-    <%= simple_check @applicant.reviewed %>
-  </p>
-
-  <p>
-    <b>Summer:</b>
-    <%= simple_check @applicant.summer %>
-  </p>
-
-  <p>
-    <b>US Citizen or Permanent Resident:</b>
-    <%= simple_check @applicant.tge %>
-  </p>
-
-  <p>
     <b>Thesis:</b>
     <%= @applicant.thesis %>
-  </p>
-
-  <p>
-    <b>Under-Represented Minority:</b>
-    <%= simple_check @applicant.urm %>
-  </p>
-
-  <p>
-    <b>Submitted:</b>
-    <%= simple_time @applicant.submitted_at %>
-  </p>
-
-  <p>
-    <b>Applicant assurance:</b>
-    <%= simple_check @applicant.assurance %>
-  </p>
-
-  <p>
-    <b>Degree type:</b>
-    <%= @applicant.degree_type %>
   </p>
 
   <p>
@@ -160,48 +108,41 @@
   </p>
 
   <p>
-    <b>Notes:</b>
-    <%= @applicant.notes %>
-  </p>
-
-  <p>
-    <b>Residency:</b>
-    <%= @applicant.residency %>
-  </p>
-
-  <p>
-    <b>Year department program:</b>
-    <%= @applicant.year_department_program %>
-  </p>
-
-  <p>
-    <b>Training period start date:</b>
-    <%= @applicant.training_period_start_date %>
-  </p>
-
-  <p>
-    <b>Training period end date:</b>
-    <%= @applicant.training_period_end_date %>
-  </p>
-
-  <p>
-    <b>Email:</b>
-    <%= @applicant.email %>
-  </p>
-
-  <p>
-    <b>Appointment type:</b>
-    <%= @applicant.appointment_type %>
-  </p>
-
-  <p>
-    <b>Status:</b>
-    <%= @applicant.status %>
-  </p>
-
-  <p>
     <b>Current title:</b>
     <%= @applicant.current_title %>
+  </p>
+
+</fieldset>
+
+<fieldset>
+  <legend>Demographic Information</legend>
+  <p>
+    <b>Disabled:</b>
+    <%= simple_check @applicant.disabled %>
+  </p>
+
+  <p>
+    <b>Disadvantaged:</b>
+    <%= simple_check @applicant.disadvantaged %>
+  </p>
+
+  <p>
+    <b>Under-Represented Minority:</b>
+    <%= simple_check @applicant.urm %>
+  </p>
+
+  <p>
+    <b>Marital status:</b>
+    <%= @applicant.marital_status %>
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend>Contact Information</legend>
+
+  <p>
+    <b>Phone:</b>
+    <%= @applicant.phone %>
   </p>
 
   <p>
@@ -233,6 +174,27 @@
     <b>Zip code:</b>
     <%= @applicant.zip_code %>
   </p>
+</fieldset>
+
+<fieldset>
+  <legend>Postdoc Only</legend>
+  <p>
+    <b>Residency:</b>
+    <%= @applicant.residency %>
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend>Trainee Only</legend>
+
+  <p>
+    <b>Research project title:</b>
+    <%= @applicant.research_project_title %>
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend>Annual Only</legend>
 
   <p>
     <b>Coursework comp:</b>
@@ -240,18 +202,13 @@
   </p>
 
   <p>
-    <b>Phone:</b>
-    <%= @applicant.phone %>
+    <b>Publications (Not Previously Reported):</b>
+    <%= @applicant.pubs_not_prev_rep %>
   </p>
 
   <p>
     <b>Presentations:</b>
     <%= @applicant.presentations %>
-  </p>
-
-  <p>
-    <b>Publications (Not Previously Reported):</b>
-    <%= @applicant.pubs_not_prev_rep %>
   </p>
 
   <p>
@@ -263,34 +220,105 @@
     <b>Source of support:</b>
     <%= @applicant.source_of_support %>
   </p>
+</fieldset>
 
+<% if current_user.administrator? %>
+  <fieldset>
+
+    <legend>Administrator Only</legend>
+
+    <p>
+      <b>Accepted:</b>
+      <%= simple_check @applicant.accepted %>
+    </p>
+
+    <p>
+      <b>Offered:</b>
+      <%= simple_check @applicant.offered %>
+    </p>
+
+    <p>
+      <b>Enrolled:</b>
+      <%= simple_check @applicant.enrolled %>
+    </p>
+
+    <p>
+      <b>CV number:</b>
+      <%= @applicant.cv_number %>
+    </p>
+
+    <p>
+      <b>Review date:</b>
+      <%= @applicant.review_date %>
+    </p>
+
+    <p>
+      <b>Reviewed:</b>
+      <%= simple_check @applicant.reviewed %>
+    </p>
+
+    <p>
+      <b>Degree type:</b>
+      <%= @applicant.degree_type %>
+    </p>
+
+    <p>
+      <b>Trainee code:</b>
+      <%= @applicant.trainee_code %>
+    </p>
+
+    <p>
+      <b>Appointment type:</b>
+      <%= @applicant.appointment_type %>
+    </p>
+
+    <p>
+      <b>Year department program:</b>
+      <%= @applicant.year_department_program %>
+    </p>
+
+    <p>
+      <b>Status:</b>
+      <%= @applicant.status %>
+    </p>
+
+    <p>
+      <b>Training grant years:</b>
+      <%= @applicant.training_grant_years %>
+    </p>
+
+    <p>
+      <b>Supported by Training Grant:</b>
+      <%= simple_check @applicant.supported_by_tg %>
+    </p>
+
+    <p>
+      <b>Training period start date:</b>
+      <%= @applicant.training_period_start_date %>
+    </p>
+
+    <p>
+      <b>Training period end date:</b>
+      <%= @applicant.training_period_end_date %>
+    </p>
+
+    <p>
+      <b>Notes:</b>
+      <%= simple_format @applicant.notes %>
+    </p>
+
+  </fieldset>
+<% end %>
+
+<fieldset>
+  <legend>Submission Status</legend>
   <p>
-    <b>Supported by Training Grant:</b>
-    <%= simple_check @applicant.supported_by_tg %>
+    <b>Applicant assurance:</b>
+    <%= simple_check @applicant.assurance %>
   </p>
 
   <p>
-    <b>Training grant years:</b>
-    <%= @applicant.training_grant_years %>
-  </p>
-
-  <p>
-    <b>Research project title:</b>
-    <%= @applicant.research_project_title %>
-  </p>
-
-  <p>
-    <b>Trainee code:</b>
-    <%= @applicant.trainee_code %>
-  </p>
-
-  <p>
-    <b>Desired start date:</b>
-    <%= @applicant.desired_start_date %>
-  </p>
-
-  <p>
-    <b>Marital status:</b>
-    <%= @applicant.marital_status %>
+    <b>Submitted:</b>
+    <%= simple_time @applicant.submitted_at %>
   </p>
 </fieldset>
