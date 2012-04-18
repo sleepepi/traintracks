@@ -7,7 +7,7 @@ one:
   applicant_type: MyString
   accepted: false
   advisor: MyString
-  applicant_number: 1
+  cv_number: 1
   concentration_major: MyString
   current_institution: MyString
   cv: false
@@ -67,7 +67,7 @@ two:
   applicant_type: MyString
   accepted: false
   advisor: MyString
-  applicant_number: 1
+  cv_number: 1
   concentration_major: MyString
   current_institution: MyString
   cv: false

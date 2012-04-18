@@ -27,7 +27,7 @@
         <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.offered', 'Offered', 'applicants_search') %></th>
         <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.enrolled', 'Enrolled', 'applicants_search') %></th>
         <th>Advisor</th>
-        <th>Applicant number</th>
+        <th>CV number</th>
         <th>Concentration major</th>
         <th>Current institution</th>
         <th>Cv</th>
@@ -90,7 +90,7 @@
           <td><%= simple_check applicant.offered %></td>
           <td><%= simple_check applicant.enrolled %></td>
           <td><%= applicant.advisor %></td>
-          <td><%= applicant.applicant_number %></td>
+          <td><%= applicant.cv_number %></td>
           <td><%= applicant.concentration_major %></td>
           <td><%= applicant.current_institution %></td>
           <td><%= simple_check applicant.cv %></td>

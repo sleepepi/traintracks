@@ -13,6 +13,7 @@
     * List of applicants now utilizes a frozen header row
     * Added marital status
     * Add submitted at timestamp
+    * Applicant Number renamed to CV Number
 
 == 0.1.0
 
