@@ -17,130 +17,141 @@
 <div style="clear:both"></div>
 
 <div class="frame">
-  <table style="width:100%">
+  <table style="width:100%;" id="thetable" cellspacing="0" cellspacing="0" cellpadding="0" border="0">
 
-    <tr>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.last_name', 'Name', 'applicants_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.applicant_type', 'Type', 'applicants_search') %></th>
-      <th>Accepted</th>
-      <th>Advisor</th>
-      <th>Applicant number</th>
-      <th>Concentration major</th>
-      <th>Current institution</th>
-      <th>Cv</th>
-      <th>Degree sought</th>
-      <th>Department program</th>
-      <th>Disabled</th>
-      <th>Disadvantaged</th>
-      <th>Enrolled</th>
-      <th>Expected year</th>
-      <th>Offered</th>
-      <th>Preferred preceptor</th>
-      <th>Primary preceptor</th>
-      <th>Secondary preceptor</th>
-      <th>Previous institutions</th>
-      <th>Review date</th>
-      <th>Reviewed</th>
-      <th>Summer</th>
-      <th>TGE</th>
-      <th>Thesis</th>
-      <th>URM</th>
-      <th>Degree type</th>
-      <th>Degrees</th>
-      <th>Notes</th>
-      <th>Residency</th>
-      <th>Year department program</th>
-      <th>Training period start date</th>
-      <th>Training period end date</th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.email', 'Email', 'applicants_search') %></th>
-      <th>Appointment type</th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.status', 'Status', 'applicants_search') %></th>
-      <th>Current title</th>
-      <th>Address1</th>
-      <th>Address2</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Country</th>
-      <th>Zip code</th>
-      <th>Coursework comp</th>
-      <th>Phone</th>
-      <th>Presentations</th>
-      <th>Pubs not prev rep</th>
-      <th>Research description</th>
-      <th>Source of support</th>
-      <th>Supported by tg</th>
-      <th>Training grant years</th>
-      <th>Research project title</th>
-      <th>Trainee code</th>
-      <th>Desired start date</th>
-      <th>Marital status</th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.submitted_at', 'Submitted', 'applicants_search') %></th>
-      <th></th>
-      <th></th>
-    </tr>
+    <thead>
+      <tr>
+        <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.last_name', 'Name', 'applicants_search') %></th>
+        <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.applicant_type', 'Type', 'applicants_search') %></th>
+        <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.accepted', 'Accepted', 'applicants_search') %></th>
+        <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.offered', 'Offered', 'applicants_search') %></th>
+        <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.enrolled', 'Enrolled', 'applicants_search') %></th>
+        <th>Advisor</th>
+        <th>Applicant number</th>
+        <th>Concentration major</th>
+        <th>Current institution</th>
+        <th>Cv</th>
+        <th>Degree sought</th>
+        <th>Department program</th>
+        <th>Disabled</th>
+        <th>Disadvantaged</th>
+        <th>Expected year</th>
+        <th>Preferred preceptor</th>
+        <th>Primary preceptor</th>
+        <th>Secondary preceptor</th>
+        <th>Previous institutions</th>
+        <th>Review date</th>
+        <th>Reviewed</th>
+        <th>Summer</th>
+        <th>TGE</th>
+        <th>Thesis</th>
+        <th>URM</th>
+        <th>Degree type</th>
+        <th>Degrees</th>
+        <th>Notes</th>
+        <th>Residency</th>
+        <th>Year department program</th>
+        <th>Training period start date</th>
+        <th>Training period end date</th>
+        <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.email', 'Email', 'applicants_search') %></th>
+        <th>Appointment type</th>
+        <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.status', 'Status', 'applicants_search') %></th>
+        <th>Current title</th>
+        <th>Address1</th>
+        <th>Address2</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Country</th>
+        <th>Zip code</th>
+        <th>Coursework comp</th>
+        <th>Phone</th>
+        <th>Presentations</th>
+        <th>Pubs not prev rep</th>
+        <th>Research description</th>
+        <th>Source of support</th>
+        <th>Supported by tg</th>
+        <th>Training grant years</th>
+        <th>Research project title</th>
+        <th>Trainee code</th>
+        <th>Desired start date</th>
+        <th>Marital status</th>
+        <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.submitted_at', 'Submitted', 'applicants_search') %></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
 
-  <% @applicants.each do |applicant| %>
-    <tr>
-      <td><%= link_to applicant.name, applicant %></td>
-      <td><%= applicant.applicant_type %></td>
-      <td><%= simple_check applicant.accepted %></td>
-      <td><%= applicant.advisor %></td>
-      <td><%= applicant.applicant_number %></td>
-      <td><%= applicant.concentration_major %></td>
-      <td><%= applicant.current_institution %></td>
-      <td><%= simple_check applicant.cv %></td>
-      <td><%= applicant.degree_sought %></td>
-      <td><%= applicant.department_program %></td>
-      <td><%= simple_check applicant.disabled %></td>
-      <td><%= simple_check applicant.disadvantaged %></td>
-      <td><%= simple_check applicant.enrolled %></td>
-      <td><%= applicant.expected_year %></td>
-      <td><%= simple_check applicant.offered %></td>
-      <td><%= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor %></td>
-      <td><%= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor %></td>
-      <td><%= link_to applicant.secondary_preceptor.name, applicant.secondary_preceptor if applicant.secondary_preceptor %></td>
-      <td><%= applicant.previous_institutions %></td>
-      <td><%= applicant.review_date %></td>
-      <td><%= simple_check applicant.reviewed %></td>
-      <td><%= simple_check applicant.summer %></td>
-      <td><%= simple_check applicant.tge %></td>
-      <td><%= applicant.thesis %></td>
-      <td><%= simple_check applicant.urm %></td>
-      <td><%= applicant.degree_type %></td>
-      <td><%= applicant.degrees %></td>
-      <td><%= applicant.notes %></td>
-      <td><%= applicant.residency %></td>
-      <td><%= applicant.year_department_program %></td>
-      <td><%= applicant.training_period_start_date %></td>
-      <td><%= applicant.training_period_end_date %></td>
-      <td><%= applicant.email %></td>
-      <td><%= applicant.appointment_type %></td>
-      <td><%= applicant.status %></td>
-      <td><%= applicant.current_title %></td>
-      <td><%= applicant.address1 %></td>
-      <td><%= applicant.address2 %></td>
-      <td><%= applicant.city %></td>
-      <td><%= applicant.state %></td>
-      <td><%= applicant.country %></td>
-      <td><%= applicant.zip_code %></td>
-      <td><%= applicant.coursework_completed %></td>
-      <td><%= applicant.phone %></td>
-      <td><%= applicant.presentations %></td>
-      <td><%= applicant.pubs_not_prev_rep %></td>
-      <td><%= applicant.research_description %></td>
-      <td><%= applicant.source_of_support %></td>
-      <td><%= simple_check applicant.supported_by_tg %></td>
-      <td><%= applicant.training_grant_years %></td>
-      <td><%= applicant.research_project_title %></td>
-      <td><%= applicant.trainee_code %></td>
-      <td><%= applicant.desired_start_date %></td>
-      <td><%= applicant.marital_status %></td>
-      <td><%= simple_time applicant.submitted_at %></td>
-      <td><%= link_to 'Edit', edit_applicant_path(applicant) %></td>
-      <td><%= link_to 'Destroy', applicant, confirm: 'Are you sure?', method: :delete %></td>
-    </tr>
-  <% end %>
+    <tbody>
+      <% @applicants.each_with_index do |applicant, index| %>
+        <tr class="<%= 'first' if index == 0 %>">
+          <td><%= link_to applicant.name, applicant %></td>
+          <td><%= applicant.applicant_type %></td>
+          <td><%= simple_check applicant.accepted %></td>
+          <td><%= simple_check applicant.offered %></td>
+          <td><%= simple_check applicant.enrolled %></td>
+          <td><%= applicant.advisor %></td>
+          <td><%= applicant.applicant_number %></td>
+          <td><%= applicant.concentration_major %></td>
+          <td><%= applicant.current_institution %></td>
+          <td><%= simple_check applicant.cv %></td>
+          <td><%= applicant.degree_sought %></td>
+          <td><%= applicant.department_program %></td>
+          <td><%= simple_check applicant.disabled %></td>
+          <td><%= simple_check applicant.disadvantaged %></td>
+          <td><%= applicant.expected_year %></td>
+          <td><%= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor %></td>
+          <td><%= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor %></td>
+          <td><%= link_to applicant.secondary_preceptor.name, applicant.secondary_preceptor if applicant.secondary_preceptor %></td>
+          <td><%= applicant.previous_institutions %></td>
+          <td><%= applicant.review_date %></td>
+          <td><%= simple_check applicant.reviewed %></td>
+          <td><%= simple_check applicant.summer %></td>
+          <td><%= simple_check applicant.tge %></td>
+          <td><%= applicant.thesis %></td>
+          <td><%= simple_check applicant.urm %></td>
+          <td><%= applicant.degree_type %></td>
+          <td><%= applicant.degrees %></td>
+          <td><%= applicant.notes %></td>
+          <td><%= applicant.residency %></td>
+          <td><%= applicant.year_department_program %></td>
+          <td><%= applicant.training_period_start_date %></td>
+          <td><%= applicant.training_period_end_date %></td>
+          <td><%= applicant.email %></td>
+          <td><%= applicant.appointment_type %></td>
+          <td><%= applicant.status %></td>
+          <td><%= applicant.current_title %></td>
+          <td><%= applicant.address1 %></td>
+          <td><%= applicant.address2 %></td>
+          <td><%= applicant.city %></td>
+          <td><%= applicant.state %></td>
+          <td><%= applicant.country %></td>
+          <td><%= applicant.zip_code %></td>
+          <td><%= applicant.coursework_completed %></td>
+          <td><%= applicant.phone %></td>
+          <td><%= applicant.presentations %></td>
+          <td><%= applicant.pubs_not_prev_rep %></td>
+          <td><%= applicant.research_description %></td>
+          <td><%= applicant.source_of_support %></td>
+          <td><%= simple_check applicant.supported_by_tg %></td>
+          <td><%= applicant.training_grant_years %></td>
+          <td><%= applicant.research_project_title %></td>
+          <td><%= applicant.trainee_code %></td>
+          <td><%= applicant.desired_start_date %></td>
+          <td><%= applicant.marital_status %></td>
+          <td><%= simple_time applicant.submitted_at %></td>
+          <td><%= link_to 'Edit', edit_applicant_path(applicant) %></td>
+          <td><%= link_to 'Destroy', applicant, confirm: 'Are you sure?', method: :delete %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 </div>
 
 <center><%= paginate @applicants %></center>
+
+<%= javascript_tag do %>
+jQuery(document).ready(function($)
+{
+  $('#thetable').tableScroll();
+});
+<% end %>

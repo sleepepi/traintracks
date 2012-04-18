@@ -9,6 +9,7 @@
     * Trainee section
     * Administrative section
   * Applicants
+    * List of applicants now utilizes a frozen header row
     * Added marital status
     * Add submitted at timestamp
 
