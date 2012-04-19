@@ -44,12 +44,12 @@ class ApplicantsController < ApplicationController
   # POST /applicants
   # POST /applicants.json
   def create
-    params[:applicant][:desired_start_date] = Date.strptime(params[:applicant][:desired_start_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:desired_start_date].blank?
-    params[:applicant][:review_date] = Date.strptime(params[:applicant][:review_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:review_date].blank?
-    params[:applicant][:training_period_start_date] = Date.strptime(params[:applicant][:training_period_start_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:training_period_start_date].blank?
-    params[:applicant][:training_period_end_date] = Date.strptime(params[:applicant][:training_period_end_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:training_period_end_date].blank?
+    # params[:applicant][:desired_start_date] = Date.strptime(params[:applicant][:desired_start_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:desired_start_date].blank?
+    # params[:applicant][:review_date] = Date.strptime(params[:applicant][:review_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:review_date].blank?
+    # params[:applicant][:training_period_start_date] = Date.strptime(params[:applicant][:training_period_start_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:training_period_start_date].blank?
+    # params[:applicant][:training_period_end_date] = Date.strptime(params[:applicant][:training_period_end_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:training_period_end_date].blank?
 
-    @applicant = Applicant.new(params[:applicant])
+    @applicant = Applicant.new(post_params)
 
     respond_to do |format|
       if @applicant.save
@@ -65,15 +65,15 @@ class ApplicantsController < ApplicationController
   # PUT /applicants/1
   # PUT /applicants/1.json
   def update
-    params[:applicant][:desired_start_date] = Date.strptime(params[:applicant][:desired_start_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:desired_start_date].blank?
-    params[:applicant][:review_date] = Date.strptime(params[:applicant][:review_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:review_date].blank?
-    params[:applicant][:training_period_start_date] = Date.strptime(params[:applicant][:training_period_start_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:training_period_start_date].blank?
-    params[:applicant][:training_period_end_date] = Date.strptime(params[:applicant][:training_period_end_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:training_period_end_date].blank?
+    # params[:applicant][:desired_start_date] = Date.strptime(params[:applicant][:desired_start_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:desired_start_date].blank?
+    # params[:applicant][:review_date] = Date.strptime(params[:applicant][:review_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:review_date].blank?
+    # params[:applicant][:training_period_start_date] = Date.strptime(params[:applicant][:training_period_start_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:training_period_start_date].blank?
+    # params[:applicant][:training_period_end_date] = Date.strptime(params[:applicant][:training_period_end_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:training_period_end_date].blank?
 
     @applicant = Applicant.find(params[:id])
 
     respond_to do |format|
-      if @applicant.update_attributes(params[:applicant])
+      if @applicant.update_attributes(post_params)
         format.html { redirect_to @applicant, notice: 'Applicant was successfully updated.' }
         format.json { head :no_content }
       else
@@ -98,6 +98,11 @@ class ApplicantsController < ApplicationController
   private
 
   def post_params
+    params[:applicant] ||= {}
+    [:desired_start_date, :review_date, :training_period_start_date, :training_period_end_date].each do |date|
+      params[:applicant][date] = parse_date(params[:applicant][date])
+    end
+
     if current_user.administrator?
       params[:applicant]
     else
