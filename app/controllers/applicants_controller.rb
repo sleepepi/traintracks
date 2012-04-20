@@ -78,6 +78,8 @@ class ApplicantsController < ApplicationController
 
     @applicant = Applicant.new(post_params)
 
+    @applicant.skip_confirmation!
+
     respond_to do |format|
       if @applicant.save
         format.html { redirect_to @applicant, notice: 'Applicant was successfully created.' }

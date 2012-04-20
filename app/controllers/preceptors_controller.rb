@@ -68,6 +68,8 @@ class PreceptorsController < ApplicationController
   def create
     @preceptor = Preceptor.new(post_params)
 
+    @preceptor.skip_confirmation!
+
     respond_to do |format|
       if @preceptor.save
         format.html { redirect_to @preceptor, notice: 'Preceptor was successfully created.' }
