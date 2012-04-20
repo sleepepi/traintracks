@@ -59,6 +59,7 @@ class Applicant < ActiveRecord::Base
 
   def set_reference_number(new_reference_number = Digest::SHA1.hexdigest(Time.now.usec.to_s))
     begin
+      self.skip_confirmation!
       self.update_attribute :reference_number, new_reference_number if self.respond_to?('reference_number') and self.reference_number.blank? and Applicant.where(reference_number: new_reference_number).count == 0
     rescue ActiveRecord::RecordNotUnique
       # Do nothing
