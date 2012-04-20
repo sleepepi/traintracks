@@ -20,7 +20,7 @@ Contour.setup do |config|
   config.menu_items =
   [
     {
-      name: 'Administrator Login', display: 'not_signed_in', path: 'new_user_session_path', position: 'right', condition: 'not signed_in?',
+      name: 'Login', display: 'not_signed_in', path: 'new_user_session_path', position: 'right', condition: 'not signed_in?',
       links: [{ name: 'Sign Up', path: 'new_user_registration_path' }]
     },
     {
