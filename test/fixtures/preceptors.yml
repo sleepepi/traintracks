@@ -12,6 +12,7 @@ one:
   research_interest: MyText
   program_role: MyString
   deleted: false
+  email: one@example.com
 
 two:
   first_name: MyString
@@ -25,3 +26,4 @@ two:
   research_interest: MyText
   program_role: MyString
   deleted: false
+  email: two@example.com

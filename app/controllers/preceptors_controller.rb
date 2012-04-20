@@ -1,6 +1,28 @@
 class PreceptorsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :check_administrator
+  before_filter :authenticate_user!, except: [:dashboard, :edit_me, :update_me]
+  before_filter :check_administrator, except: [:dashboard, :edit_me, :update_me]
+
+  before_filter :authenticate_preceptor!, only: [:dashboard, :edit_me, :update_me]
+
+  def dashboard
+
+  end
+
+  def edit_me
+
+  end
+
+  def update_me
+    respond_to do |format|
+      if current_preceptor.update_attributes(post_params)
+        format.html { redirect_to dashboard_preceptors_path, notice: 'Preceptor information successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit_me" }
+        format.json { render json: current_preceptor.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   def index
     # current_user.update_attribute :preceptors_per_page, params[:preceptors_per_page].to_i if params[:preceptors_per_page].to_i >= 10 and params[:preceptors_per_page].to_i <= 200
@@ -44,7 +66,7 @@ class PreceptorsController < ApplicationController
   # POST /preceptors
   # POST /preceptors.json
   def create
-    @preceptor = Preceptor.new(params[:preceptor])
+    @preceptor = Preceptor.new(post_params)
 
     respond_to do |format|
       if @preceptor.save
@@ -63,7 +85,7 @@ class PreceptorsController < ApplicationController
     @preceptor = Preceptor.find(params[:id])
 
     respond_to do |format|
-      if @preceptor.update_attributes(params[:preceptor])
+      if @preceptor.update_attributes(post_params)
         format.html { redirect_to @preceptor, notice: 'Preceptor was successfully updated.' }
         format.json { head :no_content }
       else
@@ -84,4 +106,22 @@ class PreceptorsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def post_params
+    params[:preceptor] ||= {}
+    [].each do |date|
+      params[:preceptor][date] = parse_date(params[:preceptor][date])
+    end
+
+    if current_user and current_user.administrator?
+      params[:preceptor]
+    else
+      params[:preceptor].slice(
+        :email, :password, :password_confirmation, :remember_me, :degree, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :other_support, :program_role, :rank, :research_interest
+       )
+    end
+  end
+
 end

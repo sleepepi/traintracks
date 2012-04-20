@@ -1,0 +1,48 @@
+<% @title = "Preceptor Dashboard" %>
+<h1><%= @title %></h1>
+
+<%= link_to image_tag('gentleface/16/doc_edit.png', alt: '') + "Edit", edit_me_preceptors_path, class: 'button' %>
+<div style="clear:both"></div>
+
+<fieldset>
+  <legend><%= @title %></legend>
+  <p>
+    <b>Degree:</b>
+    <%= current_preceptor.degree %>
+  </p>
+
+  <p>
+    <b>Status:</b>
+    <%= current_preceptor.status %>
+  </p>
+
+  <p>
+    <b>Hospital affiliation:</b>
+    <%= current_preceptor.hospital_affiliation %>
+  </p>
+
+  <p>
+    <b>Hospital appointment:</b>
+    <%= current_preceptor.hospital_appointment %>
+  </p>
+
+  <p>
+    <b>Other support:</b>
+    <%= current_preceptor.other_support %>
+  </p>
+
+  <p>
+    <b>Rank:</b>
+    <%= current_preceptor.rank %>
+  </p>
+
+  <p>
+    <b>Research interest:</b>
+    <%= current_preceptor.research_interest %>
+  </p>
+
+  <p>
+    <b>Program role:</b>
+    <%= current_preceptor.program_role %>
+  </p>
+</fieldset>

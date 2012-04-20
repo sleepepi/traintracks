@@ -21,6 +21,7 @@
 
     <tr>
       <th>Name</th>
+      <th>Email</th>
       <th>Degree</th>
       <th>Status</th>
       <th>Hospital affiliation</th>
@@ -29,6 +30,7 @@
       <th>Rank</th>
       <th>Research interest</th>
       <th>Program role</th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'preceptors.current_sign_in_at', 'Recent Activity', 'preceptors_search') %></th>
       <th></th>
       <th></th>
     </tr>
@@ -36,6 +38,7 @@
   <% @preceptors.each do |preceptor| %>
     <tr>
       <td><%= link_to preceptor.name, preceptor %></td>
+      <td><%= preceptor.email %></td>
       <td><%= preceptor.degree %></td>
       <td><%= preceptor.status %></td>
       <td><%= preceptor.hospital_affiliation %></td>
@@ -44,6 +47,7 @@
       <td><%= preceptor.rank %></td>
       <td><%= preceptor.research_interest %></td>
       <td><%= preceptor.program_role %></td>
+      <td><%= recent_activity(preceptor.current_sign_in_at) %></td>
       <td><%= link_to 'Edit', edit_preceptor_path(preceptor) %></td>
       <td><%= link_to 'Destroy', preceptor, confirm: 'Are you sure?', method: :delete %></td>
     </tr>

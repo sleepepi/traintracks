@@ -1,12 +1,14 @@
+<% @title = 'Edit My Information' %>
 <% width = '1074px' %>
 
-<%= form_for(@preceptor) do |f| %>
-  <% if @preceptor.errors.any? %>
+<% form_name = "edit_preceptor_#{current_preceptor.id}" %>
+<%= form_for(current_preceptor, url: update_me_preceptors_path, html: { id: form_name }) do |f| %>
+  <% if current_preceptor.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@preceptor.errors.count, "error") %> prohibited this preceptor from being saved:</h2>
+      <h2><%= pluralize(current_preceptor.errors.count, "error") %> prohibited this preceptor from being saved:</h2>
 
       <ul>
-      <% @preceptor.errors.full_messages.each do |msg| %>
+      <% current_preceptor.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -29,16 +31,8 @@
       <%= f.email_field :email %>
     </div>
     <div class="field">
-      <%= f.label :password %><br />
-      <%= f.password_field :password %>
-    </div>
-    <div class="field">
       <%= f.label :degree %><br />
       <%= f.text_field :degree %>
-    </div>
-    <div class="field">
-      <%= f.label :status %><br />
-      <%= f.select :status, Preceptor::STATUS %>
     </div>
     <div class="field">
       <%= f.label :hospital_affiliation %><br />
@@ -67,9 +61,7 @@
   </fieldset>
 
   <div class="actions">
-    <% form_name = @preceptor.new_record? ? 'new_preceptor' : "edit_preceptor_#{@preceptor.id}" %>
-    <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + (@preceptor.new_record? ? "Create Preceptor" : "Update Preceptor"), "$('##{form_name}').submit();", class: "button positive" %>
-    <%= f.submit "Create Preceptor", class: 'button' %>
+    <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + "Update My Information", "$('##{form_name}').submit();", class: "button positive" %>
     <%= cancel %>
     <br />
   </div>

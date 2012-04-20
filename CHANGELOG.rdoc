@@ -15,7 +15,10 @@
     * Add submitted at timestamp
     * Applicant Number renamed to CV Number
     * Reference number is now generated for each application
-  * Adminstrator Role added for management of applicants and preceptors
+  * Login and Registration
+    * Adminstrator Role added for management of applicants and preceptors
+    * Applicants can now register and login to create an application
+    * Preceptors can now login to edit their information
 
 == 0.1.0
 

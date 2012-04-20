@@ -20,18 +20,30 @@ Contour.setup do |config|
   config.menu_items =
   [
     {
-      name: 'Login', display: 'not_signed_in', path: 'new_user_session_path', position: 'right', condition: 'true',
+      name: 'Administrator Login', display: 'not_signed_in', path: 'new_user_session_path', position: 'right', condition: 'not signed_in?',
       links: [{ name: 'Sign Up', path: 'new_user_registration_path' }]
     },
     {
-      name: 'current_user.name', eval: true, display: 'signed_in', position: 'right', condition: 'true',
+      name: 'current_user.name', eval: true, display: 'signed_in', position: 'right', condition: 'user_signed_in?',
       links: [{ html: '"<div class=\"small\" style=\"color:#bbb\">"+current_user.email+"</div>"', eval: true },
               { name: 'Authentications', path: 'authentications_path', condition: 'not PROVIDERS.blank?' },
               { html: "<br />" },
               { name: 'Logout', path: 'destroy_user_session_path' }]
     },
     {
-      name: 'About', display: 'not_signed_in', path: 'about_path', position: 'left',
+      name: 'current_applicant.name', eval: true, display: 'not_signed_in', position: 'right', condition: 'applicant_signed_in?',
+      links: [{ html: '"<div class=\"small\" style=\"color:#bbb\">"+current_applicant.email+"</div>"', eval: true },
+              { html: "<br />" },
+              { name: 'Logout', path: 'destroy_applicant_session_path' }]
+    },
+    {
+      name: 'current_preceptor.name', eval: true, display: 'not_signed_in', position: 'right', condition: 'preceptor_signed_in?',
+      links: [{ html: '"<div class=\"small\" style=\"color:#bbb\">"+current_preceptor.email+"</div>"', eval: true },
+              { html: "<br />" },
+              { name: 'Logout', path: 'destroy_preceptor_session_path' }]
+    },
+    {
+      name: 'About', display: 'not_signed_in', path: 'about_path', position: 'left', condition: 'not applicant_signed_in? and not preceptor_signed_in?',
       links: []
     },
     {

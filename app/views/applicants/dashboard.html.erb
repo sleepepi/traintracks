@@ -1,0 +1,225 @@
+<% @title = "Applicant Dashboard" %>
+<h1><%= @title %></h1>
+
+<%= link_to image_tag('gentleface/16/doc_edit.png', alt: '') + "Edit Application", edit_me_applicants_path, class: 'button' unless current_applicant.assurance? %>
+<div style="clear:both"></div>
+
+<% if current_applicant.assurance? %>
+  <div style="text-align:center"><span style="font-size:2.0em;">Your Application was submitted <span style="background-color: #baffba;" class="tag_bubble"><%= simple_time current_applicant.submitted_at %></span>!</span></div>
+<% end %>
+
+<fieldset>
+  <legend>Applicant Info (Predoc Postdoc)</legend>
+
+  <p>
+    <b>Reference number:</b>
+    <%= current_applicant.reference_number %>
+  </p>
+
+  <p>
+    <b>Email:</b>
+    <%= current_applicant.email %>
+  </p>
+
+  <p>
+    <b>Applicant type:</b>
+    <%= current_applicant.applicant_type %>
+  </p>
+
+  <p>
+    <b>Summer:</b>
+    <%= simple_check current_applicant.summer %>
+  </p>
+
+  <p>
+    <b>US Citizen or Permanent Resident:</b>
+    <%= simple_check current_applicant.tge %>
+  </p>
+
+  <p>
+    <b>Desired start date:</b>
+    <%= current_applicant.desired_start_date %>
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend>Education</legend>
+  <p>
+    <b>Advisor:</b>
+    <%= current_applicant.advisor %>
+  </p>
+
+  <p>
+    <b>Concentration major:</b>
+    <%= current_applicant.concentration_major %>
+  </p>
+
+  <p>
+    <b>Current institution:</b>
+    <%= current_applicant.current_institution %>
+  </p>
+
+  <p>
+    <b>Cv:</b>
+    <%= simple_check current_applicant.cv %>
+  </p>
+
+  <p>
+    <b>Degree sought:</b>
+    <%= current_applicant.degree_sought %>
+  </p>
+
+  <p>
+    <b>Department program:</b>
+    <%= current_applicant.department_program %>
+  </p>
+
+  <p>
+    <b>Expected year:</b>
+    <%= current_applicant.expected_year %>
+  </p>
+
+  <p>
+    <b>Preferred preceptor:</b>
+    <%= link_to current_applicant.preferred_preceptor.name, current_applicant.preferred_preceptor if current_applicant.preferred_preceptor %>
+  </p>
+
+  <p>
+    <b>Primary preceptor:</b>
+    <%= link_to current_applicant.primary_preceptor.name, current_applicant.primary_preceptor if current_applicant.primary_preceptor %>
+  </p>
+
+  <p>
+    <b>Secondary preceptor:</b>
+    <%= link_to current_applicant.secondary_preceptor.name, current_applicant.secondary_preceptor if current_applicant.secondary_preceptor %>
+  </p>
+
+  <p>
+    <b>Previous institutions:</b>
+    <%= current_applicant.previous_institutions %>
+  </p>
+
+  <p>
+    <b>Thesis:</b>
+    <%= current_applicant.thesis %>
+  </p>
+
+  <p>
+    <b>Degrees:</b>
+    <%= current_applicant.degrees %>
+  </p>
+
+  <p>
+    <b>Current title:</b>
+    <%= current_applicant.current_title %>
+  </p>
+
+</fieldset>
+
+<fieldset>
+  <legend>Demographic Information</legend>
+  <p>
+    <b>Disabled:</b>
+    <%= simple_check current_applicant.disabled %>
+  </p>
+
+  <p>
+    <b>Disadvantaged:</b>
+    <%= simple_check current_applicant.disadvantaged %>
+  </p>
+
+  <p>
+    <b>Under-Represented Minority:</b>
+    <%= simple_check current_applicant.urm %>
+  </p>
+
+  <p>
+    <b>Marital status:</b>
+    <%= current_applicant.marital_status %>
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend>Contact Information</legend>
+
+  <p>
+    <b>Phone:</b>
+    <%= current_applicant.phone %>
+  </p>
+
+  <p>
+    <b>Address1:</b>
+    <%= current_applicant.address1 %>
+  </p>
+
+  <p>
+    <b>Address2:</b>
+    <%= current_applicant.address2 %>
+  </p>
+
+  <p>
+    <b>City:</b>
+    <%= current_applicant.city %>
+  </p>
+
+  <p>
+    <b>State:</b>
+    <%= current_applicant.state %>
+  </p>
+
+  <p>
+    <b>Country:</b>
+    <%= current_applicant.country %>
+  </p>
+
+  <p>
+    <b>Zip code:</b>
+    <%= current_applicant.zip_code %>
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend>Postdoc Only</legend>
+  <p>
+    <b>Residency:</b>
+    <%= current_applicant.residency %>
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend>Trainee Only</legend>
+
+  <p>
+    <b>Research project title:</b>
+    <%= current_applicant.research_project_title %>
+  </p>
+</fieldset>
+
+<fieldset>
+  <legend>Annual Only</legend>
+
+  <p>
+    <b>Coursework comp:</b>
+    <%= current_applicant.coursework_completed %>
+  </p>
+
+  <p>
+    <b>Publications (Not Previously Reported):</b>
+    <%= current_applicant.pubs_not_prev_rep %>
+  </p>
+
+  <p>
+    <b>Presentations:</b>
+    <%= current_applicant.presentations %>
+  </p>
+
+  <p>
+    <b>Research description:</b>
+    <%= current_applicant.research_description %>
+  </p>
+
+  <p>
+    <b>Source of support:</b>
+    <%= current_applicant.source_of_support %>
+  </p>
+</fieldset>

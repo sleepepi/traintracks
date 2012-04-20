@@ -16,4 +16,9 @@ class ApplicationController < ActionController::Base
   def check_administrator
     redirect_to root_path, alert: "You do not have sufficient privileges to access that page." unless current_user.administrator?
   end
+
+  def reroute_applicant_and_preceptor
+    redirect_to dashboard_applicants_path if applicant_signed_in?
+    redirect_to dashboard_preceptors_path if preceptor_signed_in?
+  end
 end

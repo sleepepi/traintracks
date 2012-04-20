@@ -1,8 +1,15 @@
 class Preceptor < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :encryptable and :omniauthable, :registerable
+  devise :database_authenticatable, :timeoutable, :confirmable,
+         :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :lockable
 
-  STATUS = ["current", "former"].collect{|i| [i,i]}
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
 
   attr_accessible :degree, :deleted, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :other_support, :program_role, :rank, :research_interest, :status
+
+  STATUS = ["current", "former"].collect{|i| [i,i]}
 
   # Named Scopes
   scope :current, conditions: { deleted: false }
@@ -10,11 +17,17 @@ class Preceptor < ActiveRecord::Base
 
   # Model Validation
   validates_presence_of :first_name, :last_name
+  validates_uniqueness_of :email, allow_blank: true, scope: :deleted
 
   # Model Relationships
   # has_many :applicants
 
   # Preceptor Methods
+
+  # Overriding Devise built-in active_for_authentication? method
+  def active_for_authentication?
+    super and not self.deleted?
+  end
 
   def name
     "#{first_name} #{last_name}"

@@ -1,8 +1,25 @@
 TrainingGrant::Application.routes.draw do
 
-  resources :applicants
+  # devise_for :applicants, controllers: { registrations: 'contour/registrations', sessions: 'contour/sessions', passwords: 'contour/passwords' }, path_names: { sign_up: 'register', sign_in: 'login' }
+  devise_for :applicants, path: 'as', path_names: { sign_up: 'register', sign_in: 'login' }
 
-  resources :preceptors
+  resources :applicants do
+    collection do
+      get :dashboard
+      get :edit_me
+      put :update_me
+    end
+  end
+
+  devise_for :preceptors, path: 'ps', path_names: { sign_up: 'register', sign_in: 'login' }
+
+  resources :preceptors do
+    collection do
+      get :dashboard
+      get :edit_me
+      put :update_me
+    end
+  end
 
   devise_for :users, controllers: { registrations: 'contour/registrations', sessions: 'contour/sessions', passwords: 'contour/passwords' }, path_names: { sign_up: 'register', sign_in: 'login' }
 

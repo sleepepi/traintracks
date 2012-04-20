@@ -1,6 +1,29 @@
 class ApplicantsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :check_administrator
+  before_filter :authenticate_user!, except: [:dashboard, :edit_me, :update_me]
+  before_filter :check_administrator, except: [:dashboard, :edit_me, :update_me]
+
+  before_filter :authenticate_applicant!, only: [:dashboard, :edit_me, :update_me]
+
+  def dashboard
+
+  end
+
+  def edit_me
+    redirect_to dashboard_applicants_path, notice: 'You have already submitted your application.' if current_applicant.assurance?
+  end
+
+  def update_me
+    respond_to do |format|
+      if current_applicant.update_attributes(post_params)
+        format.html { redirect_to dashboard_applicants_path, notice: 'Application successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit_me" }
+        format.json { render json: current_applicant.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   def index
     # current_user.update_attribute :applicants_per_page, params[:applicants_per_page].to_i if params[:applicants_per_page].to_i >= 10 and params[:applicants_per_page].to_i <= 200
@@ -34,6 +57,10 @@ class ApplicantsController < ApplicationController
       format.html # new.html.erb
       format.json { render json: @applicant }
     end
+  end
+
+  def edit_application
+
   end
 
   # GET /applicants/1/edit
@@ -103,7 +130,7 @@ class ApplicantsController < ApplicationController
       params[:applicant][date] = parse_date(params[:applicant][date])
     end
 
-    if current_user.administrator?
+    if current_user and current_user.administrator?
       params[:applicant]
     else
       params[:applicant].slice(

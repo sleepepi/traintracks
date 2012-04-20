@@ -59,6 +59,7 @@ one:
   desired_start_date: 2012-04-16
   marital_status: single
   assurance: true
+  email: one@example.com
 
 two:
   first_name: MyString
@@ -119,3 +120,4 @@ two:
   desired_start_date: 2012-04-16
   marital_status: married
   assurance: false
+  email: two@example.com

@@ -1,0 +1,82 @@
+<% @title = 'Login' %>
+
+<table class="blank padded" style="width:100%;table-layout:fixed">
+  <tr>
+    <td style="vertical-align:top">
+      <% form_name = "new_applicant" %>
+      <%= form_for(:applicant, as: 'applicants', url: session_path('applicant'), html: { id: form_name }) do |f| %>
+        <fieldset>
+          <legend>Applicant Login</legend>
+
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.text_field :email %>
+          </div>
+          <div class="field">
+            <%= f.label :password %><br />
+            <%= f.password_field :password %>
+          </div>
+        </fieldset>
+        <div class="actions">
+          <%= link_to_function image_tag('contour/tick.png', alt: '') + "Applicant Login", "$('##{form_name}').submit();", class: "button positive" %>
+          <div style="padding-top:5px;padding-bottom:4px;"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+          <div style="clear:both"></div><br />
+          <%= link_to "Forgot your password?", new_password_path('applicant') %> or <%= link_to "Register here!", new_registration_path('applicant') %>
+        </div>
+      <% end %>
+    </td>
+    <td style="vertical-align:top">
+      <% form_name = "new_preceptor" %>
+      <%= form_for(:preceptor, as: 'preceptor', url: session_path('preceptor'), html: { id: form_name }) do |f| %>
+        <fieldset>
+          <legend>Preceptor Login</legend>
+
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.text_field :email %>
+          </div>
+          <div class="field">
+            <%= f.label :password %><br />
+            <%= f.password_field :password %>
+          </div>
+        </fieldset>
+        <div class="actions">
+          <%= link_to_function image_tag('contour/tick.png', alt: '') + "Preceptor Login", "$('##{form_name}').submit();", class: "button positive" %>
+          <div style="padding-top:5px;padding-bottom:4px;"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+          <div style="clear:both"></div><br />
+          <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+        </div>
+      <% end %>
+    </td>
+    <td style="vertical-align:top">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <fieldset>
+          <legend>Administrator Login</legend>
+
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.text_field :email %>
+          </div>
+          <div class="field">
+            <%= f.label :password %><br />
+            <%= f.password_field :password %>
+          </div>
+        </fieldset>
+        <div class="actions">
+          <% form_name = "new_#{resource.class.name.underscore}" %>
+          <%= link_to_function image_tag('contour/tick.png', alt: '') + "Administrator Login", "$('##{form_name}').submit();", class: "button positive" %>
+          <% if devise_mapping.rememberable? -%>
+            <div style="padding-top:5px;padding-bottom:4px;"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+          <% end -%>
+          <% if devise_mapping.recoverable? && controller_name != 'passwords' %>
+            <div style="clear:both"></div><br />
+            <%= link_to "Forgot your password?", new_password_path(resource_name) %> or <%= link_to "Register here!", new_registration_path(resource_name) %>
+          <% end %>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+
+<%= render partial: 'contour/layouts/latest_news' %>
