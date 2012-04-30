@@ -1,225 +1,180 @@
 <% @title = "Applicant Dashboard" %>
-<h1><%= @title %></h1>
-
-<%= link_to image_tag('gentleface/16/doc_edit.png', alt: '') + "Edit Application", edit_me_applicants_path, class: 'button' unless current_applicant.assurance? %>
-<div style="clear:both"></div>
+<div class="page-header">
+  <h1>
+    <%= @title %>
+    <%= link_to "Edit Application", edit_me_applicants_path, class: 'btn btn-mini' unless current_applicant.assurance? %>
+  </h1>
+</div>
 
 <% if current_applicant.assurance? %>
-  <div style="text-align:center"><span style="font-size:2.0em;">Your Application was submitted <span style="background-color: #baffba;" class="tag_bubble"><%= simple_time current_applicant.submitted_at %></span>!</span></div>
+  <div class="hero-unit">
+    <h1>Congratulations!
+      <small>Your application was submitted <span style="background-color: #baffba;" class="tag_bubble"><%= simple_time current_applicant.submitted_at %></span>!</small>
+    </h1>
+
+  </div>
 <% end %>
 
-<fieldset>
-  <legend>Applicant Info (Predoc Postdoc)</legend>
+<div class="row">
+  <div class="span6">
+    <div class="page-header"><h2>Applicant Info (Predoc Postdoc)</h2></div>
 
-  <p>
-    <b>Reference number:</b>
-    <%= current_applicant.reference_number %>
-  </p>
+    <dl class="dl-horizontal">
+      <dt>Reference number</dt>
+      <dd><%= current_applicant.reference_number %></dd>
 
-  <p>
-    <b>Email:</b>
-    <%= current_applicant.email %>
-  </p>
+      <dt>Email</dt>
+      <dd><%= current_applicant.email %></dd>
 
-  <p>
-    <b>Applicant type:</b>
-    <%= current_applicant.applicant_type %>
-  </p>
+      <dt>Applicant type</dt>
+      <dd><%= current_applicant.applicant_type %></dd>
 
-  <p>
-    <b>Summer:</b>
-    <%= simple_check current_applicant.summer %>
-  </p>
+      <dt>Summer</dt>
+      <dd><%= simple_check current_applicant.summer %></dd>
 
-  <p>
-    <b>US Citizen or Permanent Resident:</b>
-    <%= simple_check current_applicant.tge %>
-  </p>
+      <dt>US Citizen or Permanent Resident</dt>
+      <dd><%= simple_check current_applicant.tge %></dd>
 
-  <p>
-    <b>Desired start date:</b>
-    <%= current_applicant.desired_start_date %>
-  </p>
-</fieldset>
+      <dt>Desired start date</dt>
+      <dd><%= current_applicant.desired_start_date %></dd>
+    </dl>
+  </div>
 
-<fieldset>
-  <legend>Education</legend>
-  <p>
-    <b>Advisor:</b>
-    <%= current_applicant.advisor %>
-  </p>
+  <div class="span6">
+    <div class="page-header"><h2>Education</h2></div>
 
-  <p>
-    <b>Concentration major:</b>
-    <%= current_applicant.concentration_major %>
-  </p>
+    <dl class="dl-horizontal">
+      <dt>Advisor</dt>
+      <dd><%= current_applicant.advisor %></dd>
 
-  <p>
-    <b>Current institution:</b>
-    <%= current_applicant.current_institution %>
-  </p>
+      <dt>Concentration major</dt>
+      <dd><%= current_applicant.concentration_major %></dd>
 
-  <p>
-    <b>Cv:</b>
-    <%= simple_check current_applicant.cv %>
-  </p>
+      <dt>Current institution</dt>
+      <dd><%= current_applicant.current_institution %></dd>
 
-  <p>
-    <b>Degree sought:</b>
-    <%= current_applicant.degree_sought %>
-  </p>
+      <dt>Cv</dt>
+      <dd><%= simple_check current_applicant.cv %></dd>
 
-  <p>
-    <b>Department program:</b>
-    <%= current_applicant.department_program %>
-  </p>
+      <dt>Degree sought</dt>
+      <dd><%= current_applicant.degree_sought %></dd>
 
-  <p>
-    <b>Expected year:</b>
-    <%= current_applicant.expected_year %>
-  </p>
+      <dt>Department program</dt>
+      <dd><%= current_applicant.department_program %></dd>
 
-  <p>
-    <b>Preferred preceptor:</b>
-    <%= link_to current_applicant.preferred_preceptor.name, current_applicant.preferred_preceptor if current_applicant.preferred_preceptor %>
-  </p>
+      <dt>Expected year</dt>
+      <dd><%= current_applicant.expected_year %></dd>
 
-  <p>
-    <b>Primary preceptor:</b>
-    <%= link_to current_applicant.primary_preceptor.name, current_applicant.primary_preceptor if current_applicant.primary_preceptor %>
-  </p>
+      <dt>Preferred preceptor</dt>
+      <dd><%= link_to current_applicant.preferred_preceptor.name, current_applicant.preferred_preceptor if current_applicant.preferred_preceptor %></dd>
 
-  <p>
-    <b>Secondary preceptor:</b>
-    <%= link_to current_applicant.secondary_preceptor.name, current_applicant.secondary_preceptor if current_applicant.secondary_preceptor %>
-  </p>
+      <dt>Primary preceptor</dt>
+      <dd><%= link_to current_applicant.primary_preceptor.name, current_applicant.primary_preceptor if current_applicant.primary_preceptor %></dd>
 
-  <p>
-    <b>Previous institutions:</b>
-    <%= current_applicant.previous_institutions %>
-  </p>
+      <dt>Secondary preceptor</dt>
+      <dd><%= link_to current_applicant.secondary_preceptor.name, current_applicant.secondary_preceptor if current_applicant.secondary_preceptor %></dd>
 
-  <p>
-    <b>Thesis:</b>
-    <%= current_applicant.thesis %>
-  </p>
+      <dt>Previous institutions</dt>
+      <dd><%= current_applicant.previous_institutions %></dd>
 
-  <p>
-    <b>Degrees:</b>
-    <%= current_applicant.degrees %>
-  </p>
+      <dt>Thesis</dt>
+      <dd><%= current_applicant.thesis %></dd>
 
-  <p>
-    <b>Current title:</b>
-    <%= current_applicant.current_title %>
-  </p>
+      <dt>Degrees</dt>
+      <dd><%= current_applicant.degrees %></dd>
 
-</fieldset>
+      <dt>Current title</dt>
+      <dd><%= current_applicant.current_title %></dd>
+    </dl>
+  </div>
+</div>
 
-<fieldset>
-  <legend>Demographic Information</legend>
-  <p>
-    <b>Disabled:</b>
-    <%= simple_check current_applicant.disabled %>
-  </p>
+<div class="row">
+  <div class="span6">
+    <div class="page-header"><h2>Demographic Information</h2></div>
 
-  <p>
-    <b>Disadvantaged:</b>
-    <%= simple_check current_applicant.disadvantaged %>
-  </p>
+    <dl class="dl-horizontal">
+      <dt>Disabled</dt>
+      <dd><%= simple_check current_applicant.disabled %></dd>
 
-  <p>
-    <b>Under-Represented Minority:</b>
-    <%= simple_check current_applicant.urm %>
-  </p>
+      <dt>Disadvantaged</dt>
+      <dd><%= simple_check current_applicant.disadvantaged %></dd>
 
-  <p>
-    <b>Marital status:</b>
-    <%= current_applicant.marital_status %>
-  </p>
-</fieldset>
+      <dt>Under-Represented Minority</dt>
+      <dd><%= simple_check current_applicant.urm %></dd>
 
-<fieldset>
-  <legend>Contact Information</legend>
+      <dt>Marital status</dt>
+      <dd><%= current_applicant.marital_status %></dd>
+    </dl>
+  </div>
 
-  <p>
-    <b>Phone:</b>
-    <%= current_applicant.phone %>
-  </p>
+  <div class="span6">
+    <div class="page-header"><h2>Contact Information</h2></div>
 
-  <p>
-    <b>Address1:</b>
-    <%= current_applicant.address1 %>
-  </p>
+    <dl class="dl-horizontal">
+      <dt>Phone</dt>
+      <dd><%= current_applicant.phone %></dd>
 
-  <p>
-    <b>Address2:</b>
-    <%= current_applicant.address2 %>
-  </p>
+      <dt>Address1</dt>
+      <dd><%= current_applicant.address1 %></dd>
 
-  <p>
-    <b>City:</b>
-    <%= current_applicant.city %>
-  </p>
+      <dt>Address2</dt>
+      <dd><%= current_applicant.address2 %></dd>
 
-  <p>
-    <b>State:</b>
-    <%= current_applicant.state %>
-  </p>
+      <dt>City</dt>
+      <dd><%= current_applicant.city %></dd>
 
-  <p>
-    <b>Country:</b>
-    <%= current_applicant.country %>
-  </p>
+      <dt>State</dt>
+      <dd><%= current_applicant.state %></dd>
 
-  <p>
-    <b>Zip code:</b>
-    <%= current_applicant.zip_code %>
-  </p>
-</fieldset>
+      <dt>Country</dt>
+      <dd><%= current_applicant.country %></dd>
 
-<fieldset>
-  <legend>Postdoc Only</legend>
-  <p>
-    <b>Residency:</b>
-    <%= current_applicant.residency %>
-  </p>
-</fieldset>
+      <dt>Zip code</dt>
+      <dd><%= current_applicant.zip_code %></dd>
+    </dl>
+  </div>
+</div>
 
-<fieldset>
-  <legend>Trainee Only</legend>
+<div class="row">
+  <div class="span6">
+    <div class="page-header"><h2>Postdoc Only</h2></div>
 
-  <p>
-    <b>Research project title:</b>
-    <%= current_applicant.research_project_title %>
-  </p>
-</fieldset>
+    <dl class="dl-horizontal">
+      <dt>Residency</dt>
+      <dd><%= current_applicant.residency %></dd>
+    </dl>
+  </div>
 
-<fieldset>
-  <legend>Annual Only</legend>
+  <div class="span6">
+    <div class="page-header"><h2>Trainee Only</h2></div>
 
-  <p>
-    <b>Coursework comp:</b>
-    <%= current_applicant.coursework_completed %>
-  </p>
+    <dl class="dl-horizontal">
+      <dt>Research project title</dt>
+      <dd><%= current_applicant.research_project_title %></dd>
+    </dl>
+  </div>
+</div>
 
-  <p>
-    <b>Publications (Not Previously Reported):</b>
-    <%= current_applicant.pubs_not_prev_rep %>
-  </p>
+<div class="row">
+  <div class="span6">
+    <div class="page-header"><h2>Annual Only</h2></div>
 
-  <p>
-    <b>Presentations:</b>
-    <%= current_applicant.presentations %>
-  </p>
+    <dl class="dl-horizontal">
+      <dt>Coursework comp</dt>
+      <dd><%= current_applicant.coursework_completed %></dd>
 
-  <p>
-    <b>Research description:</b>
-    <%= current_applicant.research_description %>
-  </p>
+      <dt>Publications (Not Previously Reported)</dt>
+      <dd><%= current_applicant.pubs_not_prev_rep %></dd>
 
-  <p>
-    <b>Source of support:</b>
-    <%= current_applicant.source_of_support %>
-  </p>
-</fieldset>
+      <dt>Presentations</dt>
+      <dd><%= current_applicant.presentations %></dd>
+
+      <dt>Research description</dt>
+      <dd><%= current_applicant.research_description %></dd>
+
+      <dt>Source of support</dt>
+      <dd><%= current_applicant.source_of_support %></dd>
+    </dl>
+  </div>
+</div>

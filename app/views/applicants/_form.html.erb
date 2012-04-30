@@ -1,6 +1,6 @@
 <% width = '1074px' %>
 
-<%= form_for(@applicant) do |f| %>
+<%= form_for(@applicant, html: { class: 'form-horizontal' }) do |f| %>
   <% if @applicant.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@applicant.errors.count, "error") %> prohibited this applicant from being saved:</h2>
@@ -345,13 +345,13 @@
     <% form_name = @applicant.new_record? ? 'new_applicant' : "edit_applicant_#{@applicant.id}" %>
     <%= hidden_field_tag 'publish', '0' %>
     <%# if current_user.administrator? %>
-      <%#= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + "Save Applicant", "$('##{form_name}').submit();", class: "button positive" %>
-      <%#= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + (@applicant.new_record? ? "Create Applicant" : "Update Applicant"), "$('##{form_name}').submit();", class: "button positive" %>
+      <%#= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + "Save Applicant", "$('##{form_name}').submit();", class: 'btn btn-primary' %>
+      <%#= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + (@applicant.new_record? ? "Create Applicant" : "Update Applicant"), "$('##{form_name}').submit();", class: 'btn btn-primary' %>
     <%# else %>
-      <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + (@applicant.new_record? ? "Save Draft" : "Update Draft"), "$('#publish').val('0');$('##{form_name}').submit();", class: "button" %>
-      <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + "Submit Application for Review", "if(applicantAssuranceCheck() == false){return false;};$('#publish').val('1');$('##{form_name}').submit();", class: "button positive" %>
+      <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + (@applicant.new_record? ? "Save Draft" : "Update Draft"), "$('#publish').val('0');$('##{form_name}').submit();", class: 'btn' %>
+      <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + "Submit Application for Review", "if(applicantAssuranceCheck() == false){return false;};$('#publish').val('1');$('##{form_name}').submit();", class: 'btn btn-primary' %>
     <%# end %>
-    <%= link_to image_tag('gentleface/16/cancel.png', alt: '') + 'Cancel', @applicant.new_record? ? root_path : @applicant, class: 'button negative' %>
+    <%= link_to image_tag('gentleface/16/cancel.png', alt: '') + 'Cancel', @applicant.new_record? ? root_path : @applicant, class: 'btn btn-danger' %>
     <br />
   </div>
 <% end %>

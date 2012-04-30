@@ -1,9 +1,9 @@
 <% @title = "Applicant: #{@applicant.name}" %>
 <h1><%= @title %></h1>
 
-<%= link_to image_tag('gentleface/16/doc_edit.png', alt: '') + "Edit Applicant", edit_applicant_path(@applicant), class: 'button' %>
-<%= link_to image_tag('gentleface/16/doc_delete.png', alt: '') + "Delete Applicant", @applicant, confirm: "Are you sure you want to delete Applicant #{@applicant.name}?", method: :delete, class: 'button negative' %>
-<%= link_to image_tag('gentleface/16/folder_open.png', alt: '') + "View All Applicants", applicants_path, class: 'button' %>
+<%= link_to image_tag('gentleface/16/doc_edit.png', alt: '') + "Edit Applicant", edit_applicant_path(@applicant), class: 'btn' %>
+<%= link_to image_tag('gentleface/16/doc_delete.png', alt: '') + "Delete Applicant", @applicant, confirm: "Are you sure you want to delete Applicant #{@applicant.name}?", method: :delete, class: 'btn btn-danger' %>
+<%= link_to image_tag('gentleface/16/folder_open.png', alt: '') + "View All Applicants", applicants_path, class: 'btn' %>
 <div style="clear:both"></div>
 
 <fieldset>

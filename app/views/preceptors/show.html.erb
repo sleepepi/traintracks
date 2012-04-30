@@ -1,9 +1,9 @@
 <% @title = "Preceptor: #{@preceptor.name}" %>
 <h1><%= @title %></h1>
 
-<%= link_to image_tag('gentleface/16/doc_edit.png', alt: '') + "Edit Preceptor", edit_preceptor_path(@preceptor), class: 'button' %>
-<%= link_to image_tag('gentleface/16/doc_delete.png', alt: '') + "Delete Preceptor", @preceptor, confirm: "Are you sure you want to delete Preceptor #{@preceptor.name}?", method: :delete, class: 'button negative' %>
-<%= link_to image_tag('gentleface/16/folder_open.png', alt: '') + "View All Preceptors", preceptors_path, class: 'button' %>
+<%= link_to image_tag('gentleface/16/doc_edit.png', alt: '') + "Edit Preceptor", edit_preceptor_path(@preceptor), class: 'btn' %>
+<%= link_to image_tag('gentleface/16/doc_delete.png', alt: '') + "Delete Preceptor", @preceptor, confirm: "Are you sure you want to delete Preceptor #{@preceptor.name}?", method: :delete, class: 'btn btn-danger' %>
+<%= link_to image_tag('gentleface/16/folder_open.png', alt: '') + "View All Preceptors", preceptors_path, class: 'btn' %>
 <div style="clear:both"></div>
 
 <fieldset>

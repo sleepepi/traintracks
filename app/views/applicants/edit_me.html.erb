@@ -1,5 +1,4 @@
 <% @title = 'Edit My Application' %>
-<% width = '1074px' %>
 
 <% form_name = "edit_applicant_#{current_applicant.id}" %>
 <%= form_for(current_applicant, url: update_me_applicants_path, html: { id: form_name }) do |f| %>
@@ -19,7 +18,7 @@
     <legend>Applicant Info (Predoc Postdoc)</legend>
 
     <div class="field">
-      <%= f.label :email %><br />
+      <%= f.label :email %>
       <%= f.email_field :email %>
     </div>
 
@@ -27,42 +26,42 @@
       <tr>
         <td style="vertical-align:top">
           <div class="field">
-            <%= f.label :first_name %><br />
+            <%= f.label :first_name %>
             <%= f.text_field :first_name %>
           </div>
         </td>
         <td style="vertical-align:top">
           <div class="field">
-            <%= f.label :last_name %><br />
+            <%= f.label :last_name %>
             <%= f.text_field :last_name %>
           </div>
         </td>
         <td style="vertical-align:top">
           <div class="field">
-            <%= f.label :middle_initial %><br />
+            <%= f.label :middle_initial %>
             <%= f.text_field :middle_initial %>
           </div>
         </td>
       </tr>
     </table>
     <div class="field">
-      <%= f.label :applicant_type %><br />
+      <%= f.label :applicant_type %>
       <%= f.select :applicant_type, Applicant::APPLICANT_TYPE %>
     </div>
 
     <div class="field">
-      <%= f.label :summer %><br />
+      <%= f.label :summer %>
       <%= f.check_box :summer %>
     </div>
 
     <div class="field">
-      <%= f.label :tge, "US Citizen or Permanent Resident" %><br />
-      <span class="quiet">Please note that only citizens and permanent residents are eligible for training grant support</span><br />
+      <%= f.label :tge, "US Citizen or Permanent Resident" %>
+      <span class="quiet">Please note that only citizens and permanent residents are eligible for training grant support</span>
       <%= f.check_box :tge %>
     </div>
 
     <div class="field">
-      <%= f.label :desired_start_date %><br />
+      <%= f.label :desired_start_date %>
       <%= f.text_field :desired_start_date, class: 'datepicker', value: current_applicant.desired_start_date ? current_applicant.desired_start_date.strftime('%m/%d/%Y') : '' %>
     </div>
   </fieldset>
@@ -70,58 +69,58 @@
   <fieldset>
     <legend>Education</legend>
     <div class="field">
-      <%= f.label :advisor %><br />
+      <%= f.label :advisor %>
       <%= f.text_field :advisor %>
     </div>
 
     <div class="field">
-      <%= f.label :concentration_major %><br />
+      <%= f.label :concentration_major %>
       <%= f.text_field :concentration_major %>
     </div>
     <div class="field">
-      <%= f.label :current_institution %><br />
+      <%= f.label :current_institution %>
       <%= f.text_field :current_institution %>
     </div>
     <div class="field">
-      <%= f.label :cv %><br />
+      <%= f.label :cv %>
       <%= f.check_box :cv %>
     </div>
     <div class="field">
-      <%= f.label :degree_sought %><br />
+      <%= f.label :degree_sought %>
       <%= f.text_field :degree_sought %>
     </div>
     <div class="field">
-      <%= f.label :department_program %><br />
+      <%= f.label :department_program %>
       <%= f.text_field :department_program %>
     </div>
 
     <div class="field">
-      <%= f.label :expected_year, "Expected Graduation Year" %><br />
+      <%= f.label :expected_year, "Expected Graduation Year" %>
       <%= f.number_field :expected_year %>
     </div>
 
     <div class="field">
-      <%= f.label :preferred_preceptor_id %><br />
+      <%= f.label :preferred_preceptor_id %>
       <%= f.select :preferred_preceptor_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
     </div>
 
     <div class="field">
-      <%= f.label :previous_institutions %><br />
-      <%= f.text_area :previous_institutions, rows: 7, style: "width:#{width}" %>
+      <%= f.label :previous_institutions %>
+      <%= f.text_area :previous_institutions, rows: 7, style: "width:99%" %>
     </div>
 
     <div class="field">
-      <%= f.label :thesis %><br />
+      <%= f.label :thesis %>
       <%= f.text_field :thesis %>
     </div>
 
     <div class="field">
-      <%= f.label :degrees %><br />
+      <%= f.label :degrees %>
       <%= f.text_field :degrees %>
     </div>
 
     <div class="field">
-      <%= f.label :current_title %><br />
+      <%= f.label :current_title %>
       <%= f.text_field :current_title %>
     </div>
 
@@ -133,19 +132,19 @@
       <tr>
         <td style="vertical-align:top">
           <div class="field">
-            <%= f.label :disabled %><br />
+            <%= f.label :disabled %>
             <%= f.check_box :disabled %>
           </div>
         </td>
         <td style="vertical-align:top">
           <div class="field">
-            <%= f.label :disadvantaged %><br />
+            <%= f.label :disadvantaged %>
             <%= f.check_box :disadvantaged %>
           </div>
         </td>
         <td style="vertical-align:top">
           <div class="field">
-            <%= f.label :urm, "Under-Represented Minority" %><br />
+            <%= f.label :urm, "Under-Represented Minority" %>
             <%= f.check_box :urm %>
           </div>
         </td>
@@ -153,7 +152,7 @@
     </table>
 
     <div class="field">
-      <%= f.label :marital_status %><br />
+      <%= f.label :marital_status %>
       <%= f.select :marital_status, [['---', nil]] + Applicant::MARITAL_STATUS %>
     </div>
   </fieldset>
@@ -161,32 +160,32 @@
   <fieldset>
     <legend>Contact Information</legend>
     <div class="field">
-      <%= f.label :phone %><br />
+      <%= f.label :phone %>
       <%= f.text_field :phone %>
     </div>
 
     <div class="field">
-      <%= f.label :address1 %><br />
+      <%= f.label :address1 %>
       <%= f.text_field :address1 %>
     </div>
     <div class="field">
-      <%= f.label :address2 %><br />
+      <%= f.label :address2 %>
       <%= f.text_field :address2 %>
     </div>
     <div class="field">
-      <%= f.label :city %><br />
+      <%= f.label :city %>
       <%= f.text_field :city %>
     </div>
     <div class="field">
-      <%= f.label :state %><br />
+      <%= f.label :state %>
       <%= f.text_field :state %>
     </div>
     <div class="field">
-      <%= f.label :country %><br />
+      <%= f.label :country %>
       <%= f.text_field :country %>
     </div>
     <div class="field">
-      <%= f.label :zip_code %><br />
+      <%= f.label :zip_code %>
       <%= f.text_field :zip_code %>
     </div>
 
@@ -196,7 +195,7 @@
     <legend>Postdoc Only</legend>
 
     <div class="field">
-      <%= f.label :residency %><br />
+      <%= f.label :residency %>
       <%= f.text_field :residency %>
     </div>
   </fieldset>
@@ -204,7 +203,7 @@
   <fieldset>
     <legend>Trainee Only</legend>
     <div class="field">
-      <%= f.label :research_project_title %><br />
+      <%= f.label :research_project_title %>
       <%= f.text_field :research_project_title %>
     </div>
   </fieldset>
@@ -213,45 +212,43 @@
     <legend>Annual Only</legend>
 
     <div class="field">
-      <%= f.label :coursework_completed %><br />
-      <%= f.text_area :coursework_completed, rows: 7, style: "width:#{width}" %>
+      <%= f.label :coursework_completed %>
+      <%= f.text_area :coursework_completed, rows: 7, style: "width:99%" %>
     </div>
     <div class="field">
-      <%= f.label :pubs_not_prev_rep, "Publications (Not Previously Reported)" %><br />
+      <%= f.label :pubs_not_prev_rep, "Publications (Not Previously Reported)" %>
       <%= f.text_field :pubs_not_prev_rep %>
     </div>
 
     <div class="field">
-      <%= f.label :presentations %><br />
-      <%= f.text_area :presentations, rows: 7, style: "width:#{width}" %>
+      <%= f.label :presentations %>
+      <%= f.text_area :presentations, rows: 7, style: "width:99%" %>
     </div>
 
     <div class="field">
-      <%= f.label :research_description %><br />
-      <%= f.text_area :research_description, rows: 7, style: "width:#{width}" %>
+      <%= f.label :research_description %>
+      <%= f.text_area :research_description, rows: 7, style: "width:99%" %>
     </div>
     <div class="field">
-      <%= f.label :source_of_support %><br />
+      <%= f.label :source_of_support %>
       <%= f.text_field :source_of_support %>
     </div>
   </fieldset>
 
-  <fieldset>
-    <legend>Applicant Assurance and Sign Off</legend>
-    <ul>
-      <li>I certify that the above information is true and correct to the best of my knowledge.</li>
-    </ul>
+  <div class="hero-unit">
+    <h3>
+      Applicant Assurance and Sign Off
+      <small>I certify that the above information is true and correct to the best of my knowledge.</small>
+    </h3>
 
-    <div class="field">
-      <%= f.check_box :assurance %> <%= f.label :assurance, 'Please tick to confirm that you have read and understand the above text' %><br />
-    </div>
-  </fieldset>
+    <%= f.check_box :assurance %> <%= f.label :assurance, 'Please tick to confirm that you have read and understand the above text' %>
+  </div>
 
-  <div class="actions">
+  <div class="form-actions">
     <%= hidden_field_tag 'publish', '0' %>
-    <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + "Save Draft", "$('#publish').val('0');$('##{form_name}').submit();", class: "button" %>
-    <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + "Submit Application for Review", "if(applicantAssuranceCheck() == false){return false;};$('#publish').val('1');$('##{form_name}').submit();", class: "button positive" %>
-    <%= link_to image_tag('gentleface/16/cancel.png', alt: '') + 'Cancel', dashboard_applicants_path, class: 'button negative' %>
-    <br />
+    <%= link_to_function "Save Draft", "$('#publish').val('0');$('##{form_name}').submit();", class: 'btn' %>
+    <%= link_to_function "Submit Application for Review", "if(applicantAssuranceCheck() == false){return false;};$('#publish').val('1');$('##{form_name}').submit();", class: 'btn btn-primary' %>
+    <%= link_to 'Cancel', dashboard_applicants_path, class: 'btn btn-danger' %>
+
   </div>
 <% end %>

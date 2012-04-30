@@ -1,48 +1,32 @@
 <% @title = "Preceptor Dashboard" %>
-<h1><%= @title %></h1>
+<div class="page-header">
+  <h1>
+    <%= @title %>
+    <%= link_to "Edit", edit_me_preceptors_path, class: 'btn btn-mini' %>
+  </h1>
+</div>
+<dl class="dl-horizontal">
+  <dt>Degree</dt>
+  <dd><%= current_preceptor.degree %></dd>
 
-<%= link_to image_tag('gentleface/16/doc_edit.png', alt: '') + "Edit", edit_me_preceptors_path, class: 'button' %>
-<div style="clear:both"></div>
+  <dt>Status</dt>
+  <dd><%= current_preceptor.status %></dd>
 
-<fieldset>
-  <legend><%= @title %></legend>
-  <p>
-    <b>Degree:</b>
-    <%= current_preceptor.degree %>
-  </p>
+  <dt>Hospital affiliation</dt>
+  <dd><%= current_preceptor.hospital_affiliation %></dd>
 
-  <p>
-    <b>Status:</b>
-    <%= current_preceptor.status %>
-  </p>
+  <dt>Hospital appointment</dt>
+  <dd><%= current_preceptor.hospital_appointment %></dd>
 
-  <p>
-    <b>Hospital affiliation:</b>
-    <%= current_preceptor.hospital_affiliation %>
-  </p>
+  <dt>Other support</dt>
+  <dd><%= current_preceptor.other_support %></dd>
 
-  <p>
-    <b>Hospital appointment:</b>
-    <%= current_preceptor.hospital_appointment %>
-  </p>
+  <dt>Rank</dt>
+  <dd><%= current_preceptor.rank %></dd>
 
-  <p>
-    <b>Other support:</b>
-    <%= current_preceptor.other_support %>
-  </p>
+  <dt>Research interest</dt>
+  <dd><%= current_preceptor.research_interest %></dd>
 
-  <p>
-    <b>Rank:</b>
-    <%= current_preceptor.rank %>
-  </p>
-
-  <p>
-    <b>Research interest:</b>
-    <%= current_preceptor.research_interest %>
-  </p>
-
-  <p>
-    <b>Program role:</b>
-    <%= current_preceptor.program_role %>
-  </p>
-</fieldset>
+  <dt>Program role</dt>
+  <dd><%= current_preceptor.program_role %></dd>
+</dl>

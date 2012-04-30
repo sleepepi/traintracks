@@ -20,42 +20,44 @@ Contour.setup do |config|
   config.menu_items =
   [
     {
-      name: 'Login', display: 'not_signed_in', path: 'new_user_session_path', position: 'right', condition: 'not signed_in?',
-      links: [{ name: 'Sign Up', path: 'new_user_registration_path' }]
+      name: 'Login', display: 'not_signed_in', path: 'new_user_session_path', position: 'right',
+      links: [{ name: 'Sign Up', path: 'new_user_registration_path' },
+              { divider: true },
+              { authentications: true }]
     },
     {
       name: 'current_user.name', eval: true, display: 'signed_in', position: 'right', condition: 'user_signed_in?',
       links: [{ html: '"<div class=\"small\" style=\"color:#bbb\">"+current_user.email+"</div>"', eval: true },
               { name: 'Authentications', path: 'authentications_path', condition: 'not PROVIDERS.blank?' },
-              { html: "<br />" },
+              { divider: true },
               { name: 'Logout', path: 'destroy_user_session_path' }]
     },
     {
-      name: 'current_applicant.name', eval: true, display: 'not_signed_in', position: 'right', condition: 'applicant_signed_in?',
+      name: 'current_applicant.name', eval: true, display: 'signed_in', position: 'right', condition: 'applicant_signed_in?',
       links: [{ html: '"<div class=\"small\" style=\"color:#bbb\">"+current_applicant.email+"</div>"', eval: true },
-              { html: "<br />" },
+              { divider: true },
               { name: 'Logout', path: 'destroy_applicant_session_path' }]
     },
     {
-      name: 'current_preceptor.name', eval: true, display: 'not_signed_in', position: 'right', condition: 'preceptor_signed_in?',
+      name: 'current_preceptor.name', eval: true, display: 'signed_in', position: 'right', condition: 'preceptor_signed_in?',
       links: [{ html: '"<div class=\"small\" style=\"color:#bbb\">"+current_preceptor.email+"</div>"', eval: true },
-              { html: "<br />" },
+              { divider: true },
               { name: 'Logout', path: 'destroy_preceptor_session_path' }]
     },
     {
-      name: 'About', display: 'not_signed_in', path: 'about_path', position: 'left', condition: 'not applicant_signed_in? and not preceptor_signed_in?',
+      name: 'About', display: 'not_signed_in', path: 'about_path', position: 'left',
       links: []
     },
     {
-      name: 'Applicants', display: 'signed_in', path: 'applicants_path', position: 'left', condition: 'current_user.administrator?',
+      name: 'Applicants', display: 'signed_in', path: 'applicants_path', position: 'left', condition: 'user_signed_in? and current_user.administrator?',
       links: [{ name: '+ New', path: 'new_applicant_path' }]
     },
     {
-      name: 'Preceptors', display: 'signed_in', path: 'preceptors_path', position: 'left', condition: 'current_user.administrator?',
+      name: 'Preceptors', display: 'signed_in', path: 'preceptors_path', position: 'left', condition: 'user_signed_in? and current_user.administrator?',
       links: [{ name: '+ New', path: 'new_preceptor_path' }]
     },
     {
-      name: 'Users', display: 'signed_in', path: 'users_path', position: 'left', condition: 'current_user.system_admin?',
+      name: 'Users', display: 'signed_in', path: 'users_path', position: 'left', condition: 'user_signed_in? and current_user.system_admin?',
       links: []
     }
 

@@ -1,8 +1,10 @@
 <% @title = 'Edit My Information' %>
-<% width = '1074px' %>
+<div class="page-header">
+  <h1><%= @title %></h1>
+</div>
 
 <% form_name = "edit_preceptor_#{current_preceptor.id}" %>
-<%= form_for(current_preceptor, url: update_me_preceptors_path, html: { id: form_name }) do |f| %>
+<%= form_for(current_preceptor, url: update_me_preceptors_path, html: { id: form_name, class: 'form-horizontal' }) do |f| %>
   <% if current_preceptor.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(current_preceptor.errors.count, "error") %> prohibited this preceptor from being saved:</h2>
@@ -15,54 +17,69 @@
     </div>
   <% end %>
 
-  <fieldset>
-    <legend><%= @title %></legend>
-
-    <div class="field">
-      <%= f.label :first_name %><br />
+  <div class="control-group">
+    <%= f.label :first_name, class: 'control-label' %>
+    <div class="controls">
       <%= f.text_field :first_name %>
     </div>
-    <div class="field">
-      <%= f.label :last_name %><br />
+  </div>
+  <div class="control-group">
+    <%= f.label :last_name, class: 'control-label' %>
+    <div class="controls">
       <%= f.text_field :last_name %>
     </div>
-    <div class="field">
-      <%= f.label :email %><br />
+  </div>
+  <div class="control-group">
+    <%= f.label :email, class: 'control-label' %>
+    <div class="controls">
       <%= f.email_field :email %>
     </div>
-    <div class="field">
-      <%= f.label :degree %><br />
+  </div>
+  <div class="control-group">
+    <%= f.label :degree, class: 'control-label' %>
+    <div class="controls">
       <%= f.text_field :degree %>
     </div>
-    <div class="field">
-      <%= f.label :hospital_affiliation %><br />
+  </div>
+  <div class="control-group">
+    <%= f.label :hospital_affiliation, class: 'control-label' %>
+    <div class="controls">
       <%= f.text_field :hospital_affiliation %>
     </div>
-    <div class="field">
-      <%= f.label :hospital_appointment %><br />
+  </div>
+  <div class="control-group">
+    <%= f.label :hospital_appointment, class: 'control-label' %>
+    <div class="controls">
       <%= f.text_field :hospital_appointment %>
     </div>
-    <div class="field">
-      <%= f.label :other_support %><br />
+  </div>
+  <div class="control-group">
+    <%= f.label :other_support, class: 'control-label' %>
+    <div class="controls">
       <%= f.check_box :other_support %>
     </div>
-    <div class="field">
-      <%= f.label :rank %><br />
+  </div>
+  <div class="control-group">
+    <%= f.label :rank, class: 'control-label' %>
+    <div class="controls">
       <%= f.text_field :rank %>
     </div>
-    <div class="field">
-      <%= f.label :research_interest %><br />
-      <%= f.text_area :research_interest, rows: 7, style: "width:#{width}" %>
+  </div>
+  <div class="control-group">
+    <%= f.label :research_interest, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :research_interest, rows: 7, style: "width:99%" %>
     </div>
-    <div class="field">
-      <%= f.label :program_role %><br />
+  </div>
+  <div class="control-group">
+    <%= f.label :program_role, class: 'control-label' %>
+    <div class="controls">
       <%= f.text_field :program_role %>
     </div>
-  </fieldset>
+  </div>
 
-  <div class="actions">
-    <%= link_to_function image_tag('gentleface/16/checkmark.png', alt: '') + "Update My Information", "$('##{form_name}').submit();", class: "button positive" %>
+  <div class="form-actions">
+    <%= link_to_function "Update My Information", "$('##{form_name}').submit();", class: 'btn btn-primary' %>
     <%= cancel %>
-    <br />
   </div>
 <% end %>
