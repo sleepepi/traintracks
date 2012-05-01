@@ -24,6 +24,12 @@ class ApplicantsController < ApplicationController
     end
   end
 
+  # Sends email to applicant containg authentication token
+  def email
+    @applicant = Applicant.find(params[:id])
+    @applicant.update_general_information_email!(current_user)
+    redirect_to @applicant, notice: 'Applicant has been notified by email to update application information.'
+  end
 
   def index
     # current_user.update_attribute :applicants_per_page, params[:applicants_per_page].to_i if params[:applicants_per_page].to_i >= 10 and params[:applicants_per_page].to_i <= 200

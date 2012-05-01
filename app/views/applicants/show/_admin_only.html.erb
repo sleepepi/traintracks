@@ -1,0 +1,51 @@
+<div class="page-header"><h2>Administrator Only</h2></div>
+
+<dl class="dl-horizontal">
+  <dt>Accepted</dt>
+  <dd><%= simple_check applicant.accepted %></dd>
+
+  <dt>Offered</dt>
+  <dd><%= simple_check applicant.offered %></dd>
+
+  <dt>Enrolled</dt>
+  <dd><%= simple_check applicant.enrolled %></dd>
+
+  <dt>CV number</dt>
+  <dd><%= applicant.cv_number %></dd>
+
+  <dt>Review date</dt>
+  <dd><%= applicant.review_date %></dd>
+
+  <dt>Reviewed</dt>
+  <dd><%= simple_check applicant.reviewed %></dd>
+
+  <dt>Degree type</dt>
+  <dd><%= applicant.degree_type %></dd>
+
+  <dt>Trainee code</dt>
+  <dd><%= applicant.trainee_code %></dd>
+
+  <dt>Appointment type</dt>
+  <dd><%= applicant.appointment_type %></dd>
+
+  <dt>Year department program</dt>
+  <dd><%= applicant.year_department_program %></dd>
+
+  <dt>Status</dt>
+  <dd><%= applicant.status %></dd>
+
+  <dt>Training grant years</dt>
+  <dd><%= applicant.training_grant_years %></dd>
+
+  <dt>Supported by Training Grant</dt>
+  <dd><%= simple_check applicant.supported_by_tg %></dd>
+
+  <dt>Training period start date</dt>
+  <dd><%= applicant.training_period_start_date %></dd>
+
+  <dt>Training period end date</dt>
+  <dd><%= applicant.training_period_end_date %></dd>
+
+  <dt>Notes</dt>
+  <dd><%= simple_format applicant.notes %></dd>
+</dl>

@@ -1,324 +1,64 @@
 <% @title = "Applicant: #{@applicant.name}" %>
-<h1><%= @title %></h1>
+<div class="page-header">
+  <h1>
+    <%= @title %>
+    <%= link_to "Edit Applicant", edit_applicant_path(@applicant), class: 'btn btn-mini' %>
+    <%= link_to "Delete Applicant", @applicant, confirm: "Are you sure you want to delete Applicant #{@applicant.name}?", method: :delete, class: 'btn btn-mini btn-danger' %>
+    <%= link_to "View All Applicants", applicants_path, class: 'btn btn-mini' %>
+    <%= link_to "Email Applicant Link", email_applicant_path(@applicant), method: :post, class: 'btn btn-mini' %>
+  </h1>
+</div>
 
-<%= link_to image_tag('gentleface/16/doc_edit.png', alt: '') + "Edit Applicant", edit_applicant_path(@applicant), class: 'btn' %>
-<%= link_to image_tag('gentleface/16/doc_delete.png', alt: '') + "Delete Applicant", @applicant, confirm: "Are you sure you want to delete Applicant #{@applicant.name}?", method: :delete, class: 'btn btn-danger' %>
-<%= link_to image_tag('gentleface/16/folder_open.png', alt: '') + "View All Applicants", applicants_path, class: 'btn' %>
-<div style="clear:both"></div>
-
-<fieldset>
-  <legend>Applicant Info (Predoc Postdoc)</legend>
-
+<% if @applicant.recently_notified? %>
   <p>
-    <b>Reference number:</b>
-    <%= @applicant.reference_number %>
+    Last notified by email <span class="label label-info"><%= simple_time @applicant.emailed_at %></span>
   </p>
-
-  <p>
-    <b>Email:</b>
-    <%= @applicant.email %>
-  </p>
-
-  <p>
-    <b>Applicant type:</b>
-    <%= @applicant.applicant_type %>
-  </p>
-
-  <p>
-    <b>Summer:</b>
-    <%= simple_check @applicant.summer %>
-  </p>
-
-  <p>
-    <b>US Citizen or Permanent Resident:</b>
-    <%= simple_check @applicant.tge %>
-  </p>
-
-  <p>
-    <b>Desired start date:</b>
-    <%= @applicant.desired_start_date %>
-  </p>
-</fieldset>
-
-<fieldset>
-  <legend>Education</legend>
-  <p>
-    <b>Advisor:</b>
-    <%= @applicant.advisor %>
-  </p>
-
-  <p>
-    <b>Concentration major:</b>
-    <%= @applicant.concentration_major %>
-  </p>
-
-  <p>
-    <b>Current institution:</b>
-    <%= @applicant.current_institution %>
-  </p>
-
-  <p>
-    <b>Cv:</b>
-    <%= simple_check @applicant.cv %>
-  </p>
-
-  <p>
-    <b>Degree sought:</b>
-    <%= @applicant.degree_sought %>
-  </p>
-
-  <p>
-    <b>Department program:</b>
-    <%= @applicant.department_program %>
-  </p>
-
-  <p>
-    <b>Expected year:</b>
-    <%= @applicant.expected_year %>
-  </p>
-
-  <p>
-    <b>Preferred preceptor:</b>
-    <%= link_to @applicant.preferred_preceptor.name, @applicant.preferred_preceptor if @applicant.preferred_preceptor %>
-  </p>
-
-  <p>
-    <b>Primary preceptor:</b>
-    <%= link_to @applicant.primary_preceptor.name, @applicant.primary_preceptor if @applicant.primary_preceptor %>
-  </p>
-
-  <p>
-    <b>Secondary preceptor:</b>
-    <%= link_to @applicant.secondary_preceptor.name, @applicant.secondary_preceptor if @applicant.secondary_preceptor %>
-  </p>
-
-  <p>
-    <b>Previous institutions:</b>
-    <%= @applicant.previous_institutions %>
-  </p>
-
-  <p>
-    <b>Thesis:</b>
-    <%= @applicant.thesis %>
-  </p>
-
-  <p>
-    <b>Degrees:</b>
-    <%= @applicant.degrees %>
-  </p>
-
-  <p>
-    <b>Current title:</b>
-    <%= @applicant.current_title %>
-  </p>
-
-</fieldset>
-
-<fieldset>
-  <legend>Demographic Information</legend>
-  <p>
-    <b>Disabled:</b>
-    <%= simple_check @applicant.disabled %>
-  </p>
-
-  <p>
-    <b>Disadvantaged:</b>
-    <%= simple_check @applicant.disadvantaged %>
-  </p>
-
-  <p>
-    <b>Under-Represented Minority:</b>
-    <%= simple_check @applicant.urm %>
-  </p>
-
-  <p>
-    <b>Marital status:</b>
-    <%= @applicant.marital_status %>
-  </p>
-</fieldset>
-
-<fieldset>
-  <legend>Contact Information</legend>
-
-  <p>
-    <b>Phone:</b>
-    <%= @applicant.phone %>
-  </p>
-
-  <p>
-    <b>Address1:</b>
-    <%= @applicant.address1 %>
-  </p>
-
-  <p>
-    <b>Address2:</b>
-    <%= @applicant.address2 %>
-  </p>
-
-  <p>
-    <b>City:</b>
-    <%= @applicant.city %>
-  </p>
-
-  <p>
-    <b>State:</b>
-    <%= @applicant.state %>
-  </p>
-
-  <p>
-    <b>Country:</b>
-    <%= @applicant.country %>
-  </p>
-
-  <p>
-    <b>Zip code:</b>
-    <%= @applicant.zip_code %>
-  </p>
-</fieldset>
-
-<fieldset>
-  <legend>Postdoc Only</legend>
-  <p>
-    <b>Residency:</b>
-    <%= @applicant.residency %>
-  </p>
-</fieldset>
-
-<fieldset>
-  <legend>Trainee Only</legend>
-
-  <p>
-    <b>Research project title:</b>
-    <%= @applicant.research_project_title %>
-  </p>
-</fieldset>
-
-<fieldset>
-  <legend>Annual Only</legend>
-
-  <p>
-    <b>Coursework comp:</b>
-    <%= @applicant.coursework_completed %>
-  </p>
-
-  <p>
-    <b>Publications (Not Previously Reported):</b>
-    <%= @applicant.pubs_not_prev_rep %>
-  </p>
-
-  <p>
-    <b>Presentations:</b>
-    <%= @applicant.presentations %>
-  </p>
-
-  <p>
-    <b>Research description:</b>
-    <%= @applicant.research_description %>
-  </p>
-
-  <p>
-    <b>Source of support:</b>
-    <%= @applicant.source_of_support %>
-  </p>
-</fieldset>
-
-<% if current_user.administrator? %>
-  <fieldset>
-
-    <legend>Administrator Only</legend>
-
-    <p>
-      <b>Accepted:</b>
-      <%= simple_check @applicant.accepted %>
-    </p>
-
-    <p>
-      <b>Offered:</b>
-      <%= simple_check @applicant.offered %>
-    </p>
-
-    <p>
-      <b>Enrolled:</b>
-      <%= simple_check @applicant.enrolled %>
-    </p>
-
-    <p>
-      <b>CV number:</b>
-      <%= @applicant.cv_number %>
-    </p>
-
-    <p>
-      <b>Review date:</b>
-      <%= @applicant.review_date %>
-    </p>
-
-    <p>
-      <b>Reviewed:</b>
-      <%= simple_check @applicant.reviewed %>
-    </p>
-
-    <p>
-      <b>Degree type:</b>
-      <%= @applicant.degree_type %>
-    </p>
-
-    <p>
-      <b>Trainee code:</b>
-      <%= @applicant.trainee_code %>
-    </p>
-
-    <p>
-      <b>Appointment type:</b>
-      <%= @applicant.appointment_type %>
-    </p>
-
-    <p>
-      <b>Year department program:</b>
-      <%= @applicant.year_department_program %>
-    </p>
-
-    <p>
-      <b>Status:</b>
-      <%= @applicant.status %>
-    </p>
-
-    <p>
-      <b>Training grant years:</b>
-      <%= @applicant.training_grant_years %>
-    </p>
-
-    <p>
-      <b>Supported by Training Grant:</b>
-      <%= simple_check @applicant.supported_by_tg %>
-    </p>
-
-    <p>
-      <b>Training period start date:</b>
-      <%= @applicant.training_period_start_date %>
-    </p>
-
-    <p>
-      <b>Training period end date:</b>
-      <%= @applicant.training_period_end_date %>
-    </p>
-
-    <p>
-      <b>Notes:</b>
-      <%= simple_format @applicant.notes %>
-    </p>
-
-  </fieldset>
 <% end %>
 
-<fieldset>
-  <legend>Submission Status</legend>
-  <p>
-    <b>Applicant assurance:</b>
-    <%= simple_check @applicant.assurance %>
-  </p>
+<div class="row">
+  <div class="span6">
+    <%= render partial: 'applicants/show/general', locals: { applicant: @applicant } %>
+  </div>
 
-  <p>
-    <b>Submitted:</b>
-    <%= simple_time @applicant.submitted_at %>
-  </p>
-</fieldset>
+  <div class="span6">
+    <%= render partial: 'applicants/show/education', locals: { applicant: @applicant } %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <%= render partial: 'applicants/show/demographic', locals: { applicant: @applicant } %>
+  </div>
+
+  <div class="span6">
+    <%= render partial: 'applicants/show/contact', locals: { applicant: @applicant } %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <%= render partial: 'applicants/show/postdoc', locals: { applicant: @applicant } %>
+  </div>
+
+  <div class="span6">
+    <%= render partial: 'applicants/show/trainee', locals: { applicant: @applicant } %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <%= render partial: 'applicants/show/annual', locals: { applicant: @applicant } %>
+  </div>
+</div>
+
+<% if current_user.administrator? %>
+  <div class="row">
+    <div class="span6">
+      <%= render partial: 'applicants/show/admin_only', locals: { applicant: @applicant } %>
+    </div>
+
+    <div class="span6">
+      <%= render partial: 'applicants/show/submission', locals: { applicant: @applicant } %>
+    </div>
+  </div>
+<% end %>

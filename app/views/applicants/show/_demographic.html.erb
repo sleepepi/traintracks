@@ -1,0 +1,15 @@
+<div class="page-header"><h2>Demographic Information</h2></div>
+
+<dl class="dl-horizontal">
+  <dt>Disabled</dt>
+  <dd><%= simple_check applicant.disabled %></dd>
+
+  <dt>Disadvantaged</dt>
+  <dd><%= simple_check applicant.disadvantaged %></dd>
+
+  <dt>Under-Represented Minority</dt>
+  <dd><%= simple_check applicant.urm %></dd>
+
+  <dt>Marital status</dt>
+  <dd><%= applicant.marital_status %></dd>
+</dl>

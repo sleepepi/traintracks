@@ -50,11 +50,11 @@ Contour.setup do |config|
     },
     {
       name: 'Applicants', display: 'signed_in', path: 'applicants_path', position: 'left', condition: 'user_signed_in? and current_user.administrator?',
-      links: [{ name: '+ New', path: 'new_applicant_path' }]
+      links: [{ name: 'Create', path: 'new_applicant_path' }]
     },
     {
       name: 'Preceptors', display: 'signed_in', path: 'preceptors_path', position: 'left', condition: 'user_signed_in? and current_user.administrator?',
-      links: [{ name: '+ New', path: 'new_preceptor_path' }]
+      links: [{ name: 'Create', path: 'new_preceptor_path' }]
     },
     {
       name: 'Users', display: 'signed_in', path: 'users_path', position: 'left', condition: 'user_signed_in? and current_user.system_admin?',

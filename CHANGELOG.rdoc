@@ -19,6 +19,9 @@
     * Adminstrator Role added for management of applicants and preceptors
     * Applicants can now register and login to create an application
     * Preceptors can now login to edit their information
+  * Administrators
+    * Can send emails to applicants and preceptors to notify them to update their information
+  * Using Contour 1.0.0 with Twitter-Bootstrap
 
 == 0.1.0
 

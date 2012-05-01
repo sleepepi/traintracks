@@ -19,6 +19,24 @@ class UserMailer < ActionMailer::Base
 #         reply_to: user.email)
   end
 
+  def update_application(applicant, user)
+    setup_email
+    @applicant = applicant
+    @user = user
+    mail(to: applicant.email,
+         subject: "Please Update Your Application Information",
+         reply_to: user.email)
+  end
+
+  def update_preceptor(preceptor, user)
+    setup_email
+    @preceptor = preceptor
+    @user = user
+    mail(to: preceptor.email,
+         subject: "Please Update Your Information",
+         reply_to: user.email)
+  end
+
   protected
 
   def setup_email

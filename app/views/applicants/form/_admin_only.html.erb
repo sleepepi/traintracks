@@ -1,0 +1,124 @@
+<div class="page-header"><h2>Administrator Only</h2></div>
+
+<div class="control-group">
+  <%= f.label :accepted, class: 'control-label' %>
+  <div class="controls">
+    <%= f.check_box :accepted %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :offered, class: 'control-label' %>
+  <div class="controls">
+    <%= f.check_box :offered %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :enrolled, class: 'control-label' %>
+  <div class="controls">
+    <%= f.check_box :enrolled %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :cv_number, 'CV number', class: 'control-label' %>
+  <div class="controls">
+    <%= f.number_field :cv_number %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :review_date, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :review_date, class: 'datepicker', value: applicant.review_date ? applicant.review_date.strftime('%m/%d/%Y') : '' %>
+  </div>
+</div>
+<div class="control-group">
+  <%= f.label :reviewed, class: 'control-label' %>
+  <div class="controls">
+    <%= f.check_box :reviewed %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :degree_type, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :degree_type %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :primary_preceptor_id, class: 'control-label' %>
+  <div class="controls">
+    <%= f.select :primary_preceptor_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
+  </div>
+</div>
+<div class="control-group">
+  <%= f.label :secondary_preceptor_id, class: 'control-label' %>
+  <div class="controls">
+    <%= f.select :secondary_preceptor_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :trainee_code, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :trainee_code %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :appointment_type, "Appointment Type (Remove/Merge)", class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :appointment_type %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :year_department_program, "Year Department (To Be Hidden)", class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :year_department_program %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :status, class: 'control-label' %>
+  <div class="controls">
+    <%= f.select :status, Applicant::STATUS %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :training_grant_years, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :training_grant_years %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :supported_by_tg, "Supported by TG", class: 'control-label' %>
+  <div class="controls">
+    <%= f.check_box :supported_by_tg %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :training_period_start_date, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :training_period_start_date, class: 'datepicker', value: applicant.training_period_start_date ? applicant.training_period_start_date.strftime('%m/%d/%Y') : '' %>
+  </div>
+</div>
+<div class="control-group">
+  <%= f.label :training_period_end_date, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :training_period_end_date, class: 'datepicker', value: applicant.training_period_end_date ? applicant.training_period_end_date.strftime('%m/%d/%Y') : '' %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :notes, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_area :notes, rows: 7, style: "width:99%" %>
+  </div>
+</div>

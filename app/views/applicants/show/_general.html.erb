@@ -1,0 +1,21 @@
+<div class="page-header"><h2>Applicant Info (Predoc Postdoc)</h2></div>
+
+<dl class="dl-horizontal">
+  <dt>Reference number</dt>
+  <dd><%= applicant.reference_number %></dd>
+
+  <dt>Email</dt>
+  <dd><%= applicant.email %></dd>
+
+  <dt>Applicant type</dt>
+  <dd><%= applicant.applicant_type %></dd>
+
+  <dt>Summer</dt>
+  <dd><%= simple_check applicant.summer %></dd>
+
+  <dt>US Citizen or Permanent Resident</dt>
+  <dd><%= simple_check applicant.tge %></dd>
+
+  <dt>Desired start date</dt>
+  <dd><%= applicant.desired_start_date %></dd>
+</dl>

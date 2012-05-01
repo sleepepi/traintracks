@@ -5,28 +5,5 @@
     <%= link_to "Edit", edit_me_preceptors_path, class: 'btn btn-mini' %>
   </h1>
 </div>
-<dl class="dl-horizontal">
-  <dt>Degree</dt>
-  <dd><%= current_preceptor.degree %></dd>
 
-  <dt>Status</dt>
-  <dd><%= current_preceptor.status %></dd>
-
-  <dt>Hospital affiliation</dt>
-  <dd><%= current_preceptor.hospital_affiliation %></dd>
-
-  <dt>Hospital appointment</dt>
-  <dd><%= current_preceptor.hospital_appointment %></dd>
-
-  <dt>Other support</dt>
-  <dd><%= current_preceptor.other_support %></dd>
-
-  <dt>Rank</dt>
-  <dd><%= current_preceptor.rank %></dd>
-
-  <dt>Research interest</dt>
-  <dd><%= current_preceptor.research_interest %></dd>
-
-  <dt>Program role</dt>
-  <dd><%= current_preceptor.program_role %></dd>
-</dl>
+<%= render partial: 'preceptors/show/general', locals: { preceptor: current_preceptor } %>

@@ -1,0 +1,67 @@
+<div class="page-header"><h2>Applicant Info (Predoc Postdoc)</h2></div>
+
+<div class="control-group">
+  <%= f.label :email, class: 'control-label' %>
+  <div class="controls">
+    <%= f.email_field :email %>
+  </div>
+</div>
+
+<% if user_signed_in? and current_user.administrator? %>
+  <div class="control-group">
+    <%= f.label :password, class: 'control-label' %>
+    <div class="controls">
+      <%= f.password_field :password %>
+    </div>
+  </div>
+<% end %>
+
+<div class="control-group">
+  <%= f.label :first_name, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :first_name %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :last_name, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :last_name %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :middle_initial, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :middle_initial %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :applicant_type, class: 'control-label' %>
+  <div class="controls">
+    <%= f.select :applicant_type, Applicant::APPLICANT_TYPE %>
+  </div>
+</div>
+
+<div class="control-group checkbox">
+  <div class="controls">
+    <%= f.check_box :summer %>
+    <%= f.label :summer %>
+  </div>
+</div>
+
+<div class="control-group checkbox">
+  <div class="controls">
+    <%= f.check_box :tge %>
+    <%= f.label :tge, "US Citizen or Permanent Resident" %>
+    <span class="help-block">Please note that only citizens and permanent residents are eligible for training grant support</span>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :desired_start_date, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :desired_start_date, class: 'datepicker', value: applicant.desired_start_date ? applicant.desired_start_date.strftime('%m/%d/%Y') : '' %>
+  </div>
+</div>

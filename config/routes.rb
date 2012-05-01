@@ -9,6 +9,9 @@ TrainingGrant::Application.routes.draw do
       get :edit_me
       put :update_me
     end
+    member do
+      post :email
+    end
   end
 
   devise_for :preceptors, path: 'ps', path_names: { sign_up: 'register', sign_in: 'login' }
@@ -18,6 +21,9 @@ TrainingGrant::Application.routes.draw do
       get :dashboard
       get :edit_me
       put :update_me
+    end
+    member do
+      post :email
     end
   end
 

@@ -41,4 +41,15 @@ class Preceptor < ActiveRecord::Base
     update_attribute :deleted, true
   end
 
+  # Return true if an email has been sent to the applicant and they have not yet logged in
+  def recently_notified?
+    not self.emailed_at.blank? and not self.current_sign_in_at.blank? and self.current_sign_in_at < self.emailed_at
+  end
+
+  def update_general_information_email!(current_user)
+    self.reset_authentication_token!
+    self.update_attribute :emailed_at, Time.now
+    UserMailer.update_preceptor(self, current_user).deliver if Rails.env.production?
+  end
+
 end

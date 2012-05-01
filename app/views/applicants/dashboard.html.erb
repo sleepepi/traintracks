@@ -17,164 +17,36 @@
 
 <div class="row">
   <div class="span6">
-    <div class="page-header"><h2>Applicant Info (Predoc Postdoc)</h2></div>
-
-    <dl class="dl-horizontal">
-      <dt>Reference number</dt>
-      <dd><%= current_applicant.reference_number %></dd>
-
-      <dt>Email</dt>
-      <dd><%= current_applicant.email %></dd>
-
-      <dt>Applicant type</dt>
-      <dd><%= current_applicant.applicant_type %></dd>
-
-      <dt>Summer</dt>
-      <dd><%= simple_check current_applicant.summer %></dd>
-
-      <dt>US Citizen or Permanent Resident</dt>
-      <dd><%= simple_check current_applicant.tge %></dd>
-
-      <dt>Desired start date</dt>
-      <dd><%= current_applicant.desired_start_date %></dd>
-    </dl>
+    <%= render partial: 'applicants/show/general', locals: { applicant: current_applicant } %>
   </div>
 
   <div class="span6">
-    <div class="page-header"><h2>Education</h2></div>
-
-    <dl class="dl-horizontal">
-      <dt>Advisor</dt>
-      <dd><%= current_applicant.advisor %></dd>
-
-      <dt>Concentration major</dt>
-      <dd><%= current_applicant.concentration_major %></dd>
-
-      <dt>Current institution</dt>
-      <dd><%= current_applicant.current_institution %></dd>
-
-      <dt>Cv</dt>
-      <dd><%= simple_check current_applicant.cv %></dd>
-
-      <dt>Degree sought</dt>
-      <dd><%= current_applicant.degree_sought %></dd>
-
-      <dt>Department program</dt>
-      <dd><%= current_applicant.department_program %></dd>
-
-      <dt>Expected year</dt>
-      <dd><%= current_applicant.expected_year %></dd>
-
-      <dt>Preferred preceptor</dt>
-      <dd><%= link_to current_applicant.preferred_preceptor.name, current_applicant.preferred_preceptor if current_applicant.preferred_preceptor %></dd>
-
-      <dt>Primary preceptor</dt>
-      <dd><%= link_to current_applicant.primary_preceptor.name, current_applicant.primary_preceptor if current_applicant.primary_preceptor %></dd>
-
-      <dt>Secondary preceptor</dt>
-      <dd><%= link_to current_applicant.secondary_preceptor.name, current_applicant.secondary_preceptor if current_applicant.secondary_preceptor %></dd>
-
-      <dt>Previous institutions</dt>
-      <dd><%= current_applicant.previous_institutions %></dd>
-
-      <dt>Thesis</dt>
-      <dd><%= current_applicant.thesis %></dd>
-
-      <dt>Degrees</dt>
-      <dd><%= current_applicant.degrees %></dd>
-
-      <dt>Current title</dt>
-      <dd><%= current_applicant.current_title %></dd>
-    </dl>
+    <%= render partial: 'applicants/show/education', locals: { applicant: current_applicant } %>
   </div>
 </div>
 
 <div class="row">
   <div class="span6">
-    <div class="page-header"><h2>Demographic Information</h2></div>
-
-    <dl class="dl-horizontal">
-      <dt>Disabled</dt>
-      <dd><%= simple_check current_applicant.disabled %></dd>
-
-      <dt>Disadvantaged</dt>
-      <dd><%= simple_check current_applicant.disadvantaged %></dd>
-
-      <dt>Under-Represented Minority</dt>
-      <dd><%= simple_check current_applicant.urm %></dd>
-
-      <dt>Marital status</dt>
-      <dd><%= current_applicant.marital_status %></dd>
-    </dl>
+    <%= render partial: 'applicants/show/demographic', locals: { applicant: current_applicant } %>
   </div>
 
   <div class="span6">
-    <div class="page-header"><h2>Contact Information</h2></div>
-
-    <dl class="dl-horizontal">
-      <dt>Phone</dt>
-      <dd><%= current_applicant.phone %></dd>
-
-      <dt>Address1</dt>
-      <dd><%= current_applicant.address1 %></dd>
-
-      <dt>Address2</dt>
-      <dd><%= current_applicant.address2 %></dd>
-
-      <dt>City</dt>
-      <dd><%= current_applicant.city %></dd>
-
-      <dt>State</dt>
-      <dd><%= current_applicant.state %></dd>
-
-      <dt>Country</dt>
-      <dd><%= current_applicant.country %></dd>
-
-      <dt>Zip code</dt>
-      <dd><%= current_applicant.zip_code %></dd>
-    </dl>
+    <%= render partial: 'applicants/show/contact', locals: { applicant: current_applicant } %>
   </div>
 </div>
 
 <div class="row">
   <div class="span6">
-    <div class="page-header"><h2>Postdoc Only</h2></div>
-
-    <dl class="dl-horizontal">
-      <dt>Residency</dt>
-      <dd><%= current_applicant.residency %></dd>
-    </dl>
+    <%= render partial: 'applicants/show/postdoc', locals: { applicant: current_applicant } %>
   </div>
 
   <div class="span6">
-    <div class="page-header"><h2>Trainee Only</h2></div>
-
-    <dl class="dl-horizontal">
-      <dt>Research project title</dt>
-      <dd><%= current_applicant.research_project_title %></dd>
-    </dl>
+    <%= render partial: 'applicants/show/trainee', locals: { applicant: current_applicant } %>
   </div>
 </div>
 
 <div class="row">
   <div class="span6">
-    <div class="page-header"><h2>Annual Only</h2></div>
-
-    <dl class="dl-horizontal">
-      <dt>Coursework comp</dt>
-      <dd><%= current_applicant.coursework_completed %></dd>
-
-      <dt>Publications (Not Previously Reported)</dt>
-      <dd><%= current_applicant.pubs_not_prev_rep %></dd>
-
-      <dt>Presentations</dt>
-      <dd><%= current_applicant.presentations %></dd>
-
-      <dt>Research description</dt>
-      <dd><%= current_applicant.research_description %></dd>
-
-      <dt>Source of support</dt>
-      <dd><%= current_applicant.source_of_support %></dd>
-    </dl>
+    <%= render partial: 'applicants/show/annual', locals: { applicant: current_applicant } %>
   </div>
 </div>

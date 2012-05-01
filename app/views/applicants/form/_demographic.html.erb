@@ -1,0 +1,31 @@
+<div class="page-header">
+  <h2>Demographic Information</h2>
+</div>
+
+<div class="control-group checkbox">
+  <div class="controls">
+    <%= f.check_box :disabled %>
+    <%= f.label :disabled %>
+  </div>
+</div>
+
+<div class="control-group checkbox">
+  <div class="controls">
+    <%= f.check_box :disadvantaged %>
+    <%= f.label :disadvantaged %>
+  </div>
+</div>
+
+<div class="control-group checkbox">
+  <div class="controls">
+    <%= f.check_box :urm %>
+    <%= f.label :urm, "Under-Represented Minority" %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :marital_status, class: 'control-label' %>
+  <div class="controls">
+    <%= f.select :marital_status, [['---', nil]] + Applicant::MARITAL_STATUS %>
+  </div>
+</div>

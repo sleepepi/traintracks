@@ -6,8 +6,7 @@
       <h2>Applicant Login</h2>
     </div>
 
-    <% form_name = "new_applicant" %>
-    <%= form_for(:applicant, as: 'applicants', url: session_path('applicant'), html: { id: form_name, class: 'form-horizontal' }) do |f| %>
+    <%= form_for(:applicant, as: 'applicants', url: session_path('applicant'), html: { class: 'form-horizontal' }) do |f| %>
       <div class="control-group">
         <%= f.label :email, class: 'control-label' %>
         <div class="controls">
@@ -42,8 +41,7 @@
     <div class="page-header">
       <h2>Preceptor Login</h2>
     </div>
-    <% form_name = "new_preceptor" %>
-    <%= form_for(:preceptor, as: 'preceptor', url: session_path('preceptor'), html: { id: form_name, class: 'form-horizontal' }) do |f| %>
+    <%= form_for(:preceptor, as: 'preceptor', url: session_path('preceptor'), html: { class: 'form-horizontal' }) do |f| %>
       <div class="control-group">
         <%= f.label :email, class: 'control-label' %>
         <div class="controls">
@@ -68,7 +66,7 @@
       <div class="form-actions">
         <%= f.submit "Preceptor Login", class: 'btn btn-primary' %>
       </div>
-      <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+      <%= link_to "Forgot your password?", new_password_path('preceptor') %>
     <% end %>
   </div>
   <div class="span4">
@@ -98,7 +96,6 @@
       </div>
 
       <div class="form-actions">
-        <% form_name = "new_#{resource.class.name.underscore}" %>
         <%= f.submit "Administrator Login", class: 'btn btn-primary' %>
       </div>
 

@@ -24,6 +24,13 @@ class PreceptorsController < ApplicationController
     end
   end
 
+  # Sends email to preceptor containg authentication token
+  def email
+    @preceptor = Preceptor.find(params[:id])
+    @preceptor.update_general_information_email!(current_user)
+    redirect_to @preceptor, notice: 'Preceptor has been notified by email to update application information.'
+  end
+
   def index
     # current_user.update_attribute :preceptors_per_page, params[:preceptors_per_page].to_i if params[:preceptors_per_page].to_i >= 10 and params[:preceptors_per_page].to_i <= 200
     preceptor_scope = Preceptor.current # current_user.all_viewable_preceptors
