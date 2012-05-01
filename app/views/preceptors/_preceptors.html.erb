@@ -1,24 +1,7 @@
-<div style="float:right">
-  Per Page
-  <span class="per_page selected">40</span>
-  <% if false %>
-  <% [10,25,50].each do |count| %>
-    <span class="per_page">
-      <% if current_user.tags_per_page != count %>
-        <%= link_to count, "#", 'data-count' => count, 'data-object' => 'tags', id: "count_#{count}" %>
-      <% else %>
-        <span class="selected"><%= count %></span>
-      <% end %>
-    </span>
-  <% end %>
-  <% end %>
-</div>
+<%= render partial: 'layouts/per_page', locals: { type: 'preceptors', per_page: 40 } %>
 
-<div style="clear:both"></div>
-
-<div class="frame">
-  <table style="width:100%">
-
+<table class="table table-striped table-bordered" style="width:100%">
+  <thead>
     <tr>
       <th>Name</th>
       <th>Email</th>
@@ -31,9 +14,9 @@
       <th>Research interest</th>
       <th>Program role</th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'preceptors.current_sign_in_at', 'Recent Activity', 'preceptors_search') %></th>
-      <th></th>
-      <th></th>
+      <th>Actions</th>
     </tr>
+  </thead>
 
   <% @preceptors.each do |preceptor| %>
     <tr>
@@ -48,11 +31,12 @@
       <td><%= preceptor.research_interest %></td>
       <td><%= preceptor.program_role %></td>
       <td><%= recent_activity(preceptor.current_sign_in_at) %></td>
-      <td><%= link_to 'Edit', edit_preceptor_path(preceptor) %></td>
-      <td><%= link_to 'Destroy', preceptor, confirm: 'Are you sure?', method: :delete %></td>
+      <td>
+        <%= link_to 'Edit', edit_preceptor_path(preceptor), class: 'btn btn-mini' %>
+        <%= link_to 'Delete', preceptor, confirm: "Are you sure you want to delete Preceptor #{preceptor.name}?", method: :delete, class: 'btn btn-mini btn-danger' %>
+      </td>
     </tr>
   <% end %>
-  </table>
-</div>
+</table>
 
 <center><%= paginate @preceptors %></center>

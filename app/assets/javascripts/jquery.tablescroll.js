@@ -135,12 +135,12 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 			if (has_thead)
 			{
-				var tbh = $('<table class="tablescroll_head" cellspacing="0"></table>').insertBefore(wrapper).prepend($('thead',tb));
+				var tbh = $('<table class="tablescroll_head table table-striped table-bordered" cellspacing="0"></table>').insertBefore(wrapper).prepend($('thead',tb));
 			}
 
 			if (has_tfoot)
 			{
-				var tbf = $('<table class="tablescroll_foot" cellspacing="0"></table>').insertAfter(wrapper).prepend($('tfoot',tb));
+				var tbf = $('<table class="tablescroll_foot table table-striped table-bordered" cellspacing="0"></table>').insertAfter(wrapper).prepend($('tfoot',tb));
 			}
 
 			if (tbh != undefined)

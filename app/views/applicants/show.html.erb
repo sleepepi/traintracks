@@ -4,7 +4,7 @@
     <%= @title %>
     <%= link_to "Edit Applicant", edit_applicant_path(@applicant), class: 'btn btn-mini' %>
     <%= link_to "Delete Applicant", @applicant, confirm: "Are you sure you want to delete Applicant #{@applicant.name}?", method: :delete, class: 'btn btn-mini btn-danger' %>
-    <%= link_to "View All Applicants", applicants_path, class: 'btn btn-mini' %>
+    <%= link_to "View Applicants", applicants_path, class: 'btn btn-mini' %>
     <%= link_to "Email Applicant Link", email_applicant_path(@applicant), method: :post, class: 'btn btn-mini' %>
   </h1>
 </div>
