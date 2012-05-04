@@ -56,7 +56,7 @@
 <div class="control-group">
   <%= f.label :expected_year, "Expected Graduation Year", class: 'control-label' %>
   <div class="controls">
-    <%= f.number_field :expected_year %>
+    <%= f.number_field :expected_year, min: 2000 %>
   </div>
 </div>
 
