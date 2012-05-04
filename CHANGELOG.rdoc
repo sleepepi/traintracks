@@ -1,6 +1,7 @@
 == 0.3.0
 
 * Enhancements
+  * Applicants now fall into either "predoc", "postdoc", or "summer" categories
   * Use new Contour login attributes on Registration page
   * Use Contour for User account Confirmations and Unlocks
 

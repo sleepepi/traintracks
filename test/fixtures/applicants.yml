@@ -24,7 +24,6 @@ one:
   previous_institutions: MyText
   review_date: 2012-04-02
   reviewed: false
-  summer: false
   tge: false
   thesis: MyString
   urm: false
@@ -85,7 +84,6 @@ two:
   previous_institutions: MyText
   review_date: 2012-04-02
   reviewed: false
-  summer: false
   tge: false
   thesis: MyString
   urm: false
