@@ -43,7 +43,7 @@
 <div class="control-group">
   <%= f.label :degree_sought, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :degree_sought %>
+    <%= f.text_field :degree_sought, 'data-toggle' => 'predoc_summer_only' %>
   </div>
 </div>
 <div class="control-group">
@@ -56,7 +56,7 @@
 <div class="control-group">
   <%= f.label :expected_year, "Expected Graduation Year", class: 'control-label' %>
   <div class="controls">
-    <%= f.number_field :expected_year, min: 2000 %>
+    <%= f.number_field :expected_year, min: 2000, 'data-toggle' => 'predoc_summer_only' %>
   </div>
 </div>
 
@@ -89,13 +89,6 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :thesis, class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_field :thesis %>
-  </div>
-</div>
-
-<div class="control-group">
   <%= f.label :degrees, 'Degrees Earned', class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :degrees %>
@@ -106,5 +99,19 @@
   <%= f.label :current_title, 'Current position', class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :current_title %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :thesis, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :thesis, 'data-toggle' => 'postdoc_only' %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :residency, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :residency, 'data-toggle' => 'postdoc_only' %>
   </div>
 </div>

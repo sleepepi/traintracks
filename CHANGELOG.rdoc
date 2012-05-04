@@ -7,6 +7,7 @@
   * Applicants need to confirm their emails before being able to sign in
   * Applicants can now upload a curriculum vitae
   * Applicants can now have three preferred preceptors
+  * Application type now affects what fields are displayed to the applicant
   * Use new Contour login attributes on Registration page
   * Use Contour for User account Confirmations and Unlocks
 
