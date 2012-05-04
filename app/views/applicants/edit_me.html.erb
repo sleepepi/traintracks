@@ -33,7 +33,21 @@
       Applicant Assurance and Sign Off
     </h3>
 
-    <blockquote style="margin-top:20px">I certify that the above information is true and correct to the best of my knowledge.</blockquote>
+    <blockquote style="margin-top:20px">
+      I certify that the above information is true and correct to the best of my knowledge.
+    </blockquote>
+
+    <% if defined?(TG_ADMIN_EMAIL) and not TG_ADMIN_EMAIL.blank? and defined?(TG_ADMIN_ADDRESS) and not TG_ADMIN_ADDRESS.blank? %>
+      <div><span class="label label-info">Important:</span> Please remember you need <strong>3 letters of recommendation</strong>!</div>
+
+      <dl class="dl-horizontal">
+        <dt>Email</dt>
+        <dd><address><%= simple_format TG_ADMIN_EMAIL %></address></dd>
+        <dt>Mail</dt>
+        <dd><address><%= simple_format TG_ADMIN_ADDRESS %></address></dd>
+      </dl>
+
+    <% end %>
 
     <div class="control-group checkbox">
       <%= f.check_box :assurance %>
@@ -42,9 +56,9 @@
   </div>
 
   <div class="form-actions">
-    <%= hidden_field_tag 'publish', '0' %>
-    <%= link_to_function "Save Draft", "$('#publish').val('0');$('##{form_name}').submit();", class: 'btn' %>
-    <%= link_to_function "Submit Application for Review", "if(applicantAssuranceCheck() == false){return false;};$('#publish').val('1');$('##{form_name}').submit();", class: 'btn btn-primary' %>
+    <%= f.hidden_field :publish, default: '0' %>
+    <%= link_to_function "Save Draft", "$('#applicant_publish').val('0');$('##{form_name}').submit();", class: 'btn' %>
+    <%= link_to_function "Submit Application for Review", "if(applicantAssuranceCheck() == false){return false;};$('#applicant_publish').val('1');$('##{form_name}').submit();", class: 'btn btn-primary' %>
     <%= link_to 'Cancel', dashboard_applicants_path, class: 'btn btn-danger' %>
   </div>
 <% end %>

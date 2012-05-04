@@ -58,3 +58,11 @@
     <%= f.text_field :desired_start_date, class: 'datepicker', value: applicant.desired_start_date ? applicant.desired_start_date.strftime('%m/%d/%Y') : '' %>
   </div>
 </div>
+
+<div class="control-group">
+  <%= f.label :personal_statement, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_area :personal_statement, rows: 7, style: "width:99%" %>
+    <span class="help-block">Maximum of 250 words</span>
+  </div>
+</div>

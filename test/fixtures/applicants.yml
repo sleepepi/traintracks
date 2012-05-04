@@ -59,6 +59,7 @@ one:
   marital_status: single
   assurance: true
   email: one@example.com
+  personal_statement: MyText
 
 two:
   first_name: MyString
@@ -119,3 +120,4 @@ two:
   marital_status: married
   assurance: false
   email: two@example.com
+  personal_statement: MyText

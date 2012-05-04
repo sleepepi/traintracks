@@ -2,6 +2,8 @@
 
 * Enhancements
   * Applicants now fall into either "predoc", "postdoc", or "summer" categories
+  * Applicants now have a "personal statement" to fill out
+  * Added requirement for applicants to mail or email 3 recommendation letters
   * Use new Contour login attributes on Registration page
   * Use Contour for User account Confirmations and Unlocks
 

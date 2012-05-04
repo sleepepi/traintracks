@@ -7,12 +7,15 @@
   <tr>
     <td style="vertical-align:bottom;border:0px">
       <table class="table table-striped table-bordered">
-        <tr>
-          <td style="font-weight:bold">Outstanding Data Requests</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td style="font-weight:bold">Pending Applications</td>
+        <thead>
+          <tr>
+            <th>Outstanding Data Requests</th>
+            <th></th>
+          </tr>
+
+        </thead>
+        <tr style="font-weight:bold">
+          <td>Pending Applications</td>
           <td>
             <% pending_applications = Applicant.current.where(reviewed: false) %>
             <%= pending_applications.count %>
@@ -28,10 +31,10 @@
         </tr>
         <tr>
           <td style="padding-left:20px">Summer</td>
-          <td><%= pending_applications.where(summer: true).count %></td>
+          <td><%= pending_applications.where(applicant_type: 'summer').count %></td>
         </tr>
-        <tr>
-          <td style="font-weight:bold">Applications this calendar year</td>
+        <tr style="font-weight:bold">
+          <td>Applications this calendar year</td>
           <td>
             <% year_applicants = Applicant.current.where(submitted_at: Time.now.at_beginning_of_year..Time.now.at_end_of_year) %>
             <%= year_applicants.count %>
@@ -47,18 +50,18 @@
         </tr>
         <tr>
           <td style="padding-left:20px">Summer</td>
-          <td><%= year_applicants.where(summer: true).count %></td>
+          <td><%= year_applicants.where(applicant_type: 'summer').count %></td>
         </tr>
-        <tr>
-          <td style="font-weight:bold">Acceptance rate this calendar year</td>
+        <tr style="font-weight:bold">
+          <td>Acceptance rate this calendar year</td>
           <td><%= year_applicants.count == 0 ? 'N/A' : "%0.00f %" % (year_applicants.where(accepted: true).count * 100.0 / year_applicants.count) %></td>
         </tr>
       </table>
     </td>
     <td style="vertical-align:bottom;border:0px">
       <table class="table table-striped table-bordered">
-        <tr>
-          <td style="font-weight:bold">Applications last calendar year</td>
+        <tr style="font-weight:bold">
+          <td>Applications last calendar year</td>
           <td>
             <% last_year_applicants = Applicant.current.where(submitted_at: (Time.now - 1.year).at_beginning_of_year..(Time.now - 1.year).at_end_of_year) %>
             <%= last_year_applicants.count %>
@@ -74,10 +77,10 @@
         </tr>
         <tr>
           <td style="padding-left:20px">Summer</td>
-          <td><%= last_year_applicants.where(summer: true).count %></td>
+          <td><%= last_year_applicants.where(applicant_type: 'summer').count %></td>
         </tr>
-        <tr>
-          <td style="font-weight:bold">Acceptance rate last calendar year</td>
+        <tr style="font-weight:bold">
+          <td>Acceptance rate last calendar year</td>
           <td><%= last_year_applicants.count == 0 ? 'N/A' : "%0.00f %" % (last_year_applicants.where(accepted: true).count * 100.0 / last_year_applicants.count) %></td>
         </tr>
       </table>

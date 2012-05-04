@@ -9,7 +9,7 @@ class ApplicantsController < ApplicationController
   end
 
   def edit_me
-    redirect_to dashboard_applicants_path, notice: 'You have already submitted your application.' if current_applicant.assurance?
+    redirect_to dashboard_applicants_path, info: 'You have already submitted your application.' unless current_applicant.submitted_at.blank?
   end
 
   def update_me
@@ -143,7 +143,7 @@ class ApplicantsController < ApplicationController
     else
       params[:applicant].slice(
         # Applicant Information
-        :email, :first_name, :last_name, :middle_initial, :applicant_type, :summer, :tge, :desired_start_date,
+        :email, :first_name, :last_name, :middle_initial, :applicant_type, :summer, :tge, :desired_start_date, :personal_statement,
         # Education
         :advisor, :concentration_major, :current_institution, :cv, :degree_sought, :department_program, :expected_year,
         :preferred_preceptor_id, :previous_institutions, :thesis, :degrees, :current_title,
@@ -158,7 +158,7 @@ class ApplicantsController < ApplicationController
         # Annual Only
         :coursework_completed, :pubs_not_prev_rep, :presentations, :research_description, :source_of_support,
         # Applicant Assurance
-        :assurance
+        :assurance, :publish
        )
     end
   end

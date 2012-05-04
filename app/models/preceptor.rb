@@ -29,6 +29,11 @@ class Preceptor < ActiveRecord::Base
     super and not self.deleted?
   end
 
+  def after_token_authentication
+    self.reset_authentication_token!
+    super
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
