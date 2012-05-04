@@ -5,8 +5,10 @@
     <tr>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.last_name', 'Name', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.applicant_type', 'Type', 'applicants_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.accepted', 'Accepted', 'applicants_search') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.reviewed', 'Reviewed', 'applicants_search') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.review_date', 'Review date', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.offered', 'Offered', 'applicants_search') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.accepted', 'Accepted', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.enrolled', 'Enrolled', 'applicants_search') %></th>
       <th>Advisor</th>
       <th>CV number</th>
@@ -22,8 +24,6 @@
       <th>Primary preceptor</th>
       <th>Secondary preceptor</th>
       <th>Previous institutions</th>
-      <th>Review date</th>
-      <th>Reviewed</th>
       <th>TGE</th>
       <th>Thesis</th>
       <th>URM</th>
@@ -66,8 +66,10 @@
       <tr class="<%= 'first' if index == 0 %>">
         <td><%= link_to applicant.name, applicant %></td>
         <td><%= applicant.applicant_type %></td>
-        <td style="text-align:center"><%= simple_check applicant.accepted %></td>
+        <td style="text-align:center"><%= simple_check applicant.reviewed %></td>
+        <td><%= applicant.review_date %></td>
         <td style="text-align:center"><%= simple_check applicant.offered %></td>
+        <td style="text-align:center"><%= simple_check applicant.accepted %></td>
         <td style="text-align:center"><%= simple_check applicant.enrolled %></td>
         <td><%= applicant.advisor %></td>
         <td><%= applicant.cv_number %></td>
@@ -83,8 +85,6 @@
         <td><%= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor %></td>
         <td><%= link_to applicant.secondary_preceptor.name, applicant.secondary_preceptor if applicant.secondary_preceptor %></td>
         <td><%= applicant.previous_institutions %></td>
-        <td><%= applicant.review_date %></td>
-        <td style="text-align:center"><%= simple_check applicant.reviewed %></td>
         <td style="text-align:center"><%= simple_check applicant.tge %></td>
         <td><%= applicant.thesis %></td>
         <td style="text-align:center"><%= simple_check applicant.urm %></td>

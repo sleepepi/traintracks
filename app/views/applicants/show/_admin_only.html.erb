@@ -1,23 +1,23 @@
 <div class="page-header"><h2>Administrator Only</h2></div>
 
 <dl class="dl-horizontal">
-  <dt>Accepted</dt>
-  <dd><%= simple_check applicant.accepted %></dd>
+  <dt>Reviewed</dt>
+  <dd><%= simple_check applicant.reviewed %></dd>
+
+  <dt>Review date</dt>
+  <dd><%= applicant.review_date %></dd>
 
   <dt>Offered</dt>
   <dd><%= simple_check applicant.offered %></dd>
+
+  <dt>Accepted</dt>
+  <dd><%= simple_check applicant.accepted %></dd>
 
   <dt>Enrolled</dt>
   <dd><%= simple_check applicant.enrolled %></dd>
 
   <dt>CV number</dt>
   <dd><%= applicant.cv_number %></dd>
-
-  <dt>Review date</dt>
-  <dd><%= applicant.review_date %></dd>
-
-  <dt>Reviewed</dt>
-  <dd><%= simple_check applicant.reviewed %></dd>
 
   <dt>Degree type</dt>
   <dd><%= applicant.degree_type %></dd>

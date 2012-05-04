@@ -1,9 +1,16 @@
 <div class="page-header"><h2>Administrator Only</h2></div>
 
 <div class="control-group">
-  <%= f.label :accepted, class: 'control-label' %>
+  <%= f.label :reviewed, class: 'control-label' %>
   <div class="controls">
-    <%= f.check_box :accepted %>
+    <%= f.check_box :reviewed %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :review_date, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :review_date, class: 'datepicker', value: applicant.review_date ? applicant.review_date.strftime('%m/%d/%Y') : '' %>
   </div>
 </div>
 
@@ -11,6 +18,13 @@
   <%= f.label :offered, class: 'control-label' %>
   <div class="controls">
     <%= f.check_box :offered %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :accepted, class: 'control-label' %>
+  <div class="controls">
+    <%= f.check_box :accepted %>
   </div>
 </div>
 
@@ -25,19 +39,6 @@
   <%= f.label :cv_number, 'CV number', class: 'control-label' %>
   <div class="controls">
     <%= f.number_field :cv_number %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :review_date, class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_field :review_date, class: 'datepicker', value: applicant.review_date ? applicant.review_date.strftime('%m/%d/%Y') : '' %>
-  </div>
-</div>
-<div class="control-group">
-  <%= f.label :reviewed, class: 'control-label' %>
-  <div class="controls">
-    <%= f.check_box :reviewed %>
   </div>
 </div>
 
