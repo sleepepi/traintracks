@@ -14,7 +14,13 @@
   <dd><%= simple_check applicant.cv %></dd>
 
   <dt>Curriculum Vitae</dt>
-  <dd><%= link_to applicant.curriculum_vitae_url.split('/').last, applicant.curriculum_vitae_url, target: '_blank', class: 'btn btn-mini' unless applicant.curriculum_vitae_url.blank? %></dd>
+  <dd>
+    <% unless applicant.curriculum_vitae_url.blank? %>
+      <%= link_to applicant.curriculum_vitae_url.split('/').last, applicant.curriculum_vitae_url, target: '_blank', class: 'btn btn-mini' %>
+      <%= number_to_human_size(applicant.curriculum_vitae.size) %>
+      <% if false %><span class="muted">uploaded <%= simple_time(applicant.curriculum_vitae_uploaded_at) %></span><% end %>
+    <% end %>
+  </dd>
 
   <dt>Degree sought</dt>
   <dd><%= applicant.degree_sought %></dd>
