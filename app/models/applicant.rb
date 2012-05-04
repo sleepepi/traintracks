@@ -12,9 +12,11 @@ class Applicant < ActiveRecord::Base
                   :middle_initial, :notes, :offered, :phone, :preferred_preceptor_id, :presentations, :previous_institutions, :primary_preceptor_id, :pubs_not_prev_rep, :research_description,
                   :research_project_title, :residency, :review_date, :reviewed, :secondary_preceptor_id, :source_of_support, :state, :status, :supported_by_tg, :training_grant_years, :tge, :thesis,
                   :trainee_code, :training_period_end_date, :training_period_start_date, :urm, :year, :year_department_program, :zip_code, :desired_start_date, :marital_status, :assurance, :reference_number,
-                  :personal_statement, :publish
+                  :personal_statement, :publish, :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache
 
   attr_accessor :publish
+
+  mount_uploader :curriculum_vitae, DocumentUploader
 
   STATUS = ["current", "former"].collect{|i| [i,i]}
   APPLICANT_TYPE = ["predoc", "postdoc", "summer"].collect{|i| [i,i]}

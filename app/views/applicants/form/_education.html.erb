@@ -15,18 +15,31 @@
     <%= f.text_field :concentration_major %>
   </div>
 </div>
+
 <div class="control-group">
   <%= f.label :current_institution, class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :current_institution %>
   </div>
 </div>
+
+<% if false %>
 <div class="control-group checkbox">
   <div class="controls">
     <%= f.check_box :cv %>
     <%= f.label :cv %>
   </div>
 </div>
+<% end %>
+
+<div class="control-group">
+  <%= f.label :curriculum_vitae, 'Upload Curriculum Vitae (PDF, Word)', class: 'control-label' %>
+  <div class="controls">
+    <%= f.file_field :curriculum_vitae %>
+    <%= f.hidden_field :curriculum_vitae_cache %>
+  </div>
+</div>
+
 <div class="control-group">
   <%= f.label :degree_sought, class: 'control-label' %>
   <div class="controls">

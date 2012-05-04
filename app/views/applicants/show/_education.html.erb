@@ -10,8 +10,11 @@
   <dt>Current institution</dt>
   <dd><%= applicant.current_institution %></dd>
 
-  <dt>Cv</dt>
+  <dt>CV</dt>
   <dd><%= simple_check applicant.cv %></dd>
+
+  <dt>Curriculum Vitae</dt>
+  <dd><%= link_to applicant.curriculum_vitae_url.split('/').last, applicant.curriculum_vitae_url, target: '_blank', class: 'btn btn-mini' unless applicant.curriculum_vitae_url.blank? %></dd>
 
   <dt>Degree sought</dt>
   <dd><%= applicant.degree_sought %></dd>

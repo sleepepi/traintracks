@@ -11,6 +11,8 @@ gem 'eventmachine',         '~> 1.0.0.beta.4.1',  :platforms => [ :mswin, :mingw
 # Gems used by project
 gem 'contour',              '~> 1.0.0.beta6'
 gem 'kaminari'
+# Carrierwave: File Uploads
+gem 'carrierwave',          '~> 0.6.2'
 
 # Gems used only for assets and not required
 # in production environments by default.
