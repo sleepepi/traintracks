@@ -6,6 +6,8 @@
   <div class="controls">
     <%= f.check_box :disabled %>
     <%= f.label :disabled %>
+    <span class="help-block">An applicant who identifies as a person with a disability, or a physical or mental impairment that substantially limits one or more activities (requires explanation if checked yes).</span>
+    <%= f.text_area :disabled_description, rows: 7, style: "width:99%" %>
   </div>
 </div>
 
@@ -13,6 +15,13 @@
   <div class="controls">
     <%= f.check_box :disadvantaged %>
     <%= f.label :disadvantaged %>
+    <span class="help-block">
+      <ol>
+        <li>Individual has qualified for federal disadvantaged assistance, or for a loan or scholarship from one or more of the following: Health Professional Student Loan, Loans for Disadvantaged Student Program, or Scholarships for Individuals with Exceptional Financial Need (DHHS).</li>
+        <li>Individual has come from a social, cultural, or educational environment (e.g., rural, inner city) that has recently, directly, and demonstrably inhibited the individual from obtaining the knowledge, skills, and abilities necessary to participate in a research career.</li>
+      </ol>
+      Typically, only predoctoral and summer applicants have this option, as it is difficult to justify disadvantaged status upon receipt of a doctoral-level degree.
+    </span>
   </div>
 </div>
 
@@ -20,6 +29,7 @@
   <div class="controls">
     <%= f.check_box :urm %>
     <%= f.label :urm, "Under-Represented Minority" %>
+    <span class="help-block">An applicant who identifies with any minority population that is underrepresented in scientific research, including: Hispanic/Latino, American Indian/Alaska Native, Black/African American, and Native Hawaiian/Pacific Islander.</span>
   </div>
 </div>
 

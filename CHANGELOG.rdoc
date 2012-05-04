@@ -6,6 +6,7 @@
   * Added requirement for applicants to mail or email 3 recommendation letters
   * Applicants need to confirm their emails before being able to sign in
   * Applicants can now upload a curriculum vitae
+  * Applicants can now have three preferred preceptors
   * Use new Contour login attributes on Registration page
   * Use Contour for User account Confirmations and Unlocks
 

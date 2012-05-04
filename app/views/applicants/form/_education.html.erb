@@ -68,6 +68,20 @@
 </div>
 
 <div class="control-group">
+  <%= f.label :preferred_preceptor_two_id, 'Second Preferred Preceptor', class: 'control-label' %>
+  <div class="controls">
+    <%= f.select :preferred_preceptor_two_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :preferred_preceptor_three_id, 'Third Preferred Preceptor', class: 'control-label' %>
+  <div class="controls">
+    <%= f.select :preferred_preceptor_three_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
+  </div>
+</div>
+
+<div class="control-group">
   <%= f.label :previous_institutions, class: 'control-label' %>
   <div class="controls">
     <%= f.text_area :previous_institutions, rows: 7, style: "width:99%" %>

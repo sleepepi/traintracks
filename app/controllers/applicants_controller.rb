@@ -144,9 +144,9 @@ class ApplicantsController < ApplicationController
         :email, :first_name, :last_name, :middle_initial, :applicant_type, :summer, :tge, :desired_start_date, :personal_statement,
         # Education
         :advisor, :concentration_major, :current_institution, :cv, :degree_sought, :department_program, :expected_year,
-        :preferred_preceptor_id, :previous_institutions, :thesis, :degrees, :current_title,
+        :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id, :previous_institutions, :thesis, :degrees, :current_title,
         # Demographic Information
-        :disabled, :disadvantaged, :urm, :marital_status,
+        :disabled, :disabled_description, :disadvantaged, :urm, :marital_status,
         # Contact Information
         :phone, :address1, :address2, :city, :state, :country, :zip_code,
         # Postdoc Only

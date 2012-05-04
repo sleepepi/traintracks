@@ -28,6 +28,12 @@
   <dt>Preferred preceptor</dt>
   <dd><%= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor %></dd>
 
+  <dt>Second preferred preceptor</dt>
+  <dd><%= link_to applicant.preferred_preceptor_two.name, applicant.preferred_preceptor_two if applicant.preferred_preceptor_two %></dd>
+
+  <dt>Third preferred preceptor</dt>
+  <dd><%= link_to applicant.preferred_preceptor_three.name, applicant.preferred_preceptor_three if applicant.preferred_preceptor_three %></dd>
+
   <dt>Primary preceptor</dt>
   <dd><%= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor %></dd>
 
