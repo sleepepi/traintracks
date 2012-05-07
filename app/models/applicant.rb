@@ -47,6 +47,10 @@ class Applicant < ActiveRecord::Base
     self.applicant_type == 'postdoc'
   end
 
+  def trainee?
+    self.enrolled?
+  end
+
   # Overriding Devise built-in active_for_authentication? method
   def active_for_authentication?
     super and not self.deleted?
