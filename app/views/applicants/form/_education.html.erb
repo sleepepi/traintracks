@@ -2,27 +2,6 @@
   <h2>Education</h2>
 </div>
 
-<div class="control-group">
-  <%= f.label :advisor, class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_field :advisor %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :concentration_major, 'Concentration / Major', class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_field :concentration_major %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :current_institution, class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_field :current_institution %>
-  </div>
-</div>
-
 <% if false %>
 <div class="control-group checkbox">
   <div class="controls">
@@ -41,11 +20,19 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :degree_sought, class: 'control-label' %>
+  <%= f.label :advisor, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :degree_sought, 'data-toggle' => 'predoc_summer_only' %>
+    <%= f.text_field :advisor %>
   </div>
 </div>
+
+<div class="control-group">
+  <%= f.label :concentration_major, 'Concentration / Major', class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :concentration_major %>
+  </div>
+</div>
+
 <div class="control-group">
   <%= f.label :department_program, 'Department / Program', class: 'control-label' %>
   <div class="controls">
@@ -54,37 +41,23 @@
 </div>
 
 <div class="control-group">
+  <%= f.label :current_institution, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :current_institution %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :degree_sought, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :degree_sought, 'data-toggle' => 'predoc_summer_only' %>
+  </div>
+</div>
+
+<div class="control-group">
   <%= f.label :expected_year, "Expected Graduation Year", class: 'control-label' %>
   <div class="controls">
     <%= f.number_field :expected_year, min: 2000, 'data-toggle' => 'predoc_summer_only' %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :preferred_preceptor_id, class: 'control-label' %>
-  <div class="controls">
-    <%= f.select :preferred_preceptor_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :preferred_preceptor_two_id, 'Second Preferred Preceptor', class: 'control-label' %>
-  <div class="controls">
-    <%= f.select :preferred_preceptor_two_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :preferred_preceptor_three_id, 'Third Preferred Preceptor', class: 'control-label' %>
-  <div class="controls">
-    <%= f.select :preferred_preceptor_three_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :previous_institutions, class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_area :previous_institutions, rows: 7, style: "width:99%" %>
   </div>
 </div>
 
@@ -113,5 +86,33 @@
   <%= f.label :residency, class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :residency, 'data-toggle' => 'postdoc_only' %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :preferred_preceptor_id, class: 'control-label' %>
+  <div class="controls">
+    <%= f.select :preferred_preceptor_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :preferred_preceptor_two_id, 'Second Preferred Preceptor', class: 'control-label' %>
+  <div class="controls">
+    <%= f.select :preferred_preceptor_two_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :preferred_preceptor_three_id, 'Third Preferred Preceptor', class: 'control-label' %>
+  <div class="controls">
+    <%= f.select :preferred_preceptor_three_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :previous_institutions, class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_area :previous_institutions, rows: 7, style: "width:99%" %>
   </div>
 </div>
