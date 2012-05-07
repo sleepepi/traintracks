@@ -2,7 +2,10 @@
 <div class="page-header">
   <h1>
     <%= @title %>
-    <%= link_to "Edit Application", edit_me_applicants_path, class: 'btn btn-mini' if current_applicant.submitted_at.blank? %>
+    <% if current_applicant.submitted_at.blank? %>
+      <%= link_to "Edit Application", edit_me_applicants_path, class: 'btn btn-mini' %>
+      <span class="label label-warning">Draft</span>
+    <% end %>
   </h1>
 </div>
 
