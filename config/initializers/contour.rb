@@ -45,8 +45,7 @@ Contour.setup do |config|
               { name: 'Logout', path: 'destroy_preceptor_session_path' }]
     },
     {
-      name: 'About', display: 'not_signed_in', path: 'about_path', position: 'left',
-      links: []
+      name: 'About', display: 'not_signed_in', path: 'about_path', position: 'left'
     },
     {
       name: 'Applicants', display: 'signed_in', path: 'applicants_path', position: 'left', condition: 'user_signed_in? and current_user.administrator?',
@@ -57,10 +56,8 @@ Contour.setup do |config|
       links: [{ name: 'Create', path: 'new_preceptor_path' }]
     },
     {
-      name: 'Users', display: 'signed_in', path: 'users_path', position: 'left', condition: 'user_signed_in? and current_user.system_admin?',
-      links: []
+      name: 'Users', display: 'signed_in', path: 'users_path', position: 'left', condition: 'user_signed_in? and current_user.system_admin?'
     }
-
   ]
 
   # Enter an address of a valid RSS Feed if you would like to see news on the sign in page.
