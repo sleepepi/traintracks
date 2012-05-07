@@ -34,6 +34,8 @@ class Applicant < ActiveRecord::Base
   validates_uniqueness_of :reference_number, allow_blank: true, allow_nil: true
   validates_uniqueness_of :email, allow_blank: true, scope: :deleted
 
+  validates_presence_of :expected_year, unless: [:postdoc?, :not_submitted?]
+
   # Model Relationships
   belongs_to :preferred_preceptor, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_id'
   belongs_to :preferred_preceptor_two, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_two_id'
@@ -49,6 +51,14 @@ class Applicant < ActiveRecord::Base
 
   def trainee?
     self.enrolled?
+  end
+
+  def submitted?
+    self.publish == '1'
+  end
+
+  def not_submitted?
+    not self.submitted?
   end
 
   # Overriding Devise built-in active_for_authentication? method
