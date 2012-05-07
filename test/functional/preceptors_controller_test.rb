@@ -47,4 +47,24 @@ class PreceptorsControllerTest < ActionController::TestCase
 
     assert_redirected_to preceptors_path
   end
+
+  test "should get dashboard" do
+    login(preceptors(:one))
+    get :dashboard
+    assert_response :success
+  end
+
+  test "should edit me" do
+    login(preceptors(:one))
+    get :edit_me
+    assert_response :success
+  end
+
+  test "should update me" do
+    login(preceptors(:one))
+    put :update_me, preceptor: { degree: @preceptor.degree, first_name: @preceptor.first_name, hospital_affiliation: @preceptor.hospital_affiliation, hospital_appointment: @preceptor.hospital_appointment, last_name: @preceptor.last_name, other_support: @preceptor.other_support, program_role: @preceptor.program_role, rank: @preceptor.rank, research_interest: @preceptor.research_interest, status: @preceptor.status, email: @preceptor.email }
+
+    assert_equal 'Preceptor information successfully updated.', flash[:notice]
+    assert_redirected_to dashboard_preceptors_path
+  end
 end

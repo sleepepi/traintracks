@@ -12,7 +12,8 @@ one:
   research_interest: MyText
   program_role: MyString
   deleted: false
-  email: one@example.com
+  email: preceptor_one@example.com
+  confirmed_at: 2012-05-07 10:30:00
 
 two:
   first_name: MyString
@@ -26,4 +27,5 @@ two:
   research_interest: MyText
   program_role: MyString
   deleted: false
-  email: two@example.com
+  email: preceptor_two@example.com
+  confirmed_at: 2012-05-07 10:30:00
