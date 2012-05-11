@@ -1,5 +1,8 @@
 == 0.3.1
 
+* Bug Fix
+  * Initial setup now runs correctly: require 'securerandom'
+
 == 0.3.0
 
 * Enhancements
