@@ -1,12 +1,13 @@
 == 0.3.0
 
 * Enhancements
-  * Applicants now fall into either "predoc", "postdoc", or "summer" categories
-  * Applicants now have a "personal statement" to fill out
-  * Added requirement for applicants to mail or email 3 recommendation letters
-  * Applicants need to confirm their emails before being able to sign in
-  * Applicants can now upload a curriculum vitae
-  * Applicants can now have three preferred preceptors
+  * Applicants
+    * can fall into either "predoc", "postdoc", or "summer" categories
+    * can have a "personal statement" to fill out
+    * added requirement to mail or email 3 recommendation letters
+    * need to confirm their emails before being able to sign in
+    * can upload a curriculum vitae
+    * can have three preferred preceptors
   * Applications now have required fields that need to be completed before submission, however these are not required to save as a draft
   * Application type now affects what fields are displayed to the applicant
   * Administrators can now allow an applicant to resubmit their application
