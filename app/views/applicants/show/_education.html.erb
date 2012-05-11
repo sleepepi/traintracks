@@ -1,4 +1,4 @@
-<div class="page-header"><h2>Education</h2></div>
+<div class="page-header"><h2>Education / Experience</h2></div>
 
 <dl class="dl-horizontal">
   <dt>CV</dt>
@@ -13,17 +13,17 @@
     <% end %>
   </dd>
 
-  <dt>Advisor</dt>
-  <dd><%= applicant.advisor %></dd>
-
-  <dt>Concentration / Major</dt>
-  <dd><%= applicant.concentration_major %></dd>
+  <dt>Current institution</dt>
+  <dd><%= applicant.current_institution %></dd>
 
   <dt>Department / Program</dt>
   <dd><%= applicant.department_program %></dd>
 
-  <dt>Current institution</dt>
-  <dd><%= applicant.current_institution %></dd>
+  <dt>Current position</dt>
+  <dd><%= applicant.current_title %></dd>
+
+  <dt>Degrees earned</dt>
+  <dd><%= applicant.degrees %></dd>
 
   <% unless applicant.postdoc? %>
     <dt>Degree sought</dt>
@@ -33,11 +33,11 @@
     <dd><%= applicant.expected_year %></dd>
   <% end %>
 
-  <dt>Degrees earned</dt>
-  <dd><%= applicant.degrees %></dd>
+  <dt>Concentration / Major</dt>
+  <dd><%= applicant.concentration_major %></dd>
 
-  <dt>Current position</dt>
-  <dd><%= applicant.current_title %></dd>
+  <dt>Advisor</dt>
+  <dd><%= applicant.advisor %></dd>
 
   <% if applicant.postdoc? %>
     <dt>Thesis</dt>
@@ -64,4 +64,7 @@
 
   <dt>Previous institutions</dt>
   <dd><%= applicant.previous_institutions %></dd>
+
+  <dt>Previous NSRA Support</dt>
+  <dd><%= simple_check applicant.previous_nsra_support %></dd>
 </dl>

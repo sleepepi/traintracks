@@ -4,6 +4,14 @@
   <dt>Applicant assurance</dt>
   <dd><%= simple_check applicant.assurance %></dd>
 
+<% if applicant.originally_submitted_at == applicant.submitted_at %>
   <dt>Submitted</dt>
   <dd><%= simple_time applicant.submitted_at %></dd>
+<% else %>
+  <dt>Originally Submitted</dt>
+  <dd><%= simple_time applicant.originally_submitted_at %></dd>
+
+  <dt>Resubmitted</dt>
+  <dd><%= simple_time applicant.submitted_at %></dd>
+<% end %>
 </dl>

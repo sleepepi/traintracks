@@ -7,7 +7,9 @@
   * Applicants need to confirm their emails before being able to sign in
   * Applicants can now upload a curriculum vitae
   * Applicants can now have three preferred preceptors
+  * Applications now have required fields that need to be completed before submission, however these are not required to save as a draft
   * Application type now affects what fields are displayed to the applicant
+  * Administrators can now allow an applicant to resubmit their application
   * Use new Contour login attributes on Registration page
   * Use Contour for User account Confirmations and Unlocks
 

@@ -24,6 +24,13 @@ class ApplicantsController < ApplicationController
     end
   end
 
+  # Removes the applicants submitted_at date.  However the original submitted date will always be maintained.
+  def unlock
+    @applicant = Applicant.find(params[:id])
+    @applicant.update_attribute :submitted_at, nil
+    redirect_to @applicant, notice: 'Applicant has been unlocked.'
+  end
+
   # Sends email to applicant containg authentication token
   def email
     @applicant = Applicant.find(params[:id])
@@ -145,6 +152,7 @@ class ApplicantsController < ApplicationController
         # Education
         :advisor, :concentration_major, :current_institution, :cv, :degree_sought, :department_program, :expected_year,
         :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id, :previous_institutions, :thesis, :degrees, :current_title,
+        :previous_nsra_support,
         # Demographic Information
         :disabled, :disabled_description, :disadvantaged, :urm, :marital_status,
         # Contact Information

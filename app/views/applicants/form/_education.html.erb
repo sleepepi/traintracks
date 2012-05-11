@@ -1,15 +1,6 @@
 <div class="page-header">
-  <h2>Education</h2>
+  <h2>Education / Experience</h2>
 </div>
-
-<% if false %>
-<div class="control-group checkbox">
-  <div class="controls">
-    <%= f.check_box :cv %>
-    <%= f.label :cv %>
-  </div>
-</div>
-<% end %>
 
 <div class="control-group">
   <%= f.label :curriculum_vitae, 'Upload Curriculum Vitae (PDF, Word)', class: 'control-label' %>
@@ -20,16 +11,9 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :advisor, class: 'control-label' %>
+  <%= f.label :current_institution, nil, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :advisor %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :concentration_major, 'Concentration / Major', class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_field :concentration_major %>
+    <%= f.text_field :current_institution %>
   </div>
 </div>
 
@@ -41,14 +25,21 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :current_institution, class: 'control-label' %>
+  <%= f.label :current_title, 'Current position', class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :current_institution %>
+    <%= f.text_field :current_title %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :degree_sought, class: 'control-label' %>
+  <%= f.label :degrees, 'Degrees Earned', class: 'control-label' %>
+  <div class="controls">
+    <%= f.text_field :degrees %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :degree_sought, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :degree_sought, 'data-toggle' => 'predoc_summer_only' %>
   </div>
@@ -62,35 +53,35 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :degrees, 'Degrees Earned', class: 'control-label' %>
+  <%= f.label :concentration_major, 'Concentration / Major', class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :degrees %>
+    <%= f.text_field :concentration_major %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :current_title, 'Current position', class: 'control-label' %>
+  <%= f.label :advisor, nil, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :current_title %>
+    <%= f.text_field :advisor %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :thesis, class: 'control-label' %>
+  <%= f.label :thesis, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :thesis, 'data-toggle' => 'postdoc_only' %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :residency, class: 'control-label' %>
+  <%= f.label :residency, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :residency, 'data-toggle' => 'postdoc_only' %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :preferred_preceptor_id, class: 'control-label' %>
+  <%= f.label :preferred_preceptor_id, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.select :preferred_preceptor_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
   </div>
@@ -111,8 +102,16 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :previous_institutions, class: 'control-label' %>
+  <%= f.label :previous_institutions, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.text_area :previous_institutions, rows: 7, style: "width:99%" %>
+  </div>
+</div>
+
+<div class="control-group checkbox">
+  <div class="controls">
+    <%= f.check_box :previous_nsra_support %>
+    <%= f.label :previous_nsra_support, "Previous NSRA Support" %>
+    <span class="help-block"></span>
   </div>
 </div>

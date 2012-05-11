@@ -5,7 +5,7 @@
 <div class="control-group checkbox">
   <div class="controls">
     <%= f.check_box :disabled %>
-    <%= f.label :disabled %>
+    <%= f.label :disabled, "Check if you consider yourself to be a person with a disability" %>
     <span class="help-block">An applicant who identifies as a person with a disability, or a physical or mental impairment that substantially limits one or more activities (requires explanation if checked yes).</span>
     <%= f.text_area :disabled_description, rows: 7, style: "width:99%" %>
   </div>
@@ -29,12 +29,12 @@
   <div class="controls">
     <%= f.check_box :urm %>
     <%= f.label :urm, "Under-Represented Minority" %>
-    <span class="help-block">An applicant who identifies with any minority population that is underrepresented in scientific research, including: Hispanic/Latino, American Indian/Alaska Native, Black/African American, and Native Hawaiian/Pacific Islander.</span>
+    <span class="help-block">An applicant who identifies with any minority, ethnic, or racial population that is underrepresented in scientific research, including: Hispanic or Latino, American Indian or Alaska Native, Black or African American, and Native Hawaiian or Pacific Islander.</span>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :marital_status, class: 'control-label' %>
+  <%= f.label :marital_status, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.select :marital_status, [['---', nil]] + Applicant::MARITAL_STATUS %>
   </div>

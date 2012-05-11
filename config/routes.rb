@@ -11,6 +11,7 @@ TrainingGrant::Application.routes.draw do
     end
     member do
       post :email
+      post :unlock
     end
   end
 

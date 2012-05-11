@@ -1,7 +1,7 @@
 <div class="page-header"><h2>Applicant Info (Predoc Postdoc)</h2></div>
 
 <div class="control-group">
-  <%= f.label :email, class: 'control-label' %>
+  <%= f.label :email, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.email_field :email %>
   </div>
@@ -9,7 +9,7 @@
 
 <% if user_signed_in? and current_user.administrator? and applicant.new_record? %>
   <div class="control-group">
-    <%= f.label :password, class: 'control-label' %>
+    <%= f.label :password, nil, class: 'control-label' %>
     <div class="controls">
       <%= f.password_field :password %>
     </div>
@@ -17,28 +17,28 @@
 <% end %>
 
 <div class="control-group">
-  <%= f.label :first_name, class: 'control-label' %>
+  <%= f.label :first_name, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :first_name %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :last_name, class: 'control-label' %>
+  <%= f.label :last_name, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :last_name %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :middle_initial, class: 'control-label' %>
+  <%= f.label :middle_initial, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :middle_initial %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :applicant_type, class: 'control-label' %>
+  <%= f.label :applicant_type, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.select :applicant_type, Applicant::APPLICANT_TYPE %>
   </div>
@@ -53,14 +53,14 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :desired_start_date, class: 'control-label' %>
+  <%= f.label :desired_start_date, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :desired_start_date, class: 'datepicker', value: applicant.desired_start_date ? applicant.desired_start_date.strftime('%m/%d/%Y') : '' %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :personal_statement, class: 'control-label' %>
+  <%= f.label :personal_statement, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.text_area :personal_statement, rows: 7, style: "width:99%" %>
     <span class="help-block">Maximum of 250 words</span>
