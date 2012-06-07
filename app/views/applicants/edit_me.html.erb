@@ -59,8 +59,8 @@
 
   <div class="form-actions">
     <%= f.hidden_field :publish, default: '0' %>
-    <%= link_to_function "Save Draft", "$('#applicant_publish').val('0');$('##{form_name}').submit();", class: 'btn' %>
-    <%= link_to_function "Submit Application for Review", "if(applicantAssuranceCheck() == false){return false;};$('#applicant_publish').val('1');$('##{form_name}').submit();", class: 'btn btn-primary' %>
+    <%= link_to 'Save Draft', '#', data: { object: 'applicant-save', publish: '0', target: "##{form_name}" }, class: 'btn' %>
+    <%= link_to "Submit Application for Review", '#', data: { object: 'applicant-save', publish: '1', target: "##{form_name}", assurance: true }, class: 'btn btn-primary' %>
     <%= link_to 'Cancel', dashboard_applicants_path, class: 'btn btn-danger' %>
   </div>
 <% end %>

@@ -32,8 +32,7 @@
   <% end %>
 
   <div class="form-actions">
-    <% form_name = @applicant.new_record? ? 'new_applicant' : "edit_applicant_#{@applicant.id}" %>
-    <%= link_to_function (@applicant.new_record? ? "Create Applicant" : "Update Applicant"), "$('##{form_name}').submit();", class: 'btn btn-primary' %>
+    <%= f.submit nil, class: 'btn btn-primary' %>
     <%= link_to 'Cancel', @applicant.new_record? ? root_path : @applicant, class: 'btn btn-danger' %>
   </div>
 <% end %>
