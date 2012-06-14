@@ -91,6 +91,8 @@ class ApplicantsController < ApplicationController
 
     @applicant = Applicant.new(post_params)
 
+    @applicant.skip_confirmation!
+
     respond_to do |format|
       if @applicant.save
         format.html { redirect_to @applicant, notice: 'Applicant was successfully created.' }
@@ -111,6 +113,8 @@ class ApplicantsController < ApplicationController
     # params[:applicant][:training_period_end_date] = Date.strptime(params[:applicant][:training_period_end_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:training_period_end_date].blank?
 
     @applicant = Applicant.find(params[:id])
+
+    @applicant.skip_reconfirmation!
 
     respond_to do |format|
       if @applicant.update_attributes(post_params)
@@ -148,10 +152,10 @@ class ApplicantsController < ApplicationController
     else
       params[:applicant].slice(
         # Applicant Information
-        :email, :first_name, :last_name, :middle_initial, :applicant_type, :summer, :tge, :desired_start_date, :personal_statement,
+        :email, :first_name, :last_name, :middle_initial, :applicant_type, :summer, :tge, :desired_start_date, :personal_statement, :alien_registration_number, :citizenship_status,
         # Education
         :advisor, :concentration_major, :current_institution, :cv, :degree_sought, :department_program, :expected_year,
-        :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id, :previous_institutions, :thesis, :degrees, :current_title,
+        :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id, :thesis, :degrees_earned, :current_title,
         :previous_nsra_support,
         # Demographic Information
         :disabled, :disabled_description, :disadvantaged, :urm, :marital_status,

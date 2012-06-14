@@ -28,14 +28,13 @@
       <th>Thesis</th>
       <th>URM</th>
       <th>Degree type</th>
-      <th>Degrees Earned</th>
+      <th>Degrees earned</th>
       <th>Notes</th>
       <th>Residency</th>
       <th>Year department program</th>
       <th>Training period start date</th>
       <th>Training period end date</th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.email', 'Email', 'applicants_search') %></th>
-      <th>Appointment type</th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.status', 'Status', 'applicants_search') %></th>
       <th>Current Position</th>
       <th>Address1</th>
@@ -89,14 +88,13 @@
         <td><%= applicant.thesis %></td>
         <td style="text-align:center"><%= simple_check applicant.urm %></td>
         <td><%= applicant.degree_type %></td>
-        <td><%= applicant.degrees %></td>
+        <td><%= applicant.degrees_earned %></td>
         <td><%= applicant.notes %></td>
         <td><%= applicant.residency %></td>
         <td><%= applicant.year_department_program %></td>
         <td><%= applicant.training_period_start_date %></td>
         <td><%= applicant.training_period_end_date %></td>
         <td><%= applicant.email %></td>
-        <td><%= applicant.appointment_type %></td>
         <td><%= applicant.status %></td>
         <td><%= applicant.current_title %></td>
         <td><%= applicant.address1 %></td>
@@ -120,7 +118,7 @@
         <td><%= simple_time applicant.submitted_at %></td>
         <td>
           <%= link_to 'Edit', edit_applicant_path(applicant), class: 'btn btn-mini' %>
-          <%= link_to 'Delete', applicant, confirm: "Are you sure you want to delete Applicant #{applicant.name}?", method: :delete, class: 'btn btn-mini btn-danger' %>
+          <%= link_to 'Delete', applicant, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Applicant #{applicant.name}?" } %>
         </td>
       </tr>
     <% end %>

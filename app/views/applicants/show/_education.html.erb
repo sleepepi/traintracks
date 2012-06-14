@@ -16,14 +16,19 @@
   <dt>Current institution</dt>
   <dd><%= applicant.current_institution %></dd>
 
-  <dt>Department / Program</dt>
+  <dt title="Department / Program">Department / Program</dt>
   <dd><%= applicant.department_program %></dd>
 
   <dt>Current position</dt>
   <dd><%= applicant.current_title %></dd>
 
   <dt>Degrees earned</dt>
-  <dd><%= applicant.degrees %></dd>
+  <dd><%= simple_format applicant.degrees_earned %></dd>
+
+  <% if current_user and current_user.administrator? %>
+    <dt title="Previous institutions">Previous institutions</dt>
+    <dd><%= applicant.previous_institutions %></dd>
+  <% end %>
 
   <% unless applicant.postdoc? %>
     <dt>Degree sought</dt>
@@ -33,7 +38,7 @@
     <dd><%= applicant.expected_year %></dd>
   <% end %>
 
-  <dt>Concentration / Major</dt>
+  <dt title="Concentration / Major">Concentration / Major</dt>
   <dd><%= applicant.concentration_major %></dd>
 
   <dt>Advisor</dt>
@@ -47,24 +52,21 @@
     <dd><%= applicant.residency %></dd>
   <% end %>
 
-  <dt>Preferred preceptor</dt>
+  <dt title="Preferred preceptor">Preferred preceptor</dt>
   <dd><%= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor %></dd>
 
-  <dt>Second preferred preceptor</dt>
+  <dt title="Second preferred preceptor">Second preferred preceptor</dt>
   <dd><%= link_to applicant.preferred_preceptor_two.name, applicant.preferred_preceptor_two if applicant.preferred_preceptor_two %></dd>
 
-  <dt>Third preferred preceptor</dt>
+  <dt title="Third preferred preceptor">Third preferred preceptor</dt>
   <dd><%= link_to applicant.preferred_preceptor_three.name, applicant.preferred_preceptor_three if applicant.preferred_preceptor_three %></dd>
 
-  <dt>Primary preceptor</dt>
+  <dt title="Primary preceptor">Primary preceptor</dt>
   <dd><%= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor %></dd>
 
-  <dt>Secondary preceptor</dt>
+  <dt title="Secondary preceptor">Secondary preceptor</dt>
   <dd><%= link_to applicant.secondary_preceptor.name, applicant.secondary_preceptor if applicant.secondary_preceptor %></dd>
 
-  <dt>Previous institutions</dt>
-  <dd><%= applicant.previous_institutions %></dd>
-
-  <dt>Previous NSRA Support</dt>
+  <dt title="Previous NSRA Support">Previous NSRA Support</dt>
   <dd><%= simple_check applicant.previous_nsra_support %></dd>
 </dl>

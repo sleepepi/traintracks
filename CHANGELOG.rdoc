@@ -1,8 +1,15 @@
 == 0.4.0
 
 * Enhancements
-  * Update to Rails 3.2.5 and Contour 1.0.1
+  * Degrees Earned now combines Degree, Institution, and Year of Graduation
+    * Previous Institutions will be removed
+  * Citizenship Status added with required alien registration number for permanent residents
+
+  * Update to Rails 3.2.6 and Contour 1.0.1
   * Updated Devise configuration files for devise 2.1.0
+
+* Bug Fix
+  * Administrators can now update applicant emails without going through the email confirmation/reconfirmation process
 
 == 0.3.1
 

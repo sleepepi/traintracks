@@ -29,14 +29,13 @@ one:
   urm: false
   year: 1
   degree_type: MyString
-  degrees: MyString
+  degrees_earned: MyText
   notes: MyText
   residency: MyString
   year_department_program: MyString
   training_period_start_date: 2012-04-02
   training_period_end_date: 2012-04-02
   email: applicant_one@example.com
-  appointment_type: MyString
   status: MyString
   current_title: MyString
   address1: MyString
@@ -61,6 +60,8 @@ one:
   email: one@example.com
   personal_statement: MyText
   confirmed_at: 2012-05-07 10:30:00
+  alien_registration_number: MyString
+  citizenship_status: MyString
 
 two:
   first_name: MyString
@@ -91,14 +92,13 @@ two:
   urm: false
   year: 1
   degree_type: MyString
-  degrees: MyString
+  degrees_earned: MyText
   notes: MyText
   residency: MyString
   year_department_program: MyString
   training_period_start_date: 2012-04-02
   training_period_end_date: 2012-04-02
   email: applicant_two@example.com
-  appointment_type: MyString
   status: MyString
   current_title: MyString
   address1: MyString
@@ -123,3 +123,5 @@ two:
   email: two@example.com
   personal_statement: MyText
   confirmed_at: 2012-05-07 10:30:00
+  alien_registration_number: MyString
+  citizenship_status: MyString

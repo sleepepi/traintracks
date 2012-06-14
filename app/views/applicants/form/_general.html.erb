@@ -52,6 +52,20 @@
   </div>
 </div>
 
+<div class="control-group checkbox">
+  <%= f.label :citizenship_status, nil, class: 'control-label' %>
+  <div class="controls radio">
+    <% Applicant::CITIZENSHIP_STATUS.each do |citizenship_status| %>
+      <%= f.radio_button :citizenship_status, citizenship_status, class: 'radio' %> <label><%= citizenship_status.humanize %></label>
+      <% if citizenship_status == 'permanent resident' %>
+        <%= f.label :alien_registration_number, nil %>
+        <%= f.text_field :alien_registration_number %> Starts with an <b>A</b>, no dashes or spaces
+        <span class="help-block"></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
 <div class="control-group">
   <%= f.label :desired_start_date, nil, class: 'control-label' %>
   <div class="controls">
@@ -62,7 +76,7 @@
 <div class="control-group">
   <%= f.label :personal_statement, nil, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_area :personal_statement, rows: 7, style: "width:99%" %>
+    <%= f.text_area :personal_statement, rows: 7, style: "width:95%" %>
     <span class="help-block">Maximum of 250 words</span>
   </div>
 </div>

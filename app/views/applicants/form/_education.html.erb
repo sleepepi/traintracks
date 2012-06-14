@@ -32,11 +32,23 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :degrees, 'Degrees Earned', class: 'control-label' %>
+  <%= f.label :degrees_earned, nil, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :degrees %>
+    <%= f.text_area :degrees_earned, rows: 7, style: "width:95%" %>
+    <span class="help-block"><i>Degree Earned, Institution, and Year of Graduation</i>
+    </span>
   </div>
 </div>
+
+<% if current_user and current_user.administrator? %>
+  <div class="control-group">
+    <%= f.label :previous_institutions, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= simple_format applicant.previous_institutions unless applicant.previous_institutions.blank? %>
+      <%#= f.text_area :previous_institutions, rows: 7, style: "width:95%" %>
+    </div>
+  </div>
+<% end %>
 
 <div class="control-group">
   <%= f.label :degree_sought, nil, class: 'control-label' %>
@@ -98,13 +110,6 @@
   <%= f.label :preferred_preceptor_three_id, 'Third Preferred Preceptor', class: 'control-label' %>
   <div class="controls">
     <%= f.select :preferred_preceptor_three_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :previous_institutions, nil, class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_area :previous_institutions, rows: 7, style: "width:99%" %>
   </div>
 </div>
 

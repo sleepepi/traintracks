@@ -7,13 +7,13 @@ class Applicant < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  attr_accessible :accepted, :address1, :address2, :advisor, :cv_number, :applicant_type, :appointment_type, :city, :concentration_major, :country, :coursework_completed, :current_institution,
-                  :current_title, :cv, :degree_sought, :degree_type, :degrees, :department_program, :disabled, :disadvantaged, :enrolled, :expected_year, :first_name, :last_name,
+  attr_accessible :accepted, :address1, :address2, :advisor, :cv_number, :applicant_type, :city, :concentration_major, :country, :coursework_completed, :current_institution,
+                  :current_title, :cv, :degree_sought, :degree_type, :degrees_earned, :department_program, :disabled, :disadvantaged, :enrolled, :expected_year, :first_name, :last_name,
                   :middle_initial, :notes, :offered, :phone, :preferred_preceptor_id, :presentations, :previous_institutions, :primary_preceptor_id, :pubs_not_prev_rep, :research_description,
                   :research_project_title, :residency, :review_date, :reviewed, :secondary_preceptor_id, :source_of_support, :state, :status, :supported_by_tg, :training_grant_years, :tge, :thesis,
                   :trainee_code, :training_period_end_date, :training_period_start_date, :urm, :year, :year_department_program, :zip_code, :desired_start_date, :marital_status, :assurance, :reference_number,
                   :personal_statement, :publish, :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache, :disabled_description, :preferred_preceptor_two_id, :preferred_preceptor_three_id,
-                  :previous_nsra_support
+                  :previous_nsra_support, :alien_registration_number, :citizenship_status
 
   attr_accessor :publish
 
@@ -22,6 +22,7 @@ class Applicant < ActiveRecord::Base
   STATUS = ["current", "former"].collect{|i| [i,i]}
   APPLICANT_TYPE = ["predoc", "postdoc", "summer"].collect{|i| [i,i]}
   MARITAL_STATUS = ["single", "married", "divorced", "widowed"].collect{|i| [i,i]}
+  CITIZENSHIP_STATUS = ["citizen", "permanent resident", "noncitizen"]
 
   before_save :set_submitted_at
   after_save :set_reference_number
@@ -36,8 +37,10 @@ class Applicant < ActiveRecord::Base
   validates_uniqueness_of :email, allow_blank: true, scope: :deleted
 
   validates_presence_of :expected_year, :degree_sought, unless: [:postdoc?, :not_submitted?]
-  validates_presence_of :desired_start_date, :personal_statement, :curriculum_vitae, :current_institution, :degrees, :current_title, :preferred_preceptor_id, :previous_institutions, :marital_status, :phone, :address1, :city, :state, :country, :zip_code, :advisor, :concentration_major, :department_program, if: :submitted?
+  validates_presence_of :desired_start_date, :personal_statement, :curriculum_vitae, :current_institution, :degrees_earned, :current_title, :preferred_preceptor_id, :previous_institutions, :marital_status, :phone, :address1, :city, :state, :country, :zip_code, :advisor, :concentration_major, :department_program, if: :submitted?
   validates_presence_of :disabled_description, if: [:submitted?, :disabled?]
+  validates_presence_of :alien_registration_number, if: [:submitted?, :permanent_resident?]
+  validates_format_of :alien_registration_number, with: /\AA\d*\Z/, if: [:submitted?, :permanent_resident?]
 
   # Model Relationships
   belongs_to :preferred_preceptor, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_id'
@@ -66,6 +69,10 @@ class Applicant < ActiveRecord::Base
 
   def not_submitted?
     not self.submitted?
+  end
+
+  def permanent_resident?
+    self.citizenship_status == 'permanent resident'
   end
 
   # Overriding Devise built-in active_for_authentication? method
