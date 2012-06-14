@@ -168,7 +168,7 @@ class ApplicantsController < ApplicationController
         # Annual Only
         :coursework_completed, :pubs_not_prev_rep, :presentations, :research_description, :source_of_support,
         # Applicant Assurance
-        :assurance, :publish,
+        :assurance, :publish, :letters_from_a, :letters_from_b, :letters_from_c,
         # Uploaded Curriculum Vitae
         :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache
        )

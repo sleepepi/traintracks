@@ -13,7 +13,7 @@ class Applicant < ActiveRecord::Base
                   :research_project_title, :residency, :review_date, :reviewed, :secondary_preceptor_id, :source_of_support, :state, :status, :supported_by_tg, :training_grant_years, :tge, :thesis,
                   :trainee_code, :training_period_end_date, :training_period_start_date, :urm, :year, :year_department_program, :zip_code, :desired_start_date, :marital_status, :assurance, :reference_number,
                   :personal_statement, :publish, :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache, :disabled_description, :preferred_preceptor_two_id, :preferred_preceptor_three_id,
-                  :previous_nsra_support, :alien_registration_number, :citizenship_status, :degree_types
+                  :previous_nsra_support, :alien_registration_number, :citizenship_status, :degree_types, :letters_from_a, :letters_from_b, :letters_from_c
 
   attr_accessor :publish
 
@@ -44,6 +44,7 @@ class Applicant < ActiveRecord::Base
   validates_presence_of :disabled_description, if: [:submitted?, :disabled?]
   validates_presence_of :alien_registration_number, if: [:submitted?, :permanent_resident?]
   validates_format_of :alien_registration_number, with: /\AA\d*\Z/, if: [:submitted?, :permanent_resident?]
+  validates_presence_of :letters_from_a, :letters_from_b, :letters_from_c, if: [:submitted?]
 
   # Model Relationships
   belongs_to :preferred_preceptor, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_id'

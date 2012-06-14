@@ -63,6 +63,9 @@ one:
   alien_registration_number: MyString
   citizenship_status: MyString
   degree_types: ['BA/BS']
+  letters_from_a: MyString
+  letters_from_b: MyString
+  letters_from_c: MyString
 
 two:
   first_name: MyString
@@ -127,3 +130,6 @@ two:
   alien_registration_number: MyString
   citizenship_status: MyString
   degree_types: ['BA/BS', 'MA/MS']
+  letters_from_a: MyString
+  letters_from_b: MyString
+  letters_from_c: MyString
