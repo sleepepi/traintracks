@@ -7,6 +7,7 @@
     * Citizenship Status added with required alien registration number for permanent residents
     * Degree types can be specified using checkboxes
     * Names of professors writing letters of recommendations required
+    * Gender has been added
     * Degree sought is now a radio button option
     * URM Types can now be specified on application
   * Update to Rails 3.2.6 and Contour 1.0.1
