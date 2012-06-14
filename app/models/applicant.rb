@@ -13,7 +13,7 @@ class Applicant < ActiveRecord::Base
                   :research_project_title, :residency, :review_date, :reviewed, :secondary_preceptor_id, :source_of_support, :state, :status, :supported_by_tg, :training_grant_years, :tge, :thesis,
                   :trainee_code, :training_period_end_date, :training_period_start_date, :urm, :year, :year_department_program, :zip_code, :desired_start_date, :marital_status, :assurance, :reference_number,
                   :personal_statement, :publish, :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache, :disabled_description, :preferred_preceptor_two_id, :preferred_preceptor_three_id,
-                  :previous_nsra_support, :alien_registration_number, :citizenship_status, :degree_types, :letters_from_a, :letters_from_b, :letters_from_c
+                  :previous_nsra_support, :alien_registration_number, :citizenship_status, :degree_types, :letters_from_a, :letters_from_b, :letters_from_c, :gender, :urm_types
 
   attr_accessor :publish
 
@@ -27,7 +27,11 @@ class Applicant < ActiveRecord::Base
 
   DEGREE_SOUGHT = ["MD/MBBS", "PhD", "MD/PhD", "Masters", "Undergrad", "Other"].collect{|i| [i,i]}
 
+  GENDER = ["Male", "Female", "No Response"].collect{|i| [i,i]}
+  URM_TYPES = [["Hispanic or Latin", 'hispanic latin'], ["American Indian or Alaska Native", 'americanindian alskanative'], ["Black or African American", 'black africanamerica'], ["Native Hawaiian or Pacific Islander", 'nativehawaiian pacific_islander']]
+
   serialize :degree_types, Array
+  serialize :urm_types, Array
 
   before_save :set_submitted_at
   after_save :set_reference_number
@@ -47,6 +51,7 @@ class Applicant < ActiveRecord::Base
   validates_presence_of :alien_registration_number, if: [:submitted?, :permanent_resident?]
   validates_format_of :alien_registration_number, with: /\AA\d*\Z/, if: [:submitted?, :permanent_resident?]
   validates_presence_of :letters_from_a, :letters_from_b, :letters_from_c, if: [:submitted?]
+  validates_presence_of :gender, if: [:submitted?]
 
   # Model Relationships
   belongs_to :preferred_preceptor, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_id'
@@ -63,6 +68,10 @@ class Applicant < ActiveRecord::Base
 
   def degree_types_names
     DEGREE_TYPES.select{|a,b| self.degree_types.include?(b)}.collect{|a,b| a}
+  end
+
+  def urm_types_names
+    URM_TYPES.select{|a,b| self.urm_types.include?(b)}.collect{|a,b| a}
   end
 
   # def predoc_or_summer?

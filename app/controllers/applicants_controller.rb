@@ -147,6 +147,9 @@ class ApplicantsController < ApplicationController
       params[:applicant][date] = parse_date(params[:applicant][date])
     end
 
+    params[:applicant][:degree_types] ||= []
+    params[:applicant][:urm_types] ||= []
+
     if current_user and current_user.administrator?
       params[:applicant]
     else
@@ -158,7 +161,7 @@ class ApplicantsController < ApplicationController
         :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id, :thesis, :degrees_earned, :current_title,
         :previous_nsra_support, :degree_types,
         # Demographic Information
-        :disabled, :disabled_description, :disadvantaged, :urm, :marital_status,
+        :gender, :disabled, :disabled_description, :disadvantaged, :urm, :urm_types, :marital_status,
         # Contact Information
         :phone, :address1, :address2, :city, :state, :country, :zip_code,
         # Postdoc Only

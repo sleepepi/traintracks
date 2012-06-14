@@ -2,6 +2,15 @@
   <h2>Demographic Information</h2>
 </div>
 
+<div class="control-group">
+  <%= f.label :gender, nil, class: 'control-label' %>
+  <div class="controls radio">
+    <% Applicant::GENDER.each do |name, value| %>
+      <%= f.radio_button :gender, value %> <label><%= name %></label>
+    <% end %>
+  </div>
+</div>
+
 <div class="control-group checkbox">
   <div class="controls">
     <%= f.check_box :disabled %>
@@ -30,6 +39,15 @@
     <%= f.check_box :urm %>
     <%= f.label :urm, "Under-Represented Minority" %>
     <span class="help-block">An applicant who identifies with any minority, ethnic, or racial population that is underrepresented in scientific research, including: Hispanic or Latino, American Indian or Alaska Native, Black or African American, and Native Hawaiian or Pacific Islander.</span>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :urm_types, "Under-Represented Minority", class: 'control-label' %>
+  <div class="controls checkbox">
+    <% Applicant::URM_TYPES.each do |name, value| %>
+      <%= check_box_tag "applicant[urm_types][]", value, applicant.urm_types.include?(value) %> <label><%= name %></label>
+    <% end %>
   </div>
 </div>
 

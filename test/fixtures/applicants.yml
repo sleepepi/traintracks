@@ -66,6 +66,8 @@ one:
   letters_from_a: MyString
   letters_from_b: MyString
   letters_from_c: MyString
+  gender: MyString
+  urm_types: ['hispanic latin', 'americanindian alskanative']
 
 two:
   first_name: MyString
@@ -133,3 +135,5 @@ two:
   letters_from_a: MyString
   letters_from_b: MyString
   letters_from_c: MyString
+  gender: MyString
+  urm_types: ['americanindian alskanative']
