@@ -93,6 +93,8 @@ class PreceptorsController < ApplicationController
   def update
     @preceptor = Preceptor.find(params[:id])
 
+    @preceptor.skip_reconfirmation!
+
     respond_to do |format|
       if @preceptor.update_attributes(post_params)
         format.html { redirect_to @preceptor, notice: 'Preceptor was successfully updated.' }
