@@ -6,6 +6,7 @@
   * Citizenship Status added with required alien registration number for permanent residents
   * Applicants can specify their degree types now using checkboxes
   * Applicants now need to specify who is sending their recommendation letters
+  * Degree Sought is now a radio button option
 
   * Update to Rails 3.2.6 and Contour 1.0.1
   * Updated Devise configuration files for devise 2.1.0

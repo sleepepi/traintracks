@@ -25,6 +25,8 @@ class Applicant < ActiveRecord::Base
   CITIZENSHIP_STATUS = ["citizen", "permanent resident", "noncitizen"]
   DEGREE_TYPES = [['BA/BS', 'babs'], ['MA/MS', 'mams'], ['MD/DO', 'mddo'], ['PhD/ScD', 'phdscd'], ['Other Professional', 'other']]
 
+  DEGREE_SOUGHT = ["MD/MBBS", "PhD", "MD/PhD", "Masters", "Undergrad", "Other"].collect{|i| [i,i]}
+
   serialize :degree_types, Array
 
   before_save :set_submitted_at

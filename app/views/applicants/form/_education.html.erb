@@ -61,8 +61,10 @@
 
 <div class="control-group">
   <%= f.label :degree_sought, nil, class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_field :degree_sought, 'data-toggle' => 'predoc_summer_only' %>
+  <div class="controls radio">
+    <% Applicant::DEGREE_SOUGHT.each do |name, value| %>
+      <%= f.radio_button :degree_sought, value, data: { toggle: 'predoc_summer_only' } %> <label><%= name %></label>
+    <% end %>
   </div>
 </div>
 
