@@ -13,7 +13,7 @@ class Applicant < ActiveRecord::Base
                   :research_project_title, :residency, :review_date, :reviewed, :secondary_preceptor_id, :source_of_support, :state, :status, :supported_by_tg, :training_grant_years, :tge, :thesis,
                   :trainee_code, :training_period_end_date, :training_period_start_date, :urm, :year, :year_department_program, :zip_code, :desired_start_date, :marital_status, :assurance, :reference_number,
                   :personal_statement, :publish, :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache, :disabled_description, :preferred_preceptor_two_id, :preferred_preceptor_three_id,
-                  :previous_nsra_support, :alien_registration_number, :citizenship_status
+                  :previous_nsra_support, :alien_registration_number, :citizenship_status, :degree_types
 
   attr_accessor :publish
 
@@ -23,6 +23,9 @@ class Applicant < ActiveRecord::Base
   APPLICANT_TYPE = ["predoc", "postdoc", "summer"].collect{|i| [i,i]}
   MARITAL_STATUS = ["single", "married", "divorced", "widowed"].collect{|i| [i,i]}
   CITIZENSHIP_STATUS = ["citizen", "permanent resident", "noncitizen"]
+  DEGREE_TYPES = [['BA/BS', 'babs'], ['MA/MS', 'mams'], ['MD/DO', 'mddo'], ['PhD/ScD', 'phdscd'], ['Other Professional', 'other']]
+
+  serialize :degree_types, Array
 
   before_save :set_submitted_at
   after_save :set_reference_number
@@ -53,6 +56,10 @@ class Applicant < ActiveRecord::Base
 
   def postdoc?
     self.applicant_type == 'postdoc'
+  end
+
+  def degree_types_names
+    DEGREE_TYPES.select{|a,b| self.degree_types.include?(b)}.collect{|a,b| a}
   end
 
   # def predoc_or_summer?

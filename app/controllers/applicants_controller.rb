@@ -156,7 +156,7 @@ class ApplicantsController < ApplicationController
         # Education
         :advisor, :concentration_major, :current_institution, :cv, :degree_sought, :department_program, :expected_year,
         :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id, :thesis, :degrees_earned, :current_title,
-        :previous_nsra_support,
+        :previous_nsra_support, :degree_types,
         # Demographic Information
         :disabled, :disabled_description, :disadvantaged, :urm, :marital_status,
         # Contact Information

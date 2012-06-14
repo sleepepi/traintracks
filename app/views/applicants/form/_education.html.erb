@@ -32,6 +32,15 @@
 </div>
 
 <div class="control-group">
+  <%= f.label :degree_types, nil, class: 'control-label' %>
+  <div class="controls checkbox">
+    <% Applicant::DEGREE_TYPES.each do |name, value| %>
+      <%= check_box_tag "applicant[degree_types][]", value, applicant.degree_types.include?(value) %> <label><%= name %></label>
+    <% end %>
+  </div>
+</div>
+
+<div class="control-group">
   <%= f.label :degrees_earned, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.text_area :degrees_earned, rows: 7, style: "width:95%" %>

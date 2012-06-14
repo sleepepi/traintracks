@@ -62,6 +62,7 @@ one:
   confirmed_at: 2012-05-07 10:30:00
   alien_registration_number: MyString
   citizenship_status: MyString
+  degree_types: ['BA/BS']
 
 two:
   first_name: MyString
@@ -125,3 +126,4 @@ two:
   confirmed_at: 2012-05-07 10:30:00
   alien_registration_number: MyString
   citizenship_status: MyString
+  degree_types: ['BA/BS', 'MA/MS']

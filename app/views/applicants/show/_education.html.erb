@@ -22,6 +22,15 @@
   <dt>Current position</dt>
   <dd><%= applicant.current_title %></dd>
 
+  <dt>Degree Types</dt>
+  <dd>
+    <ul>
+    <% applicant.degree_types_names.each do |degree_type| %>
+      <li><%= degree_type %></li>
+    <% end %>
+    </ul>
+  </dd>
+
   <dt>Degrees earned</dt>
   <dd><%= simple_format applicant.degrees_earned %></dd>
 
