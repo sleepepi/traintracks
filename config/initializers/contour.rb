@@ -45,9 +45,6 @@ Contour.setup do |config|
               { name: 'Logout', path: 'destroy_preceptor_session_path' }]
     },
     {
-      name: 'About', display: 'not_signed_in', path: 'about_path', position: 'left'
-    },
-    {
       name: 'Applicants', display: 'signed_in', path: 'applicants_path', position: 'left', condition: 'user_signed_in? and current_user.administrator?',
       links: [{ name: 'Create', path: 'new_applicant_path' }]
     },
@@ -57,6 +54,10 @@ Contour.setup do |config|
     },
     {
       name: 'Users', display: 'signed_in', path: 'users_path', position: 'left', condition: 'user_signed_in? and current_user.system_admin?'
+    },
+    {
+      name: 'About', display: 'always', path: 'about_path', position: 'left',
+      links: []
     }
   ]
 
