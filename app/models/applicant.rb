@@ -33,6 +33,7 @@ class Applicant < ActiveRecord::Base
   serialize :degree_types, Array
   serialize :urm_types, Array
 
+  # Callbacks
   before_save :set_submitted_at
   after_save :set_reference_number
 
@@ -113,7 +114,7 @@ class Applicant < ActiveRecord::Base
   end
 
   def destroy
-    update_attribute :deleted, true
+    update_column :deleted, true
   end
 
   def set_submitted_at
@@ -125,7 +126,7 @@ class Applicant < ActiveRecord::Base
 
   def set_reference_number(new_reference_number = Digest::SHA1.hexdigest(Time.now.usec.to_s))
     begin
-      self.update_attribute :reference_number, new_reference_number if self.respond_to?('reference_number') and self.reference_number.blank? and Applicant.where(reference_number: new_reference_number).count == 0
+      self.update_attributes reference_number: new_reference_number if self.respond_to?('reference_number') and self.reference_number.blank? and Applicant.where(reference_number: new_reference_number).count == 0
     rescue ActiveRecord::RecordNotUnique
       # Do nothing
     end
@@ -138,7 +139,7 @@ class Applicant < ActiveRecord::Base
 
   def update_general_information_email!(current_user)
     self.reset_authentication_token!
-    self.update_attribute :emailed_at, Time.now
+    self.update_column :emailed_at, Time.now
     UserMailer.update_application(self, current_user).deliver if Rails.env.production?
   end
 

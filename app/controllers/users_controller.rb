@@ -7,7 +7,7 @@ class UsersController < ApplicationController
       redirect_to root_path, alert: "You do not have sufficient privileges to access that page."
       return
     end
-    # current_user.update_attribute :users_per_page, params[:users_per_page].to_i if params[:users_per_page].to_i >= 10 and params[:users_per_page].to_i <= 200
+    # current_user.update_column :users_per_page, params[:users_per_page].to_i if params[:users_per_page].to_i >= 10 and params[:users_per_page].to_i <= 200
     user_scope = User.current
     @search_terms = (params[:search] || params[:q]).to_s.gsub(/[^0-9a-zA-Z]/, ' ').split(' ')
     @search_terms.each{|search_term| user_scope = user_scope.search(search_term) }
@@ -44,9 +44,11 @@ class UsersController < ApplicationController
   def update
     @user = User.current.find_by_id(params[:id])
     if @user and @user.update_attributes(params[:user])
-      @user.update_attribute :system_admin, params[:system_admin]
-      @user.update_attribute :administrator, params[:administrator]
-      @user.update_attribute :status, params[:status]
+      original_status = @user.status
+      @user.update_column :system_admin, params[:system_admin]
+      @user.update_column :administrator, params[:administrator]
+      @user.update_column :status, params[:status]
+      UserMailer.status_activated(@user).deliver if Rails.env.production? and original_status != @user.status and @user.status = 'active'
       redirect_to(@user, notice: 'User was successfully updated.')
     elsif @user
       render action: "edit"
@@ -60,5 +62,4 @@ class UsersController < ApplicationController
     @user.destroy if @user
     redirect_to users_path
   end
-
 end

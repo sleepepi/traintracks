@@ -43,7 +43,7 @@ class Preceptor < ActiveRecord::Base
   end
 
   def destroy
-    update_attribute :deleted, true
+    update_column :deleted, true
   end
 
   # Return true if an email has been sent to the applicant and they have not yet logged in
@@ -53,7 +53,7 @@ class Preceptor < ActiveRecord::Base
 
   def update_general_information_email!(current_user)
     self.reset_authentication_token!
-    self.update_attribute :emailed_at, Time.now
+    self.update_column :emailed_at, Time.now
     UserMailer.update_preceptor(self, current_user).deliver if Rails.env.production?
   end
 

@@ -27,7 +27,7 @@ class ApplicantsController < ApplicationController
   # Removes the applicants submitted_at date.  However the original submitted date will always be maintained.
   def unlock
     @applicant = Applicant.find(params[:id])
-    @applicant.update_attribute :submitted_at, nil
+    @applicant.update_column :submitted_at, nil
     redirect_to @applicant, notice: 'Applicant has been unlocked.'
   end
 
@@ -39,7 +39,7 @@ class ApplicantsController < ApplicationController
   end
 
   def index
-    # current_user.update_attribute :applicants_per_page, params[:applicants_per_page].to_i if params[:applicants_per_page].to_i >= 10 and params[:applicants_per_page].to_i <= 200
+    # current_user.update_column :applicants_per_page, params[:applicants_per_page].to_i if params[:applicants_per_page].to_i >= 10 and params[:applicants_per_page].to_i <= 200
     applicant_scope = Applicant.current # current_user.all_viewable_applicants
     @search_terms = params[:search].to_s.gsub(/[^0-9a-zA-Z]/, ' ').split(' ')
     @search_terms.each{|search_term| applicant_scope = applicant_scope.search(search_term) }

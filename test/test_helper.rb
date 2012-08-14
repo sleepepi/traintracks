@@ -23,15 +23,15 @@ class ActionController::TestCase
   end
 end
 
-class ActionController::IntegrationTest
+class ActionDispatch::IntegrationTest
   def sign_in_as(user_template, password, email)
     user = User.create(password: password, password_confirmation: password, email: email,
                        first_name: user_template.first_name, last_name: user_template.last_name)
     user.save!
-    user.update_attribute :status, user_template.status
-    user.update_attribute :deleted, user_template.deleted?
-    user.update_attribute :system_admin, user_template.system_admin?
-    user.update_attribute :administrator, user_template.administrator?
+    user.update_column :status, user_template.status
+    user.update_column :deleted, user_template.deleted?
+    user.update_column :system_admin, user_template.system_admin?
+    user.update_column :administrator, user_template.administrator?
     post_via_redirect 'users/login', user: { email: email, password: password }
     user
   end

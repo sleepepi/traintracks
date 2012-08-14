@@ -32,7 +32,7 @@ class PreceptorsController < ApplicationController
   end
 
   def index
-    # current_user.update_attribute :preceptors_per_page, params[:preceptors_per_page].to_i if params[:preceptors_per_page].to_i >= 10 and params[:preceptors_per_page].to_i <= 200
+    # current_user.update_column :preceptors_per_page, params[:preceptors_per_page].to_i if params[:preceptors_per_page].to_i >= 10 and params[:preceptors_per_page].to_i <= 200
     preceptor_scope = Preceptor.current # current_user.all_viewable_preceptors
     @search_terms = params[:search].to_s.gsub(/[^0-9a-zA-Z]/, ' ').split(' ')
     @search_terms.each{|search_term| preceptor_scope = preceptor_scope.search(search_term) }
