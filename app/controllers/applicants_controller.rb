@@ -44,9 +44,10 @@ class ApplicantsController < ApplicationController
     @search_terms = params[:search].to_s.gsub(/[^0-9a-zA-Z]/, ' ').split(' ')
     @search_terms.each{|search_term| applicant_scope = applicant_scope.search(search_term) }
 
-    @order = Applicant.column_names.collect{|column_name| "applicants.#{column_name}"}.include?(params[:order].to_s.split(' ').first) ? params[:order] : "applicants.last_name"
+    @order = scrub_order(Applicant, params[:order], 'applicants.last_name')
     applicant_scope = applicant_scope.order(@order)
 
+    @applicant_count = applicant_scope.count
     @applicants = applicant_scope.page(params[:page]).per( 40 ) #current_user.applicants_per_page)
   end
 

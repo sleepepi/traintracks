@@ -37,9 +37,10 @@ class PreceptorsController < ApplicationController
     @search_terms = params[:search].to_s.gsub(/[^0-9a-zA-Z]/, ' ').split(' ')
     @search_terms.each{|search_term| preceptor_scope = preceptor_scope.search(search_term) }
 
-    @order = Preceptor.column_names.collect{|column_name| "preceptors.#{column_name}"}.include?(params[:order].to_s.split(' ').first) ? params[:order] : "preceptors.last_name"
+    @order = scrub_order(Preceptor, params[:order], 'preceptors.last_name')
     preceptor_scope = preceptor_scope.order(@order)
 
+    @preceptor_count = preceptor_scope.count
     @preceptors = preceptor_scope.page(params[:page]).per( 40 ) #current_user.preceptors_per_page)
   end
 

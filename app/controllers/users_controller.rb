@@ -12,9 +12,10 @@ class UsersController < ApplicationController
     @search_terms = (params[:search] || params[:q]).to_s.gsub(/[^0-9a-zA-Z]/, ' ').split(' ')
     @search_terms.each{|search_term| user_scope = user_scope.search(search_term) }
 
-    @order = User.column_names.collect{|column_name| "users.#{column_name}"}.include?(params[:order].to_s.split(' ').first) ? params[:order] : "users.current_sign_in_at DESC"
+    @order = scrub_order(User, params[:order], 'users.current_sign_in_at DESC')
     user_scope = user_scope.order(@order)
 
+    @user_count = user_scope.count
     @users = user_scope.page(params[:page]).per(20) # (current_user.users_per_page)
     respond_to do |format|
       format.html
