@@ -12,21 +12,30 @@
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.enrolled', 'Enrolled', 'applicants_search') %></th>
       <th>Advisor</th>
       <th>CV number</th>
+<% if false %>
       <th>Concentration / Major</th>
       <th>Current institution</th>
+<% end %>
       <th>Cv</th>
+<% if false %>
       <th>Degree sought</th>
       <th>Department / Program</th>
+<% end %>
       <th>Disabled</th>
       <th>Disadvantaged</th>
+<% if false %>
       <th>Expected year</th>
       <th>Preferred preceptor</th>
       <th>Primary preceptor</th>
       <th>Secondary preceptor</th>
       <th>Previous institutions</th>
+<% end %>
       <th>TGE</th>
+<% if false %>
       <th>Thesis</th>
+<% end %>
       <th>URM</th>
+<% if false %>
       <th>Degree type</th>
       <th>Degrees earned</th>
       <th>Notes</th>
@@ -34,8 +43,10 @@
       <th>Year department program</th>
       <th>Training period start date</th>
       <th>Training period end date</th>
+<% end %>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.email', 'Email', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.status', 'Status', 'applicants_search') %></th>
+<% if false %>
       <th>Current Position</th>
       <th>Address1</th>
       <th>Address2</th>
@@ -49,12 +60,17 @@
       <th>Pubs not prev rep</th>
       <th>Research description</th>
       <th>Source of support</th>
+<% end %>
       <th>Supported by TG</th>
+<% if false %>
       <th>Training grant years</th>
       <th>Research project title</th>
+<% end %>
       <th>Trainee code</th>
+<% if false %>
       <th>Desired start date</th>
       <th>Marital status</th>
+<% end %>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.submitted_at', 'Submitted', 'applicants_search') %></th>
       <th>Actions</th>
     </tr>
@@ -72,21 +88,30 @@
         <td style="text-align:center"><%= simple_check applicant.enrolled %></td>
         <td><%= applicant.advisor %></td>
         <td><%= applicant.cv_number %></td>
+<% if false %>
         <td><%= applicant.concentration_major %></td>
         <td><%= applicant.current_institution %></td>
+<% end %>
         <td style="text-align:center"><%= simple_check applicant.cv %></td>
+<% if false %>
         <td><%= applicant.degree_sought %></td>
         <td><%= applicant.department_program %></td>
+<% end %>
         <td style="text-align:center"><%= simple_check applicant.disabled %></td>
         <td style="text-align:center"><%= simple_check applicant.disadvantaged %></td>
+<% if false %>
         <td><%= applicant.expected_year %></td>
         <td><%= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor %></td>
         <td><%= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor %></td>
         <td><%= link_to applicant.secondary_preceptor.name, applicant.secondary_preceptor if applicant.secondary_preceptor %></td>
         <td><%= applicant.previous_institutions %></td>
+<% end %>
         <td style="text-align:center"><%= simple_check applicant.tge %></td>
+<% if false %>
         <td><%= applicant.thesis %></td>
+<% end %>
         <td style="text-align:center"><%= simple_check applicant.urm %></td>
+<% if false %>
         <td><%= applicant.degree_type %></td>
         <td><%= applicant.degrees_earned %></td>
         <td><%= applicant.notes %></td>
@@ -94,8 +119,10 @@
         <td><%= applicant.year_department_program %></td>
         <td><%= applicant.training_period_start_date %></td>
         <td><%= applicant.training_period_end_date %></td>
+<% end %>
         <td><%= applicant.email %></td>
         <td><%= applicant.status %></td>
+<% if false %>
         <td><%= applicant.current_title %></td>
         <td><%= applicant.address1 %></td>
         <td><%= applicant.address2 %></td>
@@ -109,12 +136,17 @@
         <td><%= applicant.pubs_not_prev_rep %></td>
         <td><%= applicant.research_description %></td>
         <td><%= applicant.source_of_support %></td>
+<% end %>
         <td style="text-align:center"><%= simple_check applicant.supported_by_tg %></td>
+<% if false %>
         <td><%= applicant.training_grant_years %></td>
         <td><%= applicant.research_project_title %></td>
+<% end %>
         <td><%= applicant.trainee_code %></td>
+<% if false %>
         <td><%= applicant.desired_start_date %></td>
         <td><%= applicant.marital_status %></td>
+<% end %>
         <td><%= simple_time applicant.submitted_at %></td>
         <td>
           <%= link_to 'Edit', edit_applicant_path(applicant), class: 'btn btn-mini' %>
@@ -126,10 +158,3 @@
 </table>
 
 <center><%= paginate @applicants %></center>
-
-<%= javascript_tag do %>
-jQuery(document).ready(function($)
-{
-  $('#thetable').tableScroll();
-});
-<% end %>
