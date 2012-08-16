@@ -17,11 +17,11 @@
 
   <%= render partial: 'applicants/form/general', locals: { f: f, applicant: @applicant } %>
 
+  <%= render partial: 'applicants/form/contact', locals: { f: f } %>
+
   <%= render partial: 'applicants/form/education', locals: { f: f, applicant: @applicant } %>
 
   <%= render partial: 'applicants/form/demographic', locals: { f: f, applicant: @applicant } %>
-
-  <%= render partial: 'applicants/form/contact', locals: { f: f } %>
 
   <%= render partial: 'applicants/form/trainee', locals: { f: f } %>
 

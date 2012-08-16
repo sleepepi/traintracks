@@ -60,8 +60,10 @@
     <% Applicant::CITIZENSHIP_STATUS.each do |citizenship_status| %>
       <%= f.radio_button :citizenship_status, citizenship_status, class: 'radio' %> <label><%= citizenship_status.humanize %></label>
       <% if citizenship_status == 'permanent resident' %>
-        <%= f.label :alien_registration_number, nil %>
-        <%= f.text_field :alien_registration_number %> Starts with an <b>A</b>, no dashes or spaces
+        <div class="input-prepend">
+          <span class="add-on">A</span><%= f.text_field :alien_registration_number, value: applicant.alien_registration_number.to_s.gsub('A', '') %>
+        </div>
+        <span class="help-inline"><%= f.label :alien_registration_number, nil %></span>
         <span class="help-block"></span>
       <% end %>
     <% end %>

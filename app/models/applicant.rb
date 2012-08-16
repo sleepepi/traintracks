@@ -34,6 +34,7 @@ class Applicant < ActiveRecord::Base
   serialize :urm_types, Array
 
   # Callbacks
+  before_validation :set_alien_registration_number
   before_save :set_submitted_at
   after_save :set_reference_number
 
@@ -121,6 +122,12 @@ class Applicant < ActiveRecord::Base
     if self.respond_to?('submitted_at') and self.submitted_at.blank? and self.publish.to_s == '1'
       self.submitted_at = Time.now
       self.originally_submitted_at = self.submitted_at if self.respond_to?('originally_submitted_at') and self.originally_submitted_at.blank?
+    end
+  end
+
+  def set_alien_registration_number
+    if attribute_present?("alien_registration_number")
+      self.alien_registration_number = "A" + alien_registration_number.to_s.gsub(/[^\d]/, '')
     end
   end
 
