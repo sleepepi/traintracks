@@ -146,18 +146,18 @@ class Applicant < ActiveRecord::Base
   end
 
   def update_general_information_email!(current_user)
-    self.reset_authentication_token!
     self.update_column :emailed_at, Time.now
     UserMailer.update_application(self, current_user).deliver if Rails.env.production?
   end
 
-  def send_annual_reminder(current_user, year, subject, body)
+  def send_annual_reminder!(current_user, year, subject, body)
     annual = Annual.current.find_or_create_by_applicant_id_and_year(self.id, year, { user_id: current_user.id })
 
     if annual
       if annual.submitted?
         # Do nothing
       elsif annual.applicant and not annual.applicant.email.blank?
+        self.update_column :emailed_at, Time.now
         UserMailer.update_annual(annual, subject, body).deliver if Rails.env.production?
       end
     end

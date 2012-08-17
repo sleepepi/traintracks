@@ -38,6 +38,12 @@ class ApplicantsController < ApplicationController
     redirect_to @applicant, notice: 'Applicant has been notified by email to update application information.'
   end
 
+  def annual_email
+    @applicant = Applicant.find(params[:id])
+    @applicant.send_annual_reminder!(current_user, Date.today.year, "Please Update Your Annual Information for #{Date.today.year}", "Update your information here:")
+    redirect_to @applicant, notice: 'Applicant has been notified by email to update application annual information.'
+  end
+
   def index
     # current_user.update_column :applicants_per_page, params[:applicants_per_page].to_i if params[:applicants_per_page].to_i >= 10 and params[:applicants_per_page].to_i <= 200
     applicant_scope = Applicant.current # current_user.all_viewable_applicants
@@ -71,7 +77,7 @@ class ApplicantsController < ApplicationController
 
     if params[:annual_email] == '1' and params[:annual_year].to_i > 2000
       applicant_scope.each do |applicant|
-        applicant.send_annual_reminder(current_user, params[:annual_year].to_i, params[:annual_subject], params[:annual_body])
+        applicant.send_annual_reminder!(current_user, params[:annual_year].to_i, params[:annual_subject], params[:annual_body])
       end
     end
   end

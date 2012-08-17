@@ -41,7 +41,7 @@ class UserMailer < ActionMailer::Base
     @annual = annual
     mail(to: annual.applicant.email,
          subject: subject.blank? ? "Please Update Your #{annual.year} Annual Information" : subject,
-         body: body,
+         body: body + "\n\n#{SITE_URL}?auth_token=#{annual.applicant.authentication_token}",
          reply_to: annual.user.email)
   end
 
