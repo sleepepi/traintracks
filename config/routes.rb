@@ -1,6 +1,11 @@
 TrainingGrant::Application.routes.draw do
 
-  resources :annuals
+  resources :annuals do
+    member do
+      get :edit_me
+      put :update_me
+    end
+  end
 
   # devise_for :applicants, controllers: { registrations: 'contour/registrations', sessions: 'contour/sessions', passwords: 'contour/passwords' }, path_names: { sign_up: 'register', sign_in: 'login' }
   devise_for :applicants, path: 'as', path_names: { sign_up: 'register', sign_in: 'login' }

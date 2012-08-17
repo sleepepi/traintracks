@@ -131,11 +131,26 @@ class AnnualsController < ApplicationController
   def post_params
     params[:annual] ||= {}
 
-    params[:annual][:applicant_id] = current_applicant.id if current_applicant
+    if current_user
+      params[:annual].slice(
+        # Admin Only
+        :applicant_id, :year,
+        # General Annual
+        :coursework_completed, :publications, :presentations, :research_description, :source_of_support,
+        # NIH File Upload
+        :nih_other_support, :nih_other_support_cache, :nih_other_support_uploaded_at
+      )
+    else # Current Applicant
+      params[:annual].slice(
+        # General Annual
+        :coursework_completed, :publications, :presentations, :research_description, :source_of_support,
+        # NIH File Upload
+        :nih_other_support, :nih_other_support_cache, :nih_other_support_uploaded_at,
+        # Publish
+        :publish
+      )
+    end
 
-    params[:annual].slice(
-       :applicant_id, :year, :coursework_completed, :publications, :presentations, :research_description, :source_of_support, :nih_other_support, :nih_other_support_cache, :nih_other_support_uploaded_at
-    )
+    params[:annual]
   end
-
 end

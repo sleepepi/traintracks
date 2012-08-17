@@ -36,6 +36,15 @@ class UserMailer < ActionMailer::Base
          reply_to: user.email)
   end
 
+  def update_annual(annual, subject, body)
+    setup_email
+    @annual = annual
+    mail(to: annual.applicant.email,
+         subject: subject.blank? ? "Please Update Your #{annual.year} Annual Information" : subject,
+         body: body,
+         reply_to: annual.user.email)
+  end
+
   protected
 
   def setup_email

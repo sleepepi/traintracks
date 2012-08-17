@@ -1,4 +1,4 @@
-<% @title = "Applicant Dashboard" %>
+<% @title = "Applicant/Trainee Dashboard" %>
 <div class="page-header">
   <h1>
     <%= @title %>
@@ -8,6 +8,8 @@
     <% end %>
   </h1>
 </div>
+
+<%= render partial: 'annuals/menu_bar', locals: { applicant: current_applicant } %>
 
 <% unless current_applicant.submitted_at.blank? %>
   <div class="hero-unit">

@@ -1,4 +1,4 @@
-<% @title = 'Applicants' %>
+<% @title = 'Applicants and Trainees' %>
 <div class="page-header">
   <h1>
     <%= @title %>
@@ -8,8 +8,48 @@
 
 <%= form_tag applicants_path, method: :get, remote: true, id: "applicants_search", class: 'form-search', data: { object: 'form-load' } do %>
   <%= hidden_field_tag :order %>
-  <%= text_field_tag 'search', params[:search], class: 'search-query' %>
-  <%= submit_tag 'Search', class: 'btn btn-primary' %>
+  <%= hidden_field_tag :annual_subject %>
+  <%= hidden_field_tag :annual_body %>
+  <%= hidden_field_tag :annual_year %>
+
+  <div class="row">
+    <div class="span4 control-group">
+      <%= label :search, 'Search', class: 'control-label' %>
+      <div class="controls">
+        <%= text_field_tag 'search', params[:search], class: 'search-query', data: { object: 'filter' } %>
+      </div>
+    </div>
+
+    <div class="span4 control-group">
+      <%= label :enrolled, "Enrolled", class: 'control-label' %>
+      <div class="controls">
+        <%= hidden_field_tag :enrolled, params[:enrolled], data: { object: 'filter' } %>
+        <div class="btn-group" data-toggle="buttons-radio">
+          <button type="button" class="btn <%= 'active' if params[:enrolled] == 'all' %>" data-object="value-set" data-target="#enrolled" data-value="all" id="enrolled-all">All</button>
+          <button type="button" class="btn <%= 'active' if params[:enrolled] == 'only' %>" data-object="value-set" data-target="#enrolled" data-value="only">Enrolled</button>
+          <button type="button" class="btn <%= 'active' if params[:enrolled] == 'except' %>" data-object="value-set" data-target="#enrolled" data-value="except">Not Enrolled</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= submit_tag 'Filter Search', class: 'btn btn-primary' %>
+    <%= link_to 'Export', '#', class: 'btn', data: { object: 'export', format: 'csv', target: '#applicants_search' } %>
+    <%= link_to 'Reset', '#', class: 'btn', data: { object: 'reset-applicant-filters' } %>
+    <%= link_to 'Annual Reminder Email', '#', class: 'btn', data: { target: '#send_email_modal', object: 'modal-show' } %>
+  </div>
 <% end %>
 
 <div id="applicants"><center><%= image_tag "contour/ajax-loader.gif" %></center></div>
+
+<%= render partial: 'applicants/email_modal' %>
+
+<div class="modal hide" id="saving_modal">
+  <div class="modal-header">
+    <h3>Sending Emails to Applicants</h3>
+  </div>
+  <div class="modal-body">
+    <p>Your email notifications are being sent...this message will disappear when the emails have completed sending.</p>
+  </div>
+</div>

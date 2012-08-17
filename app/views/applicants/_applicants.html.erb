@@ -10,7 +10,9 @@
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.offered', 'Offered', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.accepted', 'Accepted', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.enrolled', 'Enrolled', 'applicants_search') %></th>
+<% if false %>
       <th>Advisor</th>
+<% end %>
       <th>CV number</th>
 <% if false %>
       <th>Concentration / Major</th>
@@ -86,7 +88,9 @@
         <td style="text-align:center"><%= simple_check applicant.offered %></td>
         <td style="text-align:center"><%= simple_check applicant.accepted %></td>
         <td style="text-align:center"><%= simple_check applicant.enrolled %></td>
+<% if false %>
         <td><%= applicant.advisor %></td>
+<% end %>
         <td><%= applicant.cv_number %></td>
 <% if false %>
         <td><%= applicant.concentration_major %></td>

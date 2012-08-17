@@ -61,7 +61,7 @@ class Applicant < ActiveRecord::Base
   belongs_to :preferred_preceptor_three, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_three_id'
   belongs_to :primary_preceptor, class_name: 'Preceptor', foreign_key: 'primary_preceptor_id'
   belongs_to :secondary_preceptor, class_name: 'Preceptor', foreign_key: 'secondary_preceptor_id'
-  has_many :annuals, conditions: { deleted: false }, order: 'year'
+  has_many :annuals, conditions: { deleted: false }, order: 'year DESC'
 
   # Applicant Methods
 
@@ -149,6 +149,18 @@ class Applicant < ActiveRecord::Base
     self.reset_authentication_token!
     self.update_column :emailed_at, Time.now
     UserMailer.update_application(self, current_user).deliver if Rails.env.production?
+  end
+
+  def send_annual_reminder(current_user, year, subject, body)
+    annual = Annual.current.find_or_create_by_applicant_id_and_year(self.id, year, { user_id: current_user.id })
+
+    if annual
+      if annual.submitted?
+        # Do nothing
+      elsif annual.applicant and not annual.applicant.email.blank?
+        UserMailer.update_annual(annual, subject, body).deliver if Rails.env.production?
+      end
+    end
   end
 
 end

@@ -29,3 +29,31 @@ jQuery ->
   $("#applicant_applicant_type").on('change', () ->
     togglePostdocFields()
   )
+
+  $(document)
+    .on('click', '[data-object~="value-set"]', () ->
+      $($(this).data('target')).val($(this).data('value'))
+      $($(this).data('target')).closest('form').submit()
+    )
+    .on('click', '[data-object~="export"]', () ->
+      window.location = $($(this).data('target')).attr('action') + '.' + $(this).data('format') + '?' + $($(this).data('target')).serialize()
+      false
+    )
+    .on('click', '[data-object~="reset-filters"]', () ->
+      $('[data-object~="filter"]').val('')
+      $($(this).data('target')).submit()
+      false
+    )
+    .on('click', '[data-object~="reset-applicant-filters"]', () ->
+      $('[data-object~="filter"]').val('')
+      $('#enrolled-all').click()
+      false
+    )
+    .on('click', '[data-object~="modal-show"]', () ->
+      $($(this).data('target')).modal({ dynamic: true })
+      false
+    )
+    .on('click', '[data-object~="modal-hide"]', () ->
+      $($(this).data('target')).modal('hide');
+      false
+    )

@@ -1,16 +1,15 @@
 <div class="page-header"><h2>Annual Information</h2></div>
 
 <% applicant.annuals.each do |annual| %>
+
+  <div class="page-header">
+    <h3>
+      Year <%= annual.year %>
+      <%= link_to 'Edit', current_user ? edit_annual_path(annual) : edit_me_annual_path(annual), class: "btn btn-mini #{"btn-primary" unless annual.submitted?}" %>
+    </h3>
+  </div>
+
   <dl class="dl-horizontal">
-    <dt>Year</dt>
-    <dd>
-      <%= annual.year %>
-      <% if current_user %>
-        <%= link_to 'Edit', edit_annual_path(annual), class: 'btn btn-mini' %>
-      <% elsif current_applicant %>
-        <%= link_to 'Edit', edit_me_annual_path(annual), class: 'btn btn-mini' %>
-      <% end %>
-    </dd>
 
     <dt>Coursework Completed</dt>
     <dd style="min-height:60px"><%= annual.coursework_completed %></dd>

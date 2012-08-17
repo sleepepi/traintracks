@@ -41,6 +41,15 @@ class ApplicantsController < ApplicationController
   def index
     # current_user.update_column :applicants_per_page, params[:applicants_per_page].to_i if params[:applicants_per_page].to_i >= 10 and params[:applicants_per_page].to_i <= 200
     applicant_scope = Applicant.current # current_user.all_viewable_applicants
+
+    params[:enrolled] = 'all' unless ['all', 'only', 'except'].include?(params[:enrolled])
+
+    case params[:enrolled] when 'only'
+      applicant_scope = applicant_scope.where(enrolled: true)
+    when 'except'
+      applicant_scope = applicant_scope.where(enrolled: false)
+    end
+
     @search_terms = params[:search].to_s.gsub(/[^0-9a-zA-Z]/, ' ').split(' ')
     @search_terms.each{|search_term| applicant_scope = applicant_scope.search(search_term) }
 
@@ -48,7 +57,23 @@ class ApplicantsController < ApplicationController
     applicant_scope = applicant_scope.order(@order)
 
     @applicant_count = applicant_scope.count
+
+    if params[:format] == 'csv'
+      if @applicant_count == 0
+        redirect_to applicants_path, alert: 'No data was exported since no applicants matched the specified filters.'
+        return
+      end
+      generate_csv(applicant_scope)
+      return
+    end
+
     @applicants = applicant_scope.page(params[:page]).per( 40 ) #current_user.applicants_per_page)
+
+    if params[:annual_email] == '1' and params[:annual_year].to_i > 2000
+      applicant_scope.each do |applicant|
+        applicant.send_annual_reminder(current_user, params[:annual_year].to_i, params[:annual_subject], params[:annual_body])
+      end
+    end
   end
 
   # GET /applicants/1
@@ -178,4 +203,19 @@ class ApplicantsController < ApplicationController
        )
     end
   end
+
+  def generate_csv(applicant_scope)
+    @csv_string = CSV.generate do |csv|
+      csv << ['Last Name', 'First Name']
+
+      applicant_scope.each do |applicant|
+        row = [ applicant.last_name, applicant.first_name ]
+        csv << row
+      end
+    end
+
+    send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
+                           disposition: "attachment; filename=\"Training Grant Applicants and Trainees #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+  end
+
 end

@@ -45,7 +45,7 @@ Contour.setup do |config|
               { name: 'Logout', path: 'destroy_preceptor_session_path' }]
     },
     {
-      name: 'Applicants', display: 'signed_in', path: 'applicants_path', position: 'left', condition: 'user_signed_in? and current_user.administrator?',
+      name: 'Applicants and Trainees', display: 'signed_in', path: 'applicants_path', position: 'left', condition: 'user_signed_in? and current_user.administrator?',
       links: [{ name: 'Create', path: 'new_applicant_path' }]
     },
     {

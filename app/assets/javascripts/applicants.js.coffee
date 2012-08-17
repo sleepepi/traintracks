@@ -12,3 +12,13 @@ jQuery ->
         $($(this).data('target')).submit()
         false
     )
+
+  $('#send_annual_email').on('click', () ->
+    $('#send_email_modal').modal('hide')
+    $('#annual_subject').val($('#subject').val())
+    $('#annual_body').val($('#body').val())
+    $('#annual_year').val($('#year').val())
+    $('#saving_modal').modal(backdrop: 'static', keyboard: false)
+    $.get($('#applicants_search').attr('action'), $('#applicants_search').serialize() +  '&annual_email=1', null, 'script')
+    false
+  )

@@ -1,5 +1,5 @@
 class Annual < ActiveRecord::Base
-  attr_accessible :applicant_id, :coursework_completed, :nih_other_support, :nih_other_support_uploaded_at, :nih_other_support_cache, :presentations, :publications, :research_description, :source_of_support, :year, :publish
+  attr_accessible :applicant_id, :coursework_completed, :nih_other_support, :nih_other_support_uploaded_at, :nih_other_support_cache, :presentations, :publications, :research_description, :source_of_support, :year, :publish, :user_id
 
   attr_accessor :publish
 
@@ -34,6 +34,10 @@ class Annual < ActiveRecord::Base
       self.modified_at = Time.now
       self.submitted_at = self.modified_at if self.submitted_at.blank?
     end
+  end
+
+  def submitted?
+    not self.submitted_at.blank?
   end
 
 end

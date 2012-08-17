@@ -44,11 +44,7 @@ class User < ActiveRecord::Base
 
   def all_annuals
     @all_annuals ||= begin
-      if self.administrator?
-        Annual.current
-      else
-        self.annuals
-      end
+      Annual.current
     end
   end
 
