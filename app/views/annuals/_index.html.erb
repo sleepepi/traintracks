@@ -1,0 +1,39 @@
+<div class="page-header"><h2>Annual Information</h2></div>
+
+<% applicant.annuals.each do |annual| %>
+  <dl class="dl-horizontal">
+    <dt>Year</dt>
+    <dd>
+      <%= annual.year %>
+      <% if current_user %>
+        <%= link_to 'Edit', edit_annual_path(annual), class: 'btn btn-mini' %>
+      <% elsif current_applicant %>
+        <%= link_to 'Edit', edit_me_annual_path(annual), class: 'btn btn-mini' %>
+      <% end %>
+    </dd>
+
+    <dt>Coursework Completed</dt>
+    <dd style="min-height:60px"><%= annual.coursework_completed %></dd>
+
+    <dt>Publications</dt>
+    <dd><%= annual.publications %></dd>
+
+    <dt>Conferences, Presentations, Honors, and Fellowships</dt>
+    <dd style="min-height:90px"><%= annual.presentations %></dd>
+
+    <dt>Research description</dt>
+    <dd style="min-height:60px"><%= annual.research_description %></dd>
+
+    <dt>Source of support</dt>
+    <dd style="min-height:60px"><%= annual.source_of_support %></dd>
+
+    <dt>NIH Other Support</dt>
+    <dd>
+      <% unless annual.nih_other_support_url.blank? %>
+        <%= link_to annual.nih_other_support_url.split('/').last, annual.nih_other_support_url, target: '_blank', class: 'btn btn-mini' %>
+        <%= number_to_human_size(annual.nih_other_support.size) %>
+        <% if false %><span class="muted">uploaded <%= simple_time(annual.nih_other_support_uploaded_at) %></span><% end %>
+      <% end %>
+    </dd>
+  </dl>
+<% end %>

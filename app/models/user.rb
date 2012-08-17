@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
 
   # Model Relationships
   has_many :authentications
+  has_many :annuals, conditions: { deleted: false }
 
   # User Methods
   # Overriding Devise built-in active_for_authentication? method
@@ -40,6 +41,22 @@ class User < ActiveRecord::Base
   # def email_on?(value)
   #   [nil, true].include?(self.email_notifications[value.to_s])
   # end
+
+  def all_annuals
+    @all_annuals ||= begin
+      if self.administrator?
+        Annual.current
+      else
+        self.annuals
+      end
+    end
+  end
+
+  def all_viewable_annuals
+    @all_viewble_annuals ||= begin
+      self.all_annuals
+    end
+  end
 
   def name
     "#{first_name} #{last_name}"

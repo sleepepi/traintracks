@@ -1,0 +1,51 @@
+<% @title = "Annual: #{@annual.name}" %>
+<div class="page-header">
+  <h1>
+    <%= @title %>
+    <%= link_to "Edit Annual", edit_annual_path(@annual), class: 'btn btn-mini' %>
+    <%= link_to "Delete Annual", @annual, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Annual #{@annual.name}?" } %>
+    <%= link_to "View Annuals", annuals_path, class: 'btn btn-mini' %>
+  </h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>User</dt>
+  <dd><%= link_to @annual.user.name, @annual.user if @annual.user %></dd>
+
+  <dt>Applicant</dt>
+  <dd><%= link_to @annual.applicant.name, @annual.applicant if @annual.applicant %></dd>
+
+  <dt>Year</dt>
+  <dd><%= @annual.year %></dd>
+
+  <dt>Coursework Completed</dt>
+  <dd><%= simple_format @annual.coursework_completed %></dd>
+
+  <dt>Publications</dt>
+  <dd><%= simple_format @annual.publications %></dd>
+
+  <dt>Presentations</dt>
+  <dd><%= simple_format @annual.presentations %></dd>
+
+  <dt>Research Description</dt>
+  <dd><%= simple_format @annual.research_description %></dd>
+
+  <dt>Source Of Support</dt>
+  <dd><%= @annual.source_of_support %></dd>
+
+  <dt>Nih Other Support</dt>
+  <dd><%= @annual.nih_other_support %></dd>
+
+  <dt>Nih Other Support Uploaded At</dt>
+  <dd><%= @annual.nih_other_support_uploaded_at %></dd>
+
+  <dt>Submitted At</dt>
+  <dd><%= @annual.submitted_at %></dd>
+
+  <dt>Modified At</dt>
+  <dd><%= @annual.modified_at %></dd>
+
+  <dt>Deleted</dt>
+  <dd><%= @annual.deleted %></dd>
+
+</dl>

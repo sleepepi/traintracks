@@ -1,0 +1,81 @@
+<div class="page-header">
+  <h1><%= @title %></h1>
+</div>
+
+<%= form_for @annual, html: { class: 'form-horizontal' } do |f| %>
+  <% if @annual.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@annual.errors.count, "error") %> prohibited this annual from being saved:</h2>
+
+      <ul>
+      <% @annual.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :applicant_id, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.select :applicant_id, [['---', nil]] + Applicant.current.order('last_name, first_name').collect{|a| [a.name, a.id]} %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :year, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :year %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :coursework_completed, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :coursework_completed, rows: 7, style: 'width:95%' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :publications, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :publications, rows: 7, style: 'width:95%' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :presentations, "Conferences, Presentations, Honors, and Fellowships", class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :presentations, rows: 7, style: 'width:95%' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :research_description, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :research_description, rows: 7, style: 'width:95%' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :source_of_support, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :source_of_support %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :nih_other_support, 'NIH Other Support', class: 'control-label' %>
+    <div class="controls">
+      <%= f.file_field :nih_other_support %>
+      <%= f.hidden_field :nih_other_support_cache %>
+    </div>
+  </div>
+
+  <%= f.hidden_field :publish, value: 0 %>
+
+  <div class="form-actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+    <%= cancel %>
+  </div>
+<% end %>

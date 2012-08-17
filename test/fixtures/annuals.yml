@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: administrator
+  applicant: one
+  year: 2010
+  coursework_completed: MyText
+  publications: MyText
+  presentations: MyText
+  research_description: MyText
+  source_of_support: MyString
+  nih_other_support: MyString
+  nih_other_support_uploaded_at: 2012-08-17 10:53:57
+  submitted_at: 2012-08-17 10:53:57
+  modified_at: 2012-08-17 10:53:57
+  deleted: false
+
+two:
+  user: administrator
+  applicant: one
+  year: 2011
+  coursework_completed: MyText
+  publications: MyText
+  presentations: MyText
+  research_description: MyText
+  source_of_support: MyString
+  nih_other_support: MyString
+  nih_other_support_uploaded_at: 2012-08-17 10:53:57
+  submitted_at: 2012-08-17 10:53:57
+  modified_at: 2012-08-17 10:53:57
+  deleted: false

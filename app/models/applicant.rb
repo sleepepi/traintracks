@@ -61,6 +61,7 @@ class Applicant < ActiveRecord::Base
   belongs_to :preferred_preceptor_three, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_three_id'
   belongs_to :primary_preceptor, class_name: 'Preceptor', foreign_key: 'primary_preceptor_id'
   belongs_to :secondary_preceptor, class_name: 'Preceptor', foreign_key: 'secondary_preceptor_id'
+  has_many :annuals, conditions: { deleted: false }, order: 'year'
 
   # Applicant Methods
 

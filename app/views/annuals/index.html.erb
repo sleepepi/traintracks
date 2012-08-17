@@ -1,0 +1,15 @@
+<% @title = 'Annuals' %>
+<div class="page-header">
+  <h1>
+    <%= @title %>
+    <%= link_to "Create Annual", new_annual_path, class: 'btn btn-mini btn-primary' %>
+  </h1>
+</div>
+
+<%= form_tag annuals_path, method: :get, remote: true, id: "annuals_search", class: 'form-search', data: { object: 'form-load' } do %>
+  <%= hidden_field_tag :order %>
+  <%= text_field_tag 'search', params[:search], class: 'search-query' %>
+  <%= submit_tag 'Search', class: 'btn btn-primary' %>
+<% end %>
+
+<div id="annuals"><center><%= image_tag "contour/ajax-loader.gif" %></center></div>

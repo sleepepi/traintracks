@@ -45,10 +45,20 @@
     <%= render partial: 'applicants/show/trainee', locals: { applicant: @applicant } %>
   </div>
 
-  <div class="span6">
-    <%= render partial: 'applicants/show/annual', locals: { applicant: @applicant } %>
-  </div>
+  <% if current_user.administrator? %>
+    <div class="span6">
+      <%= render partial: 'applicants/show/submission', locals: { applicant: @applicant } %>
+    </div>
+  <% end %>
+
+  <% if false %>
+    <div class="span6">
+      <%= render partial: 'applicants/show/annual', locals: { applicant: @applicant } %>
+    </div>
+  <% end %>
 </div>
+
+<%= render partial: 'annuals/index', locals: { applicant: @applicant } %>
 
 <% if current_user.administrator? %>
   <div class="row">
@@ -56,8 +66,10 @@
       <%= render partial: 'applicants/show/admin_only', locals: { applicant: @applicant } %>
     </div>
 
-    <div class="span6">
-      <%= render partial: 'applicants/show/submission', locals: { applicant: @applicant } %>
-    </div>
+    <% if false %>
+      <div class="span6">
+        <%= render partial: 'applicants/show/submission', locals: { applicant: @applicant } %>
+      </div>
+    <% end %>
   </div>
 <% end %>

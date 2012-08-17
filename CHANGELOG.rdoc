@@ -1,6 +1,7 @@
 == 0.5.0
 
 * Enhancements
+  * Administrators can now allow applicants and trainees fill out annual information
   * Minor layout changes
 
 == 0.4.2

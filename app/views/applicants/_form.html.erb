@@ -25,7 +25,9 @@
 
   <%= render partial: 'applicants/form/trainee', locals: { f: f } %>
 
+<% if false %>
   <%= render partial: 'applicants/form/annual', locals: { f: f } %>
+<% end %>
 
   <% if current_user.administrator? %>
     <%= render partial: 'applicants/form/admin_only', locals: { f: f, applicant: @applicant } %>
