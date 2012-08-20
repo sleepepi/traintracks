@@ -3,7 +3,6 @@
 <table class="table table-striped table-bordered" style="width:100%">
   <thead>
     <tr>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.user_id', 'User', 'annuals_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.applicant_id', 'Applicant', 'annuals_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.year', 'Year', 'annuals_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.coursework_completed', 'Coursework Completed', 'annuals_search') %></th>
@@ -12,7 +11,6 @@
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.research_description', 'Research Description', 'annuals_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.source_of_support', 'Source Of Support', 'annuals_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.nih_other_support', 'Nih Other Support', 'annuals_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.nih_other_support_uploaded_at', 'Nih Other Support Uploaded At', 'annuals_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.submitted_at', 'Submitted At', 'annuals_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.modified_at', 'Modified At', 'annuals_search') %></th>
       <th>Actions</th>
@@ -21,18 +19,22 @@
 
   <% @annuals.each do |annual| %>
     <tr>
-      <td><%= link_to annual.user.name, annual.user if annual.user %></td>
       <td><%= link_to annual.applicant.name, annual.applicant if annual.applicant %></td>
-      <td><%= annual.year %></td>
-      <td><%= annual.coursework_completed %></td>
-      <td><%= annual.publications %></td>
-      <td><%= annual.presentations %></td>
-      <td><%= annual.research_description %></td>
+      <td><%= link_to annual.year, annual %></td>
+      <td><%= truncate annual.coursework_completed %></td>
+      <td><%= truncate annual.publications %></td>
+      <td><%= truncate annual.presentations %></td>
+      <td><%= truncate annual.research_description %></td>
       <td><%= annual.source_of_support %></td>
-      <td><%= annual.nih_other_support %></td>
-      <td><%= annual.nih_other_support_uploaded_at %></td>
-      <td><%= annual.submitted_at %></td>
-      <td><%= annual.modified_at %></td>
+      <td>
+        <% unless annual.nih_other_support_url.blank? %>
+          <%= link_to annual.nih_other_support_url.split('/').last, annual.nih_other_support_url, target: '_blank', class: 'btn btn-mini' %>
+          <%= number_to_human_size(annual.nih_other_support.size) %>
+          <% if false %><span class="muted">uploaded <%= simple_time(annual.nih_other_support_uploaded_at) %></span><% end %>
+        <% end %>
+      </td>
+      <td><%= simple_time annual.submitted_at %></td>
+      <td><%= simple_time annual.modified_at %></td>
       <td>
         <%= link_to 'Edit', edit_annual_path(annual), class: 'btn btn-mini' %>
         <%= link_to 'Delete', annual, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Annual #{annual.name}?" } %>

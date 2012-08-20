@@ -34,10 +34,13 @@
   <dd><%= @annual.source_of_support %></dd>
 
   <dt>Nih Other Support</dt>
-  <dd><%= @annual.nih_other_support %></dd>
-
-  <dt>Nih Other Support Uploaded At</dt>
-  <dd><%= @annual.nih_other_support_uploaded_at %></dd>
+  <dd>
+    <% unless @annual.nih_other_support_url.blank? %>
+      <%= link_to @annual.nih_other_support_url.split('/').last, @annual.nih_other_support_url, target: '_blank', class: 'btn btn-mini' %>
+      <%= number_to_human_size(@annual.nih_other_support.size) %>
+      <% if false %><span class="muted">uploaded <%= simple_time(@annual.nih_other_support_uploaded_at) %></span><% end %>
+    <% end %>
+  </dd>
 
   <dt>Submitted At</dt>
   <dd><%= @annual.submitted_at %></dd>
