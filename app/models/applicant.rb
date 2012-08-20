@@ -163,7 +163,7 @@ class Applicant < ActiveRecord::Base
 
   def set_reference_number(new_reference_number = Digest::SHA1.hexdigest(Time.now.usec.to_s))
     begin
-      self.update_attributes reference_number: new_reference_number if self.respond_to?('reference_number') and self.reference_number.blank? and Applicant.where(reference_number: new_reference_number).count == 0
+      self.update_column :reference_number, new_reference_number if self.respond_to?('reference_number') and self.reference_number.blank? and Applicant.where(reference_number: new_reference_number).count == 0
     rescue ActiveRecord::RecordNotUnique
       # Do nothing
     end
@@ -175,6 +175,7 @@ class Applicant < ActiveRecord::Base
   end
 
   def update_general_information_email!(current_user)
+    self.reset_authentication_token!
     self.update_column :emailed_at, Time.now
     UserMailer.update_application(self, current_user).deliver if Rails.env.production?
   end
@@ -186,6 +187,8 @@ class Applicant < ActiveRecord::Base
       if annual.submitted?
         # Do nothing
       elsif annual.applicant and not annual.applicant.email.blank?
+        self.reset_authentication_token!
+        annual.reload
         self.update_column :emailed_at, Time.now
         UserMailer.update_annual(annual, subject, body).deliver if Rails.env.production?
       end
