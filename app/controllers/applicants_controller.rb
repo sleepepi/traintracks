@@ -187,7 +187,7 @@ class ApplicantsController < ApplicationController
     else
       params[:applicant].slice(
         # Applicant Information
-        :email, :first_name, :last_name, :middle_initial, :applicant_type, :summer, :tge, :desired_start_date, :personal_statement, :alien_registration_number, :citizenship_status,
+        :email, :first_name, :last_name, :middle_initial, :applicant_type, :tge, :desired_start_date, :personal_statement, :alien_registration_number, :citizenship_status,
         # Education
         :advisor, :concentration_major, :current_institution, :cv, :degree_sought, :department_program, :expected_year,
         :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id, :thesis, :degrees_earned, :current_title,
@@ -200,8 +200,6 @@ class ApplicantsController < ApplicationController
         :residency,
         # Trainee Only
         :research_project_title,
-        # Annual Only
-        :coursework_completed, :pubs_not_prev_rep, :presentations, :research_description, :source_of_support,
         # Applicant Assurance
         :assurance, :publish, :letters_from_a, :letters_from_b, :letters_from_c,
         # Uploaded Curriculum Vitae
@@ -212,10 +210,52 @@ class ApplicantsController < ApplicationController
 
   def generate_csv(applicant_scope)
     @csv_string = CSV.generate do |csv|
-      csv << ['Last Name', 'First Name']
+      csv << [
+        'Applicant ID',
+        # Applicant Information
+        'Email', 'Last Name', 'First Name', 'Middle Initial', 'Applicant Type', 'TGE', 'Desired Start Date', 'Personal Statement', 'Alien Registration Number', 'Citizenship Status',
+        # Education
+        'Advisor', 'Concentration/Major', 'Current Institution', 'CV', 'Degree Sought', 'Department/Program', 'Expected Year',
+        'Preferred Preceptor ID', 'Preferred Preceptor Two ID', 'Preferred Preceptor Three ID', 'Thesis', 'Degrees Earned', 'Current Title',
+        'Previous NSRA Support', 'Degree Types',
+        # Demographic Information
+        'Gender', 'Disabled', 'Disabled Description', 'Disadvantaged', 'URM', 'URM Types', 'Marital Status',
+        # Contact Information
+        'Phone', 'Address1', 'Address2', 'City', 'State', 'Country', 'Zip Code',
+        # Postdoc Only
+        'Residency',
+        # Trainee Only
+        'Research Project Title',
+        # Applicant Assurance
+        'Assurance', 'Letters From A', 'Letters From B', 'Letters From C',
+        # Administrator Only
+        'Reviewed', 'Review Date', 'Offered', 'Accepted', 'Enrolled', 'CV Number', 'Degree Type', 'Trainee Code', 'Year Department Program',
+        'Status', 'Training Grant Years', 'Supported by Training Grant', 'Training Period Start Date', 'Training Period End Date', 'Notes'
+      ]
 
-      applicant_scope.each do |applicant|
-        row = [ applicant.last_name, applicant.first_name ]
+      applicant_scope.each do |a|
+        row = [
+          a.id,
+          # Applicant Information
+          a.email, a.last_name, a.first_name, a.middle_initial, a.applicant_type, a.tge, a.desired_start_date, a.personal_statement, a.alien_registration_number, a.citizenship_status,
+          # Education
+          a.advisor, a.concentration_major, a.current_institution, a.cv, a.degree_sought, a.department_program, a.expected_year,
+          a.preferred_preceptor_id, a.preferred_preceptor_two_id, a.preferred_preceptor_three_id, a.thesis, a.degrees_earned, a.current_title,
+          a.previous_nsra_support, a.degree_types,
+          # Demographic Information
+          a.gender, a.disabled, a.disabled_description, a.disadvantaged, a.urm, a.urm_types, a.marital_status,
+          # Contact Information
+          a.phone, a.address1, a.address2, a.city, a.state, a.country, a.zip_code,
+          # Postdoc Only
+          a.residency,
+          # Trainee Only
+          a.research_project_title,
+          # Applicant Assurance
+          a.assurance, a.letters_from_a, a.letters_from_b, a.letters_from_c,
+          # Administrator Only
+          a.reviewed, a.review_date, a.offered, a.accepted, a.enrolled, a.cv_number, a.degree_type, a.trainee_code, a.year_department_program,
+          a.status, a.training_grant_years, a.supported_by_tg, a.training_period_start_date, a.training_period_end_date, a.notes
+        ]
         csv << row
       end
     end
