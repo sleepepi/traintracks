@@ -14,7 +14,7 @@ class ApplicantsControllerTest < ActionController::TestCase
   end
 
   # Currently no fixtures have enrolled trainees
-  test "should not get csv if no designs are selected" do
+  test "should not get csv if no applicants are selected" do
     get :index, format: 'csv', enrolled: 'only'
     assert_equal 0, assigns(:applicant_count)
     assert_nil assigns(:csv_string)

@@ -6,6 +6,22 @@ class AnnualsControllerTest < ActionController::TestCase
     @annual = annuals(:one)
   end
 
+  test "should get csv" do
+    get :index, format: 'csv'
+    assert_not_nil assigns(:csv_string)
+    assert_not_nil assigns(:annual_count)
+    assert_response :success
+  end
+
+  # Currently no annuals are found for 'aaa'
+  test "should not get csv if no annuals are selected" do
+    get :index, format: 'csv', search: 'aaa'
+    assert_equal 0, assigns(:annual_count)
+    assert_nil assigns(:csv_string)
+    assert_equal flash[:alert], 'No data was exported since no applicants matched the specified filters.'
+    assert_redirected_to annuals_path
+  end
+
   test "should get index" do
     get :index
     assert_response :success

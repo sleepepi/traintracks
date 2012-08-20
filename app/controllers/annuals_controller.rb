@@ -8,9 +8,25 @@ class AnnualsController < ApplicationController
   # GET /annuals.json
   def index
     annual_scope = current_user.all_viewable_annuals
+
+    @search_terms = params[:search].to_s.gsub(/[^0-9a-zA-Z]/, ' ').split(' ')
+    @search_terms.each{|search_term| annual_scope = annual_scope.search(search_term) }
+
+    annual_scope = annual_scope.where(year: params[:year]) unless params[:year].blank?
+
     @order = scrub_order(Annual, params[:order], "annuals.id")
     annual_scope = annual_scope.order(@order)
     @annual_count = annual_scope.count
+
+    if params[:format] == 'csv'
+      if @annual_count == 0
+        redirect_to annuals_path, alert: 'No data was exported since no applicants matched the specified filters.'
+        return
+      end
+      generate_csv(annual_scope)
+      return
+    end
+
     @annuals = annual_scope.page(params[:page]).per( 20 )
 
     respond_to do |format|
@@ -153,4 +169,36 @@ class AnnualsController < ApplicationController
 
     params[:annual]
   end
+
+  def generate_csv(annual_scope)
+    @csv_string = CSV.generate do |csv|
+      csv << [
+        'Applicant ID',
+        # Applicant Information
+        'Email', 'Last Name', 'First Name',
+        # Annual Information
+        'Year', 'Coursework Completed', 'Publications', 'Presentations', 'Research Description', 'Source of Support'
+      ]
+
+      annual_scope.each do |a|
+        row = [
+          a.applicant_id,
+          a.applicant ? a.applicant.email : '',
+          a.applicant ? a.applicant.last_name : '',
+          a.applicant ? a.applicant.first_name : '',
+          a.year,
+          a.coursework_completed,
+          a.publications,
+          a.presentations,
+          a.research_description,
+          a.source_of_support
+        ]
+        csv << row
+      end
+    end
+
+    send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
+                           disposition: "attachment; filename=\"Training Grant Annual Information #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+  end
+
 end

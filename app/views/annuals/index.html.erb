@@ -8,8 +8,27 @@
 
 <%= form_tag annuals_path, method: :get, remote: true, id: "annuals_search", class: 'form-search', data: { object: 'form-load' } do %>
   <%= hidden_field_tag :order %>
-  <%= text_field_tag 'search', params[:search], class: 'search-query' %>
-  <%= submit_tag 'Search', class: 'btn btn-primary' %>
+
+  <div class="row">
+    <div class="span4 control-group">
+      <%= label :search, 'Search', class: 'control-label' %>
+      <div class="controls">
+        <%= text_field_tag 'search', params[:search], class: 'search-query', data: { object: 'filter' } %>
+      </div>
+    </div>
+
+    <div class="span4 control-group">
+      <%= label :year, "Year", class: 'control-label' %>
+      <div class="controls">
+        <%= select_tag :year, options_for_select([["All", nil]] + Annual.pluck(:year).uniq.sort.reverse.collect{|year| [year, year]}) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= submit_tag 'Filter Search', class: 'btn btn-primary' %>
+    <%= link_to 'Export', '#', class: 'btn', data: { object: 'export', format: 'csv', target: '#annuals_search' } %>
+  </div>
 <% end %>
 
 <div id="annuals"><center><%= image_tag "contour/ajax-loader.gif" %></center></div>

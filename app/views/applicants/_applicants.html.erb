@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.last_name', 'Name', 'applicants_search') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.email', 'Email', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.applicant_type', 'Type', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.reviewed', 'Reviewed', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.review_date', 'Review date', 'applicants_search') %></th>
@@ -46,7 +47,6 @@
       <th>Training period start date</th>
       <th>Training period end date</th>
 <% end %>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.email', 'Email', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.status', 'Status', 'applicants_search') %></th>
 <% if false %>
       <th>Current Position</th>
@@ -82,6 +82,7 @@
     <% @applicants.each_with_index do |applicant, index| %>
       <tr class="<%= 'first' if index == 0 %>">
         <td><%= link_to applicant.name, applicant %></td>
+        <td><%= applicant.email %></td>
         <td><%= applicant.applicant_type %></td>
         <td style="text-align:center"><%= simple_check applicant.reviewed %></td>
         <td><%= applicant.review_date %></td>
@@ -124,7 +125,6 @@
         <td><%= applicant.training_period_start_date %></td>
         <td><%= applicant.training_period_end_date %></td>
 <% end %>
-        <td><%= applicant.email %></td>
         <td><%= applicant.status %></td>
 <% if false %>
         <td><%= applicant.current_title %></td>

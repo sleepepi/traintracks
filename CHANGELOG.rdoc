@@ -3,6 +3,7 @@
 * Enhancements
   * Administrators can now allow applicants and trainees fill out annual information
   * Administrators can now export selected applicants information to a CSV file
+  * Annual information can be filtered and exported to CSV
   * Minor layout changes
 
 == 0.4.2
