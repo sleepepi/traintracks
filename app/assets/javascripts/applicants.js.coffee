@@ -14,6 +14,8 @@ jQuery ->
     )
 
   $('#send_annual_email').on('click', () ->
+    if $('#enrolled').val() == 'all' and !confirm('Warning! Are you sure you want to send an annual email to ALL applicants?')
+      return false
     $('#send_email_modal').modal('hide')
     $('#annual_subject').val($('#subject').val())
     $('#annual_body').val($('#body').val())
