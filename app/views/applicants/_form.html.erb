@@ -25,16 +25,12 @@
 
   <%= render partial: 'applicants/form/trainee', locals: { f: f } %>
 
-<% if false %>
-  <%= render partial: 'applicants/form/annual', locals: { f: f } %>
-<% end %>
-
   <% if current_user.administrator? %>
     <%= render partial: 'applicants/form/admin_only', locals: { f: f, applicant: @applicant } %>
   <% end %>
 
   <div class="form-actions">
     <%= f.submit nil, class: 'btn btn-primary' %>
-    <%= link_to 'Cancel', @applicant.new_record? ? root_path : @applicant, class: 'btn btn-danger' %>
+    <%= link_to 'Cancel', @applicant.new_record? ? root_path : @applicant, class: 'btn' %>
   </div>
 <% end %>

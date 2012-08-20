@@ -7,13 +7,41 @@ class Applicant < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  attr_accessible :accepted, :address1, :address2, :advisor, :cv_number, :applicant_type, :city, :concentration_major, :country, :coursework_completed, :current_institution,
-                  :current_title, :cv, :degree_sought, :degree_type, :degrees_earned, :department_program, :disabled, :disadvantaged, :enrolled, :expected_year, :first_name, :last_name,
-                  :middle_initial, :notes, :offered, :phone, :preferred_preceptor_id, :presentations, :previous_institutions, :primary_preceptor_id, :pubs_not_prev_rep, :research_description,
-                  :research_project_title, :residency, :review_date, :reviewed, :secondary_preceptor_id, :source_of_support, :state, :status, :supported_by_tg, :training_grant_years, :tge, :thesis,
-                  :trainee_code, :training_period_end_date, :training_period_start_date, :urm, :year, :year_department_program, :zip_code, :desired_start_date, :marital_status, :assurance, :reference_number,
-                  :personal_statement, :publish, :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache, :disabled_description, :preferred_preceptor_two_id, :preferred_preceptor_three_id,
-                  :previous_nsra_support, :alien_registration_number, :citizenship_status, :degree_types, :letters_from_a, :letters_from_b, :letters_from_c, :gender, :urm_types
+  # Applicant Information
+  attr_accessible :first_name, :last_name, :middle_initial, :applicant_type, :tge, :desired_start_date,
+                  :personal_statement, :alien_registration_number, :citizenship_status
+
+  # Education
+  attr_accessible :advisor, :concentration_major, :current_institution, :cv, :degree_sought,
+                  :department_program, :expected_year, :preferred_preceptor_id, :preferred_preceptor_two_id,
+                  :preferred_preceptor_three_id, :thesis, :degrees_earned, :current_title,
+                  :previous_nsra_support, :degree_types
+
+  # Demographic Information
+  attr_accessible :gender, :disabled, :disabled_description, :disadvantaged, :urm, :urm_types, :marital_status
+
+  # Contact Information
+  attr_accessible :phone, :address1, :address2, :city, :state, :country, :zip_code
+
+  # Postdoc Only
+  attr_accessible :residency
+
+  # Trainee Only
+  attr_accessible :research_project_title
+
+  # Applicant Assurance
+  attr_accessible :publish, :assurance, :letters_from_a, :letters_from_b, :letters_from_c
+
+  # Uploaded Curriculum Vitae
+  attr_accessible :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache
+
+  # Administrator Only
+  attr_accessible :reviewed, :review_date, :offered, :accepted, :enrolled, :cv_number, :degree_type, :trainee_code,
+                  :year_department_program, :status, :training_grant_years, :supported_by_tg, :training_period_start_date,
+                  :training_period_end_date, :notes, :primary_preceptor_id, :secondary_preceptor_id
+
+  # Legacy...
+  attr_accessible :previous_institutions, :year, :reference_number
 
   attr_accessor :publish
 
@@ -85,6 +113,7 @@ class Applicant < ActiveRecord::Base
     self.enrolled?
   end
 
+  # Should be changed to 'publish?' for consistency
   def submitted?
     self.publish == '1'
   end

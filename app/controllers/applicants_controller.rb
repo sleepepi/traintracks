@@ -229,7 +229,7 @@ class ApplicantsController < ApplicationController
         # Applicant Assurance
         'Assurance', 'Letters From A', 'Letters From B', 'Letters From C',
         # Administrator Only
-        'Reviewed', 'Review Date', 'Offered', 'Accepted', 'Enrolled', 'CV Number', 'Degree Type', 'Trainee Code', 'Year Department Program',
+        'Reviewed', 'Review Date', 'Offered', 'Accepted', 'Enrolled', 'CV Number', 'Degree Type', 'Primary Preceptor ID', 'Secondary Preceptor ID', 'Trainee Code', 'Year Department Program',
         'Status', 'Training Grant Years', 'Supported by Training Grant', 'Training Period Start Date', 'Training Period End Date', 'Notes'
       ]
 
@@ -240,7 +240,10 @@ class ApplicantsController < ApplicationController
           a.email, a.last_name, a.first_name, a.middle_initial, a.applicant_type, a.tge, a.desired_start_date, a.personal_statement, a.alien_registration_number, a.citizenship_status,
           # Education
           a.advisor, a.concentration_major, a.current_institution, a.cv, a.degree_sought, a.department_program, a.expected_year,
-          a.preferred_preceptor_id, a.preferred_preceptor_two_id, a.preferred_preceptor_three_id, a.thesis, a.degrees_earned, a.current_title,
+          a.preferred_preceptor ? a.preferred_preceptor.name_with_id : '',
+          a.preferred_preceptor_two ? a.preferred_preceptor_two.name_with_id : '',
+          a.preferred_preceptor_three ? a.preferred_preceptor_three.name_with_id : '',
+          a.thesis, a.degrees_earned, a.current_title,
           a.previous_nsra_support, a.degree_types,
           # Demographic Information
           a.gender, a.disabled, a.disabled_description, a.disadvantaged, a.urm, a.urm_types, a.marital_status,
@@ -253,7 +256,10 @@ class ApplicantsController < ApplicationController
           # Applicant Assurance
           a.assurance, a.letters_from_a, a.letters_from_b, a.letters_from_c,
           # Administrator Only
-          a.reviewed, a.review_date, a.offered, a.accepted, a.enrolled, a.cv_number, a.degree_type, a.trainee_code, a.year_department_program,
+          a.reviewed, a.review_date, a.offered, a.accepted, a.enrolled, a.cv_number, a.degree_type,
+          a.primary_preceptor ? a.primary_preceptor.name_with_id : '',
+          a.secondary_preceptor ? a.secondary_preceptor.name_with_id : '',
+          a.trainee_code, a.year_department_program,
           a.status, a.training_grant_years, a.supported_by_tg, a.training_period_start_date, a.training_period_end_date, a.notes
         ]
         csv << row

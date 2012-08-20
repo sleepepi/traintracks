@@ -49,6 +49,9 @@ Contour.setup do |config|
       links: [{ name: 'Create', path: 'new_applicant_path' }]
     },
     {
+      name: 'Annual Information', display: 'signed_in', path: 'annuals_path', position: 'left', condition: 'user_signed_in? and current_user.administrator?'
+    },
+    {
       name: 'Preceptors', display: 'signed_in', path: 'preceptors_path', position: 'left', condition: 'user_signed_in? and current_user.administrator?',
       links: [{ name: 'Create', path: 'new_preceptor_path' }]
     },

@@ -44,12 +44,7 @@ one:
   state: MyString
   country: MyString
   zip_code: MyString
-  coursework_completed: MyText
   phone: MyString
-  presentations: MyText
-  pubs_not_prev_rep: MyString
-  research_description: MyText
-  source_of_support: MyString
   supported_by_tg: false
   training_grant_years: MyString
   research_project_title: MyString
@@ -113,12 +108,7 @@ two:
   state: MyString
   country: MyString
   zip_code: MyString
-  coursework_completed: MyText
   phone: MyString
-  presentations: MyText
-  pubs_not_prev_rep: MyString
-  research_description: MyText
-  source_of_support: MyString
   supported_by_tg: false
   training_grant_years: MyString
   research_project_title: MyString

@@ -24,6 +24,10 @@ class Preceptor < ActiveRecord::Base
 
   # Preceptor Methods
 
+  def name_with_id
+    "#{self.id}: #{self.name}"
+  end
+
   # Overriding Devise built-in active_for_authentication? method
   def active_for_authentication?
     super and not self.deleted?
