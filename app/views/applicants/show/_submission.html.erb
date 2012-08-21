@@ -1,4 +1,9 @@
-<div class="page-header"><h2>Submission Status</h2></div>
+<div class="page-header">
+  <h2>
+    Submission Status
+    <%= link_to 'edit', '#', data: { object: 'modal-show', target: '#edit_submission_date' }, class: 'btn btn-mini' %>
+  </h2>
+</div>
 
 <dl class="dl-horizontal">
   <dt>Applicant assurance</dt>
@@ -6,12 +11,34 @@
 
 <% if applicant.originally_submitted_at == applicant.submitted_at %>
   <dt>Submitted</dt>
-  <dd><%= simple_time applicant.submitted_at %></dd>
+  <dd class="submission_date_container"><%= simple_time applicant.submitted_at %></dd>
 <% else %>
   <dt>Originally Submitted</dt>
-  <dd><%= simple_time applicant.originally_submitted_at %></dd>
+  <dd class="submission_date_container"><%= simple_time applicant.originally_submitted_at %></dd>
 
   <dt>Resubmitted</dt>
-  <dd><%= simple_time applicant.submitted_at %></dd>
+  <dd class="submission_date_container"><%= simple_time applicant.submitted_at %></dd>
 <% end %>
 </dl>
+
+<div id="edit_submission_date" class="modal hide">
+  <div class="modal-header">
+    Update Submission Date
+    <a class="close" data-dismiss="modal">×</a>
+  </div>
+  <div class="modal-body">
+    <%= form_tag update_submitted_at_date_applicant_path(applicant), method: :post, remote: true, class: 'form-horizontal', id: 'update_submission_date_form' do %>
+      <div class="control-group">
+        <%= label_tag :submission_date, nil, class: 'control-label' %>
+        <div class="controls">
+          <%= text_field_tag :submission_date, applicant.originally_submitted_at ? applicant.originally_submitted_at.strftime('%m/%d/%Y') : '', class: 'datepicker' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="modal-footer">
+    <%= link_to 'Close', '#', class: 'btn', data: { target: '#edit_submission_date', object: 'modal-hide' } %>
+    <%= link_to 'Update Submission Date', '#', class: 'btn btn-primary', data: { object: 'submit', target: '#update_submission_date_form' } %>
+  </div>
+</div>

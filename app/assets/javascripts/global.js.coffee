@@ -57,3 +57,7 @@ jQuery ->
       $($(this).data('target')).modal('hide');
       false
     )
+    .on('click', '[data-object~="submit"]', () ->
+      $($(this).data('target')).submit();
+      false
+    )

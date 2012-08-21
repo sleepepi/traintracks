@@ -47,6 +47,17 @@ class ApplicantsController < ApplicationController
     end
   end
 
+  def update_submitted_at_date
+    @applicant = Applicant.find(params[:id])
+    if @applicant
+      submitted_at = parse_date(params[:submission_date], nil).at_midnight rescue nil
+      @applicant.update_column :originally_submitted_at, submitted_at
+      @applicant.update_column            :submitted_at, submitted_at
+    else
+      render nothing: true
+    end
+  end
+
   def index
     # current_user.update_column :applicants_per_page, params[:applicants_per_page].to_i if params[:applicants_per_page].to_i >= 10 and params[:applicants_per_page].to_i <= 200
     applicant_scope = Applicant.current # current_user.all_viewable_applicants

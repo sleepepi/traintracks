@@ -1,0 +1,3 @@
+$('#edit_submission_date').modal('hide');
+flashMessage('Submission Date Updated');
+$('.submission_date_container').html("<%= escape_javascript(simple_time @applicant.submitted_at) %>");

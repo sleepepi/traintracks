@@ -20,6 +20,7 @@ TrainingGrant::Application.routes.draw do
       post :email
       get :annual_email
       post :unlock
+      post :update_submitted_at_date
     end
   end
 

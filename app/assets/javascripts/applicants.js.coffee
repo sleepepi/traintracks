@@ -24,3 +24,4 @@ jQuery ->
     $.get($('#applicants_search').attr('action'), $('#applicants_search').serialize() + '&annual_email=1', null, 'script')
     false
   )
+
