@@ -4,6 +4,7 @@
   * Administrators can now allow applicants and trainees fill out annual information
   * Administrators can now export selected applicants information to a CSV file
   * Submission date can now be modified by administrators on applicant page
+  * Administrators can view different time ranges for reports on dashboard
   * Annual information can be filtered and exported to CSV
   * Minor layout changes
 

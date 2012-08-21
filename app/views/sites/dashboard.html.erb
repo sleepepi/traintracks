@@ -87,3 +87,29 @@
     </td>
   </tr>
 </table>
+
+<hr class="soften">
+
+<%= form_tag dashboard_path, method: :get, remote: true, id: "applicants_search", class: 'form-search', data: { object: 'form-load' } do %>
+
+  <div class="row">
+    <div class="span4 control-group">
+      <%= label :submitted_after, 'Submitted After', class: 'control-label' %>
+      <div class="controls">
+        <%= text_field_tag 'submitted_after', params[:submitted_after], class: 'datepicker' %>
+      </div>
+    </div>
+    <div class="span4 control-group">
+      <%= label :submitted_before, 'Submitted Before', class: 'control-label' %>
+      <div class="controls">
+        <%= text_field_tag 'submitted_before', params[:submitted_before], class: 'datepicker' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= submit_tag 'Submit', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<div id="applicant_report_container"></div>

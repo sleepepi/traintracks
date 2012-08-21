@@ -43,6 +43,7 @@ TrainingGrant::Application.routes.draw do
 
   match "/about" => "sites#about", as: :about
   match "/settings" => "users#settings", as: :settings
+  match "/dashboard" => "sites#dashboard", as: :dashboard
 
   root to: 'sites#dashboard'
 

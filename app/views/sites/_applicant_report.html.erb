@@ -1,0 +1,24 @@
+<table class="table table-striped table-bordered">
+  <tr style="font-weight:bold">
+    <td>Applications</td>
+    <td>
+      <%= @applicants.count %>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding-left:20px">Postdoc</td>
+    <td><%= @applicants.where(applicant_type: 'postdoc').count %></td>
+  </tr>
+  <tr>
+    <td style="padding-left:20px">Predoc</td>
+    <td><%= @applicants.where(applicant_type: 'predoc').count %></td>
+  </tr>
+  <tr>
+    <td style="padding-left:20px">Summer</td>
+    <td><%= @applicants.where(applicant_type: 'summer').count %></td>
+  </tr>
+  <tr style="font-weight:bold">
+    <td>Acceptance rate</td>
+    <td><%= @applicants.count == 0 ? 'N/A' : "%0.00f %" % (@applicants.where(accepted: true).count * 100.0 / @applicants.count) %></td>
+  </tr>
+</table>

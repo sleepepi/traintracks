@@ -7,6 +7,12 @@ class SitesController < ApplicationController
   end
 
   def dashboard
+    applicant_scope = Applicant.current
+    @submitted_after = parse_date(params[:submitted_after])
+    @submitted_before = parse_date(params[:submitted_before])
 
+    applicant_scope = applicant_scope.submitted_after(@submitted_after) unless @submitted_after.blank?
+    applicant_scope = applicant_scope.submitted_before(@submitted_before) unless @submitted_before.blank?
+    @applicants = applicant_scope
   end
 end

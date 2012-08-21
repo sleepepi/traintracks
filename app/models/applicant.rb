@@ -68,6 +68,9 @@ class Applicant < ActiveRecord::Base
   # Named Scopes
   scope :current, conditions: { deleted: false }
   scope :search, lambda { |*args| { conditions: [ 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', '%' + args.first.downcase.split(' ').join('%') + '%', '%' + args.first.downcase.split(' ').join('%') + '%', '%' + args.first.downcase.split(' ').join('%') + '%' ] } }
+  scope :submitted_before, lambda { |*args| { conditions: ["applicants.originally_submitted_at < ?", (args.first+1.day).at_midnight]} }
+  scope :submitted_after, lambda { |*args| { conditions: ["applicants.originally_submitted_at >= ?", args.first.at_midnight]} }
+
 
   # Model Validation
   validates_presence_of :first_name, :last_name
