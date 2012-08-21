@@ -37,11 +37,11 @@ class Applicant < ActiveRecord::Base
 
   # Administrator Only
   attr_accessible :reviewed, :review_date, :offered, :accepted, :enrolled, :cv_number, :degree_type, :trainee_code,
-                  :year_department_program, :status, :training_grant_years, :supported_by_tg, :training_period_start_date,
+                  :status, :training_grant_years, :supported_by_tg, :training_period_start_date,
                   :training_period_end_date, :notes, :primary_preceptor_id, :secondary_preceptor_id
 
   # Legacy...
-  attr_accessible :previous_institutions, :year
+  attr_accessible :previous_institutions
 
   attr_accessor :publish, :publish_annual
 

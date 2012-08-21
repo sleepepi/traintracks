@@ -219,7 +219,7 @@ class ApplicantsController < ApplicationController
         'Email', 'Last Name', 'First Name', 'Middle Initial', 'Applicant Type', 'TGE', 'Desired Start Date', 'Personal Statement', 'Alien Registration Number', 'Citizenship Status',
         # Education
         'Advisor', 'Concentration/Major', 'Current Institution', 'CV', 'Degree Sought', 'Department/Program', 'Expected Year',
-        'Preferred Preceptor ID', 'Preferred Preceptor Two ID', 'Preferred Preceptor Three ID', 'Thesis', 'Degrees Earned', 'Current Title',
+        'Preferred Preceptor ID', 'Preferred Preceptor Hospital Affiliation', 'Preferred Preceptor Two ID', 'Preferred Preceptor Three ID', 'Thesis', 'Degrees Earned', 'Current Title',
         'Previous NSRA Support', 'Degree Types',
         # Demographic Information
         'Gender', 'Disabled', 'Disabled Description', 'Disadvantaged', 'URM', 'URM Types', 'Marital Status',
@@ -232,7 +232,7 @@ class ApplicantsController < ApplicationController
         # Applicant Assurance
         'Assurance', 'Letters From A', 'Letters From B', 'Letters From C',
         # Administrator Only
-        'Reviewed', 'Review Date', 'Offered', 'Accepted', 'Enrolled', 'CV Number', 'Degree Type', 'Primary Preceptor ID', 'Secondary Preceptor ID', 'Trainee Code', 'Year Department Program',
+        'Reviewed', 'Review Date', 'Offered', 'Accepted', 'Enrolled', 'CV Number', 'Degree Type', 'Primary Preceptor ID', 'Secondary Preceptor ID', 'Trainee Code',
         'Status', 'Training Grant Years', 'Supported by Training Grant', 'Training Period Start Date', 'Training Period End Date', 'Notes',
         # Automatically Updated Fields
         'Submitted At', 'Resubmitted At'
@@ -246,6 +246,7 @@ class ApplicantsController < ApplicationController
           # Education
           a.advisor, a.concentration_major, a.current_institution, a.cv, a.degree_sought, a.department_program, a.expected_year,
           a.preferred_preceptor ? a.preferred_preceptor.name_with_id : '',
+          a.preferred_preceptor ? a.preferred_preceptor.hospital_affiliation : '',
           a.preferred_preceptor_two ? a.preferred_preceptor_two.name_with_id : '',
           a.preferred_preceptor_three ? a.preferred_preceptor_three.name_with_id : '',
           a.thesis, a.degrees_earned, a.current_title,
@@ -264,7 +265,7 @@ class ApplicantsController < ApplicationController
           a.reviewed, a.review_date, a.offered, a.accepted, a.enrolled, a.cv_number, a.degree_type,
           a.primary_preceptor ? a.primary_preceptor.name_with_id : '',
           a.secondary_preceptor ? a.secondary_preceptor.name_with_id : '',
-          a.trainee_code, a.year_department_program,
+          a.trainee_code,
           a.status, a.training_grant_years, a.supported_by_tg, a.training_period_start_date, a.training_period_end_date, a.notes,
           # Automatically Updated Fields
           a.originally_submitted_at, a.submitted_at
