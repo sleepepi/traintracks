@@ -233,7 +233,9 @@ class ApplicantsController < ApplicationController
         'Assurance', 'Letters From A', 'Letters From B', 'Letters From C',
         # Administrator Only
         'Reviewed', 'Review Date', 'Offered', 'Accepted', 'Enrolled', 'CV Number', 'Degree Type', 'Primary Preceptor ID', 'Secondary Preceptor ID', 'Trainee Code', 'Year Department Program',
-        'Status', 'Training Grant Years', 'Supported by Training Grant', 'Training Period Start Date', 'Training Period End Date', 'Notes'
+        'Status', 'Training Grant Years', 'Supported by Training Grant', 'Training Period Start Date', 'Training Period End Date', 'Notes',
+        # Automatically Updated Fields
+        'Submitted At', 'Resubmitted At'
       ]
 
       applicant_scope.each do |a|
@@ -263,7 +265,9 @@ class ApplicantsController < ApplicationController
           a.primary_preceptor ? a.primary_preceptor.name_with_id : '',
           a.secondary_preceptor ? a.secondary_preceptor.name_with_id : '',
           a.trainee_code, a.year_department_program,
-          a.status, a.training_grant_years, a.supported_by_tg, a.training_period_start_date, a.training_period_end_date, a.notes
+          a.status, a.training_grant_years, a.supported_by_tg, a.training_period_start_date, a.training_period_end_date, a.notes,
+          # Automatically Updated Fields
+          a.originally_submitted_at, a.submitted_at
         ]
         csv << row
       end
