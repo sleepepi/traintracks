@@ -96,13 +96,13 @@
     <div class="span4 control-group">
       <%= label :submitted_after, 'Submitted After', class: 'control-label' %>
       <div class="controls">
-        <%= text_field_tag 'submitted_after', params[:submitted_after], class: 'datepicker' %>
+        <%= text_field_tag 'submitted_after', Date.today.at_beginning_of_year.strftime('%m/%d/%Y'), class: 'datepicker' %>
       </div>
     </div>
     <div class="span4 control-group">
       <%= label :submitted_before, 'Submitted Before', class: 'control-label' %>
       <div class="controls">
-        <%= text_field_tag 'submitted_before', params[:submitted_before], class: 'datepicker' %>
+        <%= text_field_tag 'submitted_before', Date.today.at_end_of_year.strftime('%m/%d/%Y'), class: 'datepicker' %>
       </div>
     </div>
   </div>
