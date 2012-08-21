@@ -30,7 +30,7 @@ class Applicant < ActiveRecord::Base
   attr_accessible :research_project_title
 
   # Applicant Assurance
-  attr_accessible :publish, :assurance, :letters_from_a, :letters_from_b, :letters_from_c
+  attr_accessible :publish, :publish_annual, :assurance, :letters_from_a, :letters_from_b, :letters_from_c
 
   # Uploaded Curriculum Vitae
   attr_accessible :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache
@@ -43,7 +43,7 @@ class Applicant < ActiveRecord::Base
   # Legacy...
   attr_accessible :previous_institutions, :year
 
-  attr_accessor :publish
+  attr_accessor :publish, :publish_annual
 
   mount_uploader :curriculum_vitae, DocumentUploader
 
@@ -74,12 +74,19 @@ class Applicant < ActiveRecord::Base
   validates_uniqueness_of :email, allow_blank: true, scope: :deleted
 
   validates_presence_of :expected_year, :degree_sought, unless: [:postdoc?, :not_submitted?]
-  validates_presence_of :desired_start_date, :personal_statement, :curriculum_vitae, :current_institution, :degrees_earned, :current_title, :preferred_preceptor_id, :previous_institutions, :marital_status, :phone, :address1, :city, :state, :country, :zip_code, :advisor, :concentration_major, :department_program, if: :submitted?
+  validates_presence_of :desired_start_date, :personal_statement, :preferred_preceptor_id, :previous_institutions, :marital_status, :advisor, :concentration_major,  if: :submitted?
   validates_presence_of :disabled_description, if: [:submitted?, :disabled?]
   validates_presence_of :alien_registration_number, if: [:submitted?, :permanent_resident?]
   validates_format_of :alien_registration_number, with: /\AA\d*\Z/, if: [:submitted?, :permanent_resident?]
   validates_presence_of :letters_from_a, :letters_from_b, :letters_from_c, if: [:submitted?]
   validates_presence_of :gender, if: [:submitted?]
+
+  # Validations required on Annual or Publish State
+  # Contact Information
+  validates_presence_of :phone, :address1, :city, :state, :country, :zip_code, if: :annual_or_publish?
+  # Education Experience
+  validates_presence_of :curriculum_vitae, :current_institution, :department_program, :current_title, :degrees_earned, if: :annual_or_publish?
+
 
   # Model Relationships
   belongs_to :preferred_preceptor, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_id'
@@ -109,6 +116,11 @@ class Applicant < ActiveRecord::Base
 
   def trainee?
     self.enrolled?
+  end
+
+  # Validates on annual or on published
+  def annual_or_publish?
+    self.publish_annual == '1' or self.publish == '1'
   end
 
   # Should be changed to 'publish?' for consistency

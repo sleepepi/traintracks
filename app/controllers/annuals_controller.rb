@@ -182,7 +182,7 @@ class AnnualsController < ApplicationController
       # Education
       :current_institution, :department_program, :current_title, :degree_types, :degrees_earned,
       # Applicant Assurance
-      :publish
+      :publish_annual
     )
   end
 

@@ -46,7 +46,7 @@
   <%= render partial: 'inner_form', locals: { f: f } %>
 
   <div class="form-actions">
-    <%= hidden_field :applicant, :publish, value: '1' %>
+    <%= hidden_field :applicant, :publish_annual, value: '1' %>
     <%= f.hidden_field :publish, value: '1' %>
     <%= f.submit 'Submit Annual Information', class: 'btn btn-primary' %>
     <%= link_to 'Cancel', dashboard_applicants_path, class: 'btn' %>
