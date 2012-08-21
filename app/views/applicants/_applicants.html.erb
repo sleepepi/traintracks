@@ -31,7 +31,6 @@
       <th>Preferred preceptor</th>
       <th>Primary preceptor</th>
       <th>Secondary preceptor</th>
-      <th>Previous institutions</th>
 <% end %>
       <th>TGE</th>
 <% if false %>
@@ -108,7 +107,6 @@
         <td><%= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor %></td>
         <td><%= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor %></td>
         <td><%= link_to applicant.secondary_preceptor.name, applicant.secondary_preceptor if applicant.secondary_preceptor %></td>
-        <td><%= applicant.previous_institutions %></td>
 <% end %>
         <td style="text-align:center"><%= simple_check applicant.tge %></td>
 <% if false %>

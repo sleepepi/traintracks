@@ -40,9 +40,6 @@ class Applicant < ActiveRecord::Base
                   :status, :training_grant_years, :supported_by_tg, :training_period_start_date,
                   :training_period_end_date, :notes, :primary_preceptor_id, :secondary_preceptor_id
 
-  # Legacy...
-  attr_accessible :previous_institutions
-
   attr_accessor :publish, :publish_annual
 
   mount_uploader :curriculum_vitae, DocumentUploader
@@ -77,7 +74,7 @@ class Applicant < ActiveRecord::Base
   validates_uniqueness_of :email, allow_blank: true, scope: :deleted
 
   validates_presence_of :expected_year, :degree_sought, unless: [:postdoc?, :not_submitted?]
-  validates_presence_of :desired_start_date, :personal_statement, :preferred_preceptor_id, :previous_institutions, :marital_status, :advisor, :concentration_major,  if: :submitted?
+  validates_presence_of :desired_start_date, :personal_statement, :preferred_preceptor_id, :marital_status, :advisor, :concentration_major,  if: :submitted?
   validates_presence_of :disabled_description, if: [:submitted?, :disabled?]
   validates_presence_of :alien_registration_number, if: [:submitted?, :permanent_resident?]
   validates_format_of :alien_registration_number, with: /\AA\d*\Z/, if: [:submitted?, :permanent_resident?]

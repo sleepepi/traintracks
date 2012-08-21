@@ -34,11 +34,6 @@
   <dt>Degrees earned</dt>
   <dd><%= simple_format applicant.degrees_earned %></dd>
 
-  <% if current_user and current_user.administrator? %>
-    <dt title="Previous institutions">Previous institutions</dt>
-    <dd><%= applicant.previous_institutions %></dd>
-  <% end %>
-
   <% unless applicant.postdoc? %>
     <dt>Degree sought</dt>
     <dd><%= applicant.degree_sought %></dd>
