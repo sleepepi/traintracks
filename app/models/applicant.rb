@@ -41,7 +41,7 @@ class Applicant < ActiveRecord::Base
                   :training_period_end_date, :notes, :primary_preceptor_id, :secondary_preceptor_id
 
   # Legacy...
-  attr_accessible :previous_institutions, :year, :reference_number
+  attr_accessible :previous_institutions, :year
 
   attr_accessor :publish
 
@@ -64,7 +64,6 @@ class Applicant < ActiveRecord::Base
   # Callbacks
   before_validation :set_alien_registration_number
   before_save :set_submitted_at
-  after_save :set_reference_number
 
   # Named Scopes
   scope :current, conditions: { deleted: false }
@@ -72,7 +71,6 @@ class Applicant < ActiveRecord::Base
 
   # Model Validation
   validates_presence_of :first_name, :last_name
-  validates_uniqueness_of :reference_number, allow_blank: true, allow_nil: true
   validates_uniqueness_of :email, allow_blank: true, scope: :deleted
 
   validates_presence_of :expected_year, :degree_sought, unless: [:postdoc?, :not_submitted?]
@@ -161,14 +159,6 @@ class Applicant < ActiveRecord::Base
     end
   end
 
-  def set_reference_number(new_reference_number = Digest::SHA1.hexdigest(Time.now.usec.to_s))
-    begin
-      self.update_column :reference_number, new_reference_number if self.respond_to?('reference_number') and self.reference_number.blank? and Applicant.where(reference_number: new_reference_number).count == 0
-    rescue ActiveRecord::RecordNotUnique
-      # Do nothing
-    end
-  end
-
   # Return true if an email has been sent to the applicant and they have not yet logged in
   def recently_notified?
     not self.emailed_at.blank? and not self.current_sign_in_at.blank? and self.current_sign_in_at < self.emailed_at
@@ -190,7 +180,7 @@ class Applicant < ActiveRecord::Base
         self.reset_authentication_token!
         annual.reload
         self.update_column :emailed_at, Time.now
-        UserMailer.update_annual(annual, subject, body).deliver if Rails.env.production?
+        UserMailer.update_annual(annual, subject, body).deliver # if Rails.env.production?
       end
     end
   end

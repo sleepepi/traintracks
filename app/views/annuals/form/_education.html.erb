@@ -1,0 +1,51 @@
+<div class="page-header">
+  <h2>Education / Experience</h2>
+</div>
+
+<div class="control-group">
+  <%= label :applicant, :curriculum_vitae, 'Upload Curriculum Vitae (PDF, Word)', class: 'control-label' %>
+  <div class="controls">
+    <%= file_field :applicant, :curriculum_vitae %>
+    <%= hidden_field :applicant, :curriculum_vitae_cache %>
+    <span class="help-inline"><%= @applicant.curriculum_vitae_url.split('/').last if not @applicant.curriculum_vitae_url.blank? and @applicant.curriculum_vitae_cache.blank? %></span>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label :applicant, :current_institution, nil, class: 'control-label' %>
+  <div class="controls">
+    <%= text_field :applicant, :current_institution %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label :applicant, :department_program, 'Department / Program', class: 'control-label' %>
+  <div class="controls">
+    <%= text_field :applicant, :department_program %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label :applicant, :current_title, 'Current position', class: 'control-label' %>
+  <div class="controls">
+    <%= text_field :applicant, :current_title %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label :applicant, :degree_types, nil, class: 'control-label' %>
+  <div class="controls checkbox">
+    <% Applicant::DEGREE_TYPES.each do |name, value| %>
+      <%= check_box_tag "applicant[degree_types][]", value, @applicant.degree_types.include?(value) %> <label><%= name %></label>
+    <% end %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= label :applicant, :degrees_earned, nil, class: 'control-label' %>
+  <div class="controls">
+    <%= text_area :applicant, :degrees_earned, rows: 7, style: "width:95%" %>
+    <span class="help-block"><i>Degree Earned, Institution, and Year of Graduation</i>
+    </span>
+  </div>
+</div>

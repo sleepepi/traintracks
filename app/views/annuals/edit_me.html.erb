@@ -2,9 +2,28 @@
 
 <div class="page-header">
   <h1><%= @title %></h1>
+  <p class="lead">
+    Please complete the fields below with your most recent information (September <%= @annual.year - 1 %> through September <%= @annual.year %>).  If you have no new information to add, please write "N/A" in the field, as it will not allow you to submit without completing all fields.
+    If you do not have an NIH Other Support, please attach a document that details your current funding situation.
+  </p>
 </div>
 
 <%= form_for(@annual, url: update_me_annual_path(@annual), html: { class: 'form-horizontal' }) do |f| %>
+
+  <% @applicant = current_applicant %>
+
+  <% if @applicant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@applicant.errors.count, "error") %> prohibited this applicant from being saved:</h2>
+
+      <ul>
+      <% @applicant.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <% if @annual.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@annual.errors.count, "error") %> prohibited this form from being saved:</h2>
@@ -17,9 +36,17 @@
     </div>
   <% end %>
 
+  <%= render partial: 'annuals/form/contact' %>
+
+  <%= render partial: 'annuals/form/education' %>
+
+  <div class="page-header">
+    <h2>Annual Information</h2>
+  </div>
   <%= render partial: 'inner_form', locals: { f: f } %>
 
   <div class="form-actions">
+    <%= hidden_field :applicant, :publish, value: '1' %>
     <%= f.hidden_field :publish, value: '1' %>
     <%= f.submit 'Submit Annual Information', class: 'btn btn-primary' %>
     <%= link_to 'Cancel', dashboard_applicants_path, class: 'btn' %>

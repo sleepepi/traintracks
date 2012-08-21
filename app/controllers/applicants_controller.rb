@@ -40,8 +40,11 @@ class ApplicantsController < ApplicationController
 
   def annual_email
     @applicant = Applicant.find(params[:id])
-    @applicant.send_annual_reminder!(current_user, Date.today.year, "Please Update Your Annual Information for #{Date.today.year}", "Update your information here:")
-    redirect_to @applicant, notice: 'Applicant has been notified by email to update application annual information.'
+    if @applicant
+      @applicant.send_annual_reminder!(current_user, params[:annual_year].to_i, params[:annual_subject], params[:annual_body])
+    else
+      render nothing: true
+    end
   end
 
   def index

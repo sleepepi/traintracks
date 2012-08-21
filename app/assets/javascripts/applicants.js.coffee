@@ -21,6 +21,6 @@ jQuery ->
     $('#annual_body').val($('#body').val())
     $('#annual_year').val($('#year').val())
     $('#saving_modal').modal(backdrop: 'static', keyboard: false)
-    $.get($('#applicants_search').attr('action'), $('#applicants_search').serialize() +  '&annual_email=1', null, 'script')
+    $.get($('#applicants_search').attr('action'), $('#applicants_search').serialize() + '&annual_email=1', null, 'script')
     false
   )

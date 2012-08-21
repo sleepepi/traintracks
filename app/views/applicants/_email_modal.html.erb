@@ -12,18 +12,17 @@
         </div>
       </div>
 
-
       <div class="control-group">
         <%= label_tag :subject, nil, class: 'control-label' %>
         <div class="controls">
-          <%= text_field_tag :subject, 'Annual Update', style: 'width:95%' %>
+          <%= text_field_tag :subject, ANNUAL_EMAIL_SUBJECT, style: 'width:95%' %>
         </div>
       </div>
 
       <div class="control-group">
         <%= label_tag :body, nil, class: 'control-label' %>
         <div class="controls">
-          <%= text_area_tag :body, '', rows: 20, style: 'width:95%' %>
+          <%= text_area_tag :body, ANNUAL_EMAIL_BODY, rows: 20, style: 'width:95%' %>
         </div>
       </div>
     </form>

@@ -116,7 +116,7 @@ class AnnualsController < ApplicationController
 
     respond_to do |format|
       if @annual
-        if @annual.update_attributes(post_params)
+        if current_applicant.update_attributes(post_params_applicant) and @annual.update_attributes(post_params)
           format.html { redirect_to dashboard_applicants_path, notice: 'Annual information was successfully updated.' }
           format.json { head :no_content }
         else
@@ -168,6 +168,22 @@ class AnnualsController < ApplicationController
     end
 
     params[:annual]
+  end
+
+  def post_params_applicant
+    params[:applicant] ||= {}
+    params[:applicant][:degree_types] ||= []
+
+    params[:applicant].slice(
+      # Contact Information
+      :phone, :address1, :address2, :city, :state, :country, :zip_code,
+      # Uploaded Curriculum Vitae
+      :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache,
+      # Education
+      :current_institution, :department_program, :current_title, :degree_types, :degrees_earned,
+      # Applicant Assurance
+      :publish
+    )
   end
 
   def generate_csv(annual_scope)
