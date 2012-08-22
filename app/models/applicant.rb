@@ -61,6 +61,7 @@ class Applicant < ActiveRecord::Base
   # Callbacks
   before_validation :set_alien_registration_number
   before_save :set_submitted_at
+  after_save :notify_preceptor
 
   # Named Scopes
   scope :current, conditions: { deleted: false }
@@ -165,6 +166,12 @@ class Applicant < ActiveRecord::Base
     end
   end
 
+  def notify_preceptor
+    if self.publish.to_s == '1' and self.preferred_preceptor and not self.preferred_preceptor.email.blank?
+      UserMailer.notify_preceptor(self).deliver if Rails.env.production?
+    end
+  end
+
   def set_alien_registration_number
     if attribute_present?("alien_registration_number")
       self.alien_registration_number = "A" + alien_registration_number.to_s.gsub(/[^\d]/, '')
@@ -192,7 +199,7 @@ class Applicant < ActiveRecord::Base
         self.reset_authentication_token!
         annual.reload
         self.update_column :emailed_at, Time.now
-        UserMailer.update_annual(annual, subject, body).deliver # if Rails.env.production?
+        UserMailer.update_annual(annual, subject, body).deliver if Rails.env.production?
       end
     end
   end

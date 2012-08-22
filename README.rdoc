@@ -10,7 +10,7 @@ Once you have the prerequisites in place, you can proceed to install bundler whi
 
   gem install bundler
 
-This readme assumes the following installation directory: /var/www/training_grant
+This README assumes the following installation directory: /var/www/training_grant
 
   cd /var/www
 
