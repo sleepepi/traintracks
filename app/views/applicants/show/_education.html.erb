@@ -14,10 +14,10 @@
   </dd>
 
   <dt>Current institution</dt>
-  <dd><%= applicant.current_institution %></dd>
+  <dd style="min-height:60px"><%= applicant.current_institution %></dd>
 
   <dt title="Department / Program">Department / Program</dt>
-  <dd><%= applicant.department_program %></dd>
+  <dd style="min-height:60px"><%= applicant.department_program %></dd>
 
   <dt>Current position</dt>
   <dd><%= applicant.current_position %></dd>
@@ -43,7 +43,7 @@
   <% end %>
 
   <dt title="Concentration / Major">Concentration / Major</dt>
-  <dd><%= applicant.concentration_major %></dd>
+  <dd style="min-height:60px"><%= applicant.concentration_major %></dd>
 
   <dt>Advisor</dt>
   <dd><%= applicant.advisor %></dd>
@@ -57,19 +57,19 @@
   <% end %>
 
   <dt title="Preferred preceptor">Preferred preceptor</dt>
-  <dd><%= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor %></dd>
+  <dd style="min-height:60px"><%= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor %></dd>
 
   <dt title="Second preferred preceptor">Second preferred preceptor</dt>
-  <dd><%= link_to applicant.preferred_preceptor_two.name, applicant.preferred_preceptor_two if applicant.preferred_preceptor_two %></dd>
+  <dd style="min-height:60px"><%= link_to applicant.preferred_preceptor_two.name, applicant.preferred_preceptor_two if applicant.preferred_preceptor_two %></dd>
 
   <dt title="Third preferred preceptor">Third preferred preceptor</dt>
-  <dd><%= link_to applicant.preferred_preceptor_three.name, applicant.preferred_preceptor_three if applicant.preferred_preceptor_three %></dd>
+  <dd style="min-height:60px"><%= link_to applicant.preferred_preceptor_three.name, applicant.preferred_preceptor_three if applicant.preferred_preceptor_three %></dd>
 
   <dt title="Primary preceptor">Primary preceptor</dt>
-  <dd><%= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor %></dd>
+  <dd style="min-height:60px"><%= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor %></dd>
 
   <dt title="Secondary preceptor">Secondary preceptor</dt>
-  <dd><%= link_to applicant.secondary_preceptor.name, applicant.secondary_preceptor if applicant.secondary_preceptor %></dd>
+  <dd style="min-height:60px"><%= link_to applicant.secondary_preceptor.name, applicant.secondary_preceptor if applicant.secondary_preceptor %></dd>
 
   <dt title="Previous NSRA Support">Previous NSRA Support</dt>
   <dd><%= simple_check applicant.previous_nsra_support %></dd>

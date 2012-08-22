@@ -7,14 +7,14 @@
 
 <dl class="dl-horizontal">
   <dt>Applicant assurance</dt>
-  <dd><%= simple_check applicant.assurance %></dd>
+  <dd style="min-height:60px"><%= simple_check applicant.assurance %></dd>
 
 <% if applicant.originally_submitted_at == applicant.submitted_at %>
   <dt>Submitted</dt>
   <dd class="submission_date_container"><%= simple_time applicant.submitted_at %></dd>
 <% else %>
   <dt>Originally Submitted</dt>
-  <dd class="submission_date_container"><%= simple_time applicant.originally_submitted_at %></dd>
+  <dd class="submission_date_container" style="min-height:60px"><%= simple_time applicant.originally_submitted_at %></dd>
 
   <dt>Resubmitted</dt>
   <dd class="submission_date_container"><%= simple_time applicant.submitted_at %></dd>

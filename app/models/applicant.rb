@@ -46,7 +46,7 @@ class Applicant < ActiveRecord::Base
 
   STATUS = ["current", "former"].collect{|i| [i,i]}
   APPLICANT_TYPE = ["predoc", "postdoc", "summer"].collect{|i| [i,i]}
-  MARITAL_STATUS = ["single", "married", "divorced", "widowed"].collect{|i| [i,i]}
+  MARITAL_STATUS = [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Widowed", "widowed"]]
   CITIZENSHIP_STATUS = ["citizen", "permanent resident", "noncitizen"]
   DEGREE_TYPES = [['BA/BS', 'babs'], ['MA/MS', 'mams'], ['MD/DO', 'mddo'], ['PhD/ScD', 'phdscd'], ['Other Professional', 'other']]
 
