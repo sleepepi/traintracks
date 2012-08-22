@@ -14,7 +14,7 @@ class Applicant < ActiveRecord::Base
   # Education
   attr_accessible :advisor, :concentration_major, :current_institution, :cv, :degree_sought,
                   :department_program, :expected_year, :preferred_preceptor_id, :preferred_preceptor_two_id,
-                  :preferred_preceptor_three_id, :thesis, :degrees_earned, :current_title,
+                  :preferred_preceptor_three_id, :thesis, :degrees_earned, :current_position,
                   :previous_nsra_support, :degree_types
 
   # Demographic Information
@@ -86,7 +86,7 @@ class Applicant < ActiveRecord::Base
   # Contact Information
   validates_presence_of :phone, :address1, :city, :state, :country, :zip_code, if: :annual_or_publish?
   # Education Experience
-  validates_presence_of :curriculum_vitae, :current_institution, :department_program, :current_title, :degrees_earned, if: :annual_or_publish?
+  validates_presence_of :curriculum_vitae, :current_institution, :department_program, :current_position, :degrees_earned, if: :annual_or_publish?
 
 
   # Model Relationships

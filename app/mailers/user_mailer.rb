@@ -50,16 +50,7 @@ class UserMailer < ActionMailer::Base
     @applicant = applicant
     @preceptor = applicant.preferred_preceptor
 
-    mime_type = ''
-    case applicant.curriculum_vitae_url.split('.').last when 'pdf'
-      mime_type = 'application/pdf'
-    when 'doc'
-      mime_type = 'application/msword'
-    when 'docx'
-      mime_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    end
-
-    attachments["#{applicant.curriculum_vitae_url.split('/').last}"] = { mime_type: mime_type, content: applicant.curriculum_vitae } unless mime_type.blank?
+    attachments["#{applicant.curriculum_vitae_url.split('/').last}"] = File.read(applicant.curriculum_vitae.path) if File.exists?(applicant.curriculum_vitae.path)
 
     mail(to: @preceptor.email,
          subject: "ACTION REQUIRED: You have been named as a potential preceptor for #{applicant.name}.",

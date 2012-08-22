@@ -180,7 +180,7 @@ class AnnualsController < ApplicationController
       # Uploaded Curriculum Vitae
       :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache,
       # Education
-      :current_institution, :department_program, :current_title, :degree_types, :degrees_earned,
+      :current_institution, :department_program, :current_position, :degree_types, :degrees_earned,
       # Applicant Assurance
       :publish_annual
     )
