@@ -8,6 +8,7 @@
   * Annual information can be filtered and exported to CSV
   * Preferred preceptors now get emailed when an applicant submits their application
   * Previous Institutions has been merged with Degrees Earned
+  * Applicant form no longer requires duplicate entry of citizenship status
   * Minor layout changes
 
 == 0.4.2

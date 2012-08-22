@@ -92,17 +92,22 @@ class PreceptorsController < ApplicationController
   # PUT /preceptors/1
   # PUT /preceptors/1.json
   def update
-    @preceptor = Preceptor.find(params[:id])
+    @preceptor = Preceptor.find_by_id(params[:id])
 
-    @preceptor.skip_reconfirmation!
+    @preceptor.skip_reconfirmation! if @preceptor
 
     respond_to do |format|
-      if @preceptor.update_attributes(post_params)
-        format.html { redirect_to @preceptor, notice: 'Preceptor was successfully updated.' }
-        format.json { head :no_content }
+      if @preceptor
+        if @preceptor.update_attributes(post_params)
+          format.html { redirect_to @preceptor, notice: 'Preceptor was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @preceptor.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render action: "edit" }
-        format.json { render json: @preceptor.errors, status: :unprocessable_entity }
+        format.html { redirect_to preceptors_path }
+        format.json { head :no_content }
       end
     end
   end
@@ -110,11 +115,11 @@ class PreceptorsController < ApplicationController
   # DELETE /preceptors/1
   # DELETE /preceptors/1.json
   def destroy
-    @preceptor = Preceptor.find(params[:id])
-    @preceptor.destroy
+    @preceptor = Preceptor.find_by_id(params[:id])
+    @preceptor.destroy if @preceptor
 
     respond_to do |format|
-      format.html { redirect_to preceptors_url }
+      format.html { redirect_to preceptors_path }
       format.json { head :no_content }
     end
   end

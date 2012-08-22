@@ -60,7 +60,7 @@ class Applicant < ActiveRecord::Base
 
   # Callbacks
   before_validation :set_alien_registration_number
-  before_save :set_submitted_at
+  before_save :set_submitted_at, :set_tge
   after_save :notify_preceptor
 
   # Named Scopes
@@ -164,6 +164,14 @@ class Applicant < ActiveRecord::Base
       self.submitted_at = Time.now
       self.originally_submitted_at = self.submitted_at if self.respond_to?('originally_submitted_at') and self.originally_submitted_at.blank?
     end
+    true
+  end
+
+  def set_tge
+    if self.respond_to?('tge')
+      self.tge = ["citizen", "permanent resident"].include?(self.citizenship_status)
+    end
+    true
   end
 
   def notify_preceptor
@@ -176,6 +184,7 @@ class Applicant < ActiveRecord::Base
     if attribute_present?("alien_registration_number")
       self.alien_registration_number = "A" + alien_registration_number.to_s.gsub(/[^\d]/, '')
     end
+    true
   end
 
   # Return true if an email has been sent to the applicant and they have not yet logged in

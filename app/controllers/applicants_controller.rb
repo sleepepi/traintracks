@@ -158,17 +158,22 @@ class ApplicantsController < ApplicationController
     # params[:applicant][:training_period_start_date] = Date.strptime(params[:applicant][:training_period_start_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:training_period_start_date].blank?
     # params[:applicant][:training_period_end_date] = Date.strptime(params[:applicant][:training_period_end_date], "%m/%d/%Y") if params[:applicant] and not params[:applicant][:training_period_end_date].blank?
 
-    @applicant = Applicant.find(params[:id])
+    @applicant = Applicant.find_by_id(params[:id])
 
-    @applicant.skip_reconfirmation!
+    @applicant.skip_reconfirmation! if @applicant
 
     respond_to do |format|
-      if @applicant.update_attributes(post_params)
-        format.html { redirect_to @applicant, notice: 'Applicant was successfully updated.' }
-        format.json { head :no_content }
+      if @applicant
+        if @applicant.update_attributes(post_params)
+          format.html { redirect_to @applicant, notice: 'Applicant was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @applicant.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render action: "edit" }
-        format.json { render json: @applicant.errors, status: :unprocessable_entity }
+        format.html { redirect_to applicants_path }
+        format.json { head :no_content }
       end
     end
   end
@@ -176,11 +181,11 @@ class ApplicantsController < ApplicationController
   # DELETE /applicants/1
   # DELETE /applicants/1.json
   def destroy
-    @applicant = Applicant.find(params[:id])
-    @applicant.destroy
+    @applicant = Applicant.find_by_id(params[:id])
+    @applicant.destroy if @applicant
 
     respond_to do |format|
-      format.html { redirect_to applicants_url }
+      format.html { redirect_to applicants_path }
       format.json { head :no_content }
     end
   end
@@ -201,7 +206,7 @@ class ApplicantsController < ApplicationController
     else
       params[:applicant].slice(
         # Applicant Information
-        :email, :first_name, :last_name, :middle_initial, :applicant_type, :tge, :desired_start_date, :personal_statement, :alien_registration_number, :citizenship_status,
+        :email, :first_name, :last_name, :middle_initial, :applicant_type, :desired_start_date, :personal_statement, :alien_registration_number, :citizenship_status,
         # Education
         :advisor, :concentration_major, :current_institution, :cv, :degree_sought, :department_program, :expected_year,
         :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id, :thesis, :degrees_earned, :current_position,
