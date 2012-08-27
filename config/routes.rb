@@ -15,10 +15,13 @@ TrainingGrant::Application.routes.draw do
       get :dashboard
       get :edit_me
       put :update_me
+      get :exit_interview
+      post :update_exit_interview
     end
     member do
       post :email
       get :annual_email
+      post :termination_email
       post :unlock
       post :update_submitted_at_date
     end

@@ -1,0 +1,48 @@
+<div class="page-header">
+  <h2>Exit Interview</h2>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Future email</dt>
+  <dd><%= applicant.future_email %></dd>
+
+  <dt>Entrance year</dt>
+  <dd><%= applicant.entrance_year %></dd>
+
+  <dt>T32 funded</dt>
+  <dd style="min-height:60px"><%= simple_check applicant.t32_funded %></dd>
+
+  <dt>T32 funded years</dt>
+  <dd style="min-height:60px"><%= applicant.t32_funded_years.blank? ? '' : pluralize(applicant.t32_funded_years, 'Year') %></dd>
+
+  <dt>Academic program completed</dt>
+  <dd style="min-height:60px"><%= simple_check applicant.academic_program_completed %></dd>
+
+  <dt>Certificate Application</dt>
+  <dd style="min-height:60px">
+    <% unless applicant.certificate_application_url.blank? %>
+      <%= link_to applicant.certificate_application_url.split('/').last, applicant.certificate_application_url, target: '_blank', class: 'btn btn-mini' %>
+      <%= number_to_human_size(applicant.certificate_application.size) %>
+    <% end %>
+  </dd>
+
+  <dt>Research project title</dt>
+  <dd style="min-height:60px"><%= applicant.research_project_title %></dd>
+
+  <dt>Laboratories</dt>
+  <dd style="min-height:60px">
+    <%= applicant.laboratories.join(', ') %>
+  </dd>
+
+  <dt>Immediate transition</dt>
+  <dd style="min-height:60px"><%= simple_check applicant.immediate_transition %></dd>
+
+  <dt>Transition position</dt>
+  <dd style="min-height:60px"><%= applicant.transition_position.join(', ') %></dd>
+
+  <dt>Transition position other</dt>
+  <dd style="min-height:60px"><%= applicant.transition_position_other %></dd>
+
+  <dt>Feedback</dt>
+  <dd><%= applicant.termination_feedback %></dd>
+</dl>

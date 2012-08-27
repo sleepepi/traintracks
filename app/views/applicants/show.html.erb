@@ -7,6 +7,7 @@
     <%= link_to "View Applicants", applicants_path, class: 'btn btn-mini' %>
     <%= link_to "Email Applicant Link", email_applicant_path(@applicant), method: :post, class: 'btn btn-mini' %>
     <%= link_to 'Annual Reminder Email', '#', class: 'btn btn-mini', data: { target: '#send_email_modal', object: 'modal-show' } %>
+    <%= link_to 'Exit Interview Email', termination_email_applicant_path(@applicant), method: :post, class: 'btn btn-mini' if @applicant.enrolled? %>
     <% if @applicant.submitted_at.blank? %>
       <span class="label label-warning">Draft</span>
     <% else %>
@@ -42,19 +43,15 @@
 </div>
 
 <div class="row">
-  <div class="span6">
-    <%= render partial: 'applicants/show/trainee', locals: { applicant: @applicant } %>
-  </div>
-
   <% if current_user.administrator? %>
     <div class="span6">
       <%= render partial: 'applicants/show/submission', locals: { applicant: @applicant } %>
     </div>
   <% end %>
 
-  <% if false %>
+  <% if @applicant.enrolled? %>
     <div class="span6">
-      <%= render partial: 'applicants/show/annual', locals: { applicant: @applicant } %>
+      <%= render partial: 'applicants/show/termination', locals: { applicant: @applicant } %>
     </div>
   <% end %>
 </div>

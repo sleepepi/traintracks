@@ -1,15 +1,15 @@
 class ApplicantsController < ApplicationController
-  before_filter :authenticate_user!, except: [:dashboard, :edit_me, :update_me]
-  before_filter :check_administrator, except: [:dashboard, :edit_me, :update_me]
+  before_filter :authenticate_user!, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview]
+  before_filter :check_administrator, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview]
 
-  before_filter :authenticate_applicant!, only: [:dashboard, :edit_me, :update_me]
+  before_filter :authenticate_applicant!, only: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview]
 
   def dashboard
 
   end
 
   def edit_me
-    redirect_to dashboard_applicants_path, info: 'You have already submitted your application.' unless current_applicant.submitted_at.blank?
+    redirect_to dashboard_applicants_path, notice: 'You have already submitted your application.' unless current_applicant.submitted_at.blank?
   end
 
   def update_me
@@ -24,22 +24,38 @@ class ApplicantsController < ApplicationController
     end
   end
 
+  def exit_interview
+    redirect_to dashboard_applicants_path, notice: 'Only enrolled applicants may fill out an exit interview.' unless current_applicant.enrolled?
+  end
+
+  def update_exit_interview
+    respond_to do |format|
+      if current_applicant.update_attributes(post_params)
+        format.html { redirect_to dashboard_applicants_path, notice: 'Exit Interview successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "exit_interview" }
+        format.json { render json: current_applicant.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # Removes the applicants submitted_at date.  However the original submitted date will always be maintained.
   def unlock
-    @applicant = Applicant.find(params[:id])
+    @applicant = Applicant.find_by_id(params[:id])
     @applicant.update_column :submitted_at, nil
     redirect_to @applicant, notice: 'Applicant has been unlocked.'
   end
 
   # Sends email to applicant containg authentication token
   def email
-    @applicant = Applicant.find(params[:id])
+    @applicant = Applicant.find_by_id(params[:id])
     @applicant.update_general_information_email!(current_user)
     redirect_to @applicant, notice: 'Applicant has been notified by email to update application information.'
   end
 
   def annual_email
-    @applicant = Applicant.find(params[:id])
+    @applicant = Applicant.find_by_id(params[:id])
     if @applicant
       @applicant.send_annual_reminder!(current_user, params[:annual_year].to_i, params[:annual_subject], params[:annual_body])
     else
@@ -47,8 +63,18 @@ class ApplicantsController < ApplicationController
     end
   end
 
+  def termination_email
+    @applicant = Applicant.find_by_id(params[:id])
+    if @applicant
+      @applicant.send_termination!(current_user)
+      redirect_to @applicant, notice: 'Applicant has been notified by email to complete exit interview.'
+    else
+      redirect_to applicants_path
+    end
+  end
+
   def update_submitted_at_date
-    @applicant = Applicant.find(params[:id])
+    @applicant = Applicant.find_by_id(params[:id])
     if @applicant
       submitted_at = parse_date(params[:submission_date], nil).at_midnight rescue nil
       @applicant.update_column :originally_submitted_at, submitted_at
@@ -190,6 +216,8 @@ class ApplicantsController < ApplicationController
 
     params[:applicant][:degree_types] ||= []
     params[:applicant][:urm_types] ||= []
+    params[:applicant][:laboratories] ||= []
+    params[:applicant][:transition_position] ||= []
 
     if current_user and current_user.administrator?
       params[:applicant]
@@ -207,12 +235,16 @@ class ApplicantsController < ApplicationController
         :phone, :address1, :address2, :city, :state, :country, :zip_code,
         # Postdoc Only
         :residency,
-        # Trainee Only
-        :research_project_title,
         # Applicant Assurance
         :assurance, :publish, :letters_from_a, :letters_from_b, :letters_from_c,
         # Uploaded Curriculum Vitae
-        :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache
+        :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache,
+        # Termination
+        :publish_termination,
+        :future_email, :entrance_year, :t32_funded, :t32_funded_years, :academic_program_completed,
+        :research_project_title, :laboratories, :immediate_transition,
+        :transition_position, :transition_position_other, :termination_feedback,
+        :certificate_application, :certificate_application_cache
        )
     end
   end
@@ -233,16 +265,18 @@ class ApplicantsController < ApplicationController
         'Phone', 'Address1', 'Address2', 'City', 'State', 'Country', 'Zip Code',
         # Postdoc Only
         'Residency',
-        # Trainee Only
-        'Research Project Title',
         # Applicant Assurance
         'Assurance', 'Letters From A', 'Letters From B', 'Letters From C',
         # Administrator Only
         'Reviewed', 'Review Date', 'Offered', 'Accepted', 'Enrolled', 'CV Number', 'Degree Type', 'Primary Preceptor ID', 'Secondary Preceptor ID', 'Trainee Code',
         'Status', 'Training Grant Years', 'Supported by Training Grant', 'Training Period Start Date', 'Training Period End Date', 'Notes',
         # Automatically Updated Fields
-        'Submitted At', 'Resubmitted At'
-      ]
+        'Submitted At', 'Resubmitted At',
+        # Termination
+        'Future Email', 'Entrance Year', 'T32 Funded', 'T32 Funded Years', 'Academic Program Completed',
+        'Research Project Title', 'Laboratories', 'Immediate Transition',
+        'Transition Position', 'Transition Position Other', 'Termination Feedback'
+     ]
 
       applicant_scope.each do |a|
         row = [
@@ -263,8 +297,6 @@ class ApplicantsController < ApplicationController
           a.phone, a.address1, a.address2, a.city, a.state, a.country, a.zip_code,
           # Postdoc Only
           a.residency,
-          # Trainee Only
-          a.research_project_title,
           # Applicant Assurance
           a.assurance, a.letters_from_a, a.letters_from_b, a.letters_from_c,
           # Administrator Only
@@ -274,7 +306,11 @@ class ApplicantsController < ApplicationController
           a.trainee_code,
           a.status, a.training_grant_years, a.supported_by_tg, a.training_period_start_date, a.training_period_end_date, a.notes,
           # Automatically Updated Fields
-          a.originally_submitted_at, a.submitted_at
+          a.originally_submitted_at, a.submitted_at,
+          # Termination
+          a.future_email, a.entrance_year, a.t32_funded, a.t32_funded_years, a.academic_program_completed,
+          a.research_project_title, a.laboratories, a.immediate_transition,
+          a.transition_position, a.transition_position_other, a.termination_feedback
         ]
         csv << row
       end

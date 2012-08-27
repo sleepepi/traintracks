@@ -23,7 +23,7 @@
 
   <%= render partial: 'applicants/form/demographic', locals: { f: f, applicant: @applicant } %>
 
-  <%= render partial: 'applicants/form/trainee', locals: { f: f } %>
+  <%= render partial: 'applicants/form/termination', locals: { f: f, applicant: @applicant } %>
 
   <% if current_user.administrator? %>
     <%= render partial: 'applicants/form/admin_only', locals: { f: f, applicant: @applicant } %>

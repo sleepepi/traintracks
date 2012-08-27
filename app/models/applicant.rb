@@ -26,9 +26,6 @@ class Applicant < ActiveRecord::Base
   # Postdoc Only
   attr_accessible :residency
 
-  # Trainee Only
-  attr_accessible :research_project_title
-
   # Applicant Assurance
   attr_accessible :publish, :publish_annual, :assurance, :letters_from_a, :letters_from_b, :letters_from_c
 
@@ -40,15 +37,24 @@ class Applicant < ActiveRecord::Base
                   :status, :training_grant_years, :supported_by_tg, :training_period_start_date,
                   :training_period_end_date, :notes, :primary_preceptor_id, :secondary_preceptor_id
 
-  attr_accessor :publish, :publish_annual
+  # Termination Questions for Enrolled Applicants
+  attr_accessible :publish_termination, :future_email, :entrance_year, :t32_funded, :t32_funded_years,
+                  :academic_program_completed, :research_project_title, :laboratories, :immediate_transition,
+                  :transition_position, :transition_position_other, :termination_feedback,
+                  :certificate_application, :certificate_application_cache
+
+  attr_accessor :publish, :publish_annual, :publish_termination
 
   mount_uploader :curriculum_vitae, DocumentUploader
+  mount_uploader :certificate_application, DocumentUploader
 
   STATUS = ["current", "former"].collect{|i| [i,i]}
   APPLICANT_TYPE = ["predoc", "postdoc", "summer"].collect{|i| [i,i]}
   MARITAL_STATUS = [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Widowed", "widowed"]]
   CITIZENSHIP_STATUS = ["citizen", "permanent resident", "noncitizen"]
   DEGREE_TYPES = [['BA/BS', 'babs'], ['MA/MS', 'mams'], ['MD/DO', 'mddo'], ['PhD/ScD', 'phdscd'], ['Other Professional', 'other']]
+  LABORATORIES = [['Basic Science', 'basic science'], ['Clinical Science', 'clinical science'], ['Population-based Science', 'population-based science'], ['Translational', 'translational'], ['Other', 'other']]
+  TRANSITION_POSITIONS = [['Research Fellow', 'research fellow'], ['Clinical Fellow', 'clinical fellow'], ['Instructor/Assistant Professor', 'instructor or assistant professor'], ['Commercial Research Laboratory', 'commercial research laboratory'], ['Private Practice', 'private practice'], ['Other', 'other']]
 
   DEGREE_SOUGHT = ["MD/MBBS", "PhD", "MD/PhD", "Masters", "Undergrad", "Other"].collect{|i| [i,i]}
 
@@ -57,6 +63,8 @@ class Applicant < ActiveRecord::Base
 
   serialize :degree_types, Array
   serialize :urm_types, Array
+  serialize :laboratories, Array
+  serialize :transition_position, Array
 
   # Callbacks
   before_validation :set_alien_registration_number, :set_password
@@ -88,6 +96,17 @@ class Applicant < ActiveRecord::Base
   # Education Experience
   validates_presence_of :curriculum_vitae, :current_institution, :department_program, :current_position, :degrees_earned, if: :annual_or_publish?
 
+  # Validations required on Termination
+  validates_presence_of :future_email, :entrance_year, if: :termination?
+  validates_presence_of :t32_funded, if: [:termination?, 't32_funded.nil?']
+  validates_presence_of :t32_funded_years, if: [:termination?, :t32_funded?]
+  validates_presence_of :academic_program_completed, if: [:termination?, 'academic_program_completed.nil?']
+  validates_presence_of :certificate_application, if: [:termination?, :academic_program_completed?]
+  validates_presence_of :research_project_title, :laboratories, if: :termination?
+  validates_presence_of :immediate_transition, if: [:termination?, 'immediate_transition.nil?']
+  validates_presence_of :transition_position, if: [:termination?, :immediate_transition?]
+  validates_presence_of :transition_position_other, if: [:termination?, :other_position_selected?]
+  validates_presence_of :termination_feedback, if: :termination?
 
   # Model Relationships
   belongs_to :preferred_preceptor, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_id'
@@ -98,6 +117,10 @@ class Applicant < ActiveRecord::Base
   has_many :annuals, conditions: { deleted: false }, order: 'year DESC'
 
   # Applicant Methods
+
+  def other_position_selected?
+    self.transition_position.include?('other')
+  end
 
   def postdoc?
     self.applicant_type == 'postdoc'
@@ -117,6 +140,10 @@ class Applicant < ActiveRecord::Base
 
   def trainee?
     self.enrolled?
+  end
+
+  def termination?
+    self.publish_termination == '1'
   end
 
   # Validates on annual or on published
@@ -219,6 +246,12 @@ class Applicant < ActiveRecord::Base
         UserMailer.update_annual(annual, subject, body).deliver if Rails.env.production?
       end
     end
+  end
+
+  def send_termination!(current_user)
+    self.reset_authentication_token!
+    self.update_column :emailed_at, Time.now
+    UserMailer.exit_interview(self, current_user).deliver if Rails.env.production?
   end
 
 end

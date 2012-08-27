@@ -1,14 +1,15 @@
 == 0.5.0
 
 * Enhancements
-  * Administrators can now allow applicants and trainees fill out annual information
-  * Administrators can now export selected applicants information to a CSV file
-  * Submission date can now be modified by administrators on applicant page
+  * Administrators can allow applicants and trainees fill out annual information
+  * Administrators can export selected applicants information to a CSV file
+  * Submission date can be modified by administrators on applicant page
   * Administrators can view different time ranges for reports on dashboard
   * Annual information can be filtered and exported to CSV
-  * Preferred preceptors now get emailed when an applicant submits their application
+  * Preferred preceptors get emailed when an applicant submits their application
   * Previous Institutions has been merged with Degrees Earned
   * Applicant form no longer requires duplicate entry of citizenship status
+  * Administrators can request an exit interview to be completed by enrolled trainees
   * Minor layout changes
 
 == 0.4.2

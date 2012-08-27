@@ -1,0 +1,30 @@
+<% @title = "Exit Interview" %>
+
+
+<%= form_for(current_applicant, url: update_exit_interview_applicants_path, method: :post, html: { class: 'form-horizontal' }) do |f| %>
+  <% @applicant = current_applicant %>
+
+  <% if @applicant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@applicant.errors.count, "error") %> prohibited this exit interview from being saved:</h2>
+
+      <ul>
+      <% @applicant.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= render partial: 'applicants/form/termination', locals: { f: f, applicant: current_applicant } %>
+
+  <h4>
+    Thank you for taking the time to complete this form.
+  </h4>
+
+  <div class="form-actions">
+    <%= hidden_field :applicant, :publish_termination, value: '1' %>
+    <%= f.submit 'Submit Exit Interview', class: 'btn btn-primary' %>
+    <%= link_to 'Cancel', dashboard_applicants_path, class: 'btn' %>
+  </div>
+<% end %>

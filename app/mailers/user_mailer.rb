@@ -45,6 +45,15 @@ class UserMailer < ActionMailer::Base
          reply_to: annual.user.email)
   end
 
+  def exit_interview(applicant, user)
+    setup_email
+    @applicant = applicant
+    @user = user
+    mail(to: applicant.email,
+         subject: "Please Complete Your Exit Interview",
+         reply_to: user.email)
+  end
+
   def notify_preceptor(applicant)
     setup_email
     @applicant = applicant
