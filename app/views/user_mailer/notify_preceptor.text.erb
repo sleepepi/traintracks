@@ -1,10 +1,7 @@
-Dear Dr. <%= @preceptor.last_name %>,
-
 <%= @applicant.name %> has recently submitted an application to the Training Program in Sleep, Circadian, and Respiratory Neurobiology. This candidate named you as a potential preceptor.
-<% preceptors = [(@applicant.preferred_preceptor_two ? @applicant.preferred_preceptor_two.name : nil), (@applicant.preferred_preceptor_three ? @applicant.preferred_preceptor_three.name : nil)].compact.uniq %>
-<% if preceptors.size > 0 %>
+<% if @preceptors.size > 1 %>
 
-The other preferred preceptors that this candidate requested are: <%= preceptors.join(', ') %>
+The other preferred preceptors have been CC'd on this email.
 <% end %>
 
 This candidate's CV is attached to this email.  To email the candidate, hit "reply".

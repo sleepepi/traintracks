@@ -48,11 +48,13 @@ class UserMailer < ActionMailer::Base
   def notify_preceptor(applicant)
     setup_email
     @applicant = applicant
-    @preceptor = applicant.preferred_preceptor
 
-    attachments["#{applicant.curriculum_vitae_url.split('/').last}"] = File.read(applicant.curriculum_vitae.path) if File.exists?(applicant.curriculum_vitae.path)
+    @preceptors = [applicant.preferred_preceptor, applicant.preferred_preceptor_two, applicant.preferred_preceptor_three].compact.uniq
 
-    mail(to: @preceptor.email,
+    attachments["#{applicant.curriculum_vitae_url.split('/').last}"] = File.read(applicant.curriculum_vitae.path.to_s) if File.exists?(applicant.curriculum_vitae.path.to_s)
+
+    mail(to: @preceptors.collect{|p| "#{p.name} <#{p.email}>"}.join(", "),
+         cc: (defined?(TG_ADMIN_EMAIL) and not TG_ADMIN_EMAIL.blank?) ? TG_ADMIN_EMAIL : nil,
          subject: "ACTION REQUIRED: You have been named as a potential preceptor for #{applicant.name}.",
          reply_to: applicant.email)
   end
