@@ -3,10 +3,14 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :curriculum_vitae, 'Upload Curriculum Vitae (PDF, Word)', class: 'control-label' %>
+  <%= f.label :curriculum_vitae, 'Upload Curriculum Vitae or Resume (PDF, Word)', class: 'control-label' %>
   <div class="controls">
     <%= f.file_field :curriculum_vitae %>
     <%= f.hidden_field :curriculum_vitae_cache %>
+    <span class="help-block">
+      <span class="label label-info">Important!</span>
+      Instructions on how to prepare a CV can be found here: <%= link_to 'http://cv.hms.harvard.edu/index.php?page=intro', 'http://cv.hms.harvard.edu/index.php?page=intro', target: '_blank' %>
+    </span>
   </div>
 </div>
 
