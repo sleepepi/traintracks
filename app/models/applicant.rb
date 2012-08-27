@@ -59,7 +59,7 @@ class Applicant < ActiveRecord::Base
   serialize :urm_types, Array
 
   # Callbacks
-  before_validation :set_alien_registration_number
+  before_validation :set_alien_registration_number, :set_password
   before_save :set_submitted_at, :set_tge
   after_save :notify_preceptor
 
@@ -183,6 +183,14 @@ class Applicant < ActiveRecord::Base
   def set_alien_registration_number
     if attribute_present?("alien_registration_number")
       self.alien_registration_number = "A" + alien_registration_number.to_s.gsub(/[^\d]/, '')
+    end
+    true
+  end
+
+  def set_password
+    if self.respond_to?('encrypted_password') and self.encrypted_password.blank?
+      self.password = Applicant.reset_password_token
+      self.password_confirmation = self.password
     end
     true
   end

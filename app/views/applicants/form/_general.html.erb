@@ -9,7 +9,7 @@
   </div>
 </div>
 
-<% if user_signed_in? and current_user.administrator? and applicant.new_record? %>
+<% if user_signed_in? and current_user.administrator? and applicant.new_record? and false %>
   <div class="control-group">
     <%= f.label :password, nil, class: 'control-label' %>
     <div class="controls">
