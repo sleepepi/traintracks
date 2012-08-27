@@ -35,8 +35,9 @@
 <div class="control-group">
   <%= label :applicant, :degree_types, nil, class: 'control-label' %>
   <div class="controls checkbox">
+    <%= hidden_field_tag :set_degree_types, '1' %>
     <% Applicant::DEGREE_TYPES.each do |name, value| %>
-      <%= check_box_tag "applicant[degree_types][]", value, @applicant.degree_types.include?(value) %> <label><%= name %></label>
+      <label><%= check_box_tag "applicant[degree_types][]", value, @applicant.degree_types.include?(value) %> <%= name %></label>
     <% end %>
   </div>
 </div>

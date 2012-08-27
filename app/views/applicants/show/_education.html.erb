@@ -32,7 +32,14 @@
   </dd>
 
   <dt>Degrees earned</dt>
-  <dd><%= simple_format applicant.degrees_earned %></dd>
+  <dd>
+    <%#= simple_format applicant.degrees_earned_text %>
+    <ul>
+    <% applicant.degrees_earned.each do |degree_earned| %>
+      <li><%= render partial: 'applicants/show/degrees', locals: { degree_earned: degree_earned } %></li>
+    <% end %>
+    </ul>
+  </dd>
 
   <% unless applicant.postdoc? %>
     <dt>Degree sought</dt>

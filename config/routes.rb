@@ -17,6 +17,7 @@ TrainingGrant::Application.routes.draw do
       put :update_me
       get :exit_interview
       post :update_exit_interview
+      post :add_degree
     end
     member do
       post :email

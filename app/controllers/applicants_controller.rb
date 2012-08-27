@@ -1,8 +1,12 @@
 class ApplicantsController < ApplicationController
-  before_filter :authenticate_user!, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview]
-  before_filter :check_administrator, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview]
+  before_filter :authenticate_user!, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :add_degree]
+  before_filter :check_administrator, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :add_degree]
 
   before_filter :authenticate_applicant!, only: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview]
+
+  def add_degree
+
+  end
 
   def dashboard
 
@@ -211,13 +215,16 @@ class ApplicantsController < ApplicationController
   def post_params
     params[:applicant] ||= {}
     [:desired_start_date, :review_date, :training_period_start_date, :training_period_end_date].each do |date|
-      params[:applicant][date] = parse_date(params[:applicant][date])
+      params[:applicant][date] = parse_date(params[:applicant][date]) unless params[:applicant][date] == nil
     end
 
-    params[:applicant][:degree_types] ||= []
-    params[:applicant][:urm_types] ||= []
-    params[:applicant][:laboratories] ||= []
-    params[:applicant][:transition_position] ||= []
+    # These have been removed since they overwrite existing information
+    params[:applicant][:degree_types] ||= [] if params[:set_degree_types] == '1'
+    params[:applicant][:urm_types] ||= [] if params[:set_urm_types] == '1'
+    params[:applicant][:laboratories] ||= [] if params[:set_laboratories] == '1'
+    params[:applicant][:transition_position] ||= [] if params[:set_transition_position] == '1'
+    params[:applicant][:research_interests] ||= [] if params[:set_research_interests] == '1'
+    params[:applicant][:degrees_earned] ||= [] if params[:set_degrees_earned] == '1'
 
     if current_user and current_user.administrator?
       params[:applicant]
@@ -289,7 +296,7 @@ class ApplicantsController < ApplicationController
           a.preferred_preceptor ? a.preferred_preceptor.hospital_affiliation : '',
           a.preferred_preceptor_two ? a.preferred_preceptor_two.name_with_id : '',
           a.preferred_preceptor_three ? a.preferred_preceptor_three.name_with_id : '',
-          a.thesis, a.degrees_earned, a.current_position,
+          a.thesis, a.degrees_earned_text, a.current_position,
           a.previous_nrsa_support, a.degree_types,
           # Demographic Information
           a.gender, a.disabled, a.disabled_description, a.disadvantaged, a.urm, a.urm_types, a.marital_status,

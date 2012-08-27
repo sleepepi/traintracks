@@ -27,7 +27,7 @@ one:
   thesis: MyString
   urm: false
   degree_type: MyString
-  degrees_earned: MyText
+  degrees_earned: [{institution: ''}]
   notes: MyText
   residency: MyString
   training_period_start_date: 2012-04-02
@@ -88,7 +88,7 @@ two:
   thesis: MyString
   urm: false
   degree_type: MyString
-  degrees_earned: MyText
+  degrees_earned: [{institution: ''}]
   notes: MyText
   residency: MyString
   training_period_start_date: 2012-04-02

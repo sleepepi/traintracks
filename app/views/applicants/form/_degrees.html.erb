@@ -1,0 +1,14 @@
+<div>
+<%= select_tag "applicant[degrees_earned][][degree_type]", options_for_select([['---', nil]] + Applicant::DEGREE_TYPES, degree_earned[:degree_type]) %>
+
+<%= text_field_tag "applicant[degrees_earned][][institution]", degree_earned[:institution], class: "input-small", placeholder: 'Institution', rel: 'tooltip', title: 'Institution' %>
+
+<%= text_field_tag "applicant[degrees_earned][][year]", degree_earned[:year], class: "input-mini", placeholder: 'Year', rel: 'tooltip', title: 'Year' %>
+
+<%= text_field_tag "applicant[degrees_earned][][advisor]", degree_earned[:advisor], class: "input-small", placeholder: 'Advisor', rel: 'tooltip', title: 'Advisor' %>
+
+<%= text_field_tag "applicant[degrees_earned][][thesis]", degree_earned[:thesis], class: "input-small", placeholder: 'Thesis', rel: 'tooltip', title: 'Thesis' %>
+
+<%= text_field_tag "applicant[degrees_earned][][concentration_major]", degree_earned[:concentration_major], class: "input-small", placeholder: 'Concentration / Major', rel: 'tooltip', title: 'Concentration / Major' %>
+<%= link_to_function 'remove', '#', data: { object: 'remove-parent' }, class: 'btn btn-mini btn-danger' %>
+</div>

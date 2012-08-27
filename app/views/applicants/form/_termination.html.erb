@@ -65,6 +65,7 @@
 <div class="control-group">
   <%= f.label :laboratories, '6. In which type of laboratory did you work?', class: 'control-label' %>
   <div class="controls checkbox">
+    <%= hidden_field_tag :set_laboratories, '1' %>
     <% Applicant::LABORATORIES.each do |name, value| %>
       <label><%= check_box_tag "applicant[laboratories][]", value, applicant.laboratories.include?(value) %> <%= name %></label>
     <% end %>
@@ -85,6 +86,7 @@
 <div class="control-group">
   <%= f.label :transition_position, "7. a. If yes, select all that apply.", class: 'control-label' %>
   <div class="controls checkbox">
+    <%= hidden_field_tag :set_transition_position, '1' %>
     <% Applicant::TRANSITION_POSITIONS.each do |name, value| %>
       <label><%= check_box_tag "applicant[transition_position][]", value, applicant.transition_position.include?(value) %> <%= name %></label>
     <% end %>

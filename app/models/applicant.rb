@@ -43,6 +43,9 @@ class Applicant < ActiveRecord::Base
                   :transition_position, :transition_position_other, :termination_feedback,
                   :certificate_application, :certificate_application_cache
 
+  # Legacy
+  attr_accessible :degrees_earned_old
+
   attr_accessor :publish, :publish_annual, :publish_termination
 
   mount_uploader :curriculum_vitae, DocumentUploader
@@ -72,6 +75,7 @@ class Applicant < ActiveRecord::Base
   serialize :laboratories, Array
   serialize :transition_position, Array
   serialize :research_interests, Array
+  serialize :degrees_earned, Array
 
   # Callbacks
   before_validation :set_alien_registration_number, :set_password
@@ -126,12 +130,20 @@ class Applicant < ActiveRecord::Base
 
   # Applicant Methods
 
+  def degrees_earned_text
+    self.degrees_earned.collect{|d| "#{Applicant.degree_type_name(d[:degree_type])} #{d[:institution]} #{d[:year]} #{d[:advisor]} #{d[:thesis]} #{d[:concentration_major]}"}.join("\n")
+  end
+
   def other_position_selected?
     self.transition_position.include?('other')
   end
 
   def postdoc?
     self.applicant_type == 'postdoc'
+  end
+
+  def self.degree_type_name(degree_type)
+    DEGREE_TYPES.select{|a,b| degree_type == b}.collect{|a,b| a}.first
   end
 
   def degree_types_names

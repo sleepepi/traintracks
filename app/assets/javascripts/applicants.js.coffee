@@ -12,6 +12,10 @@ jQuery ->
         $($(this).data('target')).submit()
         false
     )
+    .on('click', '[data-object~="remove-parent"]', () ->
+      $(this).parent().remove()
+      false
+    )
 
   $('#send_annual_email').on('click', () ->
     if $('#enrolled').val() == 'all' and !confirm('Warning! Are you sure you want to send an annual email to ALL applicants?')
@@ -24,4 +28,5 @@ jQuery ->
     $.get($('#applicants_search').attr('action'), $('#applicants_search').serialize() + '&annual_email=1', null, 'script')
     false
   )
+
 
