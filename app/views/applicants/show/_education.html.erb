@@ -70,21 +70,21 @@
     <dd><%= applicant.research_interests_other %></dd>
   <% end %>
 
-  <dt title="Preferred preceptor">Preferred preceptor</dt>
+  <dt>Preferred preceptor</dt>
   <dd style="min-height:60px"><%= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor %></dd>
 
-  <dt title="Second preferred preceptor">Second preferred preceptor</dt>
+  <dt>Second preferred preceptor</dt>
   <dd style="min-height:60px"><%= link_to applicant.preferred_preceptor_two.name, applicant.preferred_preceptor_two if applicant.preferred_preceptor_two %></dd>
 
-  <dt title="Third preferred preceptor">Third preferred preceptor</dt>
+  <dt>Third preferred preceptor</dt>
   <dd style="min-height:60px"><%= link_to applicant.preferred_preceptor_three.name, applicant.preferred_preceptor_three if applicant.preferred_preceptor_three %></dd>
 
-  <dt title="Primary preceptor">Primary preceptor</dt>
+  <dt>Primary preceptor</dt>
   <dd style="min-height:60px"><%= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor %></dd>
 
-  <dt title="Secondary preceptor">Secondary preceptor</dt>
+  <dt>Secondary preceptor</dt>
   <dd style="min-height:60px"><%= link_to applicant.secondary_preceptor.name, applicant.secondary_preceptor if applicant.secondary_preceptor %></dd>
 
-  <dt title="Previous NSRA Support">Previous NSRA Support</dt>
-  <dd><%= simple_check applicant.previous_nsra_support %></dd>
+  <dt>Previous NRSA Support</dt>
+  <dd><%= simple_check applicant.previous_nrsa_support %></dd>
 </dl>

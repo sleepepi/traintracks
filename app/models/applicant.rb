@@ -15,7 +15,7 @@ class Applicant < ActiveRecord::Base
   attr_accessible :advisor, :concentration_major, :current_institution, :cv, :degree_sought,
                   :department_program, :expected_year, :research_interests, :research_interests_other, :preferred_preceptor_id,
                   :preferred_preceptor_two_id, :preferred_preceptor_three_id, :thesis, :degrees_earned,
-                  :current_position, :previous_nsra_support, :degree_types
+                  :current_position, :previous_nrsa_support, :degree_types
 
   # Demographic Information
   attr_accessible :gender, :disabled, :disabled_description, :disadvantaged, :urm, :urm_types, :marital_status

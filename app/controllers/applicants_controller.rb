@@ -228,7 +228,7 @@ class ApplicantsController < ApplicationController
         # Education
         :advisor, :concentration_major, :current_institution, :cv, :degree_sought, :department_program, :expected_year, :research_interests, :research_interests_other,
         :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id, :thesis, :degrees_earned, :current_position,
-        :previous_nsra_support, :degree_types,
+        :previous_nrsa_support, :degree_types,
         # Demographic Information
         :gender, :disabled, :disabled_description, :disadvantaged, :urm, :urm_types, :marital_status,
         # Contact Information
@@ -258,7 +258,7 @@ class ApplicantsController < ApplicationController
         # Education
         'Advisor', 'Concentration/Major', 'Current Institution', 'CV', 'Degree Sought', 'Department/Program', 'Expected Year', 'Research Interests', 'Research Interests Other',
         'Preferred Preceptor ID', 'Preferred Preceptor Hospital Affiliation', 'Preferred Preceptor Two ID', 'Preferred Preceptor Three ID', 'Thesis', 'Degrees Earned', 'Current Title',
-        'Previous NSRA Support', 'Degree Types',
+        'Previous NRSA Support', 'Degree Types',
         # Demographic Information
         'Gender', 'Disabled', 'Disabled Description', 'Disadvantaged', 'URM', 'URM Types', 'Marital Status',
         # Contact Information
@@ -290,7 +290,7 @@ class ApplicantsController < ApplicationController
           a.preferred_preceptor_two ? a.preferred_preceptor_two.name_with_id : '',
           a.preferred_preceptor_three ? a.preferred_preceptor_three.name_with_id : '',
           a.thesis, a.degrees_earned, a.current_position,
-          a.previous_nsra_support, a.degree_types,
+          a.previous_nrsa_support, a.degree_types,
           # Demographic Information
           a.gender, a.disabled, a.disabled_description, a.disadvantaged, a.urm, a.urm_types, a.marital_status,
           # Contact Information
