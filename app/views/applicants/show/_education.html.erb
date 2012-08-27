@@ -56,6 +56,20 @@
     <dd><%= applicant.residency %></dd>
   <% end %>
 
+  <dt>Research interests</dt>
+  <dd>
+    <ul>
+    <% applicant.research_interests.each do |research_interest| %>
+      <li><%= research_interest %></li>
+    <% end %>
+    </ul>
+  </dd>
+
+  <% if applicant.research_interests.include?('other') %>
+    <dt>Research interests other</dt>
+    <dd><%= applicant.research_interests_other %></dd>
+  <% end %>
+
   <dt title="Preferred preceptor">Preferred preceptor</dt>
   <dd style="min-height:60px"><%= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor %></dd>
 

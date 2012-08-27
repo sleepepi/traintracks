@@ -226,7 +226,7 @@ class ApplicantsController < ApplicationController
         # Applicant Information
         :email, :first_name, :last_name, :middle_initial, :applicant_type, :desired_start_date, :personal_statement, :alien_registration_number, :citizenship_status,
         # Education
-        :advisor, :concentration_major, :current_institution, :cv, :degree_sought, :department_program, :expected_year,
+        :advisor, :concentration_major, :current_institution, :cv, :degree_sought, :department_program, :expected_year, :research_interests, :research_interests_other,
         :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id, :thesis, :degrees_earned, :current_position,
         :previous_nsra_support, :degree_types,
         # Demographic Information
@@ -256,7 +256,7 @@ class ApplicantsController < ApplicationController
         # Applicant Information
         'Email', 'Last Name', 'First Name', 'Middle Initial', 'Applicant Type', 'TGE', 'Desired Start Date', 'Personal Statement', 'Alien Registration Number', 'Citizenship Status',
         # Education
-        'Advisor', 'Concentration/Major', 'Current Institution', 'CV', 'Degree Sought', 'Department/Program', 'Expected Year',
+        'Advisor', 'Concentration/Major', 'Current Institution', 'CV', 'Degree Sought', 'Department/Program', 'Expected Year', 'Research Interests', 'Research Interests Other',
         'Preferred Preceptor ID', 'Preferred Preceptor Hospital Affiliation', 'Preferred Preceptor Two ID', 'Preferred Preceptor Three ID', 'Thesis', 'Degrees Earned', 'Current Title',
         'Previous NSRA Support', 'Degree Types',
         # Demographic Information
@@ -284,7 +284,7 @@ class ApplicantsController < ApplicationController
           # Applicant Information
           a.email, a.last_name, a.first_name, a.middle_initial, a.applicant_type, a.tge, a.desired_start_date, a.personal_statement, a.alien_registration_number, a.citizenship_status,
           # Education
-          a.advisor, a.concentration_major, a.current_institution, a.cv, a.degree_sought, a.department_program, a.expected_year,
+          a.advisor, a.concentration_major, a.current_institution, a.cv, a.degree_sought, a.department_program, a.expected_year, a.research_interests, a.research_interests_other,
           a.preferred_preceptor ? a.preferred_preceptor.name_with_id : '',
           a.preferred_preceptor ? a.preferred_preceptor.hospital_affiliation : '',
           a.preferred_preceptor_two ? a.preferred_preceptor_two.name_with_id : '',

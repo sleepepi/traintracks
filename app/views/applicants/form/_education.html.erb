@@ -39,7 +39,7 @@
   <%= f.label :degree_types, nil, class: 'control-label' %>
   <div class="controls checkbox">
     <% Applicant::DEGREE_TYPES.each do |name, value| %>
-      <%= check_box_tag "applicant[degree_types][]", value, applicant.degree_types.include?(value) %> <label><%= name %></label>
+      <label><%= check_box_tag "applicant[degree_types][]", value, applicant.degree_types.include?(value) %> <%= name %></label>
     <% end %>
   </div>
 </div>
@@ -57,7 +57,7 @@
   <%= f.label :degree_sought, nil, class: 'control-label' %>
   <div class="controls radio">
     <% Applicant::DEGREE_SOUGHT.each do |name, value| %>
-      <%= f.radio_button :degree_sought, value, data: { toggle: 'predoc_summer_only' } %> <label><%= name %></label>
+      <label><%= f.radio_button :degree_sought, value, data: { toggle: 'predoc_summer_only' } %> <%= name %></label>
     <% end %>
   </div>
 </div>
@@ -94,6 +94,24 @@
   <%= f.label :residency, nil, class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :residency, 'data-toggle' => 'postdoc_only' %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :research_interests, nil, class: 'control-label' %>
+  <div class="controls">
+    <% Applicant::RESEARCH_INTERESTS.each_with_index do |(name, value), index| %>
+      <% unless value == 'other' %>
+        <label class="checkbox inline" style="<%= 'margin-left:10px' if index == 0 %>"><%= check_box_tag "applicant[research_interests][]", value, applicant.research_interests.include?(value) %> <%= name %></label>
+      <% else %>
+        <label class="checkbox" style="margin-left:10px;padding-top:5px"><%= check_box_tag "applicant[research_interests][]", value, applicant.research_interests.include?(value) %> <%= name %></label>
+        <%= f.text_field :research_interests_other %>
+        <span class="help-block">
+          <span class="label label-info">Important!</span>
+          Mark up to four.
+        </span>
+      <% end %>
+    <% end %>
   </div>
 </div>
 

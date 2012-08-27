@@ -13,9 +13,9 @@ class Applicant < ActiveRecord::Base
 
   # Education
   attr_accessible :advisor, :concentration_major, :current_institution, :cv, :degree_sought,
-                  :department_program, :expected_year, :preferred_preceptor_id, :preferred_preceptor_two_id,
-                  :preferred_preceptor_three_id, :thesis, :degrees_earned, :current_position,
-                  :previous_nsra_support, :degree_types
+                  :department_program, :expected_year, :research_interests, :research_interests_other, :preferred_preceptor_id,
+                  :preferred_preceptor_two_id, :preferred_preceptor_three_id, :thesis, :degrees_earned,
+                  :current_position, :previous_nsra_support, :degree_types
 
   # Demographic Information
   attr_accessible :gender, :disabled, :disabled_description, :disadvantaged, :urm, :urm_types, :marital_status
@@ -58,6 +58,12 @@ class Applicant < ActiveRecord::Base
 
   DEGREE_SOUGHT = ["MD/MBBS", "PhD", "MD/PhD", "Masters", "Undergrad", "Other"].collect{|i| [i,i]}
 
+  RESEARCH_INTERESTS = [['Human Physiology', 'human physiology'], ['Circadian/Chronobiology', 'circadian chronobiology'], ['Neurophysiology', 'neurophysiology'], ['Molecular Biology', 'molecular biology'],
+                        ['Mathematical Modeling', 'mathematical modeling'], ['Physiology', 'physiology'], ['Neuroanatomy', 'neuroanatomy'], ['Neuropsychiatry', 'neuropsychiatry'], ['Neuropsychology', 'neuropsychology'],
+                        ['Learning and Memory', 'learning and memory'], ['Neuropharmacology', 'neuropharmacology'], ['Cardiorespiratory Physiology', 'cardiorespiratory physiology'], ['Upper Airway Muscle Physiology', 'upper airway muscle physiology'],
+                        ['Sleep', 'sleep'], ['Genetics of Circadian Clocks', 'genetics of circadian clocks'], ['Other (please specify)', 'other']]
+
+
   GENDER = ["Male", "Female", "No Response"].collect{|i| [i,i]}
   URM_TYPES = [["Hispanic or Latin", 'hispanic latin'], ["American Indian or Alaska Native", 'americanindian alskanative'], ["Black or African American", 'black africanamerica'], ["Native Hawaiian or Pacific Islander", 'nativehawaiian pacific_islander']]
 
@@ -65,6 +71,7 @@ class Applicant < ActiveRecord::Base
   serialize :urm_types, Array
   serialize :laboratories, Array
   serialize :transition_position, Array
+  serialize :research_interests, Array
 
   # Callbacks
   before_validation :set_alien_registration_number, :set_password
@@ -83,7 +90,8 @@ class Applicant < ActiveRecord::Base
   validates_uniqueness_of :email, allow_blank: true, scope: :deleted
 
   validates_presence_of :expected_year, :degree_sought, unless: [:postdoc?, :not_submitted?]
-  validates_presence_of :desired_start_date, :personal_statement, :preferred_preceptor_id, :marital_status, :advisor, :concentration_major,  if: :submitted?
+  validates_presence_of :desired_start_date, :personal_statement, :research_interests, :preferred_preceptor_id, :marital_status, :advisor, :concentration_major,  if: :submitted?
+  validates_presence_of :research_interests_other, if: [:submitted?, 'research_interests.include?("other")']
   validates_presence_of :disabled_description, if: [:submitted?, :disabled?]
   validates_presence_of :alien_registration_number, if: [:submitted?, :permanent_resident?]
   validates_format_of :alien_registration_number, with: /\AA\d*\Z/, if: [:submitted?, :permanent_resident?]

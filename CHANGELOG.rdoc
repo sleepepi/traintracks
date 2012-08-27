@@ -10,6 +10,7 @@
   * Previous Institutions has been merged with Degrees Earned
   * Applicant form no longer requires duplicate entry of citizenship status
   * Administrators can request an exit interview to be completed by enrolled trainees
+  * Applicants are required to add research interests
   * Minor layout changes
 
 == 0.4.2
