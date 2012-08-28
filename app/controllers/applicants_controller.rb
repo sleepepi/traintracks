@@ -218,7 +218,6 @@ class ApplicantsController < ApplicationController
       params[:applicant][date] = parse_date(params[:applicant][date]) unless params[:applicant][date] == nil
     end
 
-    # These have been removed since they overwrite existing information
     params[:applicant][:degree_types] ||= [] if params[:set_degree_types] == '1'
     params[:applicant][:urm_types] ||= [] if params[:set_urm_types] == '1'
     params[:applicant][:laboratories] ||= [] if params[:set_laboratories] == '1'
