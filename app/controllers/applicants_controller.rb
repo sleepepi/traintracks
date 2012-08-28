@@ -218,33 +218,31 @@ class ApplicantsController < ApplicationController
       params[:applicant][date] = parse_date(params[:applicant][date]) unless params[:applicant][date] == nil
     end
 
-    params[:applicant][:degree_types] ||= [] if params[:set_degree_types] == '1'
+    params[:applicant][:degrees_earned] ||= [] if params[:set_degrees_earned] == '1'
+    params[:applicant][:research_interests] ||= [] if params[:set_research_interests] == '1'
     params[:applicant][:urm_types] ||= [] if params[:set_urm_types] == '1'
     params[:applicant][:laboratories] ||= [] if params[:set_laboratories] == '1'
     params[:applicant][:transition_position] ||= [] if params[:set_transition_position] == '1'
-    params[:applicant][:research_interests] ||= [] if params[:set_research_interests] == '1'
-    params[:applicant][:degrees_earned] ||= [] if params[:set_degrees_earned] == '1'
 
     if current_user and current_user.administrator?
       params[:applicant]
     else
       params[:applicant].slice(
         # Applicant Information
-        :email, :first_name, :last_name, :middle_initial, :applicant_type, :desired_start_date, :personal_statement, :alien_registration_number, :citizenship_status,
-        # Education
-        :advisor, :concentration_major, :current_institution, :cv, :degree_sought, :department_program, :expected_year, :research_interests, :research_interests_other,
-        :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id, :thesis, :degrees_earned, :current_position,
-        :previous_nrsa_support, :degree_types,
-        # Demographic Information
-        :gender, :disabled, :disabled_description, :disadvantaged, :urm, :urm_types, :marital_status,
+        :email, :first_name, :last_name, :middle_initial, :applicant_type, :citizenship_status, :alien_registration_number, :desired_start_date, :personal_statement,
         # Contact Information
         :phone, :address1, :address2, :city, :state, :country, :zip_code,
-        # Postdoc Only
-        :residency,
-        # Applicant Assurance
-        :assurance, :publish, :letters_from_a, :letters_from_b, :letters_from_c,
         # Uploaded Curriculum Vitae
         :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache,
+        # Education
+        :current_institution, :department_program, :current_position, :degrees_earned,
+        :degree_sought, :expected_year, :residency, :research_interests, :research_interests_other,
+        :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id,
+        :previous_nrsa_support,
+        # Demographic Information
+        :gender, :disabled, :disabled_description, :disadvantaged, :urm, :urm_types, :marital_status,
+        # Applicant Assurance
+        :assurance, :publish, :letters_from_a, :letters_from_b, :letters_from_c,
         # Termination
         :publish_termination,
         :future_email, :entrance_year, :t32_funded, :t32_funded_years, :academic_program_completed,
@@ -262,9 +260,9 @@ class ApplicantsController < ApplicationController
         # Applicant Information
         'Email', 'Last Name', 'First Name', 'Middle Initial', 'Applicant Type', 'TGE', 'Desired Start Date', 'Personal Statement', 'Alien Registration Number', 'Citizenship Status',
         # Education
-        'Advisor', 'Concentration/Major', 'Current Institution', 'CV', 'Degree Sought', 'Department/Program', 'Expected Year', 'Research Interests', 'Research Interests Other',
-        'Preferred Preceptor ID', 'Preferred Preceptor Hospital Affiliation', 'Preferred Preceptor Two ID', 'Preferred Preceptor Three ID', 'Thesis', 'Degrees Earned', 'Current Title',
-        'Previous NRSA Support', 'Degree Types',
+        'Current Institution', 'CV', 'Degree Sought', 'Department/Program', 'Expected Year', 'Research Interests', 'Research Interests Other',
+        'Preferred Preceptor ID', 'Preferred Preceptor Hospital Affiliation', 'Preferred Preceptor Two ID', 'Preferred Preceptor Three ID',
+        'Degrees Earned', 'Current Position', 'Previous NRSA Support',
         # Demographic Information
         'Gender', 'Disabled', 'Disabled Description', 'Disadvantaged', 'URM', 'URM Types', 'Marital Status',
         # Contact Information
@@ -290,13 +288,12 @@ class ApplicantsController < ApplicationController
           # Applicant Information
           a.email, a.last_name, a.first_name, a.middle_initial, a.applicant_type, a.tge, a.desired_start_date, a.personal_statement, a.alien_registration_number, a.citizenship_status,
           # Education
-          a.advisor, a.concentration_major, a.current_institution, a.cv, a.degree_sought, a.department_program, a.expected_year, a.research_interests, a.research_interests_other,
+          a.current_institution, a.cv, a.degree_sought, a.department_program, a.expected_year, a.research_interests, a.research_interests_other,
           a.preferred_preceptor ? a.preferred_preceptor.name_with_id : '',
           a.preferred_preceptor ? a.preferred_preceptor.hospital_affiliation : '',
           a.preferred_preceptor_two ? a.preferred_preceptor_two.name_with_id : '',
           a.preferred_preceptor_three ? a.preferred_preceptor_three.name_with_id : '',
-          a.thesis, a.degrees_earned_text, a.current_position,
-          a.previous_nrsa_support, a.degree_types,
+          a.degrees_earned_text, a.current_position, a.previous_nrsa_support,
           # Demographic Information
           a.gender, a.disabled, a.disabled_description, a.disadvantaged, a.urm, a.urm_types, a.marital_status,
           # Contact Information

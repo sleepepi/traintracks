@@ -30,7 +30,7 @@ jQuery ->
     togglePostdocFields()
   )
 
-  $("input[rel=tooltip]").tooltip( trigger: 'focus' )
+  $("input[rel=tooltip], textarea[rel=tooltip]").tooltip( trigger: 'focus' )
 
   $(document)
     .on('click', '[data-object~="value-set"]', () ->

@@ -172,7 +172,8 @@ class AnnualsController < ApplicationController
 
   def post_params_applicant
     params[:applicant] ||= {}
-    params[:applicant][:degree_types] ||= []
+
+    params[:applicant][:degrees_earned] ||= [] if params[:set_degrees_earned] == '1'
 
     params[:applicant].slice(
       # Contact Information
@@ -180,7 +181,7 @@ class AnnualsController < ApplicationController
       # Uploaded Curriculum Vitae
       :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache,
       # Education
-      :current_institution, :department_program, :current_position, :degree_types, :degrees_earned,
+      :current_institution, :department_program, :current_position, :degrees_earned,
       # Applicant Assurance
       :publish_annual
     )

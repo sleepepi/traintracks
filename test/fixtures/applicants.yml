@@ -6,9 +6,9 @@ one:
   middle_initial: MyString
   applicant_type: MyString
   accepted: false
-  advisor: MyString
+  advisor:
   cv_number: 1
-  concentration_major: MyString
+  concentration_major:
   current_institution: MyString
   cv: false
   degree_sought: MyString
@@ -24,7 +24,7 @@ one:
   review_date: 2012-04-02
   reviewed: false
   tge: false
-  thesis: MyString
+  thesis:
   urm: false
   degree_type: MyString
   degrees_earned: [{ degree_type: 'babs', institution: 'Institution', year: 2010 }]
@@ -54,7 +54,7 @@ one:
   confirmed_at: 2012-05-07 10:30:00
   alien_registration_number: MyString
   citizenship_status: MyString
-  degree_types: ['BA/BS']
+  degree_types: []
   letters_from_a: MyString
   letters_from_b: MyString
   letters_from_c: MyString
@@ -68,9 +68,9 @@ two:
   middle_initial: MyString
   applicant_type: MyString
   accepted: false
-  advisor: MyString
+  advisor:
   cv_number: 1
-  concentration_major: MyString
+  concentration_major:
   current_institution: MyString
   cv: false
   degree_sought: MyString
@@ -86,7 +86,7 @@ two:
   review_date: 2012-04-02
   reviewed: false
   tge: false
-  thesis: MyString
+  thesis:
   urm: false
   degree_type: MyString
   degrees_earned: [{institution: ''}]
@@ -116,7 +116,7 @@ two:
   confirmed_at: 2012-05-07 10:30:00
   alien_registration_number: MyString
   citizenship_status: MyString
-  degree_types: ['BA/BS', 'MA/MS']
+  degree_types: []
   letters_from_a: MyString
   letters_from_b: MyString
   letters_from_c: MyString

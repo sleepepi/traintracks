@@ -33,20 +33,18 @@
 </div>
 
 <div class="control-group">
-  <%= label :applicant, :degree_types, nil, class: 'control-label' %>
-  <div class="controls checkbox">
-    <%= hidden_field_tag :set_degree_types, '1' %>
-    <% Applicant::DEGREE_TYPES.each do |name, value| %>
-      <label><%= check_box_tag "applicant[degree_types][]", value, @applicant.degree_types.include?(value) %> <%= name %></label>
-    <% end %>
-  </div>
-</div>
-
-<div class="control-group">
   <%= label :applicant, :degrees_earned, nil, class: 'control-label' %>
   <div class="controls">
-    <%= text_area :applicant, :degrees_earned, rows: 7, style: "width:95%" %>
-    <span class="help-block"><i>Degree Earned, Institution, and Year of Graduation</i>
-    </span>
+    <div id="degrees_container">
+      <%= hidden_field_tag :set_degrees_earned, '1' %>
+      <% if @applicant.degrees_earned.size == 0 %>
+        <%= render partial: 'applicants/form/degrees', locals: { degree_earned: {} } %>
+      <% end %>
+      <% @applicant.degrees_earned.each do |degree_earned| %>
+        <%= render partial: 'applicants/form/degrees', locals: { degree_earned: degree_earned } %>
+      <% end %>
+    </div>
+
+    <%= link_to 'add more', add_degree_applicants_path, method: :post, remote: true, class: 'btn btn-mini' %>
   </div>
 </div>

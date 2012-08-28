@@ -99,6 +99,7 @@ class ApplicantsControllerTest < ActionController::TestCase
         letters_from_a: @applicant.letters_from_a, letters_from_b: @applicant.letters_from_b, letters_from_c: @applicant.letters_from_c, assurance: @applicant.assurance
     }
 
+    assert_equal [], @controller.current_applicant.errors.full_messages
     assert_equal 'Application successfully updated.', flash[:notice]
     assert_redirected_to dashboard_applicants_path
   end
@@ -144,8 +145,11 @@ class ApplicantsControllerTest < ActionController::TestCase
         curriculum_vitae: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.pdf'),
         current_institution: @applicant.current_institution, department_program: @applicant.department_program, current_position: @applicant.current_position,
         degrees_earned: @applicant.degrees_earned,
-        degree_types: @applicant.degree_types, degree_sought: @applicant.degree_sought, expected_year: @applicant.expected_year, concentration_major: @applicant.concentration_major,
-        advisor: @applicant.advisor, thesis: @applicant.thesis, residency: @applicant.residency, research_interests: @applicant.research_interests,
+
+        degree_types: [], concentration_major: '', advisor: '', thesis: '', # Being Removed
+
+        degree_sought: @applicant.degree_sought, expected_year: @applicant.expected_year,
+        residency: @applicant.residency, research_interests: @applicant.research_interests,
         preferred_preceptor_id: @applicant.preferred_preceptor_id, preferred_preceptor_two_id: @applicant.preferred_preceptor_two_id, preferred_preceptor_three_id: @applicant.preferred_preceptor_three_id,
         previous_nrsa_support: @applicant.previous_nrsa_support,
         # Demographic Information
@@ -154,6 +158,7 @@ class ApplicantsControllerTest < ActionController::TestCase
         letters_from_a: @applicant.letters_from_a, letters_from_b: @applicant.letters_from_b, letters_from_c: @applicant.letters_from_c, assurance: @applicant.assurance
     }
 
+    assert_equal [], @controller.current_applicant.errors.full_messages
     assert_equal 'Application successfully updated.', flash[:notice]
     assert_redirected_to dashboard_applicants_path
   end

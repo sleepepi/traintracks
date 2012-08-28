@@ -11,11 +11,14 @@ class Applicant < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :middle_initial, :applicant_type, :tge, :desired_start_date,
                   :personal_statement, :alien_registration_number, :citizenship_status
 
+  # Uploaded Curriculum Vitae
+  attr_accessible :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache
+
   # Education
-  attr_accessible :advisor, :concentration_major, :current_institution, :cv, :degree_sought,
-                  :department_program, :expected_year, :research_interests, :research_interests_other, :preferred_preceptor_id,
-                  :preferred_preceptor_two_id, :preferred_preceptor_three_id, :thesis, :degrees_earned,
-                  :current_position, :previous_nrsa_support, :degree_types
+  attr_accessible :current_institution, :department_program, :current_position, :degrees_earned,
+                  :degree_sought, :expected_year, :residency, :research_interests, :research_interests_other,
+                  :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id,
+                  :previous_nrsa_support
 
   # Demographic Information
   attr_accessible :gender, :disabled, :disabled_description, :disadvantaged, :urm, :urm_types, :marital_status
@@ -23,19 +26,13 @@ class Applicant < ActiveRecord::Base
   # Contact Information
   attr_accessible :phone, :address1, :address2, :city, :state, :country, :zip_code
 
-  # Postdoc Only
-  attr_accessible :residency
-
   # Applicant Assurance
   attr_accessible :publish, :publish_annual, :assurance, :letters_from_a, :letters_from_b, :letters_from_c
-
-  # Uploaded Curriculum Vitae
-  attr_accessible :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache
 
   # Administrator Only
   attr_accessible :reviewed, :review_date, :offered, :accepted, :enrolled, :cv_number, :degree_type, :trainee_code,
                   :status, :training_grant_years, :supported_by_tg, :training_period_start_date,
-                  :training_period_end_date, :notes, :primary_preceptor_id, :secondary_preceptor_id
+                  :training_period_end_date, :notes, :primary_preceptor_id, :secondary_preceptor_id, :cv
 
   # Termination Questions for Enrolled Applicants
   attr_accessible :publish_termination, :future_email, :entrance_year, :t32_funded, :t32_funded_years,
@@ -44,7 +41,7 @@ class Applicant < ActiveRecord::Base
                   :certificate_application, :certificate_application_cache
 
   # Legacy
-  attr_accessible :degrees_earned_old
+  attr_accessible :degrees_earned_old, :advisor, :concentration_major, :thesis, :degree_types # Will be removed
 
   attr_accessor :publish, :publish_annual, :publish_termination
 
@@ -80,7 +77,7 @@ class Applicant < ActiveRecord::Base
   # Callbacks
   before_validation :set_alien_registration_number, :set_password
   before_save :set_submitted_at, :set_tge
-  before_validation :check_degrees_earned, if: [:submitted?]
+  before_validation :check_degrees_earned, if: :annual_or_publish?
   after_save :notify_preceptor
 
   # Named Scopes
@@ -95,7 +92,7 @@ class Applicant < ActiveRecord::Base
   validates_uniqueness_of :email, allow_blank: true, scope: :deleted
 
   validates_presence_of :expected_year, :degree_sought, unless: [:postdoc?, :not_submitted?]
-  validates_presence_of :desired_start_date, :personal_statement, :research_interests, :preferred_preceptor_id, :marital_status, :advisor, :concentration_major,  if: :submitted?
+  validates_presence_of :desired_start_date, :personal_statement, :research_interests, :preferred_preceptor_id, :marital_status, if: :submitted?
   validates_presence_of :research_interests_other, if: [:submitted?, 'research_interests.include?("other")']
   validates_presence_of :disabled_description, if: [:submitted?, :disabled?]
   validates_presence_of :alien_registration_number, if: [:submitted?, :permanent_resident?]

@@ -22,15 +22,6 @@
   <dt>Current position</dt>
   <dd><%= applicant.current_position %></dd>
 
-  <dt>Degree types</dt>
-  <dd>
-    <ul>
-    <% applicant.degree_types_names.each do |degree_type| %>
-      <li><%= degree_type %></li>
-    <% end %>
-    </ul>
-  </dd>
-
   <dt>Degrees earned</dt>
   <dd>
     <%#= simple_format applicant.degrees_earned_text %>
@@ -49,22 +40,36 @@
     <dd><%= applicant.expected_year %></dd>
   <% end %>
 
-  <dt title="Concentration / Major">Concentration / Major</dt>
-  <dd style="min-height:60px"><%= applicant.concentration_major %></dd>
+  <% if current_user and current_user.administrator? %>
+    <dt style="color:orange">Degree types</dt>
+    <dd>
+      <ul>
+      <% applicant.degree_types_names.each do |degree_type| %>
+        <li><%= degree_type %></li>
+      <% end %>
+      </ul>
+    </dd>
 
-  <dt>Advisor</dt>
-  <dd><%= applicant.advisor %></dd>
+    <dt style="color:orange">Concentration / Major</dt>
+    <dd style="min-height:60px"><%= applicant.concentration_major %></dd>
+
+
+    <dt style="color:orange">Advisor</dt>
+    <dd><%= applicant.advisor %></dd>
+
+    <% if applicant.postdoc? %>
+      <dt style="color:orange">Thesis</dt>
+      <dd><%= applicant.thesis %></dd>
+    <% end %>
+  <% end %>
 
   <% if applicant.postdoc? %>
-    <dt>Thesis</dt>
-    <dd><%= applicant.thesis %></dd>
-
     <dt>Residency</dt>
     <dd><%= applicant.residency %></dd>
   <% end %>
 
   <dt>Research interests</dt>
-  <dd>
+  <dd style="min-height:60px">
     <ul>
     <% applicant.research_interests.each do |research_interest| %>
       <li><%= research_interest %></li>

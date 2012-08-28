@@ -53,25 +53,49 @@
 
 </div>
 
-<div class="control-group">
-  <%= f.label :degree_types, nil, class: 'control-label' %>
-  <div class="controls checkbox">
-    <%= hidden_field_tag :set_degree_types, '1' %>
-    <% Applicant::DEGREE_TYPES.each do |name, value| %>
-      <label><%= check_box_tag "applicant[degree_types][]", value, applicant.degree_types.include?(value) %> <%= name %></label>
-    <% end %>
+<% if current_user and current_user.administrator? %>
+  <div class="control-group warning">
+    <%= f.label :degree_types, nil, class: 'control-label' %>
+    <div class="controls checkbox">
+      <%= hidden_field_tag :set_degree_types, '1' %>
+      <% Applicant::DEGREE_TYPES.each do |name, value| %>
+        <label><%= check_box_tag "applicant[degree_types][]", value, applicant.degree_types.include?(value) %> <%= name %></label>
+      <% end %>
+    </div>
   </div>
-</div>
 
-<div class="control-group">
-  <%= f.label :degrees_earned_old, nil, class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_area :degrees_earned_old, rows: 7, style: "width:95%" %>
-    <span class="help-block">
-      <i>Degree Earned, Institution, and Year of Graduation</i>
-    </span>
+  <div class="control-group warning">
+    <%= f.label :degrees_earned_old, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :degrees_earned_old, rows: 7, style: "width:95%", rel: 'tooltip', title: 'Will Be Removed' %>
+      <span class="help-block">
+        <i>Degree Earned, Institution, and Year of Graduation</i>
+      </span>
+    </div>
   </div>
-</div>
+
+  <div class="control-group warning">
+    <%= f.label :concentration_major, 'Concentration / Major', class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :concentration_major, rel: 'tooltip', title: 'Will Be Removed' %>
+    </div>
+  </div>
+
+  <div class="control-group warning">
+    <%= f.label :advisor, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :advisor, rel: 'tooltip', title: 'Will Be Removed' %>
+    </div>
+  </div>
+
+  <div class="control-group warning">
+    <%= f.label :thesis, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :thesis, data: { toggle: 'postdoc_only' }, rel: 'tooltip', title: 'Will Be Removed' %>
+    </div>
+  </div>
+
+<% end %>
 
 <div class="control-group">
   <%= f.label :degree_sought, nil, class: 'control-label' %>
@@ -86,27 +110,6 @@
   <%= f.label :expected_year, "Expected Graduation Year", class: 'control-label' %>
   <div class="controls">
     <%= f.number_field :expected_year, min: 2000, 'data-toggle' => 'predoc_summer_only' %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :concentration_major, 'Concentration / Major', class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_field :concentration_major %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :advisor, nil, class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_field :advisor %>
-  </div>
-</div>
-
-<div class="control-group">
-  <%= f.label :thesis, nil, class: 'control-label' %>
-  <div class="controls">
-    <%= f.text_field :thesis, 'data-toggle' => 'postdoc_only' %>
   </div>
 </div>
 
