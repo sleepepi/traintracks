@@ -85,7 +85,11 @@ class Applicant < ActiveRecord::Base
   scope :search, lambda { |*args| { conditions: [ 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', '%' + args.first.downcase.split(' ').join('%') + '%', '%' + args.first.downcase.split(' ').join('%') + '%', '%' + args.first.downcase.split(' ').join('%') + '%' ] } }
   scope :submitted_before, lambda { |*args| { conditions: ["applicants.originally_submitted_at < ?", (args.first+1.day).at_midnight]} }
   scope :submitted_after, lambda { |*args| { conditions: ["applicants.originally_submitted_at >= ?", args.first.at_midnight]} }
-
+  scope :deprecated, lambda { |*args| { conditions: ["(degrees_earned_old != '' and degrees_earned_old IS NOT NULL) or
+                                                      (concentration_major != '' and concentration_major IS NOT NULL) or
+                                                      (advisor != '' and advisor IS NOT NULL) or
+                                                      (thesis != '' and thesis IS NOT NULL) or
+                                                      (degree_types != '--- []\n' and degree_types IS NOT NULL)"] } }
 
   # Model Validation
   validates_presence_of :first_name, :last_name

@@ -1,19 +1,21 @@
 == 0.5.0
 
 * Enhancements
-  * Administrators can allow applicants and trainees fill out annual information
-  * Administrators can export selected applicants information to a CSV file
-  * Submission date can be modified by administrators on applicant page
-  * Administrators can view different time ranges for reports on dashboard
-  * Annual information can be filtered and exported to CSV
-  * Preferred preceptors get emailed when an applicant submits their application
-  * Previous Institutions has been merged with Degrees Earned
-  * Applicant form no longer requires duplicate entry of citizenship status
-  * Administrators can request an exit interview to be completed by enrolled trainees
-  * Applicants are required to add research interests
-  * Multiple degrees can be added to applicants
-    * Degree Type, Institution, Year, Advisor, Thesis, and Concentration / Major
-  * Minor layout changes
+  * Applicant updates
+    * Multiple degrees can be added to applicants
+      * Degree Type, Institution, Year, Advisor, Thesis, and Concentration / Major
+    * Previous Institutions has been merged with Degrees Earned
+    * Citizenship status is simplified
+    * Research Interests are now required
+  * Administrator updates
+    * Notify applicants and trainees to fill out annual information
+    * Modify submission date on applicant page
+    * View different time ranges for reports on dashboard
+    * Export selected applicants information to a CSV file
+    * Export annual information to CSV
+    * Notify enrolled trainees to complete exit interviews
+  * Preceptor updates
+    * Preferred preceptors are notified by email applicants submit their applications
 
 == 0.4.2
 

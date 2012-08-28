@@ -100,6 +100,8 @@ class ApplicantsController < ApplicationController
       applicant_scope = applicant_scope.where(enrolled: false)
     end
 
+    applicant_scope = applicant_scope.deprecated if params[:deprecated] == '1'
+
     @search_terms = params[:search].to_s.gsub(/[^0-9a-zA-Z]/, ' ').split(' ')
     @search_terms.each{|search_term| applicant_scope = applicant_scope.search(search_term) }
 
@@ -223,6 +225,8 @@ class ApplicantsController < ApplicationController
     params[:applicant][:urm_types] ||= [] if params[:set_urm_types] == '1'
     params[:applicant][:laboratories] ||= [] if params[:set_laboratories] == '1'
     params[:applicant][:transition_position] ||= [] if params[:set_transition_position] == '1'
+
+    params[:applicant][:degree_types] ||= [] if params[:set_degree_types] == '1' # Will be removed when degree_types is removed
 
     if current_user and current_user.administrator?
       params[:applicant]
