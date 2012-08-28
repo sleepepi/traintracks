@@ -86,6 +86,7 @@ class ApplicantsControllerTest < ActionController::TestCase
         # Contact Information
         phone: @applicant.phone, address1: @applicant.address1, address2: @applicant.address2, city: @applicant.city, state: @applicant.state, country: @applicant.country, zip_code: @applicant.zip_code,
         # Education
+        curriculum_vitae: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.doc'),
         current_institution: @applicant.current_institution, department_program: @applicant.department_program, current_position: @applicant.current_position,
         degrees_earned: @applicant.degrees_earned,
         degree_types: @applicant.degree_types, degree_sought: @applicant.degree_sought, expected_year: @applicant.expected_year, concentration_major: @applicant.concentration_major,
@@ -112,6 +113,7 @@ class ApplicantsControllerTest < ActionController::TestCase
         # Contact Information
         phone: @applicant.phone, address1: @applicant.address1, address2: @applicant.address2, city: @applicant.city, state: @applicant.state, country: @applicant.country, zip_code: @applicant.zip_code,
         # Education
+        curriculum_vitae: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.docx'),
         current_institution: @applicant.current_institution, department_program: @applicant.department_program, current_position: @applicant.current_position,
         degrees_earned: [{ degree_type: '', institution: '', year: '' }], # Blank Degrees
         degree_types: @applicant.degree_types, degree_sought: @applicant.degree_sought, expected_year: @applicant.expected_year, concentration_major: @applicant.concentration_major,
@@ -127,5 +129,32 @@ class ApplicantsControllerTest < ActionController::TestCase
     assert_equal ["degree type can't be blank", "institution can't be blank", "year can't be blank"], @controller.current_applicant.errors[:degrees_earned]
     assert_template 'edit_me'
     assert_response :success
+  end
+
+  test "should update me and publish" do
+    login(applicants(:one))
+    put :update_me, applicant: {
+        publish: '1',
+        # Basic Information
+        email: @applicant.email, first_name: @applicant.first_name, last_name: @applicant.last_name, middle_initial: @applicant.middle_initial, applicant_type: @applicant.applicant_type,
+        desired_start_date: "8/28/2012", personal_statement: @applicant.personal_statement, alien_registration_number: @applicant.alien_registration_number, citizenship_status: @applicant.citizenship_status,
+        # Contact Information
+        phone: @applicant.phone, address1: @applicant.address1, address2: @applicant.address2, city: @applicant.city, state: @applicant.state, country: @applicant.country, zip_code: @applicant.zip_code,
+        # Education
+        curriculum_vitae: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.pdf'),
+        current_institution: @applicant.current_institution, department_program: @applicant.department_program, current_position: @applicant.current_position,
+        degrees_earned: @applicant.degrees_earned,
+        degree_types: @applicant.degree_types, degree_sought: @applicant.degree_sought, expected_year: @applicant.expected_year, concentration_major: @applicant.concentration_major,
+        advisor: @applicant.advisor, thesis: @applicant.thesis, residency: @applicant.residency, research_interests: @applicant.research_interests,
+        preferred_preceptor_id: @applicant.preferred_preceptor_id, preferred_preceptor_two_id: @applicant.preferred_preceptor_two_id, preferred_preceptor_three_id: @applicant.preferred_preceptor_three_id,
+        previous_nrsa_support: @applicant.previous_nrsa_support,
+        # Demographic Information
+        gender: @applicant.gender, disabled: @applicant.disabled, disadvantaged: @applicant.disadvantaged, urm: @applicant.urm, urm_types: @applicant.urm_types, marital_status: @applicant.marital_status,
+        # Applicant Assurance
+        letters_from_a: @applicant.letters_from_a, letters_from_b: @applicant.letters_from_b, letters_from_c: @applicant.letters_from_c, assurance: @applicant.assurance
+    }
+
+    assert_equal 'Application successfully updated.', flash[:notice]
+    assert_redirected_to dashboard_applicants_path
   end
 end
