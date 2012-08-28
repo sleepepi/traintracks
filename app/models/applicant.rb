@@ -80,6 +80,7 @@ class Applicant < ActiveRecord::Base
   # Callbacks
   before_validation :set_alien_registration_number, :set_password
   before_save :set_submitted_at, :set_tge
+  before_validation :check_degrees_earned, if: [:submitted?]
   after_save :notify_preceptor
 
   # Named Scopes
@@ -240,6 +241,24 @@ class Applicant < ActiveRecord::Base
       self.password_confirmation = self.password
     end
     true
+  end
+
+  def check_degrees_earned
+    result = true
+    self.degrees_earned.each do |degree_earned|
+      result = true
+      [:degree_type, :institution].each do |attr|
+        if degree_earned[attr].blank?
+          self.errors.add(:degrees_earned, "#{attr.to_s.gsub('_', ' ')} can't be blank" ) unless self.errors[:degrees_earned].include?("#{attr.to_s.gsub('_', ' ')} can't be blank")
+          result = false
+        end
+      end
+      if degree_earned[:year].to_i <= 0
+        self.errors.add(:degrees_earned, "year can't be blank" ) unless self.errors[:degrees_earned].include?("year can't be blank")
+        result = false
+      end
+    end
+    result
   end
 
   # Return true if an email has been sent to the applicant and they have not yet logged in
