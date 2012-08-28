@@ -41,8 +41,11 @@
   <% end %>
 
   <% if current_user and current_user.administrator? %>
+    <dt style="color:orange">Degrees earned old</dt>
+    <dd style="min-height:60px"><%= applicant.degrees_earned_old %></dd>
+
     <dt style="color:orange">Degree types</dt>
-    <dd>
+    <dd style="min-height:60px">
       <ul>
       <% applicant.degree_types_names.each do |degree_type| %>
         <li><%= degree_type %></li>
