@@ -110,7 +110,7 @@ class Applicant < ActiveRecord::Base
   # Education Experience
   validates_presence_of :curriculum_vitae, :current_institution, :department_program, :current_position, :degrees_earned, if: :annual_or_publish?
 
-  # Validations required on Termination
+  # Validations required for Exit Interview
   validates_presence_of :future_email, :entrance_year, if: :termination?
   validates_presence_of :t32_funded, if: [:termination?, 't32_funded.nil?']
   validates_presence_of :t32_funded_years, if: [:termination?, :t32_funded?]
@@ -120,7 +120,6 @@ class Applicant < ActiveRecord::Base
   validates_presence_of :immediate_transition, if: [:termination?, 'immediate_transition.nil?']
   validates_presence_of :transition_position, if: [:termination?, :immediate_transition?]
   validates_presence_of :transition_position_other, if: [:termination?, :other_position_selected?]
-  validates_presence_of :termination_feedback, if: :termination?
 
   # Model Relationships
   belongs_to :preferred_preceptor, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_id'
