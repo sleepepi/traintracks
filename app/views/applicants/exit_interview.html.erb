@@ -1,5 +1,5 @@
 <% @title = "Exit Interview" %>
-
+<div class="pull-right"><%= link_to "Help!", '#', class: 'btn btn-info', data: { object: 'modal-show', target: '#help_email_modal' } %></div>
 
 <%= form_for(current_applicant, url: update_exit_interview_applicants_path, method: :post, html: { class: 'form-horizontal' }) do |f| %>
   <% @applicant = current_applicant %>
@@ -28,3 +28,5 @@
     <%= link_to 'Cancel', dashboard_applicants_path, class: 'btn' %>
   </div>
 <% end %>
+
+<%= render partial: 'applicants/help_modal', locals: { applicant: current_applicant, subject: 'Exit Interview' } %>

@@ -1,4 +1,5 @@
 <% @title = 'Edit My Application' %>
+<div class="pull-right"><%= link_to "Help!", '#', class: 'btn btn-info', data: { object: 'modal-show', target: '#help_email_modal' } %></div>
 
 <% form_name = "edit_applicant_#{current_applicant.id}" %>
 <%= form_for(current_applicant, url: update_me_applicants_path, html: { id: form_name, class: 'form-horizontal' }) do |f| %>
@@ -32,7 +33,7 @@
     </blockquote>
 
     <% if defined?(TG_ADMIN_EMAIL) and not TG_ADMIN_EMAIL.blank? and defined?(TG_ADMIN_ADDRESS) and not TG_ADMIN_ADDRESS.blank? %>
-      <div><span class="label label-info">Important:</span> Please remember you need <strong>3 letters of recommendation</strong> and <strong>a letter from your potential preceptor!</div>
+      <div><span class="label label-info">Important:</span> Please remember you need <strong>3 letters of recommendation</strong> and <strong>a letter from your potential preceptor!</strong></div>
 
       <div class="control-group" style="margin-top:10px">
         <%= f.label :letters_from_a, 'My Recommendation Letters will be from', class: 'control-label' %>
@@ -70,3 +71,5 @@
     <%= link_to 'Cancel', dashboard_applicants_path, class: 'btn' %>
   </div>
 <% end %>
+
+<%= render partial: 'applicants/help_modal', locals: { applicant: current_applicant, subject: 'Editing Application' } %>

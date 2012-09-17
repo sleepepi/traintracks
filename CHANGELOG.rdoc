@@ -5,6 +5,7 @@
   * Administrators can export selected preceptor information to a CSV file
   * Preceptor page lists applicants who have the preceptor set as their primary or secondary preceptor
   * Deleting preceptors or applicants sets the email field to blank so that the email can be potentially reused
+  * Applicant help buttons on applicant pages that create help request emails for the Training Grant Administrator
 
 * Refactoring
   * Unused CV variable has been removed, (previously replaced by curriculum_vitae)

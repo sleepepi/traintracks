@@ -25,6 +25,7 @@ TrainingGrant::Application.routes.draw do
       post :termination_email
       post :unlock
       post :update_submitted_at_date
+      post :help_email
     end
   end
 

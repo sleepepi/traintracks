@@ -203,6 +203,10 @@ class Applicant < ActiveRecord::Base
     "#{last_name}, #{first_name}"
   end
 
+  def email_with_name
+    "#{name} <#{email}>"
+  end
+
   def destroy
     update_column :deleted, true
     update_column :email, ''

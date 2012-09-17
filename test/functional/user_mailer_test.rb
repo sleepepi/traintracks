@@ -29,4 +29,17 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/Your account \[#{valid.email}\] has been activated\./, email.encoded)
   end
 
+  test "help email" do
+    applicant = applicants(:one)
+
+    # Send the email, then test that it got queued
+    email = UserMailer.help_email(applicant, 'Help Me With...', 'Body').deliver
+    assert !ActionMailer::Base.deliveries.empty?
+
+    # Test the body of the sent email contains what we expect it to
+    assert_equal ['applicant_one@example.com'], email.reply_to
+    assert_equal "Help Me With... - FirstName MyString LastName", email.subject
+    assert_match(/Body/, email.encoded)
+  end
+
 end
