@@ -6,6 +6,22 @@ class PreceptorsControllerTest < ActionController::TestCase
     @preceptor = preceptors(:one)
   end
 
+  test "should get csv" do
+    get :index, format: 'csv'
+    assert_not_nil assigns(:csv_string)
+    assert_not_nil assigns(:preceptor_count)
+    assert_response :success
+  end
+
+  # Currently no fixtures have enrolled trainees
+  test "should not get csv if no preceptors are selected" do
+    get :index, format: 'csv', search: 'none'
+    assert_equal 0, assigns(:preceptor_count)
+    assert_nil assigns(:csv_string)
+    assert_equal flash[:alert], 'No data was exported since no preceptors matched the specified filters.'
+    assert_redirected_to preceptors_path
+  end
+
   test "should get index" do
     get :index
     assert_response :success

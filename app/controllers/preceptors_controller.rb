@@ -41,6 +41,16 @@ class PreceptorsController < ApplicationController
     preceptor_scope = preceptor_scope.order(@order)
 
     @preceptor_count = preceptor_scope.count
+
+    if params[:format] == 'csv'
+      if @preceptor_count == 0
+        redirect_to preceptors_path, alert: 'No data was exported since no preceptors matched the specified filters.'
+        return
+      end
+      generate_csv(preceptor_scope)
+      return
+    end
+
     @preceptors = preceptor_scope.page(params[:page]).per( 40 ) #current_user.preceptors_per_page)
   end
 
@@ -139,6 +149,28 @@ class PreceptorsController < ApplicationController
         :email, :password, :password_confirmation, :remember_me, :degree, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :other_support, :other_support_cache, :program_role, :rank, :research_interest
       )
     end
+  end
+
+def generate_csv(preceptor_scope)
+    @csv_string = CSV.generate do |csv|
+      csv << [
+        'Preceptor ID',
+        # Preceptor Information
+        'Email', 'Last Name', 'First Name', 'Status', 'Degree', 'Hospital Affiliation', 'Hospital Appointment', 'Rank', 'Research Interest', 'Program Role'
+     ]
+
+      preceptor_scope.each do |p|
+        row = [
+          p.id,
+          # Preceptor Information
+          p.email, p.last_name, p.first_name, p.status, p.degree, p.hospital_affiliation, p.hospital_appointment, p.rank, p.research_interest, p.program_role
+        ]
+        csv << row
+      end
+    end
+
+    send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
+                           disposition: "attachment; filename=\"Training Grant Preceptors #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
   end
 
 end
