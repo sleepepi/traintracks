@@ -5,7 +5,7 @@ class ApplicantsController < ApplicationController
   before_filter :authenticate_applicant!, only: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :help_email]
 
   def help_email
-    UserMailer.help_email(current_applicant, params[:subject], params[:body]).deliver # if Rails.env.production?
+    UserMailer.help_email(current_applicant, params[:subject], params[:body]).deliver if Rails.env.production?
   end
 
   def add_degree
