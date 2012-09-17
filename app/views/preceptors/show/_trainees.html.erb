@@ -1,0 +1,42 @@
+<table class="table table-striped table-bordered" style="width:100%">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Training Period Start Date</th>
+      <th>Training Period End Date</th>
+      <th>Degrees</th>
+      <th>Research Project Title</th>
+      <th>Current Position</th>
+      <th>Source of Support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% Applicant.current.where("primary_preceptor_id = ? or secondary_preceptor_id = ?", preceptor.id, preceptor.id ).order('training_period_end_date DESC').each do |applicant| %>
+      <tr>
+        <td><%= applicant.status %></td>
+        <td><%= link_to applicant.reverse_name, applicant %></td>
+        <td><%= applicant.applicant_type %></td>
+        <td><%= applicant.training_period_start_date %></td>
+        <td><%= applicant.training_period_end_date %></td>
+        <td>
+          <ul>
+            <% applicant.degrees_earned.each do |degree_earned| %>
+              <li><%= render partial: 'applicants/show/degrees', locals: { degree_earned: degree_earned } %></li>
+            <% end %>
+          </ul>
+        </td>
+        <td><%= applicant.research_project_title %></td>
+        <td><%= applicant.current_position %></td>
+        <td>
+          <ul>
+            <% applicant.annuals.each do |annual| %>
+              <li><%= link_to annual.year, annual %> <%= annual.source_of_support %></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
