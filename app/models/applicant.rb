@@ -205,6 +205,7 @@ class Applicant < ActiveRecord::Base
 
   def destroy
     update_column :deleted, true
+    update_column :email, ''
   end
 
   def set_submitted_at

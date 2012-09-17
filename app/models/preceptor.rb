@@ -54,6 +54,7 @@ class Preceptor < ActiveRecord::Base
 
   def destroy
     update_column :deleted, true
+    update_column :email, ''
   end
 
   # Return true if an email has been sent to the applicant and they have not yet logged in
