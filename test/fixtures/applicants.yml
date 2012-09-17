@@ -10,7 +10,6 @@ one:
   cv_number: 1
   concentration_major:
   current_institution: MyString
-  cv: false
   degree_sought: MyString
   department_program: MyString
   disabled: false
@@ -72,7 +71,6 @@ two:
   cv_number: 1
   concentration_major:
   current_institution: MyString
-  cv: false
   degree_sought: MyString
   department_program: MyString
   disabled: false

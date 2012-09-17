@@ -264,7 +264,7 @@ class ApplicantsController < ApplicationController
         # Applicant Information
         'Email', 'Last Name', 'First Name', 'Middle Initial', 'Applicant Type', 'TGE', 'Desired Start Date', 'Personal Statement', 'Alien Registration Number', 'Citizenship Status',
         # Education
-        'Current Institution', 'CV', 'Degree Sought', 'Department/Program', 'Expected Year', 'Research Interests', 'Research Interests Other',
+        'Current Institution', 'Degree Sought', 'Department/Program', 'Expected Year', 'Research Interests', 'Research Interests Other',
         'Preferred Preceptor ID', 'Preferred Preceptor Hospital Affiliation', 'Preferred Preceptor Two ID', 'Preferred Preceptor Three ID',
         'Degrees Earned', 'Current Position', 'Previous NRSA Support',
         # Demographic Information
@@ -292,7 +292,7 @@ class ApplicantsController < ApplicationController
           # Applicant Information
           a.email, a.last_name, a.first_name, a.middle_initial, a.applicant_type, a.tge, a.desired_start_date, a.personal_statement, a.alien_registration_number, a.citizenship_status,
           # Education
-          a.current_institution, a.cv, a.degree_sought, a.department_program, a.expected_year, a.research_interests, a.research_interests_other,
+          a.current_institution, a.degree_sought, a.department_program, a.expected_year, a.research_interests, a.research_interests_other,
           a.preferred_preceptor ? a.preferred_preceptor.name_with_id : '',
           a.preferred_preceptor ? a.preferred_preceptor.hospital_affiliation : '',
           a.preferred_preceptor_two ? a.preferred_preceptor_two.name_with_id : '',
