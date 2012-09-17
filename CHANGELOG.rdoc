@@ -1,5 +1,8 @@
 == 0.5.1
 
+* Enhancements
+  * Preceptor Other Support document now a file (docx, doc, pdf) upload
+
 * Refactoring
   * Unused CV variable has been removed, (previously replaced by curriculum_vitae)
 

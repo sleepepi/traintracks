@@ -26,7 +26,12 @@
       <td><%= preceptor.status %></td>
       <td><%= preceptor.hospital_affiliation %></td>
       <td><%= preceptor.hospital_appointment %></td>
-      <td><%= preceptor.other_support %></td>
+      <td>
+        <% if preceptor.other_support.size > 0 %>
+          <%= link_to preceptor.other_support_url.split('/').last, preceptor.other_support_url, target: '_blank', class: 'btn btn-mini' %>
+          <%= number_to_human_size(preceptor.other_support.size) %>
+        <% end %>
+      </td>
       <td><%= preceptor.rank %></td>
       <td><%= preceptor.research_interest %></td>
       <td><%= preceptor.program_role %></td>

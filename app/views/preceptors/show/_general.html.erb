@@ -12,7 +12,12 @@
   <dd><%= preceptor.hospital_appointment %></dd>
 
   <dt>Other support</dt>
-  <dd><%= preceptor.other_support %></dd>
+  <dd>
+    <% if preceptor.other_support.size > 0 %>
+      <%= link_to preceptor.other_support_url.split('/').last, preceptor.other_support_url, target: '_blank', class: 'btn btn-mini' %>
+      <%= number_to_human_size(preceptor.other_support.size) %>
+    <% end %>
+  </dd>
 
   <dt>Rank</dt>
   <dd><%= preceptor.rank %></dd>

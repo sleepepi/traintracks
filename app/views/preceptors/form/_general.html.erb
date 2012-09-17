@@ -21,20 +21,12 @@
 
 <% if user_signed_in? and current_user.administrator? %>
   <div class="control-group">
-    <%= f.label :password, class: 'control-label' %>
-    <div class="controls">
-      <%= f.password_field :password %>
-    </div>
-  </div>
-
-  <div class="control-group">
     <%= f.label :status, class: 'control-label' %>
     <div class="controls">
       <%= f.select :status, Preceptor::STATUS %>
     </div>
   </div>
 <% end %>
-
 
 <div class="control-group">
   <%= f.label :degree, class: 'control-label' %>
@@ -60,7 +52,7 @@
 <div class="control-group">
   <%= f.label :other_support, class: 'control-label' %>
   <div class="controls">
-    <%= f.check_box :other_support %>
+    <%= f.file_field :other_support %>
   </div>
 </div>
 

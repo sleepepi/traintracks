@@ -7,7 +7,6 @@ one:
   status: MyString
   hospital_affiliation: MyString
   hospital_appointment: MyString
-  other_support: false
   rank: MyString
   research_interest: MyText
   program_role: MyString
@@ -22,7 +21,6 @@ two:
   status: MyString
   hospital_affiliation: MyString
   hospital_appointment: MyString
-  other_support: false
   rank: MyString
   research_interest: MyText
   program_role: MyString

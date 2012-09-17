@@ -19,7 +19,7 @@ class PreceptorsControllerTest < ActionController::TestCase
 
   test "should create preceptor" do
     assert_difference('Preceptor.count') do
-      post :create, preceptor: { degree: @preceptor.degree, deleted: @preceptor.deleted, first_name: @preceptor.first_name, hospital_affiliation: @preceptor.hospital_affiliation, hospital_appointment: @preceptor.hospital_appointment, last_name: @preceptor.last_name, other_support: @preceptor.other_support, program_role: @preceptor.program_role, rank: @preceptor.rank, research_interest: @preceptor.research_interest, status: @preceptor.status, email: 'three@example.com', password: 'password' }
+      post :create, preceptor: { degree: @preceptor.degree, deleted: @preceptor.deleted, first_name: @preceptor.first_name, hospital_affiliation: @preceptor.hospital_affiliation, hospital_appointment: @preceptor.hospital_appointment, last_name: @preceptor.last_name, other_support: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.doc'), program_role: @preceptor.program_role, rank: @preceptor.rank, research_interest: @preceptor.research_interest, status: @preceptor.status, email: 'three@example.com', password: 'password' }
     end
 
     assert_redirected_to preceptor_path(assigns(:preceptor))
@@ -36,7 +36,7 @@ class PreceptorsControllerTest < ActionController::TestCase
   end
 
   test "should update preceptor" do
-    put :update, id: @preceptor, preceptor: { degree: @preceptor.degree, deleted: @preceptor.deleted, first_name: @preceptor.first_name, hospital_affiliation: @preceptor.hospital_affiliation, hospital_appointment: @preceptor.hospital_appointment, last_name: @preceptor.last_name, other_support: @preceptor.other_support, program_role: @preceptor.program_role, rank: @preceptor.rank, research_interest: @preceptor.research_interest, status: @preceptor.status, email: @preceptor.email }
+    put :update, id: @preceptor, preceptor: { degree: @preceptor.degree, deleted: @preceptor.deleted, first_name: @preceptor.first_name, hospital_affiliation: @preceptor.hospital_affiliation, hospital_appointment: @preceptor.hospital_appointment, last_name: @preceptor.last_name, other_support: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.doc'), program_role: @preceptor.program_role, rank: @preceptor.rank, research_interest: @preceptor.research_interest, status: @preceptor.status, email: @preceptor.email }
     assert_redirected_to preceptor_path(assigns(:preceptor))
   end
 

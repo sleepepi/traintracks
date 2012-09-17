@@ -7,9 +7,15 @@ class Preceptor < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  attr_accessible :degree, :deleted, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :other_support, :program_role, :rank, :research_interest, :status
+  attr_accessible :degree, :deleted, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :program_role, :rank, :research_interest, :status,
+                  :other_support, :other_support_cache
+
+  mount_uploader :other_support, DocumentUploader
 
   STATUS = ["current", "former"].collect{|i| [i,i]}
+
+  # Callbacks
+  before_validation :set_password
 
   # Named Scopes
   scope :current, conditions: { deleted: false }
@@ -59,6 +65,14 @@ class Preceptor < ActiveRecord::Base
     self.reset_authentication_token!
     self.update_column :emailed_at, Time.now
     UserMailer.update_preceptor(self, current_user).deliver if Rails.env.production?
+  end
+
+  def set_password
+    if self.respond_to?('encrypted_password') and self.encrypted_password.blank?
+      self.password = Applicant.reset_password_token
+      self.password_confirmation = self.password
+    end
+    true
   end
 
 end

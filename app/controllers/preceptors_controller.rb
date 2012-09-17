@@ -136,8 +136,8 @@ class PreceptorsController < ApplicationController
       params[:preceptor]
     else
       params[:preceptor].slice(
-        :email, :password, :password_confirmation, :remember_me, :degree, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :other_support, :program_role, :rank, :research_interest
-       )
+        :email, :password, :password_confirmation, :remember_me, :degree, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :other_support, :other_support_cache, :program_role, :rank, :research_interest
+      )
     end
   end
 
