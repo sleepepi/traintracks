@@ -9,9 +9,9 @@ gem 'thin',                 '~> 1.4.1',           :platforms => [ :mswin, :mingw
 gem 'eventmachine',         '~> 1.0.0',           :platforms => [ :mswin, :mingw ]
 
 # Gems used by project
-gem 'contour',              '~> 1.1.0.rc3'
+gem 'contour',              '~> 1.1.0'
 gem 'kaminari',             '~> 0.14.1'
-gem 'carrierwave',          '~> 0.6.2'
+gem 'carrierwave',          '~> 0.7.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -28,5 +28,5 @@ group :test do
   # Pretty printed test output
   gem 'win32console',                             :platforms => [ :mswin, :mingw ]
   gem 'turn',               '~> 0.9.6'
-  gem 'simplecov',          '~> 0.6.4',           :require => false
+  gem 'simplecov',          '~> 0.7.1',           :require => false
 end
