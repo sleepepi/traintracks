@@ -1,7 +1,7 @@
 <% @title = 'Login' %>
 
 <div class="row">
-  <div class="span4">
+  <div class="span6">
     <div class="page-header">
       <h2>Applicant/Trainee Login</h2>
     </div>
@@ -30,14 +30,14 @@
 
       <div class="form-actions">
         <%= f.submit "Applicant/Trainee Login", class: 'btn btn-primary' %>
+        <%= link_to "Sign up", new_registration_path('applicant'), class: 'btn btn-mini' %>
+        <%= link_to "Forgot your password?", new_password_path('applicant'), class: 'btn btn-mini' %>
       </div>
-
-      <%= link_to "Forgot your password?", new_password_path('applicant') %> or <%= link_to "Register here!", new_registration_path('applicant') %>
 
     <% end %>
   </div>
 
-  <div class="span4">
+  <div class="span6">
     <div class="page-header">
       <h2>Preceptor Login</h2>
     </div>
@@ -65,11 +65,17 @@
 
       <div class="form-actions">
         <%= f.submit "Preceptor Login", class: 'btn btn-primary' %>
+        <%= link_to "Forgot your password?", new_password_path('preceptor'), class: 'btn btn-mini' %>
       </div>
-      <%= link_to "Forgot your password?", new_password_path('preceptor') %>
+
     <% end %>
   </div>
-  <div class="span4">
+</div>
+
+<hr class="soften">
+
+<div class="row">
+    <div class="span6">
     <div class="page-header">
       <h2>Administrator Login</h2>
     </div>
@@ -97,15 +103,23 @@
 
       <div class="form-actions">
         <%= f.submit "Administrator Login", class: 'btn btn-primary' %>
+        <% PROVIDERS.each do |provider| %>
+          <% provider_name = OmniAuth.config.camelizations[provider.to_s.downcase] || provider.to_s.titleize %>
+          <% image_name = provider.to_s.downcase %>
+          <a href="<%= request.script_name %><%= "/" + OmniAuth.config.path_prefix.split('/').last.to_s %><%= "/" + provider.to_s.downcase %>" class="btn" style="white-space:nowrap;padding:0px 2px" rel='tooltip' data-title='<%= provider_name %>' data-placement='bottom'>
+            <%= image_tag "contour/#{image_name}_32.png", align: 'absmiddle', height: "28px" %>
+          </a>
+        <% end %>
+        <div style="margin-top:5px">
+        <%= link_to "Sign up", new_registration_path(resource_name), class: 'btn btn-mini' %>
+        <%= link_to "Forgot your password?", new_password_path(resource_name), class: 'btn btn-mini' %>
+        </div>
       </div>
 
-      <%= link_to "Forgot your password?", new_password_path(resource_name) %> or <%= link_to "Register here!", new_registration_path(resource_name) %>
     <% end %>
   </div>
-</div>
 
-<div class="row">
-  <div class="span12">
+  <div class="span6">
     <%= render partial: 'contour/layouts/latest_news' %>
   </div>
 </div>

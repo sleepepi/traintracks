@@ -20,10 +20,7 @@ Contour.setup do |config|
   config.menu_items =
   [
     {
-      name: 'Login', display: 'not_signed_in', path: 'new_user_session_path', position: 'right',
-      links: [{ name: 'Sign Up', path: 'new_user_registration_path' },
-              { divider: true },
-              { authentications: true }]
+      name: 'Login', display: 'not_signed_in', path: 'new_user_session_path', position: 'right'
     },
     {
       name: 'current_user.name', eval: true, display: 'signed_in', position: 'right', condition: 'user_signed_in?',
@@ -65,7 +62,7 @@ Contour.setup do |config|
   ]
 
   # Enter an address of a valid RSS Feed if you would like to see news on the sign in page.
-  config.news_feed = 'https://sleepepi.partners.org/category/informatics/training_grant/feed/rss'
+  config.news_feed = 'https://sleepepi.partners.org/category/informatics/training-grant/feed/rss'
 
   # Enter the max number of items you want to see in the news feed.
   config.news_feed_items = 3
