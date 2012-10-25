@@ -3,6 +3,7 @@
 * Enhancements
   * Restructured login page to give clearer distinctions between all of the login types
   * Added "Unknown" Citizenship Status category
+  * Preceptors are now notified that they need to confirm emails after editing their existing email address
 
 * Bug Fix
   * Removed TableScroll that was causing the column headers to not properly line up in some browsers
