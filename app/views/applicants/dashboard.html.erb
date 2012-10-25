@@ -7,7 +7,7 @@
       <span class="label label-warning">Draft</span>
     <% end %>
     <%= link_to "Exit Interview", exit_interview_applicants_path, class: 'btn btn-mini' if current_applicant.enrolled? %>
-    <div class="pull-right"><%= link_to "Help!", '#', class: 'btn btn-info', data: { object: 'modal-show', target: '#help_email_modal' } %></div>
+    <div class="pull-right"><%= link_to "Help", '#', class: 'btn btn-info', data: { object: 'modal-show', target: '#help_email_modal' } %></div>
   </h1>
 </div>
 
