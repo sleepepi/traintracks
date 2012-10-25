@@ -1,5 +1,8 @@
 == 0.5.2
 
+* Bug Fix
+  * Removed TableScroll that was causing the column headers to not properly line up in some browsers
+
 == 0.5.1
 
 * Enhancements

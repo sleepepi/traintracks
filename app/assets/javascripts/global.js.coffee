@@ -24,6 +24,8 @@
         $(field).removeAttr('disabled')
 
 jQuery ->
+  $("[rel~=tooltip]").tooltip( trigger: 'hover' )
+
   togglePostdocFields()
 
   $("#applicant_applicant_type").on('change', () ->

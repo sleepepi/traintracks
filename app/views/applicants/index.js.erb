@@ -1,8 +1,8 @@
 $("#applicants").html("<%= escape_javascript(render("applicants")) %>");
-$('#thetable').tableScroll();
 $('#saving_modal').modal({
   keyboard: false,
   backdrop: 'static',
   show: false
 });
 $('#saving_modal').modal('hide');
+$("td[rel~=tooltip]").tooltip({ trigger: 'hover' });
