@@ -1,5 +1,9 @@
 == 0.5.3
 
+* Enhancements
+  * Gem updates including Rails 3.2.9 and Ruby 1.9.3-p327
+  * Contour updated to 1.1.1
+
 == 0.5.2
 
 * Enhancements

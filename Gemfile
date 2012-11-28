@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',                '3.2.8'
+gem 'rails',                '3.2.9'
 
 # Database Adapter
 # Install instructions for Windows: http://blog.mmediasys.com/2011/07/07/installing-mysql-on-windows-7-x64-and-using-ruby-with-it/
@@ -9,9 +9,9 @@ gem 'thin',                 '~> 1.4.1',           :platforms => [ :mswin, :mingw
 gem 'eventmachine',         '~> 1.0.0',           :platforms => [ :mswin, :mingw ]
 
 # Gems used by project
-gem 'contour',              '~> 1.1.0'
+gem 'contour',              '~> 1.1.1'
 gem 'kaminari',             '~> 0.14.1'
-gem 'carrierwave',          '~> 0.7.0'
+gem 'carrierwave',          '~> 0.7.1'
 
 # Gems used only for assets and not required
 # in production environments by default.
