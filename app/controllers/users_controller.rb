@@ -44,13 +44,13 @@ class UsersController < ApplicationController
 
   def update
     @user = User.current.find_by_id(params[:id])
-    if @user and @user.update_attributes(params[:user])
+    if @user and @user.update_attributes(post_params)
       original_status = @user.status
-      @user.update_column :system_admin, params[:system_admin]
-      @user.update_column :administrator, params[:administrator]
-      @user.update_column :status, params[:status]
-      UserMailer.status_activated(@user).deliver if Rails.env.production? and original_status != @user.status and @user.status = 'active'
-      redirect_to(@user, notice: 'User was successfully updated.')
+      @user.update_column :system_admin, params[:user][:system_admin]
+      @user.update_column :administrator, params[:user][:administrator]
+      @user.update_column :status, params[:user][:status]
+      UserMailer.status_activated(@user).deliver if Rails.env.production? and original_status != @user.status and @user.status == 'active'
+      redirect_to @user, notice: 'User was successfully updated.'
     elsif @user
       render action: "edit"
     else
@@ -61,6 +61,17 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find_by_id(params[:id])
     @user.destroy if @user
-    redirect_to users_path
+    redirect_to users_path, notice: 'User was successfully deleted.'
   end
+
+  private
+
+  def post_params
+    params[:user] ||= {}
+
+    params[:user].slice(
+      :first_name, :last_name, :email
+    )
+  end
+
 end
