@@ -31,21 +31,21 @@
         <td><%= link_to applicant.name, applicant %></td>
         <td><%= applicant.email %></td>
         <td><%= applicant.applicant_type %></td>
-        <td style="text-align:center" rel="tooltip" title="Reviewed"><%= simple_check applicant.reviewed %></td>
-        <td rel="tooltip" title="Review date"><%= applicant.review_date %></td>
-        <td style="text-align:center" rel="tooltip" title="Offered"><%= simple_check applicant.offered %></td>
-        <td style="text-align:center" rel="tooltip" title="Accepted"><%= simple_check applicant.accepted %></td>
-        <td style="text-align:center" rel="tooltip" title="Enrolled"><%= simple_check applicant.enrolled %></td>
-        <td rel="tooltip" title="CV Number"><%= applicant.cv_number %></td>
-        <td style="text-align:center" rel="tooltip" title="Disabled"><%= simple_check applicant.disabled %></td>
-        <td style="text-align:center" rel="tooltip" title="Disadvantaged"><%= simple_check applicant.disadvantaged %></td>
-        <td style="text-align:center" rel="tooltip" title="TGE"><%= simple_check applicant.tge %></td>
-        <td style="text-align:center" rel="tooltip" title="URM"><%= simple_check applicant.urm %></td>
-        <td rel="tooltip" title="Status"><%= applicant.status %></td>
-        <td style="text-align:center" rel="tooltip" title="Supported"><%= simple_check applicant.supported_by_tg %></td>
+        <td style="text-align:center"><span rel="tooltip" title="Reviewed"><%= simple_check applicant.reviewed %></span></td>
+        <td><span rel="tooltip" title="Review date"><%= applicant.review_date %></span></td>
+        <td style="text-align:center"><span rel="tooltip" title="Offered"><%= simple_check applicant.offered %></span></td>
+        <td style="text-align:center"><span rel="tooltip" title="Accepted"><%= simple_check applicant.accepted %></span></td>
+        <td style="text-align:center"><span rel="tooltip" title="Enrolled"><%= simple_check applicant.enrolled %></span></td>
+        <td><span rel="tooltip" title="CV Number"><%= applicant.cv_number %></span></td>
+        <td style="text-align:center"><span rel="tooltip" title="Disabled"><%= simple_check applicant.disabled %></span></td>
+        <td style="text-align:center"><span rel="tooltip" title="Disadvantaged"><%= simple_check applicant.disadvantaged %></span></td>
+        <td style="text-align:center"><span rel="tooltip" title="TGE"><%= simple_check applicant.tge %></span></td>
+        <td style="text-align:center"><span rel="tooltip" title="URM"><%= simple_check applicant.urm %></span></td>
+        <td><span rel="tooltip" title="Status"><%= applicant.status %></span></td>
+        <td style="text-align:center"><span rel="tooltip" title="Supported"><%= simple_check applicant.supported_by_tg %></span></td>
         <td><%= applicant.trainee_code %></td>
-        <td rel="tooltip" title="Submitted"><%= simple_time applicant.submitted_at %></td>
-        <td rel="tooltip" title="Recent"><%= recent_activity(applicant.current_sign_in_at) %></td>
+        <td><span rel="tooltip" title="Submitted"><%= simple_time applicant.submitted_at %></span></td>
+        <td><span rel="tooltip" title="Recent"><%= recent_activity(applicant.current_sign_in_at) %></span></td>
         <td>
           <%= link_to 'Edit', edit_applicant_path(applicant), class: 'btn btn-mini' %>
           <%= link_to 'Delete', applicant, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Applicant #{applicant.name}?" } %>
@@ -55,4 +55,4 @@
   </tbody>
 </table>
 
-<center><%= paginate @applicants %></center>
+<center><%= paginate @applicants, theme: "contour" %></center>
