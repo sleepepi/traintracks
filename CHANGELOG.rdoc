@@ -6,13 +6,13 @@
 * Bug Fix
   * User activation emails are no longer sent out when a user's status is changed from pending to inactive
 
-== 0.5.3
+== 0.5.3 (November 28, 2012)
 
 * Enhancements
   * Gem updates including Rails 3.2.9 and Ruby 1.9.3-p327
   * Contour updated to 1.1.1
 
-== 0.5.2
+== 0.5.2 (October 25, 2012)
 
 * Enhancements
   * Restructured login page to give clearer distinctions between all of the login types
@@ -23,7 +23,7 @@
   * Removed TableScroll that was causing the column headers to not properly line up in some browsers
   * Fixed the link to the RSS feed
 
-== 0.5.1
+== 0.5.1 (September 17, 2012)
 
 * Enhancements
   * Preceptor Other Support document now a file (docx, doc, pdf) upload
@@ -35,7 +35,7 @@
 * Refactoring
   * Unused CV variable has been removed, (previously replaced by curriculum_vitae)
 
-== 0.5.0
+== 0.5.0 (August 28, 2012)
 
 * Enhancements
   * Applicant updates
@@ -54,7 +54,7 @@
   * Preceptor updates
     * Preferred preceptors are notified by email applicants submit their applications
 
-== 0.4.2
+== 0.4.2 (August 14, 2012)
 
 * Enhancements
   * Updated to Rails 3.2.8
@@ -73,12 +73,12 @@
 * Bug Fix
   * Applicant sign up page now displays correctly
 
-== 0.4.1
+== 0.4.1 (July 10, 2012)
 
 * Bug Fix
   * Failure to send emails in production no longer generate error messages
 
-== 0.4.0
+== 0.4.0 (June 14, 2012)
 
 * Enhancements
   * Applicant updates
@@ -96,12 +96,12 @@
 * Bug Fix
   * Administrators can now update applicant emails without going through the email confirmation/reconfirmation process
 
-== 0.3.1
+== 0.3.1 (May 11, 2012)
 
 * Bug Fix
   * Initial setup now runs correctly: require 'securerandom'
 
-== 0.3.0
+== 0.3.0 (May 11, 2012)
 
 * Enhancements
   * Applicants
@@ -117,7 +117,7 @@
   * Use new Contour login attributes on Registration page
   * Use Contour for User account Confirmations and Unlocks
 
-== 0.2.0
+== 0.2.0 (May 3, 2012)
 
 * Enhancements
   * Dashboard with quick applicant statistics added
@@ -142,12 +142,12 @@
     * Can send emails to applicants and preceptors to notify them to update their information
   * Using Contour 1.0.0 with Twitter-Bootstrap
 
-== 0.1.0
+== 0.1.0 (April 16, 2012)
 
 * Enhancements
   * Preceptors can now be managed
   * Applicants (Predoc and Postdoc) and Trainees can now be managed
 
-== 0.0.0
+== 0.0.0 (April 2, 2012)
 
 * Skeleton files to initialize Rails application with testing framework and continuous integration
