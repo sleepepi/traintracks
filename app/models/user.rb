@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   # Model Relationships
   has_many :authentications
   has_many :annuals, conditions: { deleted: false }
+  has_many :seminars, conditions: { deleted: false }
 
   # User Methods
   # Overriding Devise built-in active_for_authentication? method
@@ -51,6 +52,18 @@ class User < ActiveRecord::Base
   def all_viewable_annuals
     @all_viewble_annuals ||= begin
       self.all_annuals
+    end
+  end
+
+  def all_seminars
+    @all_seminars ||= begin
+      Seminar.current
+    end
+  end
+
+  def all_viewable_seminars
+    @all_viewable_seminars ||= begin
+      self.all_seminars
     end
   end
 

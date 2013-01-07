@@ -1,5 +1,12 @@
 TrainingGrant::Application.routes.draw do
 
+  resources :seminars do
+    member do
+      post :attendance
+    end
+  end
+
+
   resources :annuals do
     member do
       get :edit_me

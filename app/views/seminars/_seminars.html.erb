@@ -1,0 +1,28 @@
+<%= render partial: 'contour/layouts/per_page', locals: { type: 'seminars', per_page: 20, object_count: @seminar_count } %>
+
+<table class="table table-striped table-bordered" style="width:100%">
+  <thead>
+    <tr>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'seminars.presenter', 'Presenter', 'seminars_search') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'seminars.presentation_title', 'Presentation Title', 'seminars_search') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'seminars.presentation_date', 'Presentation Date', 'seminars_search') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'seminars.category', 'Category', 'seminars_search') %></th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <% @seminars.each do |seminar| %>
+    <tr>
+      <td><%= link_to seminar.presenter, seminar %></td>
+      <td><%= seminar.presentation_title %></td>
+      <td><%= seminar.presentation_date_with_time %></td>
+      <td><%= seminar.category %></td>
+      <td>
+        <%= link_to 'Edit', edit_seminar_path(seminar), class: 'btn btn-mini' %>
+        <%= link_to 'Delete', seminar, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Seminar #{seminar.name}?" } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<center><%= paginate @seminars, theme: 'contour' %></center>

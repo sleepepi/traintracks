@@ -1,0 +1,43 @@
+<% @title = "Seminar: #{@seminar.name}" %>
+<div class="page-header">
+  <h1>
+    <%= @title %>
+    <%= link_to "Edit Seminar", edit_seminar_path(@seminar), class: 'btn btn-mini' %>
+    <%= link_to "Delete Seminar", @seminar, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Seminar #{@seminar.name}?" } %>
+    <%= link_to "View Seminars", seminars_path, class: 'btn btn-mini' %>
+  </h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Category</dt>
+  <dd><%= @seminar.category %></dd>
+
+  <dt>Presenter</dt>
+  <dd><%= @seminar.presenter %></dd>
+
+  <dt>Presentation Title</dt>
+  <dd><%= @seminar.presentation_title %></dd>
+
+  <dt>Presentation Date</dt>
+  <dd><%= @seminar.presentation_date_with_time %></dd>
+
+</dl>
+
+<table class="table table-striped table-bordered" style="width:100%">
+  <thead>
+    <tr>
+      <th style="white-space:nowrap">Trainee</th>
+      <th style="white-space:nowrap">Attended?</th>
+    </tr>
+  </thead>
+
+  <% Applicant.current.where(enrolled: true).order('last_name, first_name').each do |applicant| %> <%# status: 'current' ? %>
+    <% @applicant = applicant %>
+    <tr>
+      <td><%= applicant.reverse_name %></td>
+      <td id="applicant_<%= @applicant.id %>_seminar_<%= @seminar.id %>_attendance">
+        <%= render partial: 'attendance' %>
+      </td>
+    </tr>
+  <% end %>
+</table>

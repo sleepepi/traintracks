@@ -53,6 +53,10 @@ Contour.setup do |config|
       links: [{ name: 'Create', path: 'new_preceptor_path' }]
     },
     {
+      name: 'Seminars', display: 'signed_in', path: 'seminars_path', position: 'left', condition: 'user_signed_in? and current_user.administrator?',
+      links: [{ name: 'Create', path: 'new_seminar_path' }]
+    },
+    {
       name: 'Users', display: 'signed_in', path: 'users_path', position: 'left', condition: 'user_signed_in? and current_user.system_admin?'
     },
     {

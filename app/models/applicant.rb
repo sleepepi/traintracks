@@ -128,8 +128,17 @@ class Applicant < ActiveRecord::Base
   belongs_to :primary_preceptor, class_name: 'Preceptor', foreign_key: 'primary_preceptor_id'
   belongs_to :secondary_preceptor, class_name: 'Preceptor', foreign_key: 'secondary_preceptor_id'
   has_many :annuals, conditions: { deleted: false }, order: 'year DESC'
+  has_and_belongs_to_many :seminars
 
   # Applicant Methods
+
+  def add_seminar(seminar)
+    self.seminars << seminar unless self.seminars.include?(seminar)
+  end
+
+  def remove_seminar(seminar)
+    self.seminars.delete(seminar)
+  end
 
   def degrees_earned_text
     self.degrees_earned.collect{|d| "#{Applicant.degree_type_name(d[:degree_type])} #{d[:institution]} #{d[:year]} #{d[:advisor]} #{d[:thesis]} #{d[:concentration_major]}"}.join("\n")

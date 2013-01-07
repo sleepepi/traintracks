@@ -1,6 +1,7 @@
 == 0.6.0
 
 * Enhancements
+  * Seminar attendance can now be tracked for enrolled trainees
   * Updated to Contour 1.1.2 and use Contour pagination theme
 
 == 0.5.4 (January 3, 2013)

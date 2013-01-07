@@ -118,3 +118,4 @@ two:
   letters_from_c: MyString
   gender: MyString
   urm_types: ['americanindian alskanative']
+  seminars: one, two

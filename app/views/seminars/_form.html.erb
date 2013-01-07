@@ -1,0 +1,64 @@
+<div class="page-header">
+  <h1><%= @title %></h1>
+</div>
+
+<%= form_for @seminar, html: { class: 'form-horizontal' } do |f| %>
+  <% if @seminar.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@seminar.errors.count, "error") %> prohibited this seminar from being saved:</h2>
+
+      <ul>
+      <% @seminar.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :category, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :category, autocomplete: "off", data: { provide: 'typeahead', source: Seminar.current.pluck(:category).to_json } %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :presenter, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :presenter %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :presentation_title, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :presentation_title %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :presentation_date, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :presentation_date, class: 'datepicker', value: @seminar.presentation_date ? @seminar.presentation_date.strftime('%m/%d/%Y') : '' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :presentation_time, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :presentation_time, value: @seminar.presentation_date ? @seminar.presentation_date.strftime("%l:%M %p").strip : '' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :duration, nil, class: 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :duration %> <%= f.select :duration_units, Seminar::DURATION_UNITS %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+    <%= cancel %>
+  </div>
+<% end %>

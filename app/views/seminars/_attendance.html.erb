@@ -1,0 +1,2 @@
+<% attended = (@applicant.seminars.where(id: @seminar.id).count == 1) %>
+<%= link_to simple_check(attended), attendance_seminar_path(@seminar, attended: (attended ? '0' : '1'), applicant_id: @applicant.id), method: :post, remote: true %>
