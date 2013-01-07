@@ -8,6 +8,8 @@ class Seminar < ActiveRecord::Base
 
   # Scopes
   scope :search, lambda { |arg| where('LOWER(presenter) LIKE ? or LOWER(presentation_title) LIKE ?', arg.downcase.gsub(/^| |$/, '%'), arg.downcase.gsub(/^| |$/, '%')) }
+  scope :date_before, lambda { |*args| { conditions: ["presentation_date < ?", (args.first+1.day).at_midnight]} }
+  scope :date_after, lambda { |*args| { conditions: ["presentation_date >= ?", args.first.at_midnight]} }
 
   # Model Validation
   validates_presence_of :category, :presenter, :user_id

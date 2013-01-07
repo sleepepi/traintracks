@@ -32,11 +32,10 @@
   </thead>
 
   <% Applicant.current.where(enrolled: true).order('last_name, first_name').each do |applicant| %> <%# status: 'current' ? %>
-    <% @applicant = applicant %>
     <tr>
       <td><%= applicant.reverse_name %></td>
-      <td id="applicant_<%= @applicant.id %>_seminar_<%= @seminar.id %>_attendance">
-        <%= render partial: 'attendance' %>
+      <td id="applicant_<%= applicant.id %>_seminar_<%= @seminar.id %>_attendance">
+        <%= render partial: 'attendance', locals: { applicant: applicant, seminar: @seminar } %>
       </td>
     </tr>
   <% end %>

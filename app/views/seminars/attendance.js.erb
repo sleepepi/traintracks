@@ -1,1 +1,1 @@
-$("#applicant_<%= @applicant.id %>_seminar_<%= @seminar.id %>_attendance").html("<%= escape_javascript(render("attendance")) %>");
+$("#applicant_<%= @applicant.id %>_seminar_<%= @seminar.id %>_attendance").html("<%= escape_javascript(render partial: "attendance", locals: { applicant: @applicant, seminar: @seminar }) %>");

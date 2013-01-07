@@ -6,6 +6,11 @@ class SeminarsControllerTest < ActionController::TestCase
     @seminar = seminars(:one)
   end
 
+  test "should get overview" do
+    get :overview
+    assert_response :success
+  end
+
   test "should mark attendance as attended" do
     post :attendance, id: @seminar, attended: '1', applicant_id: applicants(:one).id, format: 'js'
 
