@@ -2,6 +2,20 @@ class SeminarsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :check_administrator
 
+  def attendance
+    applicant_scope = Applicant.current.where(enrolled: true)
+    applicant_scope = applicant_scope.where(status: params[:status]) unless params[:status].blank?
+
+    @applicants = applicant_scope
+    @year = params[:year] || Date.today.year
+    @seminars = Seminar.current.date_after(Date.parse("#{@year}-01-01")).date_before(Date.parse("#{@year}-12-31"))
+
+    if params[:format] == 'csv'
+      generate_csv(@applicants, @year, @seminars)
+      return
+    end
+  end
+
   def attended
     @seminar = current_user.all_seminars.find_by_id(params[:id])
     @applicant = Applicant.current.find_by_id(params[:applicant_id])
@@ -133,5 +147,47 @@ class SeminarsController < ApplicationController
       :category, :presenter, :presentation_title, :presentation_date, :duration, :duration_units
     )
   end
+
+  def generate_csv(applicants, year, seminars)
+    @csv_string = CSV.generate do |csv|
+      category_header_row = [""]
+      header_row = [""]
+
+      @seminars.group_by{|s| s.category}.each do |category, seminars|
+        seminars.sort_by{ |s| s.presentation_date }.each_with_index do |seminar, index|
+          category_header_row << (index == 0 ? category : "")
+          header_row << seminar.presentation_date.to_date
+        end
+      end
+
+      csv << category_header_row
+      csv << header_row
+
+      applicants.each do |a|
+        row = [ a.reverse_name ]
+        @seminars.group_by{|s| s.category}.each do |category, seminars|
+          seminars.sort_by{ |s| s.presentation_date }.each do |seminar|
+            row << (a.seminars.where(id: seminar.id).count == 1 ? "X" : "")
+          end
+        end
+
+        csv << row
+      end
+
+      csv << [""]
+
+      @seminars.group_by{|s| s.category}.each do |category, seminars|
+        csv << [""]
+        csv << [category]
+        seminars.sort_by{ |s| s.presentation_date }.each do |seminar|
+          csv << [seminar.presenter, seminar.presentation_date_with_time, seminar.presentation_title]
+        end
+      end
+    end
+
+    send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
+                           disposition: "attachment; filename=\"Training Grant Attendance #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+  end
+
 
 end

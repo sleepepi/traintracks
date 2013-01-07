@@ -8,6 +8,19 @@ class SeminarsControllerTest < ActionController::TestCase
 
   test "should get attendance" do
     get :attendance
+    assert_not_nil assigns(:applicants)
+    assert_not_nil assigns(:seminars)
+    assert_not_nil assigns(:year)
+    assert_nil assigns(:csv_string)
+    assert_response :success
+  end
+
+  test "should get attendance csv" do
+    get :attendance, format: 'csv'
+    assert_not_nil assigns(:applicants)
+    assert_not_nil assigns(:seminars)
+    assert_not_nil assigns(:year)
+    assert_not_nil assigns(:csv_string)
     assert_response :success
   end
 
