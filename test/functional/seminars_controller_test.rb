@@ -6,13 +6,13 @@ class SeminarsControllerTest < ActionController::TestCase
     @seminar = seminars(:one)
   end
 
-  test "should get overview" do
-    get :overview
+  test "should get attendance" do
+    get :attendance
     assert_response :success
   end
 
   test "should mark attendance as attended" do
-    post :attendance, id: @seminar, attended: '1', applicant_id: applicants(:one).id, format: 'js'
+    post :attended, id: @seminar, attended: '1', applicant_id: applicants(:one).id, format: 'js'
 
     assert_not_nil assigns(:seminar)
     assert_not_nil assigns(:applicant)
@@ -23,7 +23,7 @@ class SeminarsControllerTest < ActionController::TestCase
   end
 
   test "should mark attendance as not attended" do
-    post :attendance, id: @seminar, attended: '0', applicant_id: applicants(:two).id, format: 'js'
+    post :attended, id: @seminar, attended: '0', applicant_id: applicants(:two).id, format: 'js'
 
     assert_not_nil assigns(:seminar)
     assert_not_nil assigns(:applicant)
@@ -34,7 +34,7 @@ class SeminarsControllerTest < ActionController::TestCase
   end
 
   test "should not mark attendance with invalid applicant" do
-    post :attendance, id: @seminar, attended: '1', applicant_id: -1, format: 'js'
+    post :attended, id: @seminar, attended: '1', applicant_id: -1, format: 'js'
 
     assert_not_nil assigns(:seminar)
     assert_nil assigns(:applicant)

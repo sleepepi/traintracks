@@ -2,7 +2,7 @@ class SeminarsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :check_administrator
 
-  def attendance
+  def attended
     @seminar = current_user.all_seminars.find_by_id(params[:id])
     @applicant = Applicant.current.find_by_id(params[:applicant_id])
 

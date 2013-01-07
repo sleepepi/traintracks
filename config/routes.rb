@@ -2,10 +2,10 @@ TrainingGrant::Application.routes.draw do
 
   resources :seminars do
     collection do
-      get :overview
+      get :attendance
     end
     member do
-      post :attendance
+      post :attended
     end
   end
 
