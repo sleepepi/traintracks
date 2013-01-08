@@ -4,6 +4,11 @@
   * Seminar attendance can now be tracked for enrolled trainees
   * Updated to Contour 1.1.2 and use Contour pagination theme
 
+== 0.5.5 (January 8, 2013)
+
+* Security Fix
+  * Updated Rails to 3.2.11
+
 == 0.5.4 (January 3, 2013)
 
 * Security Fix
