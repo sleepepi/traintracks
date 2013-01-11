@@ -1,4 +1,4 @@
-== 0.6.0
+== 0.6.0 (January 11, 2013)
 
 * Enhancements
   * Seminar attendance can now be tracked for enrolled trainees
