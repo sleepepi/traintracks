@@ -35,7 +35,7 @@ class SeminarsController < ApplicationController
   # GET /seminars.json
   def index
     seminar_scope = current_user.all_viewable_seminars
-    @order = scrub_order(Seminar, params[:order], "seminars.presentation_date")
+    @order = scrub_order(Seminar, params[:order], "seminars.presentation_date DESC")
     seminar_scope = seminar_scope.order(@order)
     @seminar_count = seminar_scope.count
     @seminars = seminar_scope.page(params[:page]).per( 20 )
