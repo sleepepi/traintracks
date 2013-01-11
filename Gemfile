@@ -12,6 +12,7 @@ gem 'eventmachine',         '~> 1.0.0',           :platforms => [ :mswin, :mingw
 gem 'contour',              '~> 1.1.2'
 gem 'kaminari',             '~> 0.14.1'
 gem 'carrierwave',          '~> 0.7.1'
+gem 'mail_view',            '~> 1.0.3'
 
 # Gems used only for assets and not required
 # in production environments by default.

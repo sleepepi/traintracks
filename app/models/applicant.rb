@@ -90,6 +90,7 @@ class Applicant < ActiveRecord::Base
                                                       (advisor != '' and advisor IS NOT NULL) or
                                                       (thesis != '' and thesis IS NOT NULL) or
                                                       (degree_types != '--- []\n' and degree_types IS NOT NULL)"] } }
+  scope :current_trainee, lambda { current.where(enrolled: true) }
 
   # Model Validation
   validates_presence_of :first_name, :last_name

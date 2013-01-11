@@ -1,14 +1,6 @@
 TrainingGrant::Application.routes.draw do
 
-  resources :seminars do
-    collection do
-      get :attendance
-    end
-    member do
-      post :attended
-    end
-  end
-
+  mount MailPreview => 'mail_view' if Rails.env.development?
 
   resources :annuals do
     member do
@@ -49,6 +41,15 @@ TrainingGrant::Application.routes.draw do
     end
     member do
       post :email
+    end
+  end
+
+  resources :seminars do
+    collection do
+      get :attendance
+    end
+    member do
+      post :attended
     end
   end
 

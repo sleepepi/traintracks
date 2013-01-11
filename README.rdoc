@@ -36,6 +36,12 @@ Open a browser and go to: http://localhost
 
 All done!
 
+== Setting up Seminar Reminder Emails
+
+Edit Cron Jobs <tt>sudo crontab -e</tt> to run the task lib/tasks/seminar_reminder_email.rake
+
+  0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/training_grant && /usr/local/rvm/gems/ruby-1.9.3-p327/bin/bundle exec rake seminar_reminder_email RAILS_ENV=production
+
 == Contributing to Training Grant
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet

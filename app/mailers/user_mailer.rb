@@ -59,6 +59,14 @@ class UserMailer < ActionMailer::Base
          reply_to: user.email)
   end
 
+  def seminars_reminder(applicant, seminars)
+    setup_email
+    @applicant = applicant
+    @seminars = seminars
+    mail(to: applicant.email,
+         subject: "Upcoming Seminars Reminder")
+  end
+
   def notify_preceptor(applicant)
     setup_email
     @applicant = applicant
@@ -76,7 +84,7 @@ class UserMailer < ActionMailer::Base
   protected
 
   def setup_email
-    @footer_html = "Change email settings here: <a href=\"#{SITE_URL}/settings\">#{SITE_URL}/settings</a>.<br /><br />".html_safe
-    @footer_txt = "Change email settings here: #{SITE_URL}/settings."
+    @footer_html = "<br /><div style=\"color:#777\">Change #{DEFAULT_APP_NAME} email settings here: <a href=\"#{SITE_URL}/settings\">#{SITE_URL}/settings</a></div><br /><br />".html_safe
+    @footer_txt = "Change #{DEFAULT_APP_NAME} email settings here: #{SITE_URL}/settings"
   end
 end

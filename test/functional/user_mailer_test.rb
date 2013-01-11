@@ -42,4 +42,18 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/Body/, email.encoded)
   end
 
+  test "seminars reminder email" do
+    applicant = applicants(:one)
+    seminars = users(:valid).seminars
+
+    # Send the email, then test that it got queued
+    email = UserMailer.seminars_reminder(applicant, seminars).deliver
+    assert !ActionMailer::Base.deliveries.empty?
+
+    # Test the body of the sent email contains what we expect it to
+    assert_equal ['applicant_one@example.com'], email.to
+    assert_equal "Upcoming Seminars Reminder", email.subject
+    assert_match(/Upcoming Seminars/, email.encoded)
+  end
+
 end

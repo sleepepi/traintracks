@@ -3,6 +3,7 @@
 * Enhancements
   * Seminar attendance can now be tracked for enrolled trainees
   * Updated to Contour 1.1.2 and use Contour pagination theme
+  * Seminar Reminder email added for current trainees
 
 == 0.5.5 (January 8, 2013)
 

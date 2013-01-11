@@ -7,7 +7,7 @@ one:
   presentation_date: 2013-01-04 12:50:19
   duration: 2
   duration_units: hours
-  user_id: 1
+  user: valid
   deleted: false
 
 two:
@@ -17,5 +17,5 @@ two:
   presentation_date: 2013-01-04 12:50:19
   duration: 90
   duration_units: minutes
-  user_id: 1
+  user: valid
   deleted: false
