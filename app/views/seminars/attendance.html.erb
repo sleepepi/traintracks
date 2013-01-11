@@ -12,7 +12,7 @@
   <%= hidden_field_tag :status, params[:status] %>
   <%= select_tag :year, options_for_select(Seminar.current.pluck(:presentation_date).collect{|i|i ? i.year : nil}.uniq.compact.sort.collect{|i| [i,i]}, @year) %>
   <%= select_tag :status, options_for_select([['All Trainees', nil]] + Applicant::STATUS, params[:status]) %>
-  <%= submit_tag 'Filter', class: 'btn' %>
+  <%= submit_tag 'Filter', class: 'btn btn-primary' %>
   <%= link_to 'Export CSV', '#', data: { object: 'export', target: '#attendance_form', format: 'csv' }, class: 'btn' %>
 <% end %>
 
