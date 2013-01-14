@@ -3,7 +3,7 @@ class SeminarsController < ApplicationController
   before_filter :check_administrator
 
   def attendance
-    applicant_scope = Applicant.current_trainee
+    applicant_scope = Applicant.current.where(enrolled: true)
     applicant_scope = applicant_scope.where(status: params[:status]) unless params[:status].blank?
 
     @applicants = applicant_scope

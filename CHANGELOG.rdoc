@@ -1,5 +1,8 @@
 == 0.6.1
 
+* Bug Fix
+  * Fixed a bug that caused all enrolled trainees to be notified of seminars instead of just current trainees
+
 == 0.6.0 (January 11, 2013)
 
 * Enhancements
