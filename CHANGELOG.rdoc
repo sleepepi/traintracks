@@ -1,4 +1,4 @@
-== 0.6.2
+== 0.6.2 (January 22, 2013)
 
 * Bug Fix
   * Administrators should be able to update applicants that do not have an email address
