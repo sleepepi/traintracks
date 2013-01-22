@@ -2,7 +2,7 @@ class Applicant < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :encryptable and :omniauthable
   devise :database_authenticatable, :registerable, :timeoutable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :lockable
+         :recoverable, :rememberable, :trackable, :token_authenticatable, :lockable, :validatable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -32,7 +32,8 @@ class Applicant < ActiveRecord::Base
   # Administrator Only
   attr_accessible :reviewed, :review_date, :offered, :accepted, :enrolled, :cv_number, :degree_type, :trainee_code,
                   :status, :training_grant_years, :supported_by_tg, :training_period_start_date,
-                  :training_period_end_date, :notes, :primary_preceptor_id, :secondary_preceptor_id
+                  :training_period_end_date, :notes, :primary_preceptor_id, :secondary_preceptor_id,
+                  :admin_update
 
   # Termination Questions for Enrolled Applicants
   attr_accessible :publish_termination, :future_email, :entrance_year, :t32_funded, :t32_funded_years,
@@ -43,7 +44,7 @@ class Applicant < ActiveRecord::Base
   # Legacy
   attr_accessible :degrees_earned_old, :advisor, :concentration_major, :thesis, :degree_types # Will be removed
 
-  attr_accessor :publish, :publish_annual, :publish_termination
+  attr_accessor :publish, :publish_annual, :publish_termination, :admin_update
 
   mount_uploader :curriculum_vitae, DocumentUploader
   mount_uploader :certificate_application, DocumentUploader
@@ -306,6 +307,13 @@ class Applicant < ActiveRecord::Base
     self.reset_authentication_token!
     self.update_column :emailed_at, Time.now
     UserMailer.exit_interview(self, current_user).deliver if Rails.env.production?
+  end
+
+  protected
+
+  # Override Devise Email Required
+  def email_required?
+    self.admin_update != '1'
   end
 
 end

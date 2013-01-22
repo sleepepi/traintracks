@@ -233,6 +233,7 @@ class ApplicantsController < ApplicationController
     params[:applicant][:degree_types] ||= [] if params[:set_degree_types] == '1' # Will be removed when degree_types is removed
 
     if current_user and current_user.administrator?
+      params[:applicant][:admin_update] = '1'
       params[:applicant]
     else
       params[:applicant].slice(
