@@ -4,6 +4,8 @@
 - Updated Rails to 3.2.12
 
 ### Enhancements
+- ActionMailer can now also be configured to send email through NTLM
+  - `ActionMailer::Base.smtp_settings` now requires an `:email` field
 - Contour updated to 1.2.0.pre8
 
 ## 0.6.2 (January 22, 2013)

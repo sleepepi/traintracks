@@ -13,6 +13,7 @@ gem 'contour',              '~> 1.2.0.pre8'
 gem 'kaminari',             '~> 0.14.1'
 gem 'carrierwave',          '~> 0.7.1'
 gem 'mail_view',            '~> 1.0.3'
+gem 'ruby-ntlm-namespace',  '~> 0.0.1'
 
 # Gems used only for assets and not required
 # in production environments by default.
