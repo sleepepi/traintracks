@@ -194,7 +194,7 @@ class AnnualsController < ApplicationController
         # Applicant Information
         'Email', 'Last Name', 'First Name',
         # Annual Information
-        'Year', 'Coursework Completed', 'Publications', 'Presentations', 'Research Description', 'Source of Support'
+        'Year', 'Coursework Completed', 'Publications', 'Conferences, Presentations, Honors, and Fellowships', 'Research Description', 'Source of Support'
       ]
 
       annual_scope.each do |a|

@@ -5,6 +5,7 @@
 
 ### Enhancements
 - Simplified applicants index
+- Presentations in exports now labeled as, "Conferences, Presentations, Honors, and Fellowships"
 - ActionMailer can now also be configured to send email through NTLM
   - `ActionMailer::Base.smtp_settings` now requires an `:email` field
 - Contour updated to 1.2.0.pre8
