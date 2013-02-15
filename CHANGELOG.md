@@ -4,6 +4,7 @@
 - Updated Rails to 3.2.12
 
 ### Enhancements
+- Seminar Attendance now filters seminars by school year, July 1st -> June 30th
 - Simplified applicants index
 - Presentations in exports now labeled as, "Conferences, Presentations, Honors, and Fellowships"
 - ActionMailer can now also be configured to send email through NTLM
