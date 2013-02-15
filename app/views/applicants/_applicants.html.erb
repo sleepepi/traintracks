@@ -7,15 +7,7 @@
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.email', 'Email', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.applicant_type', 'Type', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.reviewed', 'Reviewed', 'applicants_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.review_date', 'Review date', 'applicants_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.offered', 'Offered', 'applicants_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.accepted', 'Accepted', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.enrolled', 'Enrolled', 'applicants_search') %></th>
-      <th>CV number</th>
-      <th>Disabled</th>
-      <th>Disadvantaged</th>
-      <th>TGE</th>
-      <th>URM</th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.status', 'Status', 'applicants_search') %></th>
       <th>Supported by TG</th>
       <th>Trainee code</th>
@@ -32,15 +24,7 @@
         <td><%= applicant.email %></td>
         <td><%= applicant.applicant_type %></td>
         <td style="text-align:center"><span rel="tooltip" title="Reviewed"><%= simple_check applicant.reviewed %></span></td>
-        <td><span rel="tooltip" title="Review date"><%= applicant.review_date %></span></td>
-        <td style="text-align:center"><span rel="tooltip" title="Offered"><%= simple_check applicant.offered %></span></td>
-        <td style="text-align:center"><span rel="tooltip" title="Accepted"><%= simple_check applicant.accepted %></span></td>
         <td style="text-align:center"><span rel="tooltip" title="Enrolled"><%= simple_check applicant.enrolled %></span></td>
-        <td><span rel="tooltip" title="CV Number"><%= applicant.cv_number %></span></td>
-        <td style="text-align:center"><span rel="tooltip" title="Disabled"><%= simple_check applicant.disabled %></span></td>
-        <td style="text-align:center"><span rel="tooltip" title="Disadvantaged"><%= simple_check applicant.disadvantaged %></span></td>
-        <td style="text-align:center"><span rel="tooltip" title="TGE"><%= simple_check applicant.tge %></span></td>
-        <td style="text-align:center"><span rel="tooltip" title="URM"><%= simple_check applicant.urm %></span></td>
         <td><span rel="tooltip" title="Status"><%= applicant.status %></span></td>
         <td style="text-align:center"><span rel="tooltip" title="Supported"><%= simple_check applicant.supported_by_tg %></span></td>
         <td><%= applicant.trainee_code %></td>
