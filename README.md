@@ -4,7 +4,7 @@
 [![Dependency Status](https://gemnasium.com/remomueller/training_grant.png)](https://gemnasium.com/remomueller/training_grant)
 [![Code Climate](https://codeclimate.com/github/remomueller/training_grant.png)](https://codeclimate.com/github/remomueller/training_grant)
 
-Training Grant Management Application that manages new applicants, trainees, and preceptors over a 10-year time period. Using Rails 3.2+ and Ruby 1.9.3+.
+Training Grant Management Application that manages new applicants, trainees, and preceptors over a 10-year time period. Using Rails 3.2+ and Ruby 2.0.0+.
 
 ## Installation
 
@@ -53,7 +53,7 @@ All done!
 Edit Cron Jobs `sudo crontab -e` to run the task `lib/tasks/seminar_reminder_email.rake`
 
 ```console
-0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/training_grant && /usr/local/rvm/gems/ruby-1.9.3-p327/bin/bundle exec rake seminar_reminder_email RAILS_ENV=production
+0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/training_grant && /usr/local/rvm/gems/ruby-2.0.0-p0/bin/bundle exec rake seminar_reminder_email RAILS_ENV=production
 ```
 
 ## Contributing to Training Grant
