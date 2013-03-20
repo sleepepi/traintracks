@@ -1,3 +1,5 @@
+## 0.6.4
+
 ## 0.6.3 (February 15, 2013)
 
 ### Security Fix
