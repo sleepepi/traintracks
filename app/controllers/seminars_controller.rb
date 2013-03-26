@@ -7,7 +7,7 @@ class SeminarsController < ApplicationController
     applicant_scope = applicant_scope.where(status: params[:status]) unless params[:status].blank?
 
     @applicants = applicant_scope
-    @year = params[:year] || (Date.today.month > 6 ? Date.today.year + 1 : Date.today.year)
+    @year = params[:year].to_i || (Date.today.month > 6 ? Date.today.year + 1 : Date.today.year)
     @seminars = Seminar.current.date_after(Date.parse("#{@year-1}-07-01")).date_before(Date.parse("#{@year}-06-30"))
 
     if params[:format] == 'csv'

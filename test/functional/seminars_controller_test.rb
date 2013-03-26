@@ -24,6 +24,15 @@ class SeminarsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get attendance with year and status specified" do
+    get :attendance, year: '2013', status: 'current'
+    assert_not_nil assigns(:applicants)
+    assert_not_nil assigns(:seminars)
+    assert_not_nil assigns(:year)
+    assert_nil assigns(:csv_string)
+    assert_response :success
+  end
+
   test "should mark attendance as attended" do
     post :attended, id: @seminar, attended: '1', applicant_id: applicants(:one).id, format: 'js'
 

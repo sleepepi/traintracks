@@ -1,5 +1,8 @@
 ## 0.6.5
 
+### Bug Fix
+- Fixed a bug that prevented filtering in the attendance module
+
 ## 0.6.4 (March 20, 2013)
 
 ### Enhancements
