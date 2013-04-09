@@ -10,4 +10,6 @@ unless Rails.env.test?
     user_name: "<%= print "Enter SMTP User Name [username]: "; s = gets.chomp().gsub('"', '\"').gsub("\\", "\\\\"); s == '' ? 'username' : s %>",
     password: "<%= print "Enter SMTP Password [password]: "; s = gets.chomp().gsub('"', '\"').gsub("\\", "\\\\"); s == '' ? 'password' : s %>"
   }
+else
+  ActionMailer::Base.smtp_settings[:email] = "travis-ci@example.com"
 end
