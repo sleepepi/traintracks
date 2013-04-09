@@ -21,7 +21,7 @@
     <tr>
       <th></th>
       <% @seminars.group_by{|s| s.category}.each do |category, seminars| %>
-        <th colspan="<%= seminars.size %>">
+        <th colspan="<%= seminars.size + 1 %>" style="border-left: 1px solid gray">
           <%= category %>
         </th>
       <% end %>
@@ -31,6 +31,7 @@
         Trainees <%= "(#{params[:status]})" unless params[:status].blank? %>
       </th>
       <% @seminars.group_by{|s| s.category}.each do |category, seminars| %>
+        <th style="border-left: 1px solid gray"></th>
         <% seminars.sort_by{ |s| s.presentation_date }.each do |seminar| %>
           <th style="white-space:nowrap">
             <span rel="tooltip" title="<%= [(seminar.presentation_date ? seminar.presentation_date.strftime("%Y-%m-%d") : ''), seminar.presentation_title, seminar.presenter].select{|i| not i.blank?}.join(' - ') %>">
@@ -47,6 +48,7 @@
         Total
       </th>
       <% @seminars.group_by{|s| s.category}.each do |category, seminars| %>
+        <th style="border-left: 1px solid gray"></th>
         <% seminars.sort_by{ |s| s.presentation_date }.each do |seminar| %>
           <th style="white-space:nowrap">
             <%= seminar.applicants.where(id: @applicants.pluck(:id)).count %>
@@ -60,6 +62,8 @@
       <tr>
         <td><%= link_to applicant.reverse_name, applicant %></td>
         <% @seminars.group_by{|s| s.category}.each do |category, seminars| %>
+          <% percent = (applicant.seminars.pluck(:id) & seminars.collect{|s| s.id}).size * 100 / seminars.size %>
+          <td style="border-left: 1px solid gray" class="<%= percent < 50 ? 'error' : (percent < 70 ? 'warning' : '') %>"><%= percent %>%</td>
           <% seminars.sort_by{ |s| s.presentation_date }.each do |seminar| %>
             <td id="applicant_<%= applicant.id %>_seminar_<%= seminar.id %>_attendance">
               <%= render partial: 'attendance', locals: { applicant: applicant, seminar: seminar } %>

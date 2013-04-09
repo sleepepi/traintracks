@@ -1,6 +1,8 @@
 ## 0.7.0
 
 ### Enhancements
+- **Attendance Changes**
+  - Seminar attendance table now shows the percentage of lectures attended by category for each trainee
 - **Gem Changes**
   - Updated to Rails 4.0.0.beta1
   - Updated to Contour 2.0.0.beta.4

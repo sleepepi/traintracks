@@ -1,4 +1,4 @@
-<span rel="tooltip" title="<%= [applicant.name].select{|i| not i.blank?}.join(' - ') %>" data-placement="left">
+<span rel="tooltip" title="<%= [applicant.name].select{|i| not i.blank?}.join(' - ') %>" data-placement="right">
 <% attended = (applicant.seminars.where(id: seminar.id).count == 1) %>
 <%= link_to simple_check(attended), attended_seminar_path(seminar, attended: (attended ? '0' : '1'), applicant_id: applicant.id), method: :post, remote: true %>
 </span>

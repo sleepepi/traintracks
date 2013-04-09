@@ -20,6 +20,22 @@ span.selected {
   border-radius: 5px;
 }
 
+td.warning {
+  background-color: #fcf8e3;
+}
+
+.table-striped tbody > tr:nth-child(odd) > td.warning {
+  background-color: #faf2cc;
+}
+
+td.error {
+  background-color: #f2dede;
+}
+
+.table-striped tbody > tr:nth-child(odd) > td.error {
+  background-color: #ebcccc;
+}
+
 /* To be removed if contour is updated with application field_error_proc */
 .control-group-error .control-label,
 .control-group-error .help-block,
