@@ -57,7 +57,7 @@ TrainingGrant::Application.routes.draw do
 
   resources :users
 
-  get "/about" => "application#about", as: :about
+  get "/about" => "sites#about", as: :about
   get "/settings" => "users#settings", as: :settings
   get "/dashboard" => "sites#dashboard", as: :dashboard
 
