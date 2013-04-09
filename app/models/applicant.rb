@@ -4,45 +4,45 @@ class Applicant < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :timeoutable, :confirmable,
          :recoverable, :rememberable, :trackable, :token_authenticatable, :lockable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  # # Setup accessible (or protected) attributes for your model
+  # attr_accessible :email, :password, :password_confirmation, :remember_me
 
-  # Applicant Information
-  attr_accessible :first_name, :last_name, :middle_initial, :applicant_type, :tge, :desired_start_date,
-                  :personal_statement, :alien_registration_number, :citizenship_status
+  # # Applicant Information
+  # attr_accessible :first_name, :last_name, :middle_initial, :applicant_type, :tge, :desired_start_date,
+  #                 :personal_statement, :alien_registration_number, :citizenship_status
 
-  # Uploaded Curriculum Vitae
-  attr_accessible :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache
+  # # Uploaded Curriculum Vitae
+  # attr_accessible :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache
 
-  # Education
-  attr_accessible :current_institution, :department_program, :current_position, :degrees_earned,
-                  :degree_sought, :expected_year, :residency, :research_interests, :research_interests_other,
-                  :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id,
-                  :previous_nrsa_support
+  # # Education
+  # attr_accessible :current_institution, :department_program, :current_position, :degrees_earned,
+  #                 :degree_sought, :expected_year, :residency, :research_interests, :research_interests_other,
+  #                 :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id,
+  #                 :previous_nrsa_support
 
-  # Demographic Information
-  attr_accessible :gender, :disabled, :disabled_description, :disadvantaged, :urm, :urm_types, :marital_status
+  # # Demographic Information
+  # attr_accessible :gender, :disabled, :disabled_description, :disadvantaged, :urm, :urm_types, :marital_status
 
-  # Contact Information
-  attr_accessible :phone, :address1, :address2, :city, :state, :country, :zip_code
+  # # Contact Information
+  # attr_accessible :phone, :address1, :address2, :city, :state, :country, :zip_code
 
-  # Applicant Assurance
-  attr_accessible :publish, :publish_annual, :assurance, :letters_from_a, :letters_from_b, :letters_from_c
+  # # Applicant Assurance
+  # attr_accessible :publish, :publish_annual, :assurance, :letters_from_a, :letters_from_b, :letters_from_c
 
-  # Administrator Only
-  attr_accessible :reviewed, :review_date, :offered, :accepted, :enrolled, :cv_number, :degree_type, :trainee_code,
-                  :status, :training_grant_years, :supported_by_tg, :training_period_start_date,
-                  :training_period_end_date, :notes, :primary_preceptor_id, :secondary_preceptor_id,
-                  :admin_update
+  # # Administrator Only
+  # attr_accessible :reviewed, :review_date, :offered, :accepted, :enrolled, :cv_number, :degree_type, :trainee_code,
+  #                 :status, :training_grant_years, :supported_by_tg, :training_period_start_date,
+  #                 :training_period_end_date, :notes, :primary_preceptor_id, :secondary_preceptor_id,
+  #                 :admin_update
 
-  # Termination Questions for Enrolled Applicants
-  attr_accessible :publish_termination, :future_email, :entrance_year, :t32_funded, :t32_funded_years,
-                  :academic_program_completed, :research_project_title, :laboratories, :immediate_transition,
-                  :transition_position, :transition_position_other, :termination_feedback,
-                  :certificate_application, :certificate_application_cache
+  # # Termination Questions for Enrolled Applicants
+  # attr_accessible :publish_termination, :future_email, :entrance_year, :t32_funded, :t32_funded_years,
+  #                 :academic_program_completed, :research_project_title, :laboratories, :immediate_transition,
+  #                 :transition_position, :transition_position_other, :termination_feedback,
+  #                 :certificate_application, :certificate_application_cache
 
-  # Legacy
-  attr_accessible :degrees_earned_old, :advisor, :concentration_major, :thesis, :degree_types # Will be removed
+  # # Legacy
+  # attr_accessible :degrees_earned_old, :advisor, :concentration_major, :thesis, :degree_types # Will be removed
 
   attr_accessor :publish, :publish_annual, :publish_termination, :admin_update
 
@@ -82,16 +82,16 @@ class Applicant < ActiveRecord::Base
   after_save :notify_preceptor
 
   # Named Scopes
-  scope :current, conditions: { deleted: false }
-  scope :search, lambda { |*args| { conditions: [ 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', '%' + args.first.downcase.split(' ').join('%') + '%', '%' + args.first.downcase.split(' ').join('%') + '%', '%' + args.first.downcase.split(' ').join('%') + '%' ] } }
-  scope :submitted_before, lambda { |*args| { conditions: ["applicants.originally_submitted_at < ?", (args.first+1.day).at_midnight]} }
-  scope :submitted_after, lambda { |*args| { conditions: ["applicants.originally_submitted_at >= ?", args.first.at_midnight]} }
-  scope :deprecated, lambda { |*args| { conditions: ["(degrees_earned_old != '' and degrees_earned_old IS NOT NULL) or
+  scope :current, -> { where deleted: false }
+  scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
+  scope :submitted_before, lambda { |arg| where( "applicants.originally_submitted_at < ?", (arg+1.day).at_midnight ) }
+  scope :submitted_after, lambda { |arg| where( "applicants.originally_submitted_at >= ?", arg.at_midnight ) }
+  scope :deprecated, -> { where( "(degrees_earned_old != '' and degrees_earned_old IS NOT NULL) or
                                                       (concentration_major != '' and concentration_major IS NOT NULL) or
                                                       (advisor != '' and advisor IS NOT NULL) or
                                                       (thesis != '' and thesis IS NOT NULL) or
-                                                      (degree_types != '--- []\n' and degree_types IS NOT NULL)"] } }
-  scope :current_trainee, lambda { current.where(enrolled: true, status: 'current') }
+                                                      (degree_types != '--- []\n' and degree_types IS NOT NULL)" ) }
+  scope :current_trainee, -> { current.where( enrolled: true, status: 'current' ) }
 
   # Model Validation
   validates_presence_of :first_name, :last_name
@@ -129,7 +129,7 @@ class Applicant < ActiveRecord::Base
   belongs_to :preferred_preceptor_three, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_three_id'
   belongs_to :primary_preceptor, class_name: 'Preceptor', foreign_key: 'primary_preceptor_id'
   belongs_to :secondary_preceptor, class_name: 'Preceptor', foreign_key: 'secondary_preceptor_id'
-  has_many :annuals, conditions: { deleted: false }, order: 'year DESC'
+  has_many :annuals, -> { where( deleted: false ).order('year DESC') }
   has_and_belongs_to_many :seminars
 
   # Applicant Methods

@@ -1,5 +1,5 @@
 class Annual < ActiveRecord::Base
-  attr_accessible :applicant_id, :coursework_completed, :nih_other_support, :nih_other_support_uploaded_at, :nih_other_support_cache, :presentations, :publications, :research_description, :source_of_support, :year, :publish, :user_id
+  # attr_accessible :applicant_id, :coursework_completed, :nih_other_support, :nih_other_support_uploaded_at, :nih_other_support_cache, :presentations, :publications, :research_description, :source_of_support, :year, :publish, :user_id
 
   attr_accessor :publish
 
@@ -8,9 +8,11 @@ class Annual < ActiveRecord::Base
   # Callbacks
   before_save :set_submitted_at
 
+  # Concerns
+  include Deletable
+
   # Named Scopes
-  scope :current, conditions: { deleted: false }
-  scope :search, lambda { |*args| { conditions: [ 'annuals.applicant_id in (select applicants.id from applicants where LOWER(applicants.first_name) LIKE ? or LOWER(applicants.last_name) LIKE ? or LOWER(applicants.email) LIKE ?)', '%' + args.first.downcase.split(' ').join('%') + '%', '%' + args.first.downcase.split(' ').join('%') + '%', '%' + args.first.downcase.split(' ').join('%') + '%' ] } }
+  scope :search, lambda { |arg| where( 'annuals.applicant_id in (select applicants.id from applicants where LOWER(applicants.first_name) LIKE ? or LOWER(applicants.last_name) LIKE ? or LOWER(applicants.email) LIKE ?)', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
 
   # Model Validation
   validates_presence_of :applicant_id, :user_id, :year
@@ -26,10 +28,6 @@ class Annual < ActiveRecord::Base
 
   def name
     "#{self.year}"
-  end
-
-  def destroy
-    update_column :deleted, true
   end
 
   def publish?

@@ -4,28 +4,28 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name
-
   # Callbacks
   after_create :notify_system_admins
 
   STATUS = ["active", "denied", "inactive", "pending"].collect{|i| [i,i]}
 
+  # Concerns
+  include Contourable
+
   # Named Scopes
-  scope :current, conditions: { deleted: false }
-  scope :status, lambda { |*args|  { conditions: ["users.status IN (?)", args.first] } }
-  scope :search, lambda { |*args| { conditions: [ 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', '%' + args.first.downcase.split(' ').join('%') + '%', '%' + args.first.downcase.split(' ').join('%') + '%', '%' + args.first.downcase.split(' ').join('%') + '%' ] } }
-  scope :system_admins, conditions: { system_admin: true }
-  scope :administrators, conditions: { administrator: true }
+  scope :current, -> { where deleted: false }
+  scope :status, lambda { |arg|  where( status: arg ) }
+  scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
+  scope :system_admins, -> { where system_admin: true }
+  scope :administrators, -> { where administrator: true }
 
   # Model Validation
   validates_presence_of :first_name, :last_name
 
   # Model Relationships
   has_many :authentications
-  has_many :annuals, conditions: { deleted: false }
-  has_many :seminars, conditions: { deleted: false }
+  has_many :annuals, -> { where deleted: false }
+  has_many :seminars, -> { where deleted: false }
 
   # User Methods
   # Overriding Devise built-in active_for_authentication? method
@@ -75,17 +75,13 @@ class User < ActiveRecord::Base
     "#{last_name}, #{first_name}"
   end
 
+  # Override of Contourable
   def apply_omniauth(omniauth)
     unless omniauth['info'].blank?
-      self.email = omniauth['info']['email'] if email.blank?
       self.first_name = omniauth['info']['first_name'] if first_name.blank?
       self.last_name = omniauth['info']['last_name'] if last_name.blank?
     end
-    authentications.build( provider: omniauth['provider'], uid: omniauth['uid'] )
-  end
-
-  def password_required?
-    (authentications.empty? || !password.blank?) && super
+    super
   end
 
   private
