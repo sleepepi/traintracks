@@ -2,7 +2,7 @@
 <div class="pull-right"><%= link_to "Help", '#', class: 'btn btn-info', data: { object: 'modal-show', target: '#help_email_modal' } %></div>
 
 <% form_name = "edit_applicant_#{current_applicant.id}" %>
-<%= form_for(current_applicant, url: update_me_applicants_path, html: { id: form_name, class: 'form-horizontal' }) do |f| %>
+<%= form_for current_applicant, url: update_me_applicants_path, method: :put, html: { id: form_name, class: 'form-horizontal' } do |f| %>
   <% if current_applicant.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(current_applicant.errors.count, "error") %> prohibited this applicant from being saved:</h2>

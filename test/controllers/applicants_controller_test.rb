@@ -9,14 +9,12 @@ class ApplicantsControllerTest < ActionController::TestCase
   test "should get csv" do
     get :index, format: 'csv'
     assert_not_nil assigns(:csv_string)
-    assert_not_nil assigns(:applicant_count)
     assert_response :success
   end
 
   # Currently no fixtures have enrolled trainees
   test "should not get csv if no applicants are selected" do
     get :index, format: 'csv', enrolled: 'only'
-    assert_equal 0, assigns(:applicant_count)
     assert_nil assigns(:csv_string)
     assert_equal flash[:alert], 'No data was exported since no applicants matched the specified filters.'
     assert_redirected_to applicants_path
