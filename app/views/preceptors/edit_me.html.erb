@@ -3,7 +3,7 @@
   <h1><%= @title %></h1>
 </div>
 
-<%= form_for current_preceptor, url: update_me_preceptors_path, html: { class: 'form-horizontal' } do |f| %>
+<%= form_for current_preceptor, url: update_me_preceptors_path, method: :put, html: { class: 'form-horizontal' } do |f| %>
   <% if current_preceptor.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(current_preceptor.errors.count, "error") %> prohibited this preceptor from being saved:</h2>

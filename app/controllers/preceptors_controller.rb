@@ -1,8 +1,10 @@
 class PreceptorsController < ApplicationController
-  before_action :authenticate_user!, except: [:dashboard, :edit_me, :update_me]
-  before_action :check_administrator, except: [:dashboard, :edit_me, :update_me]
+  before_action :authenticate_user!, except: [ :dashboard, :edit_me, :update_me ]
+  before_action :check_administrator, except: [ :dashboard, :edit_me, :update_me ]
+  before_action :authenticate_preceptor!, only: [ :dashboard, :edit_me, :update_me ]
+  before_action :set_preceptor, only: [ :show, :edit, :update, :destroy, :email ]
+  before_action :redirect_without_preceptor, only: [ :show, :edit, :update, :destroy, :email ]
 
-  before_action :authenticate_preceptor!, only: [:dashboard, :edit_me, :update_me]
 
   def dashboard
 
@@ -14,11 +16,11 @@ class PreceptorsController < ApplicationController
 
   def update_me
     respond_to do |format|
-      if current_preceptor.update_attributes(post_params)
+      if current_preceptor.update(preceptor_params)
         format.html { redirect_to dashboard_preceptors_path, notice: 'Preceptor information successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit_me" }
+        format.html { render action: 'edit_me' }
         format.json { render json: current_preceptor.errors, status: :unprocessable_entity }
       end
     end
@@ -32,18 +34,11 @@ class PreceptorsController < ApplicationController
   end
 
   def index
-    # current_user.update_column :preceptors_per_page, params[:preceptors_per_page].to_i if params[:preceptors_per_page].to_i >= 10 and params[:preceptors_per_page].to_i <= 200
-    preceptor_scope = Preceptor.current # current_user.all_viewable_preceptors
-    @search_terms = params[:search].to_s.gsub(/[^0-9a-zA-Z]/, ' ').split(' ')
-    @search_terms.each{|search_term| preceptor_scope = preceptor_scope.search(search_term) }
-
     @order = scrub_order(Preceptor, params[:order], 'preceptors.last_name')
-    preceptor_scope = preceptor_scope.order(@order)
-
-    @preceptor_count = preceptor_scope.count
+    preceptor_scope = Preceptor.current.search(params[:search]).order(@order)
 
     if params[:format] == 'csv'
-      if @preceptor_count == 0
+      if preceptor_scope.count == 0
         redirect_to preceptors_path, alert: 'No data was exported since no preceptors matched the specified filters.'
         return
       end
@@ -51,49 +46,36 @@ class PreceptorsController < ApplicationController
       return
     end
 
-    @preceptors = preceptor_scope.page(params[:page]).per( 40 ) #current_user.preceptors_per_page)
+    @preceptors = preceptor_scope.page(params[:page]).per( 40 )
   end
 
   # GET /preceptors/1
   # GET /preceptors/1.json
   def show
-    @preceptor = Preceptor.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @preceptor }
-    end
   end
 
   # GET /preceptors/new
-  # GET /preceptors/new.json
   def new
     @preceptor = Preceptor.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @preceptor }
-    end
   end
 
   # GET /preceptors/1/edit
   def edit
-    @preceptor = Preceptor.find(params[:id])
   end
 
   # POST /preceptors
   # POST /preceptors.json
   def create
-    @preceptor = Preceptor.new(post_params)
+    @preceptor = Preceptor.new(preceptor_params)
 
     @preceptor.skip_confirmation!
 
     respond_to do |format|
       if @preceptor.save
         format.html { redirect_to @preceptor, notice: 'Preceptor was successfully created.' }
-        format.json { render json: @preceptor, status: :created, location: @preceptor }
+        format.json { render action: 'show', status: :created, location: @preceptor }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
         format.json { render json: @preceptor.errors, status: :unprocessable_entity }
       end
     end
@@ -102,22 +84,15 @@ class PreceptorsController < ApplicationController
   # PUT /preceptors/1
   # PUT /preceptors/1.json
   def update
-    @preceptor = Preceptor.find_by_id(params[:id])
-
-    @preceptor.skip_reconfirmation! if @preceptor
+     @preceptor.skip_reconfirmation!
 
     respond_to do |format|
-      if @preceptor
-        if @preceptor.update_attributes(post_params)
-          format.html { redirect_to @preceptor, notice: 'Preceptor was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: "edit" }
-          format.json { render json: @preceptor.errors, status: :unprocessable_entity }
-        end
-      else
-        format.html { redirect_to preceptors_path }
+      if @preceptor.update(preceptor_params)
+        format.html { redirect_to @preceptor, notice: 'Preceptor was successfully updated.' }
         format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @preceptor.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -125,8 +100,7 @@ class PreceptorsController < ApplicationController
   # DELETE /preceptors/1
   # DELETE /preceptors/1.json
   def destroy
-    @preceptor = Preceptor.find_by_id(params[:id])
-    @preceptor.destroy if @preceptor
+    @preceptor.destroy
 
     respond_to do |format|
       format.html { redirect_to preceptors_path }
@@ -136,41 +110,46 @@ class PreceptorsController < ApplicationController
 
   private
 
-  def post_params
-    params[:preceptor] ||= {}
-    [].each do |date|
-      params[:preceptor][date] = parse_date(params[:preceptor][date])
+    def set_preceptor
+      @preceptor = Preceptor.find_by_id(params[:id])
     end
 
-    if current_user and current_user.administrator?
-      params[:preceptor]
-    else
-      params[:preceptor].slice(
-        :email, :password, :password_confirmation, :remember_me, :degree, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :other_support, :other_support_cache, :program_role, :rank, :research_interest
-      )
+    def redirect_without_preceptor
+      empty_response_or_root_path(preceptors_path) unless @preceptor
     end
-  end
 
-def generate_csv(preceptor_scope)
-    @csv_string = CSV.generate do |csv|
-      csv << [
-        'Preceptor ID',
-        # Preceptor Information
-        'Email', 'Last Name', 'First Name', 'Status', 'Degree', 'Hospital Affiliation', 'Hospital Appointment', 'Rank', 'Research Interest', 'Program Role'
-     ]
+    def preceptor_params
+      params[:preceptor] ||= {}
 
-      preceptor_scope.each do |p|
-        row = [
-          p.id,
-          # Preceptor Information
-          p.email, p.last_name, p.first_name, p.status, p.degree, p.hospital_affiliation, p.hospital_appointment, p.rank, p.research_interest, p.program_role
-        ]
-        csv << row
+      if current_user and current_user.administrator?
+        params.require(:preceptor).permit!
+      else
+        params.require(:preceptor).permit(
+          :email, :password, :password_confirmation, :remember_me, :degree, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :other_support, :other_support_cache, :program_role, :rank, :research_interest
+        )
       end
     end
 
-    send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
-                           disposition: "attachment; filename=\"Training Grant Preceptors #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
-  end
+  def generate_csv(preceptor_scope)
+      @csv_string = CSV.generate do |csv|
+        csv << [
+          'Preceptor ID',
+          # Preceptor Information
+          'Email', 'Last Name', 'First Name', 'Status', 'Degree', 'Hospital Affiliation', 'Hospital Appointment', 'Rank', 'Research Interest', 'Program Role'
+       ]
+
+        preceptor_scope.each do |p|
+          row = [
+            p.id,
+            # Preceptor Information
+            p.email, p.last_name, p.first_name, p.status, p.degree, p.hospital_affiliation, p.hospital_appointment, p.rank, p.research_interest, p.program_role
+          ]
+          csv << row
+        end
+      end
+
+      send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
+                             disposition: "attachment; filename=\"Training Grant Preceptors #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+    end
 
 end
