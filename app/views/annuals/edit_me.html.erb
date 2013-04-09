@@ -11,7 +11,7 @@
   </p>
 </div>
 
-<%= form_for(@annual, url: update_me_annual_path(@annual), html: { class: 'form-horizontal' }) do |f| %>
+<%= form_for @annual, url: update_me_annual_path(@annual), method: :put, html: { class: 'form-horizontal' } do |f| %>
 
   <% @applicant = current_applicant %>
 
