@@ -29,4 +29,13 @@ class ApplicationController < ActionController::Base
     redirect_to dashboard_applicants_path if applicant_signed_in?
     redirect_to dashboard_preceptors_path if preceptor_signed_in?
   end
+
+  def empty_response_or_root_path(path = root_path)
+    respond_to do |format|
+      format.html { redirect_to path }
+      format.js { render nothing: true }
+      format.json { head :no_content }
+    end
+  end
+
 end
