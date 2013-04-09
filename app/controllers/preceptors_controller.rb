@@ -28,7 +28,6 @@ class PreceptorsController < ApplicationController
 
   # Sends email to preceptor containg authentication token
   def email
-    @preceptor = Preceptor.find(params[:id])
     @preceptor.update_general_information_email!(current_user)
     redirect_to @preceptor, notice: 'Preceptor has been notified by email to update application information.'
   end
