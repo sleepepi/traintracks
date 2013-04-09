@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
-  before_filter :reroute_applicant_and_preceptor, only: [ :dashboard ]
-  before_filter :authenticate_user!, except: [ :about ]
+  before_action :reroute_applicant_and_preceptor, only: [ :dashboard ]
+  before_action :authenticate_user!, except: [ :about ]
 
   def about
 

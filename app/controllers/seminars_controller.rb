@@ -1,6 +1,6 @@
 class SeminarsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :check_administrator
+  before_action :authenticate_user!
+  before_action :check_administrator
 
   def attendance
     applicant_scope = Applicant.current.where(enrolled: true)

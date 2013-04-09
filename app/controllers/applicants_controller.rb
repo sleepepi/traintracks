@@ -1,8 +1,8 @@
 class ApplicantsController < ApplicationController
-  before_filter :authenticate_user!, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :add_degree, :help_email]
-  before_filter :check_administrator, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :add_degree, :help_email]
+  before_action :authenticate_user!, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :add_degree, :help_email]
+  before_action :check_administrator, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :add_degree, :help_email]
 
-  before_filter :authenticate_applicant!, only: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :help_email]
+  before_action :authenticate_applicant!, only: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :help_email]
 
   def help_email
     UserMailer.help_email(current_applicant, params[:subject], params[:body]).deliver if Rails.env.production?

@@ -1,8 +1,8 @@
 class AnnualsController < ApplicationController
-  before_filter :authenticate_user!, except: [:edit_me, :update_me]
-  before_filter :check_administrator, except: [:edit_me, :update_me]
+  before_action :authenticate_user!, except: [:edit_me, :update_me]
+  before_action :check_administrator, except: [:edit_me, :update_me]
 
-  before_filter :authenticate_applicant!, only: [:edit_me, :update_me]
+  before_action :authenticate_applicant!, only: [:edit_me, :update_me]
 
   # GET /annuals
   # GET /annuals.json

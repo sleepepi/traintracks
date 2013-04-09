@@ -1,8 +1,8 @@
 class PreceptorsController < ApplicationController
-  before_filter :authenticate_user!, except: [:dashboard, :edit_me, :update_me]
-  before_filter :check_administrator, except: [:dashboard, :edit_me, :update_me]
+  before_action :authenticate_user!, except: [:dashboard, :edit_me, :update_me]
+  before_action :check_administrator, except: [:dashboard, :edit_me, :update_me]
 
-  before_filter :authenticate_preceptor!, only: [:dashboard, :edit_me, :update_me]
+  before_action :authenticate_preceptor!, only: [:dashboard, :edit_me, :update_me]
 
   def dashboard
 
