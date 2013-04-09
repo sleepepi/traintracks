@@ -57,9 +57,9 @@ TrainingGrant::Application.routes.draw do
 
   resources :users
 
-  match "/about" => "sites#about", as: :about
-  match "/settings" => "users#settings", as: :settings
-  match "/dashboard" => "sites#dashboard", as: :dashboard
+  get "/about" => "application#about", as: :about
+  get "/settings" => "users#settings", as: :settings
+  get "/dashboard" => "sites#dashboard", as: :dashboard
 
   root to: 'sites#dashboard'
 

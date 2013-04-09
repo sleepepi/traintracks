@@ -4,7 +4,7 @@
 [![Dependency Status](https://gemnasium.com/remomueller/training_grant.png)](https://gemnasium.com/remomueller/training_grant)
 [![Code Climate](https://codeclimate.com/github/remomueller/training_grant.png)](https://codeclimate.com/github/remomueller/training_grant)
 
-Training Grant Management Application that manages new applicants, trainees, and preceptors over a 10-year time period. Using Rails 3.2+ and Ruby 2.0.0+.
+Training Grant Management Application that manages new applicants, trainees, and preceptors over a 10-year time period. Using Rails 4.0+ and Ruby 2.0.0+.
 
 ## Installation
 
