@@ -1,13 +1,14 @@
 class SeminarsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_administrator
+  before_action :set_viewable_seminar, only: [ :show ]
+  before_action :set_editable_seminar, only: [ :edit, :update, :destroy ]
+  before_action :redirect_without_seminar, only: [ :show, :edit, :update, :destroy ]
+
 
   def attendance
-    applicant_scope = Applicant.current.where(enrolled: true)
-    applicant_scope = applicant_scope.where(status: params[:status]) unless params[:status].blank?
-
-    @applicants = applicant_scope
-    @year = params[:year].to_i || (Date.today.month > 6 ? Date.today.year + 1 : Date.today.year)
+    @applicants = Applicant.current.where(enrolled: true).where(status: (params[:status].blank? ? Applicant::STATUS.flatten.uniq : params[:status]))
+    @year = params[:year].blank? ? (Date.today.month > 6 ? Date.today.year + 1 : Date.today.year) : params[:year].to_i
     @seminars = Seminar.current.date_after(Date.parse("#{@year-1}-07-01")).date_before(Date.parse("#{@year}-06-30"))
 
     if params[:format] == 'csv'
@@ -34,63 +35,35 @@ class SeminarsController < ApplicationController
   # GET /seminars
   # GET /seminars.json
   def index
-    seminar_scope = current_user.all_viewable_seminars
     @order = scrub_order(Seminar, params[:order], "seminars.presentation_date DESC")
-    seminar_scope = seminar_scope.order(@order)
-    @seminar_count = seminar_scope.count
-    @seminars = seminar_scope.page(params[:page]).per( 20 )
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.js
-      format.json { render json: @seminars }
-    end
+    @seminars = current_user.all_viewable_seminars.order(@order).page(params[:page]).per( 20 )
   end
 
   # GET /seminars/1
   # GET /seminars/1.json
   def show
-    @seminar = current_user.all_viewable_seminars.find_by_id(params[:id])
-
-    respond_to do |format|
-      if @seminar
-        format.html # show.html.erb
-        format.json { render json: @seminar }
-      else
-        format.html { redirect_to seminars_path }
-        format.json { head :no_content }
-      end
-    end
   end
 
   # GET /seminars/new
-  # GET /seminars/new.json
   def new
     @seminar = current_user.seminars.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @seminar }
-    end
   end
 
   # GET /seminars/1/edit
   def edit
-    @seminar = current_user.all_seminars.find_by_id(params[:id])
-    redirect_to seminars_path unless @seminar
   end
 
   # POST /seminars
   # POST /seminars.json
   def create
-    @seminar = current_user.seminars.new(post_params)
+    @seminar = current_user.seminars.new(seminar_params)
 
     respond_to do |format|
       if @seminar.save
         format.html { redirect_to @seminar, notice: 'Seminar was successfully created.' }
-        format.json { render json: @seminar, status: :created, location: @seminar }
+        format.json { render action: 'show', status: :created, location: @seminar }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
         format.json { render json: @seminar.errors, status: :unprocessable_entity }
       end
     end
@@ -99,20 +72,13 @@ class SeminarsController < ApplicationController
   # PUT /seminars/1
   # PUT /seminars/1.json
   def update
-    @seminar = current_user.all_seminars.find_by_id(params[:id])
-
     respond_to do |format|
-      if @seminar
-        if @seminar.update_attributes(post_params)
-          format.html { redirect_to @seminar, notice: 'Seminar was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: "edit" }
-          format.json { render json: @seminar.errors, status: :unprocessable_entity }
-        end
-      else
-        format.html { redirect_to seminars_path }
+      if @seminar.update(seminar_params)
+        format.html { redirect_to @seminar, notice: 'Seminar was successfully updated.' }
         format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @seminar.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -120,8 +86,7 @@ class SeminarsController < ApplicationController
   # DELETE /seminars/1
   # DELETE /seminars/1.json
   def destroy
-    @seminar = current_user.all_seminars.find_by_id(params[:id])
-    @seminar.destroy if @seminar
+    @seminar.destroy
 
     respond_to do |format|
       format.html { redirect_to seminars_path }
@@ -131,63 +96,75 @@ class SeminarsController < ApplicationController
 
   private
 
-  def post_params
-    params[:seminar] ||= {}
-
-    params[:seminar][:presentation_date] = parse_date(params[:seminar][:presentation_date])
-
-    begin
-      t = Time.parse(params[:seminar][:presentation_time])
-      params[:seminar][:presentation_date] = Time.parse(params[:seminar][:presentation_date].strftime("%Y-%m-%d ") + params[:seminar][:presentation_time])
-    rescue
-      # Do nothing
+    def set_viewable_seminar
+      @seminar = current_user.all_viewable_seminars.find_by_id(params[:id])
     end
 
-    params[:seminar].slice(
-      :category, :presenter, :presentation_title, :presentation_date, :duration, :duration_units
-    )
-  end
+    def set_editable_seminar
+      @seminar = current_user.all_seminars.find_by_id(params[:id])
+    end
 
-  def generate_csv(applicants, year, seminars)
-    @csv_string = CSV.generate do |csv|
-      category_header_row = [""]
-      header_row = [""]
+    def redirect_without_seminar
+      empty_response_or_root_path(seminars_path) unless @seminar
+    end
 
-      @seminars.group_by{|s| s.category}.each do |category, seminars|
-        seminars.sort_by{ |s| s.presentation_date }.each_with_index do |seminar, index|
-          category_header_row << (index == 0 ? category : "")
-          header_row << seminar.presentation_date.to_date
-        end
+
+    def seminar_params
+      params[:seminar] ||= {}
+
+      params[:seminar][:presentation_date] = parse_date(params[:seminar][:presentation_date])
+
+      begin
+        t = Time.parse(params[:seminar][:presentation_time])
+        params[:seminar][:presentation_date] = Time.parse(params[:seminar][:presentation_date].strftime("%Y-%m-%d ") + params[:seminar][:presentation_time])
+      rescue
+        # Do nothing
       end
 
-      csv << category_header_row
-      csv << header_row
+      params.require(:seminar).permit(
+        :category, :presenter, :presentation_title, :presentation_date, :duration, :duration_units
+      )
+    end
 
-      applicants.each do |a|
-        row = [ a.reverse_name ]
+    def generate_csv(applicants, year, seminars)
+      @csv_string = CSV.generate do |csv|
+        category_header_row = [""]
+        header_row = [""]
+
         @seminars.group_by{|s| s.category}.each do |category, seminars|
-          seminars.sort_by{ |s| s.presentation_date }.each do |seminar|
-            row << (a.seminars.where(id: seminar.id).count == 1 ? "X" : "")
+          seminars.sort_by{ |s| s.presentation_date }.each_with_index do |seminar, index|
+            category_header_row << (index == 0 ? category : "")
+            header_row << seminar.presentation_date.to_date
           end
         end
 
-        csv << row
-      end
+        csv << category_header_row
+        csv << header_row
 
-      csv << [""]
+        applicants.each do |a|
+          row = [ a.reverse_name ]
+          @seminars.group_by{|s| s.category}.each do |category, seminars|
+            seminars.sort_by{ |s| s.presentation_date }.each do |seminar|
+              row << (a.seminars.where(id: seminar.id).count == 1 ? "X" : "")
+            end
+          end
 
-      @seminars.group_by{|s| s.category}.each do |category, seminars|
+          csv << row
+        end
+
         csv << [""]
-        csv << [category]
-        seminars.sort_by{ |s| s.presentation_date }.each do |seminar|
-          csv << [seminar.presenter, seminar.presentation_date_with_time, seminar.presentation_title]
+
+        @seminars.group_by{|s| s.category}.each do |category, seminars|
+          csv << [""]
+          csv << [category]
+          seminars.sort_by{ |s| s.presentation_date }.each do |seminar|
+            csv << [seminar.presenter, seminar.presentation_date_with_time, seminar.presentation_title]
+          end
         end
       end
+
+      send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
+                             disposition: "attachment; filename=\"Training Grant Attendance #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
     end
-
-    send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
-                           disposition: "attachment; filename=\"Training Grant Attendance #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
-  end
-
 
 end

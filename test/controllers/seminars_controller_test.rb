@@ -40,7 +40,7 @@ class SeminarsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:applicant)
     assert_equal 1, assigns(:applicant).seminars.where(id: @seminar.id).count
 
-    assert_template 'attendance'
+    assert_template 'attended'
     assert_response :success
   end
 
@@ -51,7 +51,7 @@ class SeminarsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:applicant)
     assert_equal 0, assigns(:applicant).seminars.where(id: @seminar.id).count
 
-    assert_template 'attendance'
+    assert_template 'attended'
     assert_response :success
   end
 
