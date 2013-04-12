@@ -1,4 +1,4 @@
-## 0.7.0
+## 0.7.0 (April 12, 2013)
 
 ### Enhancements
 - **Attendance Changes**
