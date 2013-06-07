@@ -1,5 +1,11 @@
 ## 0.7.1
 
+### Enhancements
+- Use of Ruby 2.0.0-p195 is now recommended
+- **Gem Changes**
+  - Updated to rails 4.0.0.rc1
+  - Updated to contour 2.0.0.beta.8
+
 ## 0.7.0 (April 12, 2013)
 
 ### Enhancements
