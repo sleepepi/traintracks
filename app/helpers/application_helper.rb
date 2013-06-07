@@ -43,7 +43,7 @@ module ApplicationHelper
   end
 
   def simple_check(checked)
-    checked ? '<i class="icon-ok"></i>'.html_safe : ''
+    checked ? '<i class="icon-ok"></i>'.html_safe : '<i class="icon-check icon-white"></i>'.html_safe
   end
 
 end
