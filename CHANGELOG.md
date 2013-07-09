@@ -1,4 +1,4 @@
-## 0.7.2
+## 0.7.2 (July 9, 2013)
 
 ### Enhancements
 - Use of Ruby 2.0.0-p247 is now recommended
