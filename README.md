@@ -53,7 +53,7 @@ All done!
 Edit Cron Jobs `sudo crontab -e` to run the task `lib/tasks/seminar_reminder_email.rake`
 
 ```console
-0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/training_grant && /usr/local/rvm/gems/ruby-2.0.0-p195/bin/bundle exec rake seminar_reminder_email RAILS_ENV=production
+0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/training_grant && /usr/local/rvm/gems/ruby-2.0.0-p247/bin/bundle exec rake seminar_reminder_email RAILS_ENV=production
 ```
 
 ## Contributing to Training Grant
