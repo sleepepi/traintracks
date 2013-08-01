@@ -2,6 +2,7 @@
 
 ### Enhancements
 - **Gem Changes**
+  - Updated to contour 2.0.0
   - Updated to mysql2 0.3.13
 
 ## 0.7.2 (July 9, 2013)
