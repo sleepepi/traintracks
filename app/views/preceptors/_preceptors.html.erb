@@ -5,13 +5,9 @@
     <tr>
       <th>Name</th>
       <th>Email</th>
-      <th>Degree</th>
       <th>Status</th>
       <th>Hospital affiliation</th>
-      <th>Hospital appointment</th>
-      <th>Other support</th>
       <th>Rank</th>
-      <th>Research interest</th>
       <th>Program role</th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'preceptors.current_sign_in_at', 'Recent Activity', 'preceptors_search') %></th>
       <th>Actions</th>
@@ -22,19 +18,9 @@
     <tr>
       <td><%= link_to preceptor.name, preceptor %></td>
       <td><%= preceptor.email %></td>
-      <td><%= preceptor.degree %></td>
       <td><%= preceptor.status %></td>
       <td><%= preceptor.hospital_affiliation %></td>
-      <td><%= preceptor.hospital_appointment %></td>
-      <td>
-        <% if preceptor.other_support.size > 0 %>
-          <% full_url = "#{request.script_name}#{preceptor.other_support.url}" %>
-          <%= link_to preceptor.other_support_url.split('/').last, full_url, target: '_blank', class: 'btn btn-mini' %>
-          <%= number_to_human_size(preceptor.other_support.size) %>
-        <% end %>
-      </td>
       <td><%= preceptor.rank %></td>
-      <td><%= preceptor.research_interest %></td>
       <td><%= preceptor.program_role %></td>
       <td><%= recent_activity(preceptor.current_sign_in_at) %></td>
       <td>
