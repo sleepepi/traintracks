@@ -1,10 +1,9 @@
-<% @title = "Annual: #{@annual.name}" %>
+<% @title = @annual.name %>
 <div class="page-header">
   <h1>
-    <%= @title %>
+    <%= link_to "Annuals", annuals_path %> &middot; <%= @title %>
     <%= link_to "Edit Annual", edit_annual_path(@annual), class: 'btn btn-mini' %>
     <%= link_to "Delete Annual", @annual, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Annual #{@annual.name}?" } %>
-    <%= link_to "View Annuals", annuals_path, class: 'btn btn-mini' %>
   </h1>
 </div>
 

@@ -1,10 +1,9 @@
-<% @title = "Applicant: #{@applicant.name}" %>
+<% @title = @applicant.name %>
 <div class="page-header">
   <h1>
-    <%= @title %>
+    <%= link_to "Applicants", applicants_path %> &middot; <%= @title %>
     <%= link_to "Edit Applicant", edit_applicant_path(@applicant), class: 'btn btn-mini' %>
     <%= link_to "Delete Applicant", @applicant, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Applicant #{@applicant.name}?" } %>
-    <%= link_to "View Applicants", applicants_path, class: 'btn btn-mini' %>
     <%= link_to "Email Applicant Link", email_applicant_path(@applicant), method: :post, class: 'btn btn-mini' %>
     <%= link_to 'Annual Reminder Email', '#', class: 'btn btn-mini', data: { target: '#send_email_modal', object: 'modal-show' } %>
     <%= link_to 'Exit Interview Email', termination_email_applicant_path(@applicant), method: :post, class: 'btn btn-mini' if @applicant.enrolled? %>
