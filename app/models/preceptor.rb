@@ -11,8 +11,11 @@ class Preceptor < ActiveRecord::Base
   #                 :other_support, :other_support_cache
 
   mount_uploader :other_support, DocumentUploader
+  mount_uploader :biosketch, DocumentUploader
+  mount_uploader :curriculum_vitae, DocumentUploader
 
   STATUS = ["current", "former"].collect{|i| [i,i]}
+  RANK = ["Associate Preceptor", "Full Preceptor"].collect{|i| [i,i]}
 
   # Callbacks
   before_validation :set_password

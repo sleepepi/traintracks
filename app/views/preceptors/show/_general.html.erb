@@ -32,6 +32,24 @@
   <dt>Hospital appointment</dt>
   <dd><%= preceptor.hospital_appointment %></dd>
 
+  <dt>NIH Biosketch</dt>
+  <dd>
+    <% if preceptor.biosketch.size > 0 %>
+      <% full_url = "#{request.script_name}#{preceptor.biosketch.url}" %>
+      <%= link_to preceptor.biosketch_url.split('/').last, full_url, target: '_blank', class: 'btn btn-mini' %>
+      <%= number_to_human_size(preceptor.biosketch.size) %>
+    <% end %>
+  </dd>
+
+  <dt>Curriculum Vitae</dt>
+  <dd>
+    <% if preceptor.curriculum_vitae.size > 0 %>
+      <% full_url = "#{request.script_name}#{preceptor.curriculum_vitae.url}" %>
+      <%= link_to preceptor.curriculum_vitae_url.split('/').last, full_url, target: '_blank', class: 'btn btn-mini' %>
+      <%= number_to_human_size(preceptor.curriculum_vitae.size) %>
+    <% end %>
+  </dd>
+
   <dt>Other support</dt>
   <dd>
     <% if preceptor.other_support.size > 0 %>

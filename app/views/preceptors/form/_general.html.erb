@@ -32,6 +32,10 @@
   <%= f.label :degree, class: 'control-label' %>
   <div class="controls">
     <%= f.text_field :degree %>
+    <span class="help-block">
+      <span class="label label-info">Example</span>
+      <code style="color: #777">"M.D., Ph.D."</code>
+    </span>
   </div>
 </div>
 
@@ -50,18 +54,41 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :other_support, 'Other support (PDF, Word)', class: 'control-label' %>
+  <%= f.label :biosketch, 'NIH Biosketch (PDF, Word)', class: 'control-label' %>
   <div class="controls">
-    <%= f.file_field :other_support %>
+    <%= f.file_field :biosketch %>
+    <%= f.hidden_field :biosketch_cache %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :rank, class: 'control-label' %>
+  <%= f.label :curriculum_vitae, 'Curriculum Vitae (PDF, Word)', class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :rank %>
+    <%= f.file_field :curriculum_vitae %>
+    <%= f.hidden_field :curriculum_vitae_cache %>
   </div>
 </div>
+
+<div class="control-group">
+  <%= f.label :other_support, 'Other support (PDF, Word)', class: 'control-label' %>
+  <div class="controls">
+    <%= f.file_field :other_support %>
+    <%= f.hidden_field :other_support_cache %>
+    <span class="help-block">
+      <span class="label label-info">Example</span>
+      <%= link_to 'Other-Support.doc', "#{root_path}Other-Support.doc", class: 'btn btn-mini', target: '_blank' %>
+    </span>
+  </div>
+</div>
+
+<% if user_signed_in? and current_user.administrator? %>
+  <div class="control-group">
+    <%= f.label :rank, class: 'control-label' %>
+    <div class="controls">
+      <%= f.select :rank, options_for_select([['---', nil]] + Preceptor::RANK) %>
+    </div>
+  </div>
+<% end %>
 
 <div class="control-group">
   <%= f.label :research_interest, class: 'control-label' %>

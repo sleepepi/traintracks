@@ -124,7 +124,7 @@ class PreceptorsController < ApplicationController
         params.require(:preceptor).permit!
       else
         params.require(:preceptor).permit(
-          :email, :password, :password_confirmation, :remember_me, :degree, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :other_support, :other_support_cache, :program_role, :rank, :research_interest
+          :email, :password, :password_confirmation, :remember_me, :degree, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :other_support, :other_support_cache, :program_role, :research_interest, :biosketch, :biosketch_cache, :curriculum_vitae, :curriculum_vitae_cache
         )
       end
     end

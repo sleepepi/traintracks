@@ -3,6 +3,11 @@
 ### Enhancements
 - **Applicant Changes**
   - Preceptors are now listed alphabetically by last name in dropdowns
+- **Preceptor Changes**
+  - Added example to degree field
+  - Added example `Other-Support.doc` to Other Support field
+  - Rank is now only editable by administrator and changed to dropdown with choices `Associate Preceptor` and `Full Preceptor`
+  - Added Biosketch and Curriculum Vitae to preceptor file uploads
 - Added calendar icons to date input fields
 - **Gem Changes**
   - Updated to contour 2.0.0
