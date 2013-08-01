@@ -1,5 +1,9 @@
 ## 0.8.0
 
+### Enhancements
+- **Gem Changes**
+  - Updated to mysql2 0.3.13
+
 ## 0.7.2 (July 9, 2013)
 
 ### Enhancements
