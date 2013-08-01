@@ -142,7 +142,7 @@
 <div class="control-group">
   <%= f.label :preferred_preceptor_id, nil, class: 'control-label' %>
   <div class="controls">
-    <%= f.select :preferred_preceptor_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
+    <%= f.select :preferred_preceptor_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]} %>
     <span class="help-block">
       <span class="label label-info">Important!</span>
       Each faculty member will be notified upon your submission of your application.
@@ -153,14 +153,14 @@
 <div class="control-group">
   <%= f.label :preferred_preceptor_two_id, 'Second Preferred Preceptor', class: 'control-label' %>
   <div class="controls">
-    <%= f.select :preferred_preceptor_two_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
+    <%= f.select :preferred_preceptor_two_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]} %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :preferred_preceptor_three_id, 'Third Preferred Preceptor', class: 'control-label' %>
   <div class="controls">
-    <%= f.select :preferred_preceptor_three_id, [['---', nil]] + Preceptor.current.collect{|p| [p.name, p.id]} %>
+    <%= f.select :preferred_preceptor_three_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]} %>
   </div>
 </div>
 

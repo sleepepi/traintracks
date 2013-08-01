@@ -1,6 +1,8 @@
 ## 0.8.0
 
 ### Enhancements
+- **Applicant Changes**
+  - Preceptors are now listed alphabetically by last name in dropdowns
 - **Gem Changes**
   - Updated to contour 2.0.0
   - Updated to mysql2 0.3.13
