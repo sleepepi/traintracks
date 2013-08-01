@@ -13,7 +13,7 @@
       <td><%= link_to hospital.name, hospital %></td>
       <td>
         <%= link_to 'Edit', edit_hospital_path(hospital), class: 'btn btn-mini' %>
-        <%= link_to 'Delete', hospital, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Hospital #{hospital.name}?" } %>
+        <%= link_to 'Delete', hospital, method: :delete, class: 'btn btn-mini btn-danger-inverse', data: { confirm: "Are you sure you want to delete Hospital #{hospital.name}?" } %>
       </td>
     </tr>
   <% end %>

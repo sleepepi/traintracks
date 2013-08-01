@@ -3,7 +3,7 @@
   <h1>
     <%= link_to "Hospitals", hospitals_path %> &middot; <%= @title %>
     <%= link_to "Edit Hospital", edit_hospital_path(@hospital), class: 'btn btn-mini' %>
-    <%= link_to "Delete Hospital", @hospital, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Hospital #{@hospital.name}?" } %>
+    <%= link_to "Delete Hospital", @hospital, method: :delete, class: 'btn btn-mini btn-danger-inverse', data: { confirm: "Are you sure you want to delete Hospital #{@hospital.name}?" } %>
   </h1>
 </div>
 

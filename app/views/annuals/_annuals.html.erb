@@ -37,7 +37,7 @@
       <td><%= simple_time annual.modified_at %></td>
       <td>
         <%= link_to 'Edit', edit_annual_path(annual), class: 'btn btn-mini' %>
-        <%= link_to 'Delete', annual, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Annual #{annual.name}?" } %>
+        <%= link_to 'Delete', annual, method: :delete, class: 'btn btn-mini btn-danger-inverse', data: { confirm: "Are you sure you want to delete Annual #{annual.name}?" } %>
       </td>
     </tr>
   <% end %>
