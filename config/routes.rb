@@ -1,5 +1,7 @@
 TrainingGrant::Application.routes.draw do
 
+  resources :hospitals
+
   mount MailPreview => 'mail_view' if Rails.env.development?
 
   resources :annuals do

@@ -8,6 +8,7 @@
   - Added example `Other-Support.doc` to Other Support field
   - Rank is now only editable by administrator and changed to dropdown with choices `Associate Preceptor` and `Full Preceptor`
   - Added Biosketch and Curriculum Vitae to preceptor file uploads
+  - Configurable hospital list added to Hospital Affilation field
 - Added calendar icons to date input fields
 - **Gem Changes**
   - Updated to contour 2.0.0

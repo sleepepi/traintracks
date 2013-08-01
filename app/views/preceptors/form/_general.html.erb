@@ -1,21 +1,21 @@
 <div class="control-group">
   <%= f.label :first_name, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :first_name %>
+    <%= f.text_field :first_name, class: 'input-xlarge' %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :last_name, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :last_name %>
+    <%= f.text_field :last_name, class: 'input-xlarge' %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :email, class: 'control-label' %>
   <div class="controls">
-    <%= f.email_field :email %>
+    <%= f.email_field :email, class: 'input-xlarge' %>
   </div>
 </div>
 
@@ -31,7 +31,7 @@
 <div class="control-group">
   <%= f.label :degree, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :degree %>
+    <%= f.text_field :degree, class: 'input-xlarge' %>
     <span class="help-block">
       <span class="label label-info">Example</span>
       <code style="color: #777">"M.D., Ph.D."</code>
@@ -42,14 +42,23 @@
 <div class="control-group">
   <%= f.label :hospital_affiliation, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :hospital_affiliation %>
+    <%= f.text_field :hospital_affiliation, autocomplete: 'off', data: { provide: 'typeahead', source: Hospital.current.order('name').pluck(:name).to_json }, class: 'input-xxlarge' %>
   </div>
+
+  <% if user_signed_in? and current_user.administrator? %>
+    <div class="controls" style="margin-top:10px">
+      <div class="help-block">
+        <span class="label label-info">Add More</span>
+        <%= link_to 'Edit Hospital List', hospitals_path, class: 'btn btn-mini' %>
+      </div>
+    </div>
+  <% end %>
 </div>
 
 <div class="control-group">
   <%= f.label :hospital_appointment, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :hospital_appointment %>
+    <%= f.text_field :hospital_appointment, class: 'input-xxlarge' %>
   </div>
 </div>
 
@@ -100,6 +109,6 @@
 <div class="control-group">
   <%= f.label :program_role, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :program_role %>
+    <%= f.text_field :program_role, class: 'input-xxlarge' %>
   </div>
 </div>

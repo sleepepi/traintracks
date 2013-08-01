@@ -1,0 +1,22 @@
+<%= render partial: 'contour/layouts/per_page', locals: { type: 'hospitals', per_page: 20, object_count: @hospitals.total_count } %>
+
+<table class="table table-striped table-bordered" style="width:100%">
+  <thead>
+    <tr>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'hospitals.name', 'Name', 'hospitals_search') %></th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <% @hospitals.each do |hospital| %>
+    <tr>
+      <td><%= link_to hospital.name, hospital %></td>
+      <td>
+        <%= link_to 'Edit', edit_hospital_path(hospital), class: 'btn btn-mini' %>
+        <%= link_to 'Delete', hospital, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Hospital #{hospital.name}?" } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="center"><%= paginate @hospitals, theme: 'contour' %></div>
