@@ -21,7 +21,8 @@
   <dt>Certificate Application</dt>
   <dd style="min-height:60px">
     <% unless applicant.certificate_application_url.blank? %>
-      <%= link_to applicant.certificate_application_url.split('/').last, applicant.certificate_application_url, target: '_blank', class: 'btn btn-mini' %>
+      <% full_url = "#{request.script_name}#{applicant.certificate_application.url}" %>
+      <%= link_to applicant.certificate_application_url.split('/').last, full_url, target: '_blank', class: 'btn btn-mini' %>
       <%= number_to_human_size(applicant.certificate_application.size) %>
     <% end %>
   </dd>
