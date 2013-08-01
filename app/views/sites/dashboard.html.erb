@@ -96,13 +96,19 @@
     <div class="span4 control-group">
       <%= label :submitted_after, 'Submitted After', class: 'control-label' %>
       <div class="controls">
-        <%= text_field_tag 'submitted_after', Date.today.at_beginning_of_year.strftime('%m/%d/%Y'), class: 'datepicker' %>
+        <div class="input-append">
+          <%= text_field_tag 'submitted_after', Date.today.at_beginning_of_year.strftime('%m/%d/%Y'), class: 'datepicker' %>
+          <span class="add-on" style="margin-top:1px"><i class="icon-calendar"></i></span>
+        </div>
       </div>
     </div>
     <div class="span4 control-group">
       <%= label :submitted_before, 'Submitted Before', class: 'control-label' %>
       <div class="controls">
-        <%= text_field_tag 'submitted_before', Date.today.at_end_of_year.strftime('%m/%d/%Y'), class: 'datepicker' %>
+        <div class="input-append">
+          <%= text_field_tag 'submitted_before', Date.today.at_end_of_year.strftime('%m/%d/%Y'), class: 'datepicker' %>
+          <span class="add-on" style="margin-top:1px"><i class="icon-calendar"></i></span>
+        </div>
       </div>
     </div>
   </div>

@@ -79,7 +79,10 @@
 <div class="control-group">
   <%= f.label :desired_start_date, nil, class: 'control-label' %>
   <div class="controls">
-    <%= f.text_field :desired_start_date, class: 'datepicker', value: applicant.desired_start_date ? applicant.desired_start_date.strftime('%m/%d/%Y') : '' %>
+    <div class="input-append">
+      <%= f.text_field :desired_start_date, class: 'datepicker', value: applicant.desired_start_date ? applicant.desired_start_date.strftime('%m/%d/%Y') : '' %>
+      <span class="add-on" style="margin-top:1px"><i class="icon-calendar"></i></span>
+    </div>
   </div>
 </div>
 
