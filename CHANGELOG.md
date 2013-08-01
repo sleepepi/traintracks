@@ -1,4 +1,4 @@
-## 0.8.0
+## 0.8.0 (August 1, 2013)
 
 ### Enhancements
 - **Applicant Changes**
