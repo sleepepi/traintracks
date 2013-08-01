@@ -4,7 +4,6 @@
     <%= link_to "Seminars", seminars_path %> &middot; <%= @title %>
     <%= link_to "Edit Seminar", edit_seminar_path(@seminar), class: 'btn btn-mini' %>
     <%= link_to "Delete Seminar", @seminar, method: :delete, class: 'btn btn-mini btn-danger', data: { confirm: "Are you sure you want to delete Seminar #{@seminar.name}?" } %>
-
   </h1>
 </div>
 
