@@ -1,10 +1,10 @@
-# Training Grant
+# Train Tracks
 
-[![Build Status](https://travis-ci.org/remomueller/training_grant.png?branch=master)](https://travis-ci.org/remomueller/training_grant)
-[![Dependency Status](https://gemnasium.com/remomueller/training_grant.png)](https://gemnasium.com/remomueller/training_grant)
-[![Code Climate](https://codeclimate.com/github/remomueller/training_grant.png)](https://codeclimate.com/github/remomueller/training_grant)
+[![Build Status](https://travis-ci.org/sleepepi/traintracks.png?branch=master)](https://travis-ci.org/sleepepi/traintracks)
+[![Dependency Status](https://gemnasium.com/sleepepi/traintracks.png)](https://gemnasium.com/sleepepi/traintracks)
+[![Code Climate](https://codeclimate.com/github/sleepepi/traintracks.png)](https://codeclimate.com/github/sleepepi/traintracks)
 
-Training Grant Management Application that manages new applicants, trainees, and preceptors over a 10-year time period. Using Rails 4.0+ and Ruby 2.0.0+.
+Train Tracks manages new applicants, trainees, and preceptors over a 10-year time period. Using Rails 4.0+ and Ruby 2.0.0+.
 
 ## Installation
 
@@ -16,14 +16,14 @@ Once you have the prerequisites in place, you can proceed to install bundler whi
 gem install bundler
 ```
 
-This README assumes the following installation directory: `/var/www/training_grant`
+This README assumes the following installation directory: `/var/www/traintracks`
 
 ```console
 cd /var/www
 
-git clone git://github.com/remomueller/training_grant.git
+git clone https://github.com/sleepepi/traintracks.git
 
-cd training_grant
+cd traintracks
 
 bundle install
 ```
@@ -35,7 +35,7 @@ ruby lib/initial_setup.rb
 
 bundle exec rake db:migrate RAILS_ENV=production
 
-bundle exec rake assets:precompile
+bundle exec rake assets:precompile RAILS_ENV=production
 ```
 
 Run Rails Server (or use Apache or nginx)
@@ -53,7 +53,7 @@ All done!
 Edit Cron Jobs `sudo crontab -e` to run the task `lib/tasks/seminar_reminder_email.rake`
 
 ```console
-0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/training_grant && /usr/local/rvm/gems/ruby-2.0.0-p247/bin/bundle exec rake seminar_reminder_email RAILS_ENV=production
+0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/traintracks && /usr/local/rvm/gems/ruby-2.0.0-p247/bin/bundle exec rake seminar_reminder_email RAILS_ENV=production
 ```
 
 ## Contributing to Training Grant
