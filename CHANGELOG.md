@@ -1,4 +1,4 @@
-## 0.8.1
+## 0.8.1 (August 13, 2013)
 
 ### Bug Fix
 - Fixed a parameter slicing bug that prevented new applicants from registering successfully
