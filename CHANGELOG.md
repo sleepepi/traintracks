@@ -1,5 +1,8 @@
 ## 0.8.1
 
+### Bug Fix
+- Fixed a parameter slicing bug that prevented new applicants from registering successfully
+
 ## 0.8.0 (August 1, 2013)
 
 ### Enhancements
