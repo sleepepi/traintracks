@@ -13,7 +13,7 @@ gem 'contour',              '~> 2.0.0'
 gem 'kaminari',             '~> 0.14.1'
 gem 'carrierwave',          '~> 0.9.0'
 gem 'ruby-ntlm-namespace',  '~> 0.0.1'
-gem 'mail_view',            '~> 1.0.3'
+gem 'mail_view',            '~> 2.0.1'
 
 # Rails Defaults
 gem 'coffee-rails',         '~> 4.0.0'
