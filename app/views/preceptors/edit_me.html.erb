@@ -18,8 +18,10 @@
 
   <%= render partial: 'preceptors/form/general', locals: { f: f } %>
 
-  <div class="form-actions">
-    <%= f.submit "Update My Information", class: 'btn btn-primary' %>
-    <%= cancel %>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <%= f.submit "Update My Information", class: 'btn btn-primary' %>
+      <%= cancel %>
+    </div>
   </div>
 <% end %>

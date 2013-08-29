@@ -29,8 +29,10 @@
     <%= render partial: 'applicants/form/admin_only', locals: { f: f, applicant: @applicant } %>
   <% end %>
 
-  <div class="form-actions">
-    <%= f.submit nil, class: 'btn btn-primary' %>
-    <%= link_to 'Cancel', @applicant.new_record? ? root_path : @applicant, class: 'btn btn-default' %>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <%= f.submit nil, class: 'btn btn-primary' %>
+      <%= link_to 'Cancel', @applicant.new_record? ? root_path : @applicant, class: 'btn btn-default' %>
+    </div>
   </div>
 <% end %>

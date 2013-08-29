@@ -22,10 +22,12 @@
     Thank you for taking the time to complete this form.
   </h4>
 
-  <div class="form-actions">
-    <%= hidden_field :applicant, :publish_termination, value: '1' %>
-    <%= f.submit 'Submit Exit Interview', class: 'btn btn-primary' %>
-    <%= link_to 'Cancel', dashboard_applicants_path, class: 'btn btn-default' %>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <%= hidden_field :applicant, :publish_termination, value: '1' %>
+      <%= f.submit 'Submit Exit Interview', class: 'btn btn-primary' %>
+      <%= link_to 'Cancel', dashboard_applicants_path, class: 'btn btn-default' %>
+    </div>
   </div>
 <% end %>
 

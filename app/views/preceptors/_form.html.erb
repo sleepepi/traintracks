@@ -17,8 +17,10 @@
 
   <%= render partial: 'preceptors/form/general', locals: { f: f } %>
 
-  <div class="form-actions">
-    <%= f.submit (@preceptor.new_record? ? "Create Preceptor" : "Update Preceptor"), class: 'btn btn-primary' %>
-    <%= cancel %>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <%= f.submit (@preceptor.new_record? ? "Create Preceptor" : "Update Preceptor"), class: 'btn btn-primary' %>
+      <%= cancel %>
+    </div>
   </div>
 <% end %>
