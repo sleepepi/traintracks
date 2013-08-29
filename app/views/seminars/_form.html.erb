@@ -40,7 +40,7 @@
     <%= f.label :presentation_date, nil, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
       <div class="input-append">
-        <%= f.text_field :presentation_date, class: 'datepicker', value: @seminar.presentation_date ? @seminar.presentation_date.strftime('%m/%d/%Y') : '' %>
+        <%= f.text_field :presentation_date, class: 'datepicker form-control', value: @seminar.presentation_date ? @seminar.presentation_date.strftime('%m/%d/%Y') : '' %>
         <span class="add-on" style="margin-top:1px"><i class="icon-calendar"></i></span>
       </div>
     </div>
