@@ -3,7 +3,7 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :gender, nil, class: 'control-label' %>
+  <%= f.label :gender, nil, class: 'col-md-2 control-label' %>
   <div class="controls radio">
     <% Applicant::GENDER.each do |name, value| %>
       <label><%= f.radio_button :gender, value %> <%= name %></label>
@@ -42,7 +42,7 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :urm_types, "Under-Represented Minority", class: 'control-label' %>
+  <%= f.label :urm_types, "Under-Represented Minority", class: 'col-md-2 control-label' %>
   <div class="controls checkbox">
     <%= hidden_field_tag :set_urm_types, '1' %>
     <% Applicant::URM_TYPES.each do |name, value| %>
@@ -52,7 +52,7 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :marital_status, nil, class: 'control-label' %>
+  <%= f.label :marital_status, nil, class: 'col-md-2 control-label' %>
   <div class="controls">
     <%= f.select :marital_status, [['---', nil]] + Applicant::MARITAL_STATUS %>
   </div>

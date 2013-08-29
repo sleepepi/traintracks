@@ -3,7 +3,7 @@
 </div>
 
 <div class="control-group">
-  <%= label :applicant, :curriculum_vitae, 'Upload Curriculum Vitae (PDF, Word)', class: 'control-label' %>
+  <%= label :applicant, :curriculum_vitae, 'Upload Curriculum Vitae (PDF, Word)', class: 'col-md-2 control-label' %>
   <div class="controls">
     <%= file_field :applicant, :curriculum_vitae %>
     <%= hidden_field :applicant, :curriculum_vitae_cache %>
@@ -12,28 +12,28 @@
 </div>
 
 <div class="control-group">
-  <%= label :applicant, :current_institution, nil, class: 'control-label' %>
+  <%= label :applicant, :current_institution, nil, class: 'col-md-2 control-label' %>
   <div class="controls">
     <%= text_field :applicant, :current_institution %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= label :applicant, :department_program, 'Department / Program', class: 'control-label' %>
+  <%= label :applicant, :department_program, 'Department / Program', class: 'col-md-2 control-label' %>
   <div class="controls">
     <%= text_field :applicant, :department_program %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= label :applicant, :current_position, nil, class: 'control-label' %>
+  <%= label :applicant, :current_position, nil, class: 'col-md-2 control-label' %>
   <div class="controls">
     <%= text_field :applicant, :current_position %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= label :applicant, :degrees_earned, nil, class: 'control-label' %>
+  <%= label :applicant, :degrees_earned, nil, class: 'col-md-2 control-label' %>
   <div class="controls">
     <div id="degrees_container">
       <%= hidden_field_tag :set_degrees_earned, '1' %>

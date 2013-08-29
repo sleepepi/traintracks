@@ -14,14 +14,14 @@
 
   <div class="row">
     <div class="col-md-4 control-group">
-      <%= label :search, 'Search', class: 'control-label' %>
+      <%= label :search, 'Search', class: 'col-md-2 control-label' %>
       <div class="controls">
         <%= text_field_tag 'search', params[:search], class: 'search-query', data: { object: 'filter' } %>
       </div>
     </div>
 
     <div class="col-md-4 control-group">
-      <%= label :enrolled, "Enrolled", class: 'control-label' %>
+      <%= label :enrolled, "Enrolled", class: 'col-md-2 control-label' %>
       <div class="controls">
         <%= hidden_field_tag :enrolled, params[:enrolled], data: { object: 'filter' } %>
         <div class="btn-group" data-toggle="buttons-radio">
@@ -33,7 +33,7 @@
     </div>
 
     <div class="col-md-4 control-group">
-      <%= label :deprecated, "Require Cleanup", class: 'control-label' %>
+      <%= label :deprecated, "Require Cleanup", class: 'col-md-2 control-label' %>
       <div class="controls">
         <%= check_box_tag :deprecated, '1', params[:deprecated], data: { object: 'filter' } %>
       </div>

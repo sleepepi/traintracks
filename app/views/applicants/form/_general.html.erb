@@ -3,7 +3,7 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :email, nil, class: 'control-label' %>
+  <%= f.label :email, nil, class: 'col-md-2 control-label' %>
   <div class="controls">
     <%= f.email_field :email %>
   </div>
@@ -11,7 +11,7 @@
 
 <% if user_signed_in? and current_user.administrator? and applicant.new_record? and false %>
   <div class="control-group">
-    <%= f.label :password, nil, class: 'control-label' %>
+    <%= f.label :password, nil, class: 'col-md-2 control-label' %>
     <div class="controls">
       <%= f.password_field :password %>
     </div>
@@ -19,28 +19,28 @@
 <% end %>
 
 <div class="control-group">
-  <%= f.label :first_name, nil, class: 'control-label' %>
+  <%= f.label :first_name, nil, class: 'col-md-2 control-label' %>
   <div class="controls">
     <%= f.text_field :first_name %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :last_name, nil, class: 'control-label' %>
+  <%= f.label :last_name, nil, class: 'col-md-2 control-label' %>
   <div class="controls">
     <%= f.text_field :last_name %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :middle_initial, nil, class: 'control-label' %>
+  <%= f.label :middle_initial, nil, class: 'col-md-2 control-label' %>
   <div class="controls">
     <%= f.text_field :middle_initial %>
   </div>
 </div>
 
 <div class="control-group">
-  <%= f.label :applicant_type, nil, class: 'control-label' %>
+  <%= f.label :applicant_type, nil, class: 'col-md-2 control-label' %>
   <div class="controls">
     <%= f.select :applicant_type, Applicant::APPLICANT_TYPE %>
   </div>
@@ -57,7 +57,7 @@
 <% end %>
 
 <div class="control-group">
-  <%= f.label :citizenship_status, nil, class: 'control-label' %>
+  <%= f.label :citizenship_status, nil, class: 'col-md-2 control-label' %>
   <div class="controls radio">
     <% Applicant::CITIZENSHIP_STATUS.each do |citizenship_status| %>
       <%= f.radio_button :citizenship_status, citizenship_status, class: 'radio' %> <label><%= citizenship_status.humanize %></label>
@@ -77,7 +77,7 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :desired_start_date, nil, class: 'control-label' %>
+  <%= f.label :desired_start_date, nil, class: 'col-md-2 control-label' %>
   <div class="controls">
     <div class="input-append">
       <%= f.text_field :desired_start_date, class: 'datepicker', value: applicant.desired_start_date ? applicant.desired_start_date.strftime('%m/%d/%Y') : '' %>
@@ -87,7 +87,7 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :personal_statement, nil, class: 'control-label' %>
+  <%= f.label :personal_statement, nil, class: 'col-md-2 control-label' %>
   <div class="controls">
     <%= f.text_area :personal_statement, rows: 7, style: "width:95%" %>
     <span class="help-block">Maximum of 250 words</span>

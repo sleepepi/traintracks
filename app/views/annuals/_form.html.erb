@@ -16,14 +16,14 @@
   <% end %>
 
   <div class="control-group">
-    <%= f.label :applicant_id, nil, class: 'control-label' %>
+    <%= f.label :applicant_id, nil, class: 'col-md-2 control-label' %>
     <div class="controls">
       <%= f.select :applicant_id, [['---', nil]] + Applicant.current.order('last_name, first_name').collect{|a| [a.name, a.id]} %>
     </div>
   </div>
 
   <div class="control-group">
-    <%= f.label :year, nil, class: 'control-label' %>
+    <%= f.label :year, nil, class: 'col-md-2 control-label' %>
     <div class="controls">
       <%= f.number_field :year %>
     </div>

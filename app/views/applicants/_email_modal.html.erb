@@ -6,21 +6,21 @@
   <div class="modal-body">
     <form>
       <div class="control-group">
-        <%= label_tag :year, nil, class: 'control-label' %>
+        <%= label_tag :year, nil, class: 'col-md-2 control-label' %>
         <div class="controls">
           <%= text_field_tag :year, Date.today.year %>
         </div>
       </div>
 
       <div class="control-group">
-        <%= label_tag :subject, nil, class: 'control-label' %>
+        <%= label_tag :subject, nil, class: 'col-md-2 control-label' %>
         <div class="controls">
           <%= text_field_tag :subject, ANNUAL_EMAIL_SUBJECT, style: 'width:95%' %>
         </div>
       </div>
 
       <div class="control-group">
-        <%= label_tag :body, nil, class: 'control-label' %>
+        <%= label_tag :body, nil, class: 'col-md-2 control-label' %>
         <div class="controls">
           <%= text_area_tag :body, ANNUAL_EMAIL_BODY, rows: 20, style: 'width:95%' %>
         </div>

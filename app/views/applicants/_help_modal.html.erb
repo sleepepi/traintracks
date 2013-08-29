@@ -6,14 +6,14 @@
   <div class="modal-body">
     <%= form_tag help_email_applicant_path(applicant), method: :post, remote: true, id: 'help_email_form' do %>
       <div class="control-group">
-        <%= label_tag :subject, nil, class: 'control-label' %>
+        <%= label_tag :subject, nil, class: 'col-md-2 control-label' %>
         <div class="controls">
           <%= text_field_tag :subject, "Help Request [#{subject}]", style: 'width:95%' %>
         </div>
       </div>
 
       <div class="control-group">
-        <%= label_tag :body, nil, class: 'control-label' %>
+        <%= label_tag :body, nil, class: 'col-md-2 control-label' %>
         <div class="controls">
           <%= text_area_tag :body, '', rows: 20, style: 'width:95%', placeholder: 'Please explain what you are attempting to do here.' %>
         </div>
