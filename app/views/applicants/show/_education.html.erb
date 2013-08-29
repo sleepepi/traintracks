@@ -5,7 +5,7 @@
   <dd>
     <% unless applicant.curriculum_vitae_url.blank? %>
       <% full_url = "#{request.script_name}#{applicant.curriculum_vitae.url}" %>
-      <%= link_to applicant.curriculum_vitae_url.split('/').last, full_url, target: '_blank', class: 'btn btn-mini' %>
+      <%= link_to applicant.curriculum_vitae_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs' %>
       <%= number_to_human_size(applicant.curriculum_vitae.size) %>
     <% end %>
   </dd>

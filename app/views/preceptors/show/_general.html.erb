@@ -10,7 +10,7 @@
     <dt>Unconfirmed Email</dt>
     <dd>
       <%= preceptor.unconfirmed_email %>
-      <%= link_to "Resend confirmation instructions", confirmation_path(preceptor, preceptor: { email: preceptor.unconfirmed_email }), method: :post, class: 'btn btn-mini' %>
+      <%= link_to "Resend confirmation instructions", confirmation_path(preceptor, preceptor: { email: preceptor.unconfirmed_email }), method: :post, class: 'btn btn-xs' %>
       <div class="alert alert-info">
         <strong>Heads up!</strong> This email will remain unconfirmed until you click the link in the "Confirmation instructions" email sent to your account.
       </div>
@@ -36,7 +36,7 @@
   <dd>
     <% if preceptor.biosketch.size > 0 %>
       <% full_url = "#{request.script_name}#{preceptor.biosketch.url}" %>
-      <%= link_to preceptor.biosketch_url.split('/').last, full_url, target: '_blank', class: 'btn btn-mini' %>
+      <%= link_to preceptor.biosketch_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs' %>
       <%= number_to_human_size(preceptor.biosketch.size) %>
     <% end %>
   </dd>
@@ -45,7 +45,7 @@
   <dd>
     <% if preceptor.curriculum_vitae.size > 0 %>
       <% full_url = "#{request.script_name}#{preceptor.curriculum_vitae.url}" %>
-      <%= link_to preceptor.curriculum_vitae_url.split('/').last, full_url, target: '_blank', class: 'btn btn-mini' %>
+      <%= link_to preceptor.curriculum_vitae_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs' %>
       <%= number_to_human_size(preceptor.curriculum_vitae.size) %>
     <% end %>
   </dd>
@@ -54,7 +54,7 @@
   <dd>
     <% if preceptor.other_support.size > 0 %>
       <% full_url = "#{request.script_name}#{preceptor.other_support.url}" %>
-      <%= link_to preceptor.other_support_url.split('/').last, full_url, target: '_blank', class: 'btn btn-mini' %>
+      <%= link_to preceptor.other_support_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs' %>
       <%= number_to_human_size(preceptor.other_support.size) %>
     <% end %>
   </dd>

@@ -2,15 +2,15 @@
 <div class="page-header">
   <h1>
     <%= link_to "Applicants", applicants_path %> &middot; <%= @title %>
-    <%= link_to "Edit Applicant", edit_applicant_path(@applicant), class: 'btn btn-mini' %>
-    <%= link_to "Delete Applicant", @applicant, method: :delete, class: 'btn btn-mini btn-danger-inverse', data: { confirm: "Are you sure you want to delete Applicant #{@applicant.name}?" } %>
-    <%= link_to "Email Applicant Link", email_applicant_path(@applicant), method: :post, class: 'btn btn-mini' %>
-    <%= link_to 'Annual Reminder Email', '#', class: 'btn btn-mini', data: { target: '#send_email_modal', object: 'modal-show' } %>
-    <%= link_to 'Exit Interview Email', termination_email_applicant_path(@applicant), method: :post, class: 'btn btn-mini' if @applicant.enrolled? %>
+    <%= link_to "Edit Applicant", edit_applicant_path(@applicant), class: 'btn btn-xs' %>
+    <%= link_to "Delete Applicant", @applicant, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Applicant #{@applicant.name}?" } %>
+    <%= link_to "Email Applicant Link", email_applicant_path(@applicant), method: :post, class: 'btn btn-xs' %>
+    <%= link_to 'Annual Reminder Email', '#', class: 'btn btn-xs', data: { target: '#send_email_modal', object: 'modal-show' } %>
+    <%= link_to 'Exit Interview Email', termination_email_applicant_path(@applicant), method: :post, class: 'btn btn-xs' if @applicant.enrolled? %>
     <% if @applicant.submitted_at.blank? %>
       <span class="label label-warning">Draft</span>
     <% else %>
-      <%= link_to "Allow Applicant to Resubmit", unlock_applicant_path(@applicant), method: :post, class: 'btn btn-mini' %>
+      <%= link_to "Allow Applicant to Resubmit", unlock_applicant_path(@applicant), method: :post, class: 'btn btn-xs' %>
     <% end %>
   </h1>
 </div>

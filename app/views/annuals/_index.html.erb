@@ -8,7 +8,7 @@
           <div class="page-header">
             <h3>
               Year <%= annual.year %>
-              <%= link_to 'Edit', current_user ? edit_annual_path(annual) : edit_me_annual_path(annual), class: "btn btn-mini #{"btn-primary" unless annual.submitted?}" %>
+              <%= link_to 'Edit', current_user ? edit_annual_path(annual) : edit_me_annual_path(annual), class: "btn btn-xs #{"btn-primary" unless annual.submitted?}" %>
             </h3>
           </div>
 
@@ -33,7 +33,7 @@
             <dd>
               <% unless annual.nih_other_support_url.blank? %>
                 <% full_url = "#{request.script_name}#{annual.nih_other_support.url}" %>
-                <%= link_to annual.nih_other_support_url.split('/').last, full_url, target: '_blank', class: 'btn btn-mini' %>
+                <%= link_to annual.nih_other_support_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs' %>
                 <%= number_to_human_size(annual.nih_other_support.size) %>
               <% end %>
             </dd>

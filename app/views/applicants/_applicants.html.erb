@@ -31,8 +31,8 @@
         <td><span rel="tooltip" title="Submitted"><%= simple_time applicant.submitted_at %></span></td>
         <td><span rel="tooltip" title="Recent"><%= recent_activity(applicant.current_sign_in_at) %></span></td>
         <td>
-          <%= link_to 'Edit', edit_applicant_path(applicant), class: 'btn btn-mini' %>
-          <%= link_to 'Delete', applicant, method: :delete, class: 'btn btn-mini btn-danger-inverse', data: { confirm: "Are you sure you want to delete Applicant #{applicant.name}?" } %>
+          <%= link_to 'Edit', edit_applicant_path(applicant), class: 'btn btn-xs' %>
+          <%= link_to 'Delete', applicant, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Applicant #{applicant.name}?" } %>
         </td>
       </tr>
     <% end %>
