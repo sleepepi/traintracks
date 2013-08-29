@@ -24,7 +24,7 @@
       <td><%= preceptor.program_role %></td>
       <td><%= recent_activity(preceptor.current_sign_in_at) %></td>
       <td>
-        <%= link_to 'Edit', edit_preceptor_path(preceptor), class: 'btn btn-xs' %>
+        <%= link_to 'Edit', edit_preceptor_path(preceptor), class: 'btn btn-xs btn-default' %>
         <%= link_to 'Delete', preceptor, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Preceptor #{preceptor.name}?" } %>
       </td>
     </tr>

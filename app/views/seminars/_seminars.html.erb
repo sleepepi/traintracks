@@ -18,7 +18,7 @@
       <td><%= seminar.presentation_date_with_time %></td>
       <td><%= seminar.category %></td>
       <td>
-        <%= link_to 'Edit', edit_seminar_path(seminar), class: 'btn btn-xs' %>
+        <%= link_to 'Edit', edit_seminar_path(seminar), class: 'btn btn-xs btn-default' %>
         <%= link_to 'Delete', seminar, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Seminar #{seminar.name}?" } %>
       </td>
     </tr>

@@ -3,10 +3,10 @@
   <h1>
     <%= @title %>
     <% if current_applicant.submitted_at.blank? %>
-      <%= link_to "Edit Application", edit_me_applicants_path, class: 'btn btn-xs' %>
+      <%= link_to "Edit Application", edit_me_applicants_path, class: 'btn btn-xs btn-default' %>
       <span class="label label-warning">Draft</span>
     <% end %>
-    <%= link_to "Exit Interview", exit_interview_applicants_path, class: 'btn btn-xs' if current_applicant.enrolled? %>
+    <%= link_to "Exit Interview", exit_interview_applicants_path, class: 'btn btn-xs btn-default' if current_applicant.enrolled? %>
     <div class="pull-right"><%= link_to "Help", '#', class: 'btn btn-info', data: { object: 'modal-show', target: '#help_email_modal' } %></div>
   </h1>
 </div>
