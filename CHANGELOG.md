@@ -1,6 +1,7 @@
 ## 0.8.2
 
 ### Enhancements
+- Gravatars added for users
 - **Gem Changes**
   - Updated to contour 2.1.0.beta17
 
