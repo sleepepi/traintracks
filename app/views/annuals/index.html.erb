@@ -10,14 +10,14 @@
   <%= hidden_field_tag :order %>
 
   <div class="row">
-    <div class="span4 control-group">
+    <div class="col-md-4 control-group">
       <%= label :search, 'Search', class: 'control-label' %>
       <div class="controls">
         <%= text_field_tag 'search', params[:search], class: 'search-query', data: { object: 'filter' } %>
       </div>
     </div>
 
-    <div class="span4 control-group">
+    <div class="col-md-4 control-group">
       <%= label :year, "Year", class: 'control-label' %>
       <div class="controls">
         <%= select_tag :year, options_for_select([["All", nil]] + Annual.pluck(:year).uniq.sort.reverse.collect{|year| [year, year]}) %>

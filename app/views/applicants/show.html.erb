@@ -22,34 +22,34 @@
 <% end %>
 
 <div class="row">
-  <div class="span6">
+  <div class="col-md-6">
     <%= render partial: 'applicants/show/general', locals: { applicant: @applicant } %>
   </div>
 
-  <div class="span6">
+  <div class="col-md-6">
     <%= render partial: 'applicants/show/education', locals: { applicant: @applicant } %>
   </div>
 </div>
 
 <div class="row">
-  <div class="span6">
+  <div class="col-md-6">
     <%= render partial: 'applicants/show/contact', locals: { applicant: @applicant } %>
   </div>
 
-  <div class="span6">
+  <div class="col-md-6">
     <%= render partial: 'applicants/show/demographic', locals: { applicant: @applicant } %>
   </div>
 </div>
 
 <div class="row">
   <% if current_user.administrator? %>
-    <div class="span6">
+    <div class="col-md-6">
       <%= render partial: 'applicants/show/submission', locals: { applicant: @applicant } %>
     </div>
   <% end %>
 
   <% if @applicant.enrolled? %>
-    <div class="span6">
+    <div class="col-md-6">
       <%= render partial: 'applicants/show/termination', locals: { applicant: @applicant } %>
     </div>
   <% end %>
@@ -59,12 +59,12 @@
 
 <% if current_user.administrator? %>
   <div class="row">
-    <div class="span6">
+    <div class="col-md-6">
       <%= render partial: 'applicants/show/admin_only', locals: { applicant: @applicant } %>
     </div>
 
     <% if false %>
-      <div class="span6">
+      <div class="col-md-6">
         <%= render partial: 'applicants/show/submission', locals: { applicant: @applicant } %>
       </div>
     <% end %>

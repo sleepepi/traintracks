@@ -93,7 +93,7 @@
 <%= form_tag dashboard_path, method: :get, remote: true, id: "applicants_search", class: 'form-search', data: { object: 'form-load' } do %>
 
   <div class="row">
-    <div class="span4 control-group">
+    <div class="col-md-4 control-group">
       <%= label :submitted_after, 'Submitted After', class: 'control-label' %>
       <div class="controls">
         <div class="input-append">
@@ -102,7 +102,7 @@
         </div>
       </div>
     </div>
-    <div class="span4 control-group">
+    <div class="col-md-4 control-group">
       <%= label :submitted_before, 'Submitted Before', class: 'control-label' %>
       <div class="controls">
         <div class="input-append">

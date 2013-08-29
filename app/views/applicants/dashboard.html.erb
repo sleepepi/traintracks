@@ -22,28 +22,28 @@
 <% end %>
 
 <div class="row">
-  <div class="span6">
+  <div class="col-md-6">
     <%= render partial: 'applicants/show/general', locals: { applicant: current_applicant } %>
   </div>
 
-  <div class="span6">
+  <div class="col-md-6">
     <%= render partial: 'applicants/show/education', locals: { applicant: current_applicant } %>
   </div>
 </div>
 
 <div class="row">
-  <div class="span6">
+  <div class="col-md-6">
     <%= render partial: 'applicants/show/contact', locals: { applicant: current_applicant } %>
   </div>
 
-  <div class="span6">
+  <div class="col-md-6">
     <%= render partial: 'applicants/show/demographic', locals: { applicant: current_applicant } %>
   </div>
 </div>
 
 <% if current_applicant.enrolled? %>
   <div class="row">
-    <div class="span6">
+    <div class="col-md-6">
       <%= render partial: 'applicants/show/termination', locals: { applicant: current_applicant } %>
     </div>
   </div>
@@ -53,11 +53,11 @@
 
 <% if false %>
 <div class="row">
-  <div class="span6">
+  <div class="col-md-6">
     <%= render partial: 'applicants/show/trainee', locals: { applicant: current_applicant } %>
   </div>
 
-  <div class="span6">
+  <div class="col-md-6">
     <%= render partial: 'applicants/show/annual', locals: { applicant: current_applicant } %>
   </div>
 </div>
