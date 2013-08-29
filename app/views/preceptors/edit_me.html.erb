@@ -5,8 +5,8 @@
 
 <%= form_for current_preceptor, url: update_me_preceptors_path, method: :put, html: { class: 'form-horizontal' } do |f| %>
   <% if current_preceptor.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(current_preceptor.errors.count, "error") %> prohibited this preceptor from being saved:</h2>
+    <div id="error_explanation" class="bs-callout bs-callout-danger">
+      <h4><%= pluralize(current_preceptor.errors.count, "error") %> prohibited this preceptor from being saved</h4>
 
       <ul>
       <% current_preceptor.errors.full_messages.each do |msg| %>

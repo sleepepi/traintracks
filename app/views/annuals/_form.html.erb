@@ -4,8 +4,8 @@
 
 <%= form_for @annual, html: { class: 'form-horizontal' } do |f| %>
   <% if @annual.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@annual.errors.count, "error") %> prohibited this annual from being saved:</h2>
+    <div id="error_explanation" class="bs-callout bs-callout-danger">
+      <h4><%= pluralize(@annual.errors.count, "error") %> prohibited this annual from being saved</h4>
 
       <ul>
       <% @annual.errors.full_messages.each do |msg| %>
