@@ -6,7 +6,7 @@
   </h1>
 </div>
 
-<%= form_tag applicants_path, method: :get, remote: true, id: "applicants_search", class: 'form-search', data: { object: 'form-load' } do %>
+<%= form_tag applicants_path, method: :get, remote: true, id: "applicants_search", class: 'form-vertical', data: { object: 'form-load' } do %>
   <%= hidden_field_tag :order %>
   <%= hidden_field_tag :annual_subject %>
   <%= hidden_field_tag :annual_body %>
@@ -16,7 +16,7 @@
     <div class="col-md-4 form-group">
       <%= label :search, 'Search', class: 'col-md-2 control-label' %>
       <div class="col-md-10">
-        <%= text_field_tag 'search', params[:search], class: 'search-query', data: { object: 'filter' } %>
+        <%= text_field_tag 'search', params[:search], class: 'form-control', data: { object: 'filter' } %>
       </div>
     </div>
 
