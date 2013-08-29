@@ -2,14 +2,14 @@
 
 <div class="control-group">
   <%= f.label :reviewed, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.check_box :reviewed %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :review_date, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <div class="input-append">
       <%= f.text_field :review_date, class: 'datepicker', value: applicant.review_date ? applicant.review_date.strftime('%m/%d/%Y') : '' %>
       <span class="add-on" style="margin-top:1px"><i class="icon-calendar"></i></span>
@@ -19,83 +19,83 @@
 
 <div class="control-group">
   <%= f.label :offered, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.check_box :offered %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :accepted, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.check_box :accepted %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :enrolled, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.check_box :enrolled %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :cv_number, 'CV number', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.number_field :cv_number %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :degree_type, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_field :degree_type %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :primary_preceptor_id, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.select :primary_preceptor_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]} %>
   </div>
 </div>
 <div class="control-group">
   <%= f.label :secondary_preceptor_id, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.select :secondary_preceptor_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]} %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :trainee_code, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_field :trainee_code %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :status, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.select :status, Applicant::STATUS %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :training_grant_years, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_field :training_grant_years %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :supported_by_tg, "Supported by TG", class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.check_box :supported_by_tg %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :training_period_start_date, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <div class="input-append">
       <%= f.text_field :training_period_start_date, class: 'datepicker', value: applicant.training_period_start_date ? applicant.training_period_start_date.strftime('%m/%d/%Y') : '' %>
       <span class="add-on" style="margin-top:1px"><i class="icon-calendar"></i></span>
@@ -104,7 +104,7 @@
 </div>
 <div class="control-group">
   <%= f.label :training_period_end_date, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <div class="input-append">
       <%= f.text_field :training_period_end_date, class: 'datepicker', value: applicant.training_period_end_date ? applicant.training_period_end_date.strftime('%m/%d/%Y') : '' %>
       <span class="add-on" style="margin-top:1px"><i class="icon-calendar"></i></span>
@@ -114,7 +114,7 @@
 
 <div class="control-group">
   <%= f.label :notes, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_area :notes, rows: 7, style: "width:95%" %>
   </div>
 </div>

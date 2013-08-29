@@ -30,7 +30,7 @@
     <%= form_tag update_submitted_at_date_applicant_path(applicant), method: :post, remote: true, class: 'form-horizontal', id: 'update_submission_date_form' do %>
       <div class="control-group">
         <%= label_tag :submission_date, nil, class: 'col-md-2 control-label' %>
-        <div class="controls">
+        <div class="col-md-10">
           <div class="input-append">
             <%= text_field_tag :submission_date, applicant.originally_submitted_at ? applicant.originally_submitted_at.strftime('%m/%d/%Y') : '', class: 'datepicker' %>
             <span class="add-on" style="margin-top:1px"><i class="icon-calendar"></i></span>

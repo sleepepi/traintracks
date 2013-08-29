@@ -17,28 +17,28 @@
 
   <div class="control-group">
     <%= f.label :category, nil, class: 'col-md-2 control-label' %>
-    <div class="controls">
+    <div class="col-md-10">
       <%= f.text_field :category, autocomplete: "off", data: { provide: 'typeahead', source: Seminar.current.pluck(:category).to_json } %>
     </div>
   </div>
 
   <div class="control-group">
     <%= f.label :presenter, nil, class: 'col-md-2 control-label' %>
-    <div class="controls">
+    <div class="col-md-10">
       <%= f.text_field :presenter %>
     </div>
   </div>
 
   <div class="control-group">
     <%= f.label :presentation_title, nil, class: 'col-md-2 control-label' %>
-    <div class="controls">
+    <div class="col-md-10">
       <%= f.text_field :presentation_title %>
     </div>
   </div>
 
   <div class="control-group">
     <%= f.label :presentation_date, nil, class: 'col-md-2 control-label' %>
-    <div class="controls">
+    <div class="col-md-10">
       <div class="input-append">
         <%= f.text_field :presentation_date, class: 'datepicker', value: @seminar.presentation_date ? @seminar.presentation_date.strftime('%m/%d/%Y') : '' %>
         <span class="add-on" style="margin-top:1px"><i class="icon-calendar"></i></span>
@@ -48,14 +48,14 @@
 
   <div class="control-group">
     <%= f.label :presentation_time, nil, class: 'col-md-2 control-label' %>
-    <div class="controls">
+    <div class="col-md-10">
       <%= f.text_field :presentation_time, value: @seminar.presentation_date ? @seminar.presentation_date.strftime("%l:%M %p").strip : '' %>
     </div>
   </div>
 
   <div class="control-group">
     <%= f.label :duration, nil, class: 'col-md-2 control-label' %>
-    <div class="controls">
+    <div class="col-md-10">
       <%= f.number_field :duration %> <%= f.select :duration_units, Seminar::DURATION_UNITS %>
     </div>
   </div>

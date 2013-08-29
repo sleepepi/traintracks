@@ -4,7 +4,7 @@
 
 <div class="control-group">
   <%= label :applicant, :curriculum_vitae, 'Upload Curriculum Vitae (PDF, Word)', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= file_field :applicant, :curriculum_vitae %>
     <%= hidden_field :applicant, :curriculum_vitae_cache %>
     <span class="help-inline"><%= @applicant.curriculum_vitae_url.split('/').last if not @applicant.curriculum_vitae_url.blank? and @applicant.curriculum_vitae_cache.blank? %></span>
@@ -13,28 +13,28 @@
 
 <div class="control-group">
   <%= label :applicant, :current_institution, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= text_field :applicant, :current_institution %>
   </div>
 </div>
 
 <div class="control-group">
   <%= label :applicant, :department_program, 'Department / Program', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= text_field :applicant, :department_program %>
   </div>
 </div>
 
 <div class="control-group">
   <%= label :applicant, :current_position, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= text_field :applicant, :current_position %>
   </div>
 </div>
 
 <div class="control-group">
   <%= label :applicant, :degrees_earned, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <div id="degrees_container">
       <%= hidden_field_tag :set_degrees_earned, '1' %>
       <% if @applicant.degrees_earned.size == 0 %>

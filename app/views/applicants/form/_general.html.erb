@@ -4,7 +4,7 @@
 
 <div class="control-group">
   <%= f.label :email, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.email_field :email %>
   </div>
 </div>
@@ -12,7 +12,7 @@
 <% if user_signed_in? and current_user.administrator? and applicant.new_record? and false %>
   <div class="control-group">
     <%= f.label :password, nil, class: 'col-md-2 control-label' %>
-    <div class="controls">
+    <div class="col-md-10">
       <%= f.password_field :password %>
     </div>
   </div>
@@ -20,35 +20,35 @@
 
 <div class="control-group">
   <%= f.label :first_name, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_field :first_name %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :last_name, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_field :last_name %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :middle_initial, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_field :middle_initial %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :applicant_type, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.select :applicant_type, Applicant::APPLICANT_TYPE %>
   </div>
 </div>
 
 <% if false %>
 <div class="control-group checkbox">
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.check_box :tge %>
     <%= f.label :tge, "US Citizen or Permanent Resident" %>
     <span class="help-block">Please note that only citizens and permanent residents are eligible for training grant support</span>
@@ -78,7 +78,7 @@
 
 <div class="control-group">
   <%= f.label :desired_start_date, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <div class="input-append">
       <%= f.text_field :desired_start_date, class: 'datepicker', value: applicant.desired_start_date ? applicant.desired_start_date.strftime('%m/%d/%Y') : '' %>
       <span class="add-on" style="margin-top:1px"><i class="icon-calendar"></i></span>
@@ -88,7 +88,7 @@
 
 <div class="control-group">
   <%= f.label :personal_statement, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_area :personal_statement, rows: 7, style: "width:95%" %>
     <span class="help-block">Maximum of 250 words</span>
   </div>

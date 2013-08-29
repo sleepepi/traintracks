@@ -4,14 +4,14 @@
 
 <div class="control-group">
   <%= f.label :future_email, '1. What email address can we reach you at in the future?', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.email_field :future_email %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :entrance_year, '2. What year did you enter the program?', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.number_field :entrance_year %>
   </div>
 </div>
@@ -28,7 +28,7 @@
 
 <div class="control-group">
   <%= f.label :t32_funded_years, '3. a. If yes, how many years?', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.select :t32_funded_years, [['---', nil]] + (1..5).collect{|i| [pluralize(i, 'Year'), i]} %>
     <span class="help-inline">Please round up, e.g. 1.5 years = 2 years. If supported for both pre- and postdoctoral training, list the number of postdoctoral training years.</span>
   </div>
@@ -46,7 +46,7 @@
 
 <div class="control-group">
   <%= f.label :certificate_application, '4. a. If so, please download, complete, and reattach the following form to apply for a Certificate in Sleep Medicine.', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.file_field :certificate_application %>
     <%= f.hidden_field :certificate_application_cache %>
     <span class="help-block">
@@ -57,7 +57,7 @@
 
 <div class="control-group">
   <%= f.label :research_project_title, '5. What was the title of the research project that you worked on during your training?', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_field :research_project_title, style: 'width:95%' %>
   </div>
 </div>
@@ -95,14 +95,14 @@
 
 <div class="control-group">
   <%= f.label :transition_position_other, '7. b. If other, describe:', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_field :transition_position_other %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :termination_feedback, "8. Please include any other feedback you may have about your experience in the Training Program in Sleep, Circadian, and Respiratory Neurobiology.", class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_area :termination_feedback, rows: 7, style: 'width:95%' %>
   </div>
 </div>

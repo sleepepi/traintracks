@@ -4,7 +4,7 @@
 
 <div class="control-group">
   <%= f.label :curriculum_vitae, 'Upload Curriculum Vitae or Resume (PDF, Word)', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.file_field :curriculum_vitae %>
     <%= f.hidden_field :curriculum_vitae_cache %>
     <span class="help-block">
@@ -16,28 +16,28 @@
 
 <div class="control-group">
   <%= f.label :current_institution, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_field :current_institution %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :department_program, 'Department / Program', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_field :department_program %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :current_position, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_field :current_position %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :degrees_earned, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <div id="degrees_container">
       <%= hidden_field_tag :set_degrees_earned, '1' %>
       <% if applicant.degrees_earned.size == 0 %>
@@ -66,7 +66,7 @@
 
   <div class="control-group warning">
     <%= f.label :degrees_earned_old, nil, class: 'col-md-2 control-label' %>
-    <div class="controls">
+    <div class="col-md-10">
       <%= f.text_area :degrees_earned_old, rows: 7, style: "width:95%", rel: 'tooltip', title: 'Will Be Removed' %>
       <span class="help-block">
         <i>Degree Earned, Institution, and Year of Graduation</i>
@@ -76,21 +76,21 @@
 
   <div class="control-group warning">
     <%= f.label :concentration_major, 'Concentration / Major', class: 'col-md-2 control-label' %>
-    <div class="controls">
+    <div class="col-md-10">
       <%= f.text_field :concentration_major, rel: 'tooltip', title: 'Will Be Removed' %>
     </div>
   </div>
 
   <div class="control-group warning">
     <%= f.label :advisor, nil, class: 'col-md-2 control-label' %>
-    <div class="controls">
+    <div class="col-md-10">
       <%= f.text_field :advisor, rel: 'tooltip', title: 'Will Be Removed' %>
     </div>
   </div>
 
   <div class="control-group warning">
     <%= f.label :thesis, nil, class: 'col-md-2 control-label' %>
-    <div class="controls">
+    <div class="col-md-10">
       <%= f.text_field :thesis, data: { toggle: 'postdoc_only' }, rel: 'tooltip', title: 'Will Be Removed' %>
     </div>
   </div>
@@ -108,21 +108,21 @@
 
 <div class="control-group">
   <%= f.label :expected_year, "Expected Graduation Year", class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.number_field :expected_year, min: 2000, 'data-toggle' => 'predoc_summer_only' %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :residency, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.text_field :residency, 'data-toggle' => 'postdoc_only' %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :research_interests, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= hidden_field_tag :set_research_interests, '1' %>
     <% Applicant::RESEARCH_INTERESTS.each_with_index do |(name, value), index| %>
       <% unless value == 'other' %>
@@ -141,7 +141,7 @@
 
 <div class="control-group">
   <%= f.label :preferred_preceptor_id, nil, class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.select :preferred_preceptor_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]} %>
     <span class="help-block">
       <span class="label label-info">Important!</span>
@@ -152,20 +152,20 @@
 
 <div class="control-group">
   <%= f.label :preferred_preceptor_two_id, 'Second Preferred Preceptor', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.select :preferred_preceptor_two_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]} %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :preferred_preceptor_three_id, 'Third Preferred Preceptor', class: 'col-md-2 control-label' %>
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.select :preferred_preceptor_three_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]} %>
   </div>
 </div>
 
 <div class="control-group checkbox">
-  <div class="controls">
+  <div class="col-md-10">
     <%= f.check_box :previous_nrsa_support %>
     <%= f.label :previous_nrsa_support, "Previous NRSA Support" %>
     <span class="help-block"></span>

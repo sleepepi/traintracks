@@ -9,21 +9,21 @@
     <%= form_for(:applicant, as: 'applicants', url: session_path('applicant'), html: { class: 'form-horizontal' }) do |f| %>
       <div class="control-group">
         <%= f.label :email, class: 'col-md-2 control-label' %>
-        <div class="controls">
+        <div class="col-md-10">
           <%= f.email_field :email %>
         </div>
       </div>
 
       <div class="control-group">
         <%= f.label :password, class: 'col-md-2 control-label' %>
-        <div class="controls">
+        <div class="col-md-10">
           <%= f.password_field :password %>
         </div>
       </div>
 
       <div class="control-group">
         <%= f.label :remember_me, class: 'col-md-2 control-label' %>
-        <div class="controls">
+        <div class="col-md-10">
           <%= f.check_box :remember_me %>
         </div>
       </div>
@@ -44,21 +44,21 @@
     <%= form_for(:preceptor, as: 'preceptor', url: session_path('preceptor'), html: { class: 'form-horizontal' }) do |f| %>
       <div class="control-group">
         <%= f.label :email, class: 'col-md-2 control-label' %>
-        <div class="controls">
+        <div class="col-md-10">
           <%= f.email_field :email %>
         </div>
       </div>
 
       <div class="control-group">
         <%= f.label :password, class: 'col-md-2 control-label' %>
-        <div class="controls">
+        <div class="col-md-10">
           <%= f.password_field :password %>
         </div>
       </div>
 
       <div class="control-group">
         <%= f.label :remember_me, class: 'col-md-2 control-label' %>
-        <div class="controls">
+        <div class="col-md-10">
           <%= f.check_box :remember_me %>
         </div>
       </div>
@@ -82,21 +82,21 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f| %>
       <div class="control-group">
         <%= f.label :email, class: 'col-md-2 control-label' %>
-        <div class="controls">
+        <div class="col-md-10">
           <%= f.email_field :email %>
         </div>
       </div>
 
       <div class="control-group">
         <%= f.label :password, class: 'col-md-2 control-label' %>
-        <div class="controls">
+        <div class="col-md-10">
           <%= f.password_field :password %>
         </div>
       </div>
 
       <div class="control-group">
         <%= f.label :remember_me, class: 'col-md-2 control-label' %>
-        <div class="controls">
+        <div class="col-md-10">
           <%= f.check_box :remember_me %>
         </div>
       </div>
