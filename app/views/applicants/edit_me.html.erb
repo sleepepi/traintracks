@@ -35,7 +35,7 @@
     <% if defined?(TG_ADMIN_EMAIL) and not TG_ADMIN_EMAIL.blank? and defined?(TG_ADMIN_ADDRESS) and not TG_ADMIN_ADDRESS.blank? %>
       <div><span class="label label-info">Important:</span> Please remember you need <strong>3 letters of recommendation</strong> and <strong>a letter from your potential preceptor!</strong></div>
 
-      <div class="control-group" style="margin-top:10px">
+      <div class="form-group" style="margin-top:10px">
         <%= f.label :letters_from_a, 'My Recommendation Letters will be from', class: 'col-md-2 control-label' %>
         <div class="col-md-10">
           <%= f.text_field :letters_from_a, class: 'input-xlarge' %>
@@ -58,7 +58,7 @@
 
     <% end %>
 
-    <div class="control-group checkbox">
+    <div class="form-group checkbox">
       <%= f.check_box :assurance %>
       <%= f.label :assurance, 'Please tick to confirm that you have read and understand the above text' %>
     </div>

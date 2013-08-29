@@ -2,7 +2,7 @@
   <h2>Demographic Information</h2>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :gender, nil, class: 'col-md-2 control-label' %>
   <div class="controls radio">
     <% Applicant::GENDER.each do |name, value| %>
@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<div class="control-group checkbox">
+<div class="form-group checkbox">
   <div class="col-md-10">
     <%= f.check_box :disabled %>
     <%= f.label :disabled, "Check if you consider yourself to be a person with a disability" %>
@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div class="control-group checkbox">
+<div class="form-group checkbox">
   <div class="col-md-10">
     <%= f.check_box :disadvantaged %>
     <%= f.label :disadvantaged %>
@@ -33,7 +33,7 @@
   </div>
 </div>
 
-<div class="control-group checkbox">
+<div class="form-group checkbox">
   <div class="col-md-10">
     <%= f.check_box :urm %>
     <%= f.label :urm, "Under-Represented Minority" %>
@@ -41,7 +41,7 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :urm_types, "Under-Represented Minority", class: 'col-md-2 control-label' %>
   <div class="controls checkbox">
     <%= hidden_field_tag :set_urm_types, '1' %>
@@ -51,7 +51,7 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :marital_status, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.select :marital_status, [['---', nil]] + Applicant::MARITAL_STATUS %>

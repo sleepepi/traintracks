@@ -2,21 +2,21 @@
   <h2>Exit Interview</h2>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :future_email, '1. What email address can we reach you at in the future?', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.email_field :future_email %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :entrance_year, '2. What year did you enter the program?', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.number_field :entrance_year %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :t32_funded, '3. Were you funded by the T32 grant?', class: 'col-md-2 control-label' %>
   <div class="controls radio">
     <% [['Yes', '1'], ['No', '0']].each do |name, value| %>
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :t32_funded_years, '3. a. If yes, how many years?', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.select :t32_funded_years, [['---', nil]] + (1..5).collect{|i| [pluralize(i, 'Year'), i]} %>
@@ -34,7 +34,7 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :academic_program_completed, '4. Did you complete the entire academic program?', class: 'col-md-2 control-label' %>
   <div class="controls radio">
     <% [['Yes', '1'], ['No', '0']].each do |name, value| %>
@@ -44,7 +44,7 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :certificate_application, '4. a. If so, please download, complete, and reattach the following form to apply for a Certificate in Sleep Medicine.', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.file_field :certificate_application %>
@@ -55,14 +55,14 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :research_project_title, '5. What was the title of the research project that you worked on during your training?', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_field :research_project_title, style: 'width:95%' %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :laboratories, '6. In which type of laboratory did you work?', class: 'col-md-2 control-label' %>
   <div class="controls checkbox">
     <%= hidden_field_tag :set_laboratories, '1' %>
@@ -73,7 +73,7 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :immediate_transition, "7. Are you transitioning directly to a new position?", class: 'col-md-2 control-label' %>
   <div class="controls radio">
     <% [['Yes', '1'], ['No', '0']].each do |name, value| %>
@@ -83,7 +83,7 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :transition_position, "7. a. If yes, select all that apply.", class: 'col-md-2 control-label' %>
   <div class="controls checkbox">
     <%= hidden_field_tag :set_transition_position, '1' %>
@@ -93,14 +93,14 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :transition_position_other, '7. b. If other, describe:', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_field :transition_position_other %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :termination_feedback, "8. Please include any other feedback you may have about your experience in the Training Program in Sleep, Circadian, and Respiratory Neurobiology.", class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_area :termination_feedback, rows: 7, style: 'width:95%' %>

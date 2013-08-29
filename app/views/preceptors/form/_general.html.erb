@@ -1,18 +1,18 @@
-<div class="control-group">
+<div class="form-group">
   <%= f.label :first_name, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_field :first_name, class: 'input-xlarge' %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :last_name, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_field :last_name, class: 'input-xlarge' %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :email, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.email_field :email, class: 'input-xlarge' %>
@@ -20,7 +20,7 @@
 </div>
 
 <% if user_signed_in? and current_user.administrator? %>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :status, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
       <%= f.select :status, Preceptor::STATUS %>
@@ -28,7 +28,7 @@
   </div>
 <% end %>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :degree, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_field :degree, class: 'input-xlarge' %>
@@ -39,7 +39,7 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :hospital_affiliation, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_field :hospital_affiliation, autocomplete: 'off', data: { provide: 'typeahead', source: Hospital.current.order('name').pluck(:name).to_json }, class: 'input-xxlarge' %>
@@ -55,14 +55,14 @@
   <% end %>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :hospital_appointment, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_field :hospital_appointment, class: 'input-xxlarge' %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :biosketch, 'NIH Biosketch (PDF, Word)', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.file_field :biosketch %>
@@ -70,7 +70,7 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :curriculum_vitae, 'Curriculum Vitae (PDF, Word)', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.file_field :curriculum_vitae %>
@@ -78,7 +78,7 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :other_support, 'Other support (PDF, Word)', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.file_field :other_support %>
@@ -91,7 +91,7 @@
 </div>
 
 <% if user_signed_in? and current_user.administrator? %>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :rank, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
       <%= f.select :rank, options_for_select([['---', nil]] + Preceptor::RANK) %>
@@ -99,14 +99,14 @@
   </div>
 <% end %>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :research_interest, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_area :research_interest, rows: 7, style: "width:95%" %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= f.label :program_role, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_field :program_role, class: 'input-xxlarge' %>

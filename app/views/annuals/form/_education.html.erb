@@ -2,7 +2,7 @@
   <h2>Education / Experience</h2>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= label :applicant, :curriculum_vitae, 'Upload Curriculum Vitae (PDF, Word)', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= file_field :applicant, :curriculum_vitae %>
@@ -11,28 +11,28 @@
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= label :applicant, :current_institution, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= text_field :applicant, :current_institution %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= label :applicant, :department_program, 'Department / Program', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= text_field :applicant, :department_program %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= label :applicant, :current_position, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= text_field :applicant, :current_position %>
   </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
   <%= label :applicant, :degrees_earned, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <div id="degrees_container">
