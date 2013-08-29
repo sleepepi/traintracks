@@ -33,6 +33,11 @@ class Preceptor < ActiveRecord::Base
 
   # Preceptor Methods
 
+  def avatar_url(size = 80, default = 'mm')
+    gravatar_id = Digest::MD5.hexdigest(self.email.to_s.downcase)
+    "//gravatar.com/avatar/#{gravatar_id}.png?&s=#{size}&r=pg&d=#{default}"
+  end
+
   def name_with_id
     "#{self.id}: #{self.name}"
   end

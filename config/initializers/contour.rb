@@ -23,21 +23,30 @@ Contour.setup do |config|
       name: 'Login', display: 'not_signed_in', path: 'new_user_session_path', position: 'right'
     },
     {
-      name: 'current_user.name', eval: true, display: 'signed_in', position: 'right', condition: 'user_signed_in?',
-      links: [{ html: '"<div class=\"small\" style=\"color:#bbb\">"+current_user.email+"</div>"', eval: true },
+      name: 'image_tag(current_user.avatar_url(18, "blank"))+" "+current_user.name', eval: true, display: 'signed_in', position: 'right', path: 'authentications_path', condition: 'user_signed_in?',
+      links: [{ name: "About #{DEFAULT_APP_NAME} v#{TrainingGrant::VERSION::STRING}", path: 'about_path' },
+              { divider: true },
+              { header: 'Administrative', condition: 'current_user.system_admin?' },
+              { name: 'Users', path: 'users_path', condition: 'current_user.system_admin?' },
+              { divider: true, condition: 'current_user.system_admin?' },
+              { header: 'current_user.email', eval: true },
               { name: 'Authentications', path: 'authentications_path', condition: 'not PROVIDERS.blank?' },
               { divider: true },
               { name: 'Logout', path: 'destroy_user_session_path' }]
     },
     {
-      name: 'current_applicant.name', eval: true, display: 'signed_in', position: 'right', condition: 'applicant_signed_in?',
-      links: [{ html: '"<div class=\"small\" style=\"color:#bbb\">"+current_applicant.email+"</div>"', eval: true },
+      name: 'image_tag(current_applicant.avatar_url(18, "blank"))+" "+current_applicant.name', eval: true, display: 'signed_in', position: 'right', path: 'root_path', condition: 'applicant_signed_in?',
+      links: [{ name: "About #{DEFAULT_APP_NAME} v#{TrainingGrant::VERSION::STRING}", path: 'about_path' },
+              { divider: true },
+              { header: 'current_applicant.email', eval: true },
               { divider: true },
               { name: 'Logout', path: 'destroy_applicant_session_path' }]
     },
     {
-      name: 'current_preceptor.name', eval: true, display: 'signed_in', position: 'right', condition: 'preceptor_signed_in?',
-      links: [{ html: '"<div class=\"small\" style=\"color:#bbb\">"+current_preceptor.email+"</div>"', eval: true },
+      name: 'image_tag(current_preceptor.avatar_url(18, "blank"))+" "+current_preceptor.name', eval: true, display: 'signed_in', position: 'right', path: 'root_path', condition: 'preceptor_signed_in?',
+      links: [{ name: "About #{DEFAULT_APP_NAME} v#{TrainingGrant::VERSION::STRING}", path: 'about_path' },
+              { divider: true },
+              { header: 'current_preceptor.email', eval: true },
               { divider: true },
               { name: 'Logout', path: 'destroy_preceptor_session_path' }]
     },
@@ -56,9 +65,6 @@ Contour.setup do |config|
       name: 'Seminars', display: 'signed_in', path: 'seminars_path', position: 'left', condition: 'user_signed_in? and current_user.administrator?',
       links: [{ name: 'Create', path: 'new_seminar_path' },
               { name: 'Attendance', path: 'attendance_seminars_path(status: "current")' }]
-    },
-    {
-      name: 'Users', display: 'signed_in', path: 'users_path', position: 'left', condition: 'user_signed_in? and current_user.system_admin?'
     }
   ]
 
