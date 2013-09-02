@@ -1,21 +1,21 @@
 <div class="form-group">
   <%= f.label :first_name, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_field :first_name, class: 'input-xlarge' %>
+    <%= f.text_field :first_name, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :last_name, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_field :last_name, class: 'input-xlarge' %>
+    <%= f.text_field :last_name, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :email, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.email_field :email, class: 'input-xlarge' %>
+    <%= f.email_field :email, class: 'form-control' %>
   </div>
 </div>
 
@@ -23,7 +23,7 @@
   <div class="form-group">
     <%= f.label :status, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
-      <%= f.select :status, Preceptor::STATUS %>
+      <%= f.select :status, Preceptor::STATUS, {}, class: 'form-control' %>
     </div>
   </div>
 <% end %>
@@ -31,41 +31,39 @@
 <div class="form-group">
   <%= f.label :degree, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_field :degree, class: 'input-xlarge' %>
-    <span class="help-block">
-      <span class="label label-info">Example</span>
-      <code style="color: #777">"M.D., Ph.D."</code>
-    </span>
+    <%= f.text_field :degree, class: 'form-control' %>
+    <div class="bs-callout bs-callout-info">
+      <h4>Example</h4>
+      <code>M.D.</code> <code>Ph.D.</code>
+    </div>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :hospital_affiliation, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_field :hospital_affiliation, autocomplete: 'off', data: { provide: 'typeahead', source: Hospital.current.order('name').pluck(:name).to_json }, class: 'input-xxlarge' %>
-  </div>
+    <%= f.text_field :hospital_affiliation, autocomplete: 'off', data: { object: 'typeahead', local: Hospital.current.order('name').pluck(:name).uniq.to_json }, class: 'form-control' %>
 
-  <% if user_signed_in? and current_user.administrator? %>
-    <div class="controls" style="margin-top:10px">
-      <div class="help-block">
-        <span class="label label-info">Add More</span>
-        <%= link_to 'Edit Hospital List', hospitals_path, class: 'btn btn-xs btn-default' %>
+    <% if user_signed_in? and current_user.administrator? %>
+      <div class="bs-callout bs-callout-info">
+        <h4>Manage Hospital List</h4>
+        You can edit the <%= link_to 'list of hospitals', hospitals_path, class: 'btn btn-xs btn-default' %>.
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
 
 <div class="form-group">
   <%= f.label :hospital_appointment, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_field :hospital_appointment, class: 'input-xxlarge' %>
+    <%= f.text_field :hospital_appointment, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :biosketch, 'NIH Biosketch (PDF, Word)', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.file_field :biosketch %>
+    <%= f.file_field :biosketch, class: 'form-control' %>
     <%= f.hidden_field :biosketch_cache %>
   </div>
 </div>
@@ -73,7 +71,7 @@
 <div class="form-group">
   <%= f.label :curriculum_vitae, 'Curriculum Vitae (PDF, Word)', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.file_field :curriculum_vitae %>
+    <%= f.file_field :curriculum_vitae, class: 'form-control' %>
     <%= f.hidden_field :curriculum_vitae_cache %>
   </div>
 </div>
@@ -81,12 +79,12 @@
 <div class="form-group">
   <%= f.label :other_support, 'Other support (PDF, Word)', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.file_field :other_support %>
+    <%= f.file_field :other_support, class: 'form-control' %>
     <%= f.hidden_field :other_support_cache %>
-    <span class="help-block">
-      <span class="label label-info">Example</span>
-      <%= link_to 'Other-Support.doc', "#{root_path}Other-Support.doc", class: 'btn btn-xs btn-default', target: '_blank' %>
-    </span>
+    <div class="bs-callout bs-callout-info">
+      <h4>Example Document</h4>
+      You can download an example <%= link_to 'Other-Support.doc', "#{root_path}Other-Support.doc", class: 'btn btn-xs btn-default', target: '_blank' %> as a template.
+    </div>
   </div>
 </div>
 
@@ -94,7 +92,7 @@
   <div class="form-group">
     <%= f.label :rank, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
-      <%= f.select :rank, options_for_select([['---', nil]] + Preceptor::RANK) %>
+      <%= f.select :rank, options_for_select([['---', nil]] + Preceptor::RANK), {}, class: 'form-control' %>
     </div>
   </div>
 <% end %>
@@ -102,13 +100,13 @@
 <div class="form-group">
   <%= f.label :research_interest, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_area :research_interest, rows: 7, style: "width:95%" %>
+    <%= f.text_area :research_interest, rows: 7, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :program_role, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_field :program_role, class: 'input-xxlarge' %>
+    <%= f.text_field :program_role, class: 'form-control' %>
   </div>
 </div>

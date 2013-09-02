@@ -18,30 +18,30 @@
   <div class="form-group">
     <%= f.label :category, nil, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
-      <%= f.text_field :category, autocomplete: "off", data: { provide: 'typeahead', source: Seminar.current.pluck(:category).to_json } %>
+      <%= f.text_field :category, autocomplete: "off", data: { object: 'typeahead', local: Seminar.current.pluck(:category).uniq.to_json }, class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :presenter, nil, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
-      <%= f.text_field :presenter %>
+      <%= f.text_field :presenter, class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :presentation_title, nil, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
-      <%= f.text_field :presentation_title %>
+      <%= f.text_field :presentation_title, class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :presentation_date, nil, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
-      <div class="input-append">
+      <div class="input-group">
         <%= f.text_field :presentation_date, class: 'datepicker form-control', value: @seminar.presentation_date ? @seminar.presentation_date.strftime('%m/%d/%Y') : '' %>
-        <span class="add-on" style="margin-top:1px"><span class="glyphicon glyphicon-calendar"></span></span>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
       </div>
     </div>
   </div>
@@ -49,14 +49,21 @@
   <div class="form-group">
     <%= f.label :presentation_time, nil, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
-      <%= f.text_field :presentation_time, value: @seminar.presentation_date ? @seminar.presentation_date.strftime("%l:%M %p").strip : '' %>
+      <%= f.text_field :presentation_time, value: @seminar.presentation_date ? @seminar.presentation_date.strftime("%l:%M %p").strip : '', class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :duration, nil, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
-      <%= f.number_field :duration %> <%= f.select :duration_units, Seminar::DURATION_UNITS %>
+      <div class="row">
+        <div class="col-xs-6">
+          <%= f.number_field :duration, class: 'form-control' %>
+        </div>
+        <div class="col-xs-6">
+          <%= f.select :duration_units, Seminar::DURATION_UNITS, {}, class: 'form-control' %>
+        </div>
+      </div>
     </div>
   </div>
 

@@ -23,11 +23,10 @@
     <div class="col-md-4 form-group">
       <%= label :enrolled, "Enrolled", class: 'col-md-2 control-label' %>
       <div class="col-md-10">
-        <%= hidden_field_tag :enrolled, params[:enrolled], data: { object: 'filter' } %>
-        <div class="btn-group" data-toggle="buttons-radio">
-          <button type="button" class="btn <%= 'active' if params[:enrolled] == 'all' %>" data-object="value-set" data-target="#enrolled" data-value="all" id="enrolled-all">All</button>
-          <button type="button" class="btn <%= 'active' if params[:enrolled] == 'only' %>" data-object="value-set" data-target="#enrolled" data-value="only">Enrolled</button>
-          <button type="button" class="btn <%= 'active' if params[:enrolled] == 'except' %>" data-object="value-set" data-target="#enrolled" data-value="except">Not Enrolled</button>
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-default <%= 'active' if params[:enrolled] == 'all' %>" data-object="value-set" id="enrolled-all"><%= radio_button_tag 'enrolled', 'all', params[:enrolled] == 'all' %> All</label>
+          <label class="btn btn-default <%= 'active' if params[:enrolled] == 'only' %>" data-object="value-set"><%= radio_button_tag 'enrolled', 'only', params[:enrolled] == 'only' %> Enrolled</label>
+          <label class="btn btn-default <%= 'active' if params[:enrolled] == 'except' %>" data-object="value-set"><%= radio_button_tag 'enrolled', 'except', params[:enrolled] == 'except' %> Not Enrolled</label>
         </div>
       </div>
     </div>
@@ -41,12 +40,10 @@
   </div>
 
   <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-      <%= submit_tag 'Filter Search', class: 'btn btn-primary' %>
-      <%= link_to 'Export', '#', class: 'btn btn-default', data: { object: 'export', format: 'csv', target: '#applicants_search' } %>
-      <%= link_to 'Reset', '#', class: 'btn btn-default', data: { object: 'reset-applicant-filters' } %>
-      <%= link_to 'Annual Reminder Email', '#', class: 'btn btn-default', data: { target: '#send_email_modal', object: 'modal-show' } %>
-    </div>
+    <%= submit_tag 'Filter Search', class: 'btn btn-primary' %>
+    <%= link_to 'Export', '#', class: 'btn btn-default', data: { object: 'export', format: 'csv', target: '#applicants_search' } %>
+    <%= link_to 'Reset', '#', class: 'btn btn-default', data: { object: 'reset-applicant-filters' } %>
+    <%= link_to 'Annual Reminder Email', '#', class: 'btn btn-default', data: { target: '#send_email_modal', object: 'modal-show' } %>
   </div>
 <% end %>
 
@@ -54,11 +51,15 @@
 
 <%= render partial: 'applicants/email_modal' %>
 
-<div class="modal hide" id="saving_modal">
-  <div class="modal-header">
-    <h3>Sending Emails to Applicants</h3>
-  </div>
-  <div class="modal-body">
-    <p>Your email notifications are being sent...this message will disappear when the emails have completed sending.</p>
+<div class="modal fade" id="saving_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Sending Emails to Applicants</h4>
+      </div>
+      <div class="modal-body">
+        <p>Your email notifications are being sent...this message will disappear when the emails have completed sending.</p>
+      </div>
+    </div>
   </div>
 </div>

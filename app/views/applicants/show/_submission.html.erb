@@ -21,27 +21,32 @@
 <% end %>
 </dl>
 
-<div id="edit_submission_date" class="modal hide">
-  <div class="modal-header">
-    Update Submission Date
-    <a class="close" data-dismiss="modal">×</a>
-  </div>
-  <div class="modal-body">
-    <%= form_tag update_submitted_at_date_applicant_path(applicant), method: :post, remote: true, class: 'form-horizontal', id: 'update_submission_date_form' do %>
-      <div class="form-group">
-        <%= label_tag :submission_date, nil, class: 'col-md-2 control-label' %>
-        <div class="col-md-10">
-          <div class="input-append">
-            <%= text_field_tag :submission_date, applicant.originally_submitted_at ? applicant.originally_submitted_at.strftime('%m/%d/%Y') : '', class: 'datepicker form-control' %>
-            <span class="add-on" style="margin-top:1px"><span class="glyphicon glyphicon-calendar"></span></span>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
+<div class="modal fade" id="edit_submission_date" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-  <div class="modal-footer">
-    <%= link_to 'Close', '#', class: 'btn btn-default', data: { target: '#edit_submission_date', object: 'modal-hide' } %>
-    <%= link_to 'Update Submission Date', '#', class: 'btn btn-primary', data: { object: 'submit', target: '#update_submission_date_form' } %>
+      <div class="modal-header">
+        Update Submission Date
+        <a class="close" data-dismiss="modal">×</a>
+      </div>
+      <div class="modal-body">
+        <%= form_tag update_submitted_at_date_applicant_path(applicant), method: :post, remote: true, class: 'form-horizontal', id: 'update_submission_date_form' do %>
+          <div class="form-group">
+            <%= label_tag :submission_date, nil, class: 'col-md-2 control-label' %>
+            <div class="col-md-10">
+              <div class="input-group">
+                <%= text_field_tag :submission_date, applicant.originally_submitted_at ? applicant.originally_submitted_at.strftime('%m/%d/%Y') : '', class: 'datepicker form-control' %>
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="modal-footer">
+        <%= link_to 'Close', '#', class: 'btn btn-default', data: { target: '#edit_submission_date', object: 'modal-hide' } %>
+        <%= link_to 'Update Submission Date', '#', class: 'btn btn-primary', data: { object: 'submit', target: '#update_submission_date_form' } %>
+      </div>
+    </div>
   </div>
 </div>

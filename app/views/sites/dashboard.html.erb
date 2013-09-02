@@ -6,7 +6,7 @@
 <table style="width:100%">
   <tr>
     <td style="vertical-align:bottom;border:0px">
-      <table class="table table-striped table-bordered">
+      <table class="table table-striped">
         <thead>
           <tr>
             <th>Outstanding Data Requests</th>
@@ -59,7 +59,7 @@
       </table>
     </td>
     <td style="vertical-align:bottom;border:0px">
-      <table class="table table-striped table-bordered">
+      <table class="table table-striped">
         <tr style="font-weight:bold">
           <td>Applications last calendar year</td>
           <td>
@@ -94,28 +94,29 @@
 
   <div class="row">
     <div class="col-md-4 form-group">
-      <%= label :submitted_after, 'Submitted After', class: 'col-md-2 control-label' %>
-      <div class="col-md-10">
-        <div class="input-append">
+      <%= label :submitted_after, 'Submitted After', class: 'col-md-3 control-label' %>
+      <div class="col-md-9">
+        <div class="input-group">
           <%= text_field_tag 'submitted_after', Date.today.at_beginning_of_year.strftime('%m/%d/%Y'), class: 'datepicker form-control' %>
-          <span class="add-on" style="margin-top:1px"><span class="glyphicon glyphicon-calendar"></span></span>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
       </div>
     </div>
     <div class="col-md-4 form-group">
-      <%= label :submitted_before, 'Submitted Before', class: 'col-md-2 control-label' %>
-      <div class="col-md-10">
-        <div class="input-append">
+      <%= label :submitted_before, 'Submitted Before', class: 'col-md-3 control-label' %>
+      <div class="col-md-9">
+        <div class="input-group">
           <%= text_field_tag 'submitted_before', Date.today.at_end_of_year.strftime('%m/%d/%Y'), class: 'datepicker form-control' %>
-          <span class="add-on" style="margin-top:1px"><span class="glyphicon glyphicon-calendar"></span></span>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-      <%= submit_tag 'Submit', class: 'btn btn-primary' %>
+    <div class="col-md-4">
+      <div class="form-group">
+        <div class="col-md-offset-3 col-md-9">
+          <%= submit_tag 'Submit', class: 'btn btn-primary' %>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>

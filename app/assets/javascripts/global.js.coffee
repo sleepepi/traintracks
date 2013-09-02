@@ -23,6 +23,14 @@
       for field in predoc_summer_fields
         $(field).removeAttr('disabled')
 
+@initializeTypeahead = () ->
+  $('[data-object~="typeahead"]').each( () ->
+    $this = $(this)
+    $this.typeahead(
+      local: $this.data('local')
+    )
+  )
+
 jQuery ->
   $("[rel~=tooltip]").tooltip( trigger: 'hover' )
 
@@ -36,8 +44,8 @@ jQuery ->
 
   $(document)
     .on('click', '[data-object~="value-set"]', () ->
-      $($(this).data('target')).val($(this).data('value'))
-      $($(this).data('target')).closest('form').submit()
+      $(this).find('input').prop('checked', true)
+      $('#applicants_search').submit()
     )
     .on('click', '[data-object~="export"]', () ->
       window.location = $($(this).data('target')).attr('action') + '.' + $(this).data('format') + '?' + $($(this).data('target')).serialize()
@@ -54,7 +62,7 @@ jQuery ->
       false
     )
     .on('click', '[data-object~="modal-show"]', () ->
-      $($(this).data('target')).modal({ dynamic: true })
+      $($(this).data('target')).modal('show')
       false
     )
     .on('click', '[data-object~="modal-hide"]', () ->
@@ -65,3 +73,5 @@ jQuery ->
       $($(this).data('target')).submit();
       false
     )
+
+  initializeTypeahead()

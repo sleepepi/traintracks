@@ -62,8 +62,8 @@
     <% Applicant::CITIZENSHIP_STATUS.each do |citizenship_status| %>
       <%= f.radio_button :citizenship_status, citizenship_status, class: 'radio' %> <label><%= citizenship_status.humanize %></label>
       <% if citizenship_status == 'permanent resident' %>
-        <div class="input-prepend">
-          <span class="add-on">A</span><%= f.text_field :alien_registration_number, value: applicant.alien_registration_number.to_s.gsub('A', '') %>
+        <div class="input-group">
+          <span class="input-group-addon">A</span><%= f.text_field :alien_registration_number, value: applicant.alien_registration_number.to_s.gsub('A', '') %>
         </div>
         <span class="help-inline"><%= f.label :alien_registration_number, nil %></span>
         <span class="help-block"></span>
@@ -79,9 +79,9 @@
 <div class="form-group">
   <%= f.label :desired_start_date, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <div class="input-append">
+    <div class="input-group">
       <%= f.text_field :desired_start_date, class: 'datepicker form-control', value: applicant.desired_start_date ? applicant.desired_start_date.strftime('%m/%d/%Y') : '' %>
-      <span class="add-on" style="margin-top:1px"><span class="glyphicon glyphicon-calendar"></span></span>
+      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
     </div>
   </div>
 </div>

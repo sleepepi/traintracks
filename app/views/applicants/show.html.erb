@@ -79,11 +79,15 @@
 
 <%= render partial: 'applicants/email_modal' %>
 
-<div class="modal hide" id="saving_modal">
-  <div class="modal-header">
-    <h3>Sending Emails to <%= @applicant.name %></h3>
-  </div>
-  <div class="modal-body">
-    <p>Your email notification is being sent...this message will disappear when the email has completed sending.</p>
+<div class="modal fade" id="saving_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Sending Email to <%= @applicant.name %></h4>
+      </div>
+      <div class="modal-body">
+        <p>Your email notification is being sent...this message will disappear when the email has completed sending.</p>
+      </div>
+    </div>
   </div>
 </div>
