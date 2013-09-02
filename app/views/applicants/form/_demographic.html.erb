@@ -11,19 +11,21 @@
   </div>
 </div>
 
-<div class="form-group checkbox">
+<div class="form-group">
   <div class="col-md-offset-2 col-md-10">
-    <%= f.check_box :disabled %>
-    <%= f.label :disabled, "Check if you consider yourself to be a person with a disability" %>
+    <div class="checkbox">
+      <label><%= f.check_box :disabled %> Check if you consider yourself to be a person with a disability</label>
+    </div>
     <span class="help-block">An applicant who identifies as a person with a disability, or a physical or mental impairment that substantially limits one or more activities (requires explanation if checked yes).</span>
     <%= f.text_area :disabled_description, rows: 7, class: 'form-control' %>
   </div>
 </div>
 
-<div class="form-group checkbox">
+<div class="form-group">
   <div class="col-md-offset-2 col-md-10">
-    <%= f.check_box :disadvantaged %>
-    <%= f.label :disadvantaged %>
+    <div class="checkbox">
+      <label><%= f.check_box :disadvantaged %> Disadvantaged</label>
+    </div>
     <span class="help-block">
       <ol>
         <li>Individual has qualified for federal disadvantaged assistance, or for a loan or scholarship from one or more of the following: Health Professional Student Loan, Loans for Disadvantaged Student Program, or Scholarships for Individuals with Exceptional Financial Need (DHHS).</li>
@@ -33,10 +35,11 @@
   </div>
 </div>
 
-<div class="form-group checkbox">
+<div class="form-group">
   <div class="col-md-offset-2 col-md-10">
-    <%= f.check_box :urm %>
-    <%= f.label :urm, "Under-Represented Minority" %>
+    <div class="checkbox">
+      <label><%= f.check_box :urm %> Under-Represented Minority</label>
+    </div>
     <span class="help-block">An applicant who identifies with any minority, ethnic, or racial population that is underrepresented in scientific research, including: Hispanic or Latino, American Indian or Alaska Native, Black or African American, and Native Hawaiian or Pacific Islander.</span>
   </div>
 </div>
