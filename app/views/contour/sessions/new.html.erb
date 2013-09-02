@@ -3,28 +3,29 @@
 <div class="row">
   <div class="col-md-6">
     <div class="page-header">
-      <h2>Applicant/Trainee Login</h2>
+      <h1>Applicant Login</h1>
     </div>
 
     <%= form_for(:applicant, as: 'applicants', url: session_path('applicant'), html: { class: 'form-horizontal' }) do |f| %>
       <div class="form-group">
         <%= f.label :email, class: 'col-md-2 control-label' %>
         <div class="col-md-10">
-          <%= f.email_field :email %>
+          <%= f.email_field :email, class: 'form-control' %>
         </div>
       </div>
 
       <div class="form-group">
         <%= f.label :password, class: 'col-md-2 control-label' %>
         <div class="col-md-10">
-          <%= f.password_field :password %>
+          <%= f.password_field :password, class: 'form-control' %>
         </div>
       </div>
 
       <div class="form-group">
-        <%= f.label :remember_me, class: 'col-md-2 control-label' %>
-        <div class="col-md-10">
-          <%= f.check_box :remember_me %>
+        <div class="col-md-offset-2 col-md-10">
+          <div class="checkbox">
+            <label><%= f.check_box :remember_me %> Remember me</label>
+          </div>
         </div>
       </div>
 
@@ -41,27 +42,28 @@
 
   <div class="col-md-6">
     <div class="page-header">
-      <h2>Preceptor Login</h2>
+      <h1>Preceptor Login</h1>
     </div>
     <%= form_for(:preceptor, as: 'preceptor', url: session_path('preceptor'), html: { class: 'form-horizontal' }) do |f| %>
       <div class="form-group">
         <%= f.label :email, class: 'col-md-2 control-label' %>
         <div class="col-md-10">
-          <%= f.email_field :email %>
+          <%= f.email_field :email, class: 'form-control' %>
         </div>
       </div>
 
       <div class="form-group">
         <%= f.label :password, class: 'col-md-2 control-label' %>
         <div class="col-md-10">
-          <%= f.password_field :password %>
+          <%= f.password_field :password, class: 'form-control' %>
         </div>
       </div>
 
       <div class="form-group">
-        <%= f.label :remember_me, class: 'col-md-2 control-label' %>
-        <div class="col-md-10">
-          <%= f.check_box :remember_me %>
+        <div class="col-md-offset-2 col-md-10">
+          <div class="checkbox">
+            <label><%= f.check_box :remember_me %> Remember me</label>
+          </div>
         </div>
       </div>
 
@@ -81,27 +83,28 @@
 <div class="row">
     <div class="col-md-6">
     <div class="page-header">
-      <h2>Administrator Login</h2>
+      <h1>Admin Login</h1>
     </div>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-horizontal' }) do |f| %>
       <div class="form-group">
         <%= f.label :email, class: 'col-md-2 control-label' %>
         <div class="col-md-10">
-          <%= f.email_field :email %>
+          <%= f.email_field :email, class: 'form-control' %>
         </div>
       </div>
 
       <div class="form-group">
         <%= f.label :password, class: 'col-md-2 control-label' %>
         <div class="col-md-10">
-          <%= f.password_field :password %>
+          <%= f.password_field :password, class: 'form-control' %>
         </div>
       </div>
 
       <div class="form-group">
-        <%= f.label :remember_me, class: 'col-md-2 control-label' %>
-        <div class="col-md-10">
-          <%= f.check_box :remember_me %>
+        <div class="col-md-offset-2 col-md-10">
+          <div class="checkbox">
+            <label><%= f.check_box :remember_me %> Remember me</label>
+          </div>
         </div>
       </div>
 
@@ -111,7 +114,7 @@
           <% PROVIDERS.each do |provider| %>
             <% provider_name = OmniAuth.config.camelizations[provider.to_s.downcase] || provider.to_s.titleize %>
             <% image_name = provider.to_s.downcase %>
-            <a href="<%= request.script_name %><%= "/" + OmniAuth.config.path_prefix.split('/').last.to_s %><%= "/" + provider.to_s.downcase %>" class="btn" style="white-space:nowrap;padding:0px 2px" rel='tooltip' data-title='<%= provider_name %>' data-placement='bottom'>
+            <a href="<%= request.script_name %><%= "/" + OmniAuth.config.path_prefix.split('/').last.to_s %><%= "/" + provider.to_s.downcase %>" class="btn btn-default" style="white-space:nowrap;padding:0px 2px" rel='tooltip' data-title='<%= provider_name %>' data-placement='bottom'>
               <%= image_tag "contour/#{image_name}_32.png", align: 'absmiddle', height: "28px" %>
             </a>
           <% end %>
