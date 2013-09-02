@@ -18,12 +18,12 @@
 
   <%= render partial: 'applicants/form/termination', locals: { f: f, applicant: current_applicant } %>
 
-  <h4>
-    Thank you for taking the time to complete this form.
-  </h4>
-
   <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
+      <h4>
+        Thank you for taking the time to complete this form.
+      </h4>
+
       <%= hidden_field :applicant, :publish_termination, value: '1' %>
       <%= f.submit 'Submit Exit Interview', class: 'btn btn-primary' %>
       <%= link_to 'Cancel', dashboard_applicants_path, class: 'btn btn-default' %>

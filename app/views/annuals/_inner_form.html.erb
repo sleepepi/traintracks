@@ -1,43 +1,46 @@
 <div class="form-group">
   <%= f.label :coursework_completed, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_area :coursework_completed, rows: 7, style: 'width:95%' %>
+    <%= f.text_area :coursework_completed, rows: 7, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :publications, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_area :publications, rows: 7, style: 'width:95%' %>
+    <%= f.text_area :publications, rows: 7, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :presentations, "Conferences, Presentations, Honors, and Fellowships", class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_area :presentations, rows: 7, style: 'width:95%' %>
+    <%= f.text_area :presentations, rows: 7, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :research_description, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_area :research_description, rows: 7, style: 'width:95%' %>
+    <%= f.text_area :research_description, rows: 7, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :source_of_support, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_field :source_of_support %>
+    <%= f.text_field :source_of_support, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :nih_other_support, 'NIH Other Support', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.file_field :nih_other_support %>
+    <%= f.file_field :nih_other_support, class: 'form-control' %>
     <%= f.hidden_field :nih_other_support_cache %>
-    <span class="help-inline">Example: <%= link_to 'http://grants.nih.gov/grants/funding/phs398/othersupport.pdf', 'http://grants.nih.gov/grants/funding/phs398/othersupport.pdf', target: '_blank' %></span>
+    <div class="bs-callout bs-callout-info">
+      <h4>Example Document</h4>
+      You can download an example <%= link_to 'othersupport.pdf', 'http://grants.nih.gov/grants/funding/phs398/othersupport.pdf', target: '_blank', class: 'btn btn-xs btn-default' %> as a template.
+    </div>
   </div>
 </div>

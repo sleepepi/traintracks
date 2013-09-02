@@ -23,44 +23,43 @@
 
   <%= render partial: 'applicants/form/demographic', locals: { f: f, applicant: current_applicant } %>
 
-  <div class="hero-unit">
-    <h3>
-      Applicant Assurance and Sign Off
-    </h3>
 
-    <blockquote style="margin-top:20px">
-      I certify that the above information is true and correct to the best of my knowledge.
-    </blockquote>
+  <div class="page-header">
+    <h2>Applicant Assurance and Sign Off</h2>
+  </div>
 
-    <% if defined?(TG_ADMIN_EMAIL) and not TG_ADMIN_EMAIL.blank? and defined?(TG_ADMIN_ADDRESS) and not TG_ADMIN_ADDRESS.blank? %>
-      <div><span class="label label-info">Important:</span> Please remember you need <strong>3 letters of recommendation</strong> and <strong>a letter from your potential preceptor!</strong></div>
-
-      <div class="form-group" style="margin-top:10px">
-        <%= f.label :letters_from_a, 'My Recommendation Letters will be from', class: 'col-md-2 control-label' %>
-        <div class="col-md-10">
-          <%= f.text_field :letters_from_a, class: 'input-xlarge' %>
-        </div>
-        <div class="col-md-10">
-          <%= f.text_field :letters_from_b, class: 'input-xlarge' %>
-        </div>
-        <div class="col-md-10">
-          <%= f.text_field :letters_from_c, class: 'input-xlarge' %>
+  <% if defined?(TG_ADMIN_EMAIL) and not TG_ADMIN_EMAIL.blank? and defined?(TG_ADMIN_ADDRESS) and not TG_ADMIN_ADDRESS.blank? %>
+    <div class="form-group">
+      <%= f.label :letters_from_a, 'My Recommendation Letters will be from', class: 'col-md-2 control-label' %>
+      <div class="col-md-10">
+        <%= f.text_field :letters_from_a, class: 'form-control' %>
+        <%= f.text_field :letters_from_b, class: 'form-control' %>
+        <%= f.text_field :letters_from_c, class: 'form-control' %>
+        <div class="bs-callout bs-callout-info">
+          <h4>Important!</h4>
+          Please remember you need <strong>3 letters of recommendation</strong> and <strong>a letter from your potential preceptor!</strong>
         </div>
       </div>
+    </div>
 
 
-      <dl class="dl-horizontal">
-        <dt>Email</dt>
-        <dd><address><%= simple_format TG_ADMIN_EMAIL %></address></dd>
-        <dt>Mail</dt>
-        <dd><address><%= simple_format TG_ADMIN_ADDRESS %></address></dd>
-      </dl>
+    <dl class="dl-horizontal">
+      <dt>Email</dt>
+      <dd><address><%= simple_format TG_ADMIN_EMAIL %></address></dd>
+      <dt>Mail</dt>
+      <dd><address><%= simple_format TG_ADMIN_ADDRESS %></address></dd>
+    </dl>
 
-    <% end %>
+  <% end %>
 
-    <div class="form-group checkbox">
-      <%= f.check_box :assurance %>
-      <%= f.label :assurance, 'Please tick to confirm that you have read and understand the above text' %>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <blockquote>
+        I certify that the above information is true and correct to the best of my knowledge.
+      </blockquote>
+      <div class="checkbox">
+        <label><%= f.check_box :assurance %> Please tick to confirm that you have read and understand the above text</label>
+      </div>
     </div>
   </div>
 

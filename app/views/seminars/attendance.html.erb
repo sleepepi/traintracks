@@ -10,8 +10,8 @@
 
 <%= form_tag attendance_seminars_path, method: :get, id: 'attendance_form', class: 'form-inline' do %>
   <%= hidden_field_tag :status, params[:status] %>
-  <%= select_tag :year, options_for_select(Seminar.current.pluck(:presentation_date).collect{|i|i ? (i.month > 6 ? i.year + 1 : i.year) : nil}.uniq.compact.sort.collect{|i| ["July #{i-1} to June #{i}",i]}, @year) %>
-  <%= select_tag :status, options_for_select([['All Trainees', nil]] + Applicant::STATUS, params[:status]) %>
+  <%= select_tag :year, options_for_select(Seminar.current.pluck(:presentation_date).collect{|i|i ? (i.month > 6 ? i.year + 1 : i.year) : nil}.uniq.compact.sort.collect{|i| ["July #{i-1} to June #{i}",i]}, @year), class: 'form-control' %>
+  <%= select_tag :status, options_for_select([['All Trainees', nil]] + Applicant::STATUS, params[:status]), class: 'form-control' %>
   <%= submit_tag 'Filter', class: 'btn btn-primary' %>
   <%= link_to 'Export CSV', '#', data: { object: 'export', target: '#attendance_form', format: 'csv' }, class: 'btn btn-default' %>
 <% end %>

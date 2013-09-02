@@ -120,10 +120,6 @@ class ApplicantsController < ApplicationController
     @applicant = Applicant.new
   end
 
-  def edit_application
-
-  end
-
   # GET /applicants/1/edit
   def edit
   end

@@ -14,10 +14,9 @@
 <%= render partial: 'annuals/menu_bar', locals: { applicant: current_applicant } %>
 
 <% unless current_applicant.submitted_at.blank? %>
-  <div class="hero-unit">
-    <h1>Congratulations!
-      <small>Your application was submitted <span style="background-color: #baffba;" class="tag_bubble"><%= simple_time current_applicant.submitted_at %></span>!</small>
-    </h1>
+  <div class="jumbotron" style="margin-top:20px">
+    <h1>Congratulations!</h1>
+    <p>Your application was submitted <span class="label label-success"><%= simple_time current_applicant.submitted_at %></span>.</p>
   </div>
 <% end %>
 

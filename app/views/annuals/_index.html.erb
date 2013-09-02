@@ -8,7 +8,7 @@
           <div class="page-header">
             <h3>
               Year <%= annual.year %>
-              <%= link_to 'Edit', current_user ? edit_annual_path(annual) : edit_me_annual_path(annual), class: "btn btn-xs #{"btn-primary" unless annual.submitted?}" %>
+              <%= link_to 'Edit', current_user ? edit_annual_path(annual) : edit_me_annual_path(annual), class: "btn btn-xs #{annual.submitted? ? 'btn-default' : 'btn-primary'}" %>
             </h3>
           </div>
 

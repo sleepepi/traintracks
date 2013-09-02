@@ -5,7 +5,7 @@
 <div class="form-group">
   <%= label :applicant, :curriculum_vitae, 'Upload Curriculum Vitae (PDF, Word)', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= file_field :applicant, :curriculum_vitae %>
+    <%= file_field :applicant, :curriculum_vitae, class: 'form-control' %>
     <%= hidden_field :applicant, :curriculum_vitae_cache %>
     <span class="help-inline"><%= @applicant.curriculum_vitae_url.split('/').last if not @applicant.curriculum_vitae_url.blank? and @applicant.curriculum_vitae_cache.blank? %></span>
   </div>
@@ -14,21 +14,21 @@
 <div class="form-group">
   <%= label :applicant, :current_institution, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= text_field :applicant, :current_institution %>
+    <%= text_field :applicant, :current_institution, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= label :applicant, :department_program, 'Department / Program', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= text_field :applicant, :department_program %>
+    <%= text_field :applicant, :department_program, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= label :applicant, :current_position, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= text_field :applicant, :current_position %>
+    <%= text_field :applicant, :current_position, class: 'form-control' %>
   </div>
 </div>
 

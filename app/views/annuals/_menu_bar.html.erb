@@ -3,7 +3,7 @@
     <div class="btn-group">
       <% applicant.annuals.reverse_each do |annual| %>
         <% if annual.year == Date.today.year %></div><div class="btn-group"><% end %>
-        <%= link_to "Year #{annual.year}", current_user ? edit_annual_path(annual) : edit_me_annual_path(annual) , class: "btn #{"btn-primary" unless annual.submitted?}" %>
+        <%= link_to "Year #{annual.year}", current_user ? edit_annual_path(annual) : edit_me_annual_path(annual) , class: "btn #{ annual.submitted? ? 'btn-default' : 'btn-primary' }" %>
         <% if annual.year == Date.today.year %></div><div class="btn-group"><% end %>
       <% end %>
     </div>

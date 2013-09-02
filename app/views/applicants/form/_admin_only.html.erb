@@ -1,9 +1,10 @@
 <div class="page-header"><h2>Administrator Only</h2></div>
 
 <div class="form-group">
-  <%= f.label :reviewed, class: 'col-md-2 control-label' %>
-  <div class="col-md-10">
-    <%= f.check_box :reviewed %>
+  <div class="col-md-offset-2 col-md-10">
+    <div class="checkbox">
+      <label><%= f.check_box :reviewed %> Reviewed</label>
+    </div>
   </div>
 </div>
 
@@ -18,78 +19,82 @@
 </div>
 
 <div class="form-group">
-  <%= f.label :offered, class: 'col-md-2 control-label' %>
-  <div class="col-md-10">
-    <%= f.check_box :offered %>
+  <div class="col-md-offset-2 col-md-10">
+    <div class="checkbox">
+      <label><%= f.check_box :offered %> Offered</label>
+    </div>
   </div>
 </div>
 
 <div class="form-group">
-  <%= f.label :accepted, class: 'col-md-2 control-label' %>
-  <div class="col-md-10">
-    <%= f.check_box :accepted %>
+  <div class="col-md-offset-2 col-md-10">
+    <div class="checkbox">
+      <label><%= f.check_box :accepted %> Accepted</label>
+    </div>
   </div>
 </div>
 
 <div class="form-group">
-  <%= f.label :enrolled, class: 'col-md-2 control-label' %>
-  <div class="col-md-10">
-    <%= f.check_box :enrolled %>
+  <div class="col-md-offset-2 col-md-10">
+    <div class="checkbox">
+      <label><%= f.check_box :enrolled %> Enrolled</label>
+    </div>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :cv_number, 'CV number', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.number_field :cv_number %>
+    <%= f.number_field :cv_number, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :degree_type, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_field :degree_type %>
+    <%= f.text_field :degree_type, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :primary_preceptor_id, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.select :primary_preceptor_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]} %>
+    <%= f.select :primary_preceptor_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]}, {}, class: 'form-control' %>
   </div>
 </div>
 <div class="form-group">
   <%= f.label :secondary_preceptor_id, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.select :secondary_preceptor_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]} %>
+    <%= f.select :secondary_preceptor_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]}, {}, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :trainee_code, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_field :trainee_code %>
+    <%= f.text_field :trainee_code, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :status, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.select :status, Applicant::STATUS %>
+    <%= f.select :status, Applicant::STATUS, {}, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
   <%= f.label :training_grant_years, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_field :training_grant_years %>
+    <%= f.text_field :training_grant_years, class: 'form-control' %>
   </div>
 </div>
 
 <div class="form-group">
-  <%= f.label :supported_by_tg, "Supported by TG", class: 'col-md-2 control-label' %>
-  <div class="col-md-10">
-    <%= f.check_box :supported_by_tg %>
+  <div class="col-md-offset-2 col-md-10">
+    <div class="checkbox">
+      <label><%= f.check_box :supported_by_tg %> Supported by TG</label>
+    </div>
   </div>
 </div>
 
@@ -115,6 +120,6 @@
 <div class="form-group">
   <%= f.label :notes, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.text_area :notes, rows: 7, style: "width:95%" %>
+    <%= f.text_area :notes, rows: 7, class: 'form-control' %>
   </div>
 </div>

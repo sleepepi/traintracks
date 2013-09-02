@@ -18,14 +18,14 @@
   <div class="form-group">
     <%= f.label :applicant_id, nil, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
-      <%= f.select :applicant_id, [['---', nil]] + Applicant.current.order('last_name, first_name').collect{|a| [a.name, a.id]} %>
+      <%= f.select :applicant_id, [['---', nil]] + Applicant.current.order('last_name, first_name').collect{|a| [a.name, a.id]}, {}, class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :year, nil, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
-      <%= f.number_field :year %>
+      <%= f.number_field :year, class: 'form-control' %>
     </div>
   </div>
 

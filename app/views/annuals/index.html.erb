@@ -20,7 +20,7 @@
     <div class="col-md-4 form-group">
       <%= label :year, "Year", class: 'col-md-2 control-label' %>
       <div class="col-md-10">
-        <%= select_tag :year, options_for_select([["All", nil]] + Annual.pluck(:year).uniq.sort.reverse.collect{|year| [year, year]}) %>
+        <%= select_tag :year, options_for_select([["All", nil]] + Annual.pluck(:year).uniq.sort.reverse.collect{|year| [year, year]}), class: 'form-control' %>
       </div>
     </div>
   </div>
