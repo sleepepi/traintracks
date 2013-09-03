@@ -6,7 +6,7 @@
   - Gravatars added for users
   - Reorganized Menu
 - **Gem Changes**
-  - Updated to contour 2.1.0.beta17
+  - Updated to contour 2.1.0.rc
 
 ## 0.8.1 (August 13, 2013)
 
