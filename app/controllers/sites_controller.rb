@@ -7,6 +7,7 @@ class SitesController < ApplicationController
   end
 
   def dashboard
+    flash.delete(:notice)
     applicant_scope = Applicant.current
     @submitted_after = parse_date(params[:submitted_after])
     @submitted_before = parse_date(params[:submitted_before])
