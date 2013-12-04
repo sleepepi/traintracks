@@ -31,16 +31,21 @@
     )
   )
 
-jQuery ->
+@ready = () ->
+  contourReady()
+  initializeTypeahead()
   $("[rel~=tooltip]").tooltip( trigger: 'hover' )
-
+  $("input[rel=tooltip], textarea[rel=tooltip]").tooltip( trigger: 'focus' )
   togglePostdocFields()
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
+
+jQuery ->
 
   $("#applicant_applicant_type").on('change', () ->
     togglePostdocFields()
   )
-
-  $("input[rel=tooltip], textarea[rel=tooltip]").tooltip( trigger: 'focus' )
 
   $(document)
     .on('click', '[data-object~="value-set"]', () ->
@@ -73,5 +78,3 @@ jQuery ->
       $($(this).data('target')).submit();
       false
     )
-
-  initializeTypeahead()
