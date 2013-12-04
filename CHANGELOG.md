@@ -1,3 +1,5 @@
+## 0.8.3
+
 ## 0.8.2 (September 3, 2013)
 
 ### Enhancements
