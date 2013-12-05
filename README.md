@@ -12,13 +12,13 @@ Train Tracks manages new applicants, trainees, and preceptors over a 10-year tim
 
 Once you have the prerequisites in place, you can proceed to install bundler which will handle most of the remaining dependencies.
 
-```console
+```
 gem install bundler
 ```
 
 This README assumes the following installation directory: `/var/www/traintracks`
 
-```console
+```
 cd /var/www
 
 git clone https://github.com/sleepepi/traintracks.git
@@ -30,7 +30,7 @@ bundle install
 
 Install default configuration files for database connection, email server connection, server url, and application name.
 
-```console
+```
 ruby lib/initial_setup.rb
 
 bundle exec rake db:migrate RAILS_ENV=production
@@ -40,7 +40,7 @@ bundle exec rake assets:precompile RAILS_ENV=production
 
 Run Rails Server (or use Apache or nginx)
 
-```console
+```
 rails s -p80
 ```
 
@@ -52,8 +52,8 @@ All done!
 
 Edit Cron Jobs `sudo crontab -e` to run the task `lib/tasks/seminar_reminder_email.rake`
 
-```console
-0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/traintracks && /usr/local/rvm/gems/ruby-2.0.0-p247/bin/bundle exec rake seminar_reminder_email RAILS_ENV=production
+```
+0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/traintracks && /usr/local/rvm/gems/ruby-2.0.0-p353/bin/bundle exec rake seminar_reminder_email RAILS_ENV=production
 ```
 
 ## Contributing to Training Grant
