@@ -2,6 +2,7 @@
 
 ### Enhancements
 - Use of Ruby 2.0.0-p353 is now recommended
+- Bootstrap 3 styling changes for user form
 
 ## 0.8.3 (December 4, 2013)
 
