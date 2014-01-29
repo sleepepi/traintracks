@@ -2,6 +2,7 @@
 
 ### Enhancements
 - Faster page navigation through the use of turbolinks
+- Applicants and Trainees page now sortable by training period start date
 - **Gem Changes**
   - Updated to mysql2 0.3.15
 

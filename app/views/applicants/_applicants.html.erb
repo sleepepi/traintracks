@@ -10,7 +10,7 @@
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.enrolled', 'Enrolled', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.status', 'Status', 'applicants_search') %></th>
       <th>Supported by TG</th>
-      <th>Trainee code</th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.training_period_start_date', 'Training Period Start Date', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.submitted_at', 'Submitted', 'applicants_search') %></th>
       <th style="white-space:nowrap"><%== sort_field_helper(@order, 'applicants.current_sign_in_at', 'Recent Activity', 'applicants_search') %></th>
       <th>Actions</th>
@@ -27,7 +27,7 @@
         <td style="text-align:center"><span rel="tooltip" title="Enrolled"><%= simple_check applicant.enrolled %></span></td>
         <td><span rel="tooltip" title="Status"><%= applicant.status %></span></td>
         <td style="text-align:center"><span rel="tooltip" title="Supported"><%= simple_check applicant.supported_by_tg %></span></td>
-        <td><%= applicant.trainee_code %></td>
+        <td><%= applicant.training_period_start_date.strftime("%b %d, %Y") rescue '' %></td>
         <td><span rel="tooltip" title="Submitted"><%= simple_time applicant.submitted_at %></span></td>
         <td><span rel="tooltip" title="Recent"><%= recent_activity(applicant.current_sign_in_at) %></span></td>
         <td>
