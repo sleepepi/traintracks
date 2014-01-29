@@ -31,50 +31,41 @@
     )
   )
 
+@setFocusToField = (element_id) ->
+  val = $(element_id).val()
+  $(element_id).focus().val('').val(val)
+
 @ready = () ->
   contourReady()
+  $(document).off("click", ".pagination a, .page a, .next a, .prev a")
+  $(document).off("click", ".per_page a")
   initializeTypeahead()
   $("[rel~=tooltip]").tooltip( trigger: 'hover' )
   $("input[rel=tooltip], textarea[rel=tooltip]").tooltip( trigger: 'focus' )
   togglePostdocFields()
+  setFocusToField("#search")
+
 
 $(document).ready(ready)
-$(document).on('page:load', ready)
-
-jQuery ->
-
-  $("#applicant_applicant_type").on('change', () ->
-    togglePostdocFields()
+$(document)
+  .on('page:load', ready)
+  .on('click', '[data-object~="value-set"]', () ->
+    $(this).find('input').prop('checked', true)
+    $('#applicants_search').submit()
   )
-
-  $(document)
-    .on('click', '[data-object~="value-set"]', () ->
-      $(this).find('input').prop('checked', true)
-      $('#applicants_search').submit()
-    )
-    .on('click', '[data-object~="export"]', () ->
-      window.location = $($(this).data('target')).attr('action') + '.' + $(this).data('format') + '?' + $($(this).data('target')).serialize()
-      false
-    )
-    .on('click', '[data-object~="reset-filters"]', () ->
-      $('[data-object~="filter"]').val('')
-      $($(this).data('target')).submit()
-      false
-    )
-    .on('click', '[data-object~="reset-applicant-filters"]', () ->
-      $('[data-object~="filter"]').val('')
-      $('#enrolled-all').click()
-      false
-    )
-    .on('click', '[data-object~="modal-show"]', () ->
-      $($(this).data('target')).modal('show')
-      false
-    )
-    .on('click', '[data-object~="modal-hide"]', () ->
-      $($(this).data('target')).modal('hide');
-      false
-    )
-    .on('click', '[data-object~="submit"]', () ->
-      $($(this).data('target')).submit();
-      false
-    )
+  .on('click', '[data-object~="export"]', () ->
+    window.location = $($(this).data('target')).attr('action') + '.' + $(this).data('format') + '?' + $($(this).data('target')).serialize()
+    false
+  )
+  .on('click', '[data-object~="modal-show"]', () ->
+    $($(this).data('target')).modal('show')
+    false
+  )
+  .on('click', '[data-object~="modal-hide"]', () ->
+    $($(this).data('target')).modal('hide')
+    false
+  )
+  .on('click', '[data-object~="submit"]', () ->
+    $($(this).data('target')).submit()
+    false
+  )

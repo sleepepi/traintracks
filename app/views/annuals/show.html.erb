@@ -32,7 +32,7 @@
   <dt>Source Of Support</dt>
   <dd><%= @annual.source_of_support %></dd>
 
-  <dt>Nih Other Support</dt>
+  <dt>NIH Other Support</dt>
   <dd>
     <% unless @annual.nih_other_support_url.blank? %>
       <% full_url = "#{request.script_name}#{@annual.nih_other_support.url}" %>

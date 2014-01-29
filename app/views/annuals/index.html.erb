@@ -6,8 +6,8 @@
   </h1>
 </div>
 
-<%= form_tag annuals_path, method: :get, remote: true, id: "annuals_search", class: 'form-vertical', data: { object: 'form-load' } do %>
-  <%= hidden_field_tag :order %>
+<%= form_tag annuals_path, method: :get, id: "annuals_search", class: 'form-vertical' do %>
+  <%= hidden_field_tag :order, params[:order] %>
 
   <div class="row">
     <div class="col-md-4 form-group">
@@ -27,10 +27,12 @@
 
   <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
-      <%= submit_tag 'Filter Search', class: 'btn btn-primary' %>
+      <%= submit_tag 'Search', class: 'btn btn-primary', name: nil %>
       <%= link_to 'Export', '#', class: 'btn btn-default', data: { object: 'export', format: 'csv', target: '#annuals_search' } %>
     </div>
   </div>
 <% end %>
 
-<div id="annuals"><center><%= image_tag "contour/ajax-loader.gif" %></center></div>
+<div id="annuals">
+  <%= render partial: 'annuals/annuals' %>
+</div>

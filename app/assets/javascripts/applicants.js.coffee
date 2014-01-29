@@ -2,22 +2,20 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-jQuery ->
-  $(document)
-    .on('click', '[data-object~="applicant-save"]', () ->
-      if $(this).data('assurance') and not applicantAssuranceCheck()
-        false
-      else
-        $('#applicant_publish').val($(this).data('publish'))
-        $($(this).data('target')).submit()
-        false
-    )
-    .on('click', '[data-object~="remove-parent"]', () ->
-      $(this).parent().remove()
+$(document)
+  .on('click', '[data-object~="applicant-save"]', () ->
+    if $(this).data('assurance') and not applicantAssuranceCheck()
       false
-    )
-
-  $('#send_annual_email').on('click', () ->
+    else
+      $('#applicant_publish').val($(this).data('publish'))
+      $($(this).data('target')).submit()
+      false
+  )
+  .on('click', '[data-object~="remove-parent"]', () ->
+    $(this).parent().remove()
+    false
+  )
+  .on('click', '#send_annual_email', () ->
     if $('#enrolled').val() == 'all' and !confirm('Warning! Are you sure you want to send an annual email to ALL applicants?')
       return false
     $('#send_email_modal').modal('hide')
@@ -28,5 +26,6 @@ jQuery ->
     $.get($('#applicants_search').attr('action'), $('#applicants_search').serialize() + '&annual_email=1', null, 'script')
     false
   )
-
-
+  .on('change', '#applicant_applicant_type', () ->
+    togglePostdocFields()
+  )

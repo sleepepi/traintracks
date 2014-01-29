@@ -1,6 +1,7 @@
 ## 0.9.0
 
 ### Enhancements
+- Faster page navigation through the use of turbolinks
 - **Gem Changes**
   - Updated to mysql2 0.3.15
 
