@@ -3,6 +3,7 @@
 ### Enhancements
 - Faster page navigation through the use of turbolinks
 - Applicants and Trainees page now sortable by training period start date
+- Annuals now include Degree or Certifications earned (Year) or Other Relevant Outcome
 - **Gem Changes**
   - Updated to mysql2 0.3.15
 

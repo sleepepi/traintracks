@@ -125,14 +125,14 @@ class AnnualsController < ApplicationController
           # Admin Only
           :applicant_id, :year,
           # General Annual
-          :coursework_completed, :publications, :presentations, :research_description, :source_of_support,
+          :coursework_completed, :publications, :presentations, :research_description, :degree_or_certifications_earned, :source_of_support,
           # NIH File Upload
           :nih_other_support, :nih_other_support_cache, :nih_other_support_uploaded_at
         )
       else # Current Applicant
         params.require(:annual).permit(
           # General Annual
-          :coursework_completed, :publications, :presentations, :research_description, :source_of_support,
+          :coursework_completed, :publications, :presentations, :research_description, :degree_or_certifications_earned, :source_of_support,
           # NIH File Upload
           :nih_other_support, :nih_other_support_cache, :nih_other_support_uploaded_at,
           # Publish
@@ -166,7 +166,7 @@ class AnnualsController < ApplicationController
           # Applicant Information
           'Email', 'Last Name', 'First Name',
           # Annual Information
-          'Year', 'Coursework Completed', 'Publications', 'Conferences, Presentations, Honors, and Fellowships', 'Research Description', 'Source of Support'
+          'Year', 'Coursework Completed', 'Publications', 'Conferences, Presentations, Honors, and Fellowships', 'Research Description', 'Degree or Certifications earned (Year) or Other Relevant Outcome', 'Source of Support'
         ]
 
         annual_scope.each do |a|
@@ -180,6 +180,7 @@ class AnnualsController < ApplicationController
             a.publications,
             a.presentations,
             a.research_description,
+            a.degree_or_certifications_earned,
             a.source_of_support
           ]
           csv << row

@@ -27,6 +27,17 @@
 </div>
 
 <div class="form-group">
+  <%= f.label :degree_or_certifications_earned, "Degree or Certifications earned (Year) or Other Relevant Outcome", class: 'col-md-2 control-label' %>
+  <div class="col-md-10">
+    <%= f.text_area :degree_or_certifications_earned, rows: 7, class: 'form-control' %>
+    <div class="bs-callout bs-callout-info">
+      <h4>Example</h4>
+      <code>Certificate of Clinical Investigation (2013)</code>, <code>Board Certification in Sleep Medicine (2013)</code>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
   <%= f.label :source_of_support, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_field :source_of_support, class: 'form-control' %>
