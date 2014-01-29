@@ -294,7 +294,7 @@ class Applicant < ActiveRecord::Base
   end
 
   def send_annual_reminder!(current_user, year, subject, body)
-    annual = Annual.current.find_or_create_by_applicant_id_and_year(self.id, year, { user_id: current_user.id })
+    annual = Annual.current.where( applicant_id: self.id, year: year ).first_or_create( user_id: current_user.id )
 
     if annual
       if annual.submitted?
