@@ -1,4 +1,4 @@
-## 0.9.0
+## 0.9.0 (January 31, 2014)
 
 ### Enhancements
 - Faster page navigation through the use of turbolinks
