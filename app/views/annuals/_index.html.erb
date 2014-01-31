@@ -15,18 +15,21 @@
           <dl class="dl-horizontal">
 
             <dt>Coursework Completed</dt>
-            <dd style="min-height:60px"><%= annual.coursework_completed %></dd>
+            <dd style="min-height:60px"><%= simple_format annual.coursework_completed %></dd>
 
             <dt>Publications</dt>
-            <dd><%= annual.publications %></dd>
+            <dd><%= simple_format annual.publications %></dd>
 
             <dt>Conferences, Presentations, Honors, and Fellowships</dt>
-            <dd style="min-height:90px"><%= annual.presentations %></dd>
+            <dd style="min-height:90px"><%= simple_format annual.presentations %></dd>
 
-            <dt>Research description</dt>
-            <dd style="min-height:60px"><%= annual.research_description %></dd>
+            <dt>Research Description</dt>
+            <dd style="min-height:60px"><%= simple_format annual.research_description %></dd>
 
-            <dt>Source of support</dt>
+            <dt>Degree or Certifications earned (Year) or Other Relevant Outcome</dt>
+            <dd style="min-height:60px"><%= simple_format annual.degree_or_certifications_earned %></dd>
+
+            <dt>Source of Support</dt>
             <dd style="min-height:60px"><%= annual.source_of_support %></dd>
 
             <dt>NIH Other Support</dt>
