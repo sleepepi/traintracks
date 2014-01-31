@@ -12,7 +12,7 @@ $(document)
       false
   )
   .on('click', '[data-object~="remove-parent"]', () ->
-    $(this).parent().remove()
+    $(this).closest("[data-object~='#{$(this).data('target')}']").remove()
     false
   )
   .on('click', '#send_annual_email', () ->

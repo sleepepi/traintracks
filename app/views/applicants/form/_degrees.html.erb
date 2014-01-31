@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" data-object="degree-row">
   <div class="col-xs-2">
     <%= select_tag "applicant[degrees_earned][][degree_type]", options_for_select([['---', nil]] + Applicant::DEGREE_TYPES, degree_earned[:degree_type]), class: 'form-control' %>
   </div>
@@ -23,6 +23,6 @@
     <%= text_field_tag "applicant[degrees_earned][][concentration_major]", degree_earned[:concentration_major], class: 'form-control', placeholder: 'Concentration / Major', rel: 'tooltip', title: 'Concentration / Major' %>
   </div>
   <div class="col-xs-1">
-    <%= link_to 'remove', '#', data: { object: 'remove-parent' }, class: 'btn btn-xs btn-danger-inverse' %>
+    <%= link_to 'remove', '#', data: { object: 'remove-parent', target: "degree-row" }, class: 'btn btn-xs btn-danger-inverse' %>
   </div>
 </div>

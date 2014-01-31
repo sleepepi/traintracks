@@ -8,6 +8,9 @@
 - **Gem Changes**
   - Updated to mysql2 0.3.15
 
+### Bug Fix
+- The remove degree row button now properly removes the corresponding row
+
 ## 0.8.5 (January 8, 2014)
 
 ### Enhancements
