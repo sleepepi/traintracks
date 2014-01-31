@@ -9,6 +9,10 @@
   <%= f.label :publications, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_area :publications, rows: 7, class: 'form-control' %>
+    <div class="bs-callout bs-callout-warning">
+      <h4>Important</h4>
+      NIH-funded publications after April, 2008 must comply with the <%= link_to 'NIH Public Access policy', 'https://www.countway.harvard.edu/menuNavigation/libraryServices/nihPublicAccess.html', target: '_blank' %> by listing a PMCID.
+    </div>
   </div>
 </div>
 
