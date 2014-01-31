@@ -6,7 +6,6 @@ class ApplicantsController < ApplicationController
   before_action :redirect_without_applicant, only: [ :show, :edit, :update, :destroy, :email, :annual_email, :termination_email, :unlock, :update_submitted_at_date ]
 
 
-
   def help_email
     UserMailer.help_email(current_applicant, params[:subject], params[:body]).deliver if Rails.env.production?
   end

@@ -92,7 +92,7 @@ class Applicant < ActiveRecord::Base
                                                       (thesis != '' and thesis IS NOT NULL) or
                                                       (degree_types != '--- []\n' and degree_types IS NOT NULL)" ) }
   scope :current_trainee, -> { current.where( enrolled: true, status: 'current' ) }
-  scope :supported_by_tg_in_last_ten_years, -> { current.where( enrolled: true ).where( 'training_period_end_date >= ? or training_period_end_date = "" or training_period_end_date IS NULL', Date.today - 10.years ) }
+  scope :supported_by_tg_in_last_ten_years, -> { current.where( enrolled: true ).where( 'training_period_end_date >= ?', Date.today - 10.years ) }
 
   # Model Validation
   validates_presence_of :first_name, :last_name
