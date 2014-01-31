@@ -8,8 +8,7 @@
       </div>
 
       <div class="modal-body">
-
-        <form class="form-horizontal">
+        <%= form_tag send_annual_reminder_email_applicants_path, method: :post, id: 'annual_reminder_email_form', class: 'form-horizontal' do  %>
           <div class="form-group">
             <%= label_tag :year, nil, class: 'col-md-2 control-label' %>
             <div class="col-md-10">
@@ -30,9 +29,14 @@
               <%= text_area_tag :body, ANNUAL_EMAIL_BODY, rows: 20, class: 'form-control' %>
             </div>
           </div>
-        </form>
 
-
+          <div class="form-group">
+            <%= label_tag :recipients, nil, class: 'col-md-2 control-label' %>
+            <div class="col-md-10" style="margin-top:8px">
+              <%= Applicant.supported_by_tg_in_last_ten_years.sort{|a, b| a.years_since_training_end_date <=> b.years_since_training_end_date}.collect{|applicant| "<span style='white-space:nowrap'><span class='badge'>#{pluralize applicant.years_since_training_end_date, 'year'}</span> #{applicant.name} &lt;#{applicant.email}&gt; </span>"}.join('<br />').html_safe %>
+            </div>
+          </div>
+        <% end %>
       </div>
 
       <div class="modal-footer">

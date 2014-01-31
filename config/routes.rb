@@ -22,6 +22,7 @@ TrainingGrant::Application.routes.draw do
       get :exit_interview
       post :update_exit_interview
       post :add_degree
+      post :send_annual_reminder_email
     end
     member do
       post :email

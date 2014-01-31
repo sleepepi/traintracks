@@ -4,6 +4,7 @@
 - Faster page navigation through the use of turbolinks
 - Applicants and Trainees page now sortable by training period start date
 - Annuals now include Degree or Certifications earned (Year) or Other Relevant Outcome
+- Annual Reminder emails are now sent to current trainees or former trainees who have had a training grant end date in the last 10 years
 - **Gem Changes**
   - Updated to mysql2 0.3.15
 

@@ -20,6 +20,18 @@ class ApplicantsControllerTest < ActionController::TestCase
     assert_redirected_to applicants_path
   end
 
+  test "should send annual reminder email" do
+    post :send_annual_reminder_email, year: '2001', subject: 'Subject', body: 'Body'
+    assert_equal "Annual Reminder email successfully sent to #{Applicant.supported_by_tg_in_last_ten_years.count} applicants.", flash[:notice]
+    assert_redirected_to applicants_path
+  end
+
+  test "should send annual reminder email" do
+    post :send_annual_reminder_email, year: '2000', subject: 'Subject', body: 'Body'
+    assert_equal "'2000' is not a valid year.", flash[:alert]
+    assert_redirected_to applicants_path
+  end
+
   test "should get index" do
     get :index
     assert_response :success

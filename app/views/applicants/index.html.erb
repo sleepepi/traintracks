@@ -8,10 +8,6 @@
 
 <%= form_tag applicants_path, method: :get, id: "applicants_search", class: 'form-vertical' do %>
   <%= hidden_field_tag :order, params[:order] %>
-  <%= hidden_field_tag :annual_subject %>
-  <%= hidden_field_tag :annual_body %>
-  <%= hidden_field_tag :annual_year %>
-
 
   <div class="row">
     <div class="col-md-4 form-group">

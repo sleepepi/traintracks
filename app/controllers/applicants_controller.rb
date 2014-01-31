@@ -78,6 +78,18 @@ class ApplicantsController < ApplicationController
     @applicant.update_column            :submitted_at, submitted_at
   end
 
+  def send_annual_reminder_email
+    applicant_scope = Applicant.supported_by_tg_in_last_ten_years
+    if params[:year].to_i > 2000
+      applicant_scope.each do |applicant|
+        applicant.send_annual_reminder!(current_user, params[:year].to_i, params[:subject], params[:body])
+      end
+      redirect_to applicants_path, notice: "Annual Reminder email successfully sent to #{applicant_scope.count} applicants."
+    else
+      redirect_to applicants_path, alert: "'#{params[:year].to_i}' is not a valid year."
+    end
+  end
+
   def index
     @order = scrub_order(Applicant, params[:order], 'applicants.last_name')
     applicant_scope = Applicant.current.search(params[:search]).order(@order)
@@ -102,12 +114,6 @@ class ApplicantsController < ApplicationController
     end
 
     @applicants = applicant_scope.page(params[:page]).per( 40 )
-
-    if params[:annual_email] == '1' and params[:annual_year].to_i > 2000
-      applicant_scope.each do |applicant|
-        applicant.send_annual_reminder!(current_user, params[:annual_year].to_i, params[:annual_subject], params[:annual_body])
-      end
-    end
   end
 
   # GET /applicants/1

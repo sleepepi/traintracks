@@ -16,14 +16,9 @@ $(document)
     false
   )
   .on('click', '#send_annual_email', () ->
-    if $('#enrolled').val() == 'all' and !confirm('Warning! Are you sure you want to send an annual email to ALL applicants?')
-      return false
     $('#send_email_modal').modal('hide')
-    $('#annual_subject').val($('#subject').val())
-    $('#annual_body').val($('#body').val())
-    $('#annual_year').val($('#year').val())
     $('#saving_modal').modal(backdrop: 'static', keyboard: false)
-    $.get($('#applicants_search').attr('action'), $('#applicants_search').serialize() + '&annual_email=1', null, 'script')
+    $('#annual_reminder_email_form').submit()
     false
   )
   .on('change', '#applicant_applicant_type', () ->
