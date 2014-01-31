@@ -26,7 +26,7 @@ class ApplicantsControllerTest < ActionController::TestCase
     assert_redirected_to applicants_path
   end
 
-  test "should send annual reminder email" do
+  test "should not send annual reminder email with year less than 2001" do
     post :send_annual_reminder_email, year: '2000', subject: 'Subject', body: 'Body'
     assert_equal "'2000' is not a valid year.", flash[:alert]
     assert_redirected_to applicants_path
