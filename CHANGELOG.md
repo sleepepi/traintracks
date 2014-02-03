@@ -1,4 +1,4 @@
-## 0.9.1
+## 0.9.1 (February 3, 2014)
 
 ### Enhancements
 - Removed deprecated applicant fields, `degrees_earned_old`, `concentration_major`, `advisor`, `thesis`, `degree_types`.
