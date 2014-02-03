@@ -1,5 +1,8 @@
 ## 0.9.1
 
+### Bug Fix
+- Sending an annual reminder now works correctly when sending reminer to a single applicant from the applicant page
+
 ## 0.9.0 (January 31, 2014)
 
 ### Enhancements
