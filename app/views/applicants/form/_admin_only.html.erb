@@ -79,7 +79,7 @@
 <div class="form-group">
   <%= f.label :status, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
-    <%= f.select :status, Applicant::STATUS, {}, class: 'form-control' %>
+    <%= f.select :status, [['---', nil]] + Applicant::STATUS, {}, class: 'form-control' %>
   </div>
 </div>
 

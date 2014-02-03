@@ -2,6 +2,7 @@
 
 ### Bug Fix
 - Sending an annual reminder now works correctly when sending reminer to a single applicant from the applicant page
+- Applicants who are not enrolled or reviewed are no longer given a default status of "current" when modified by an administrator
 
 ## 0.9.0 (January 31, 2014)
 
