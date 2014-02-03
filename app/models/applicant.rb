@@ -41,9 +41,6 @@ class Applicant < ActiveRecord::Base
   #                 :transition_position, :transition_position_other, :termination_feedback,
   #                 :certificate_application, :certificate_application_cache
 
-  # # Legacy
-  # attr_accessible :degrees_earned_old, :advisor, :concentration_major, :thesis, :degree_types # Will be removed
-
   attr_accessor :publish, :publish_annual, :publish_termination, :admin_update
 
   mount_uploader :curriculum_vitae, DocumentUploader
@@ -68,7 +65,6 @@ class Applicant < ActiveRecord::Base
   GENDER = ["Male", "Female", "No Response"].collect{|i| [i,i]}
   URM_TYPES = [["Hispanic or Latin", 'hispanic latin'], ["American Indian or Alaska Native", 'americanindian alskanative'], ["Black or African American", 'black africanamerica'], ["Native Hawaiian or Pacific Islander", 'nativehawaiian pacific_islander']]
 
-  serialize :degree_types, Array
   serialize :urm_types, Array
   serialize :laboratories, Array
   serialize :transition_position, Array
@@ -86,11 +82,6 @@ class Applicant < ActiveRecord::Base
   scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
   scope :submitted_before, lambda { |arg| where( "applicants.originally_submitted_at < ?", (arg+1.day).at_midnight ) }
   scope :submitted_after, lambda { |arg| where( "applicants.originally_submitted_at >= ?", arg.at_midnight ) }
-  scope :deprecated, -> { where( "(degrees_earned_old != '' and degrees_earned_old IS NOT NULL) or
-                                                      (concentration_major != '' and concentration_major IS NOT NULL) or
-                                                      (advisor != '' and advisor IS NOT NULL) or
-                                                      (thesis != '' and thesis IS NOT NULL) or
-                                                      (degree_types != '--- []\n' and degree_types IS NOT NULL)" ) }
   scope :current_trainee, -> { current.where( enrolled: true, status: 'current' ) }
   scope :supported_by_tg_in_last_ten_years, -> { current.where( enrolled: true ).where( 'training_period_end_date >= ?', Date.today - 10.years ) }
 
@@ -162,10 +153,6 @@ class Applicant < ActiveRecord::Base
 
   def self.degree_type_name(degree_type)
     DEGREE_TYPES.select{|a,b| degree_type == b}.collect{|a,b| a}.first
-  end
-
-  def degree_types_names
-    DEGREE_TYPES.select{|a,b| self.degree_types.include?(b)}.collect{|a,b| a}
   end
 
   def urm_types_names

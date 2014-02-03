@@ -1,5 +1,8 @@
 ## 0.9.1
 
+### Enhancements
+- Removed deprecated applicant fields, `degrees_earned_old`, `concentration_major`, `advisor`, `thesis`, `degree_types`.
+
 ### Bug Fix
 - Sending an annual reminder now works correctly when sending reminer to a single applicant from the applicant page
 - Applicants who are not enrolled or reviewed are no longer given a default status of "current" when modified by an administrator
