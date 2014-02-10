@@ -120,6 +120,11 @@ class ApplicantsController < ApplicationController
     @applicants = applicant_scope.page(params[:page]).per( 40 )
   end
 
+  def program_requirements
+    @order = scrub_order(Applicant, params[:order], 'applicants.last_name')
+    @applicants = Applicant.current_trainee.search(params[:search]).order(@order).page(params[:page]).per( 40 )
+  end
+
   # GET /applicants/1
   # GET /applicants/1.json
   def show
@@ -191,7 +196,11 @@ class ApplicantsController < ApplicationController
 
     def applicant_params
       params[:applicant] ||= {}
-      [:desired_start_date, :review_date, :training_period_start_date, :training_period_end_date].each do |date|
+
+      general_dates = [:desired_start_date, :review_date, :training_period_start_date, :training_period_end_date]
+      program_requirement_dates = [ :research_in_progress_date, :research_ethics_training_completed_date, :grant_writing_training_completed_date, :basic_research_statistics_course_completed_date, :advanced_research_statistics_course_completed_date, :neuroscience_course_completed_date, :hsoph_summer_session_course_completed_date, :individual_funding_submission_date, :last_idp_date ]
+
+      (general_dates + program_requirement_dates).each do |date|
         params[:applicant][date] = parse_date(params[:applicant][date]) unless params[:applicant][date] == nil
       end
 

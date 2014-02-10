@@ -63,11 +63,9 @@
       <%= render partial: 'applicants/show/admin_only', locals: { applicant: @applicant } %>
     </div>
 
-    <% if false %>
-      <div class="col-md-6">
-        <%= render partial: 'applicants/show/submission', locals: { applicant: @applicant } %>
-      </div>
-    <% end %>
+    <div class="col-md-6">
+      <%= render partial: 'applicants/show/program_requirements', locals: { applicant: @applicant } %>
+    </div>
   </div>
 <% end %>
 

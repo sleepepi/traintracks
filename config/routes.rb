@@ -18,6 +18,7 @@ TrainingGrant::Application.routes.draw do
     collection do
       get :dashboard
       get :edit_me
+      get :program_requirements
       put :update_me
       get :exit_interview
       post :update_exit_interview

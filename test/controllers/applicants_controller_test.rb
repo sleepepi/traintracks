@@ -38,6 +38,12 @@ class ApplicantsControllerTest < ActionController::TestCase
     assert_redirected_to applicants_path
   end
 
+  test "should get program requirements" do
+    get :program_requirements
+    assert_response :success
+    assert_not_nil assigns(:applicants)
+  end
+
   test "should get index" do
     get :index
     assert_response :success

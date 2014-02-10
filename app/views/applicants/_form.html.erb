@@ -27,6 +27,8 @@
 
   <% if current_user.administrator? %>
     <%= render partial: 'applicants/form/admin_only', locals: { f: f, applicant: @applicant } %>
+
+    <%= render partial: 'applicants/form/program_requirements', locals: { f: f, applicant: @applicant } %>
   <% end %>
 
   <div class="form-group">

@@ -1,5 +1,8 @@
 ## 0.10.0
 
+- **Applicants Changes**
+  - Added additional program requirements section for admins to enter
+
 ## 0.9.1 (February 3, 2014)
 
 ### Enhancements
