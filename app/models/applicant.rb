@@ -83,7 +83,7 @@ class Applicant < ActiveRecord::Base
   scope :submitted_before, lambda { |arg| where( "applicants.originally_submitted_at < ?", (arg+1.day).at_midnight ) }
   scope :submitted_after, lambda { |arg| where( "applicants.originally_submitted_at >= ?", arg.at_midnight ) }
   scope :current_trainee, -> { current.where( enrolled: true, status: 'current' ) }
-  scope :supported_by_tg_in_last_ten_years, -> { current.where( enrolled: true ).where( 'training_period_end_date >= ?', Date.today - 10.years ) }
+  scope :supported_by_tg_in_last_ten_years, -> { current.where( enrolled: true, supported_by_tg: true ).where( 'training_period_end_date >= ?', Date.today - 10.years ) }
 
   # Model Validation
   validates_presence_of :first_name, :last_name

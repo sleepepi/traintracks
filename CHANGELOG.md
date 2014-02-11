@@ -1,8 +1,12 @@
 ## 0.10.0
 
+### Enhancements
 - **Applicants Changes**
   - Added additional program requirements section for admins to enter
   - Additional Program Requirements can be downloaded as a CSV
+
+### Bug Fix
+- Annual reminder email is now filtered to trainees who have been supported by the training grant
 
 ## 0.9.1 (February 3, 2014)
 
