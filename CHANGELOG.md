@@ -1,4 +1,4 @@
-## 0.10.0
+## 0.10.0 (February 11, 2014)
 
 ### Enhancements
 - **Applicants Changes**
