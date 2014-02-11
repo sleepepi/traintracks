@@ -12,7 +12,7 @@ one:
   department_program: MyString
   disabled: false
   disadvantaged: false
-  enrolled: false
+  enrolled: true
   expected_year: 1
   offered: false
   preferred_preceptor_id: 1
@@ -29,7 +29,7 @@ one:
   training_period_start_date: 2012-04-02
   training_period_end_date: 2012-04-02
   email: applicant_one@example.com
-  status: MyString
+  status: current
   current_position: MyString
   address1: MyString
   address2: MyString
@@ -68,7 +68,7 @@ two:
   department_program: MyString
   disabled: false
   disadvantaged: false
-  enrolled: false
+  enrolled: true
   expected_year: 1
   offered: false
   preferred_preceptor_id: 1
@@ -85,7 +85,7 @@ two:
   training_period_start_date: 2012-04-02
   training_period_end_date: 2012-04-02
   email: applicant_two@example.com
-  status: MyString
+  status: former
   current_position: MyString
   address1: MyString
   address2: MyString

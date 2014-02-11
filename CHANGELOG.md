@@ -2,6 +2,7 @@
 
 - **Applicants Changes**
   - Added additional program requirements section for admins to enter
+  - Additional Program Requirements can be downloaded as a CSV
 
 ## 0.9.1 (February 3, 2014)
 

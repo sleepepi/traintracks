@@ -122,7 +122,19 @@ class ApplicantsController < ApplicationController
 
   def program_requirements
     @order = scrub_order(Applicant, params[:order], 'applicants.last_name')
-    @applicants = Applicant.current_trainee.search(params[:search]).order(@order).page(params[:page]).per( 40 )
+
+    applicant_scope = Applicant.current_trainee.search(params[:search]).order(@order)
+
+    if params[:format] == 'csv'
+      if applicant_scope.count == 0
+        redirect_to program_requirements_applicants_path(search: params[:search]), alert: 'No data was exported since no applicants matched the specified filters.'
+        return
+      end
+      generate_program_requirements_csv(applicant_scope)
+      return
+    end
+
+    @applicants = applicant_scope.page(params[:page]).per( 40 )
   end
 
   # GET /applicants/1
@@ -318,4 +330,36 @@ class ApplicantsController < ApplicationController
                              disposition: "attachment; filename=\"Training Grant Applicants and Trainees #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
     end
 
+    def generate_program_requirements_csv(applicant_scope)
+      @csv_string = CSV.generate do |csv|
+        csv << [
+          'Applicant ID',
+          # Applicant Information
+          'Last Name', 'First Name',
+          # Program Requirements
+          'Research-In-Progress Title', 'Research-In-Progress Date', 'Additional Research-In-Progress Titles and Dates',
+          'Research Ethics Training Completed', 'Research Ethics Training Notes', 'Grant Writing Training Completed',
+          'Basic Research Statistics Course Completed', 'Advanced Research Statistics Course Completed',
+          'Neuroscience Course Completed', 'Harvard School of Public Health Summer Session Courses Completed',
+          'Submitted application for Individual Funding', 'Individual Funding Type', 'Last IDP'
+       ]
+
+        applicant_scope.each do |a|
+          row = [
+            a.id,
+            # Applicant Information
+            a.last_name, a.first_name,
+            a.research_in_progress_title, a.research_in_progress_date, a.research_in_progress_additional,
+            a.research_ethics_training_completed_date, a.research_ethics_training_notes, a.grant_writing_training_completed_date,
+            a.basic_research_statistics_course_completed_date, a.advanced_research_statistics_course_completed_date,
+            a.neuroscience_course_completed_date, a.hsoph_summer_session_course_completed_date,
+            a.individual_funding_submission_date, a.individual_funding_type, a.last_idp_date
+          ]
+          csv << row
+        end
+      end
+
+      send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
+                             disposition: "attachment; filename=\"Training Grant Applicants and Trainees Program Requirements #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+    end
 end

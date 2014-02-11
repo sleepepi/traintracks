@@ -19,7 +19,7 @@
 
   <div class="form-group">
     <%= submit_tag 'Search', class: 'btn btn-primary', name: nil %>
-    <%#= link_to 'Export', '#', class: 'btn btn-default', data: { object: 'export', format: 'csv', target: '#applicants_search' } %>
+    <%= link_to 'Export', '#', class: 'btn btn-default', data: { object: 'export', format: 'csv', target: '#applicants_search' } %>
     <%= link_to 'Reset', program_requirements_applicants_path, class: 'btn btn-default' %>
   </div>
 <% end %>
