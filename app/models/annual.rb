@@ -17,7 +17,7 @@ class Annual < ActiveRecord::Base
   # Model Validation
   validates_presence_of :applicant_id, :user_id, :year
   validates_uniqueness_of :year, scope: [:applicant_id, :deleted]
-  validates_presence_of :coursework_completed, :nih_other_support, :presentations, :publications, :research_description, :source_of_support, if: [:publish?]
+  validates_presence_of :coursework_completed, :presentations, :publications, :research_description, :source_of_support, if: [:publish?]
 
 
   # Model Relationships

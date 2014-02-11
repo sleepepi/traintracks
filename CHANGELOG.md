@@ -1,5 +1,9 @@
 ## 0.10.1
 
+### Enhancements
+- **Annuals Changes**
+  - NIH Other Support document is no longer required when applicants fill out an annual review
+
 ## 0.10.0 (February 11, 2014)
 
 ### Enhancements
