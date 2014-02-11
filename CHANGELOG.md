@@ -4,6 +4,7 @@
 - **Applicants Changes**
   - Added additional program requirements section for admins to enter
   - Additional Program Requirements can be downloaded as a CSV
+  - Admin Only section now includes 'Curriculum Advisor', 'Most Recent Curriculum Advisor Meeting Date', and 'Past Curriculum Advisor Meetings'
 
 ### Bug Fix
 - Annual reminder email is now filtered to trainees who have been supported by the training grant

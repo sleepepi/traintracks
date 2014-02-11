@@ -209,7 +209,7 @@ class ApplicantsController < ApplicationController
     def applicant_params
       params[:applicant] ||= {}
 
-      general_dates = [:desired_start_date, :review_date, :training_period_start_date, :training_period_end_date]
+      general_dates = [:desired_start_date, :review_date, :training_period_start_date, :training_period_end_date, :most_recent_curriculum_advisor_meeting_date]
       program_requirement_dates = [ :research_in_progress_date, :research_ethics_training_completed_date, :grant_writing_training_completed_date, :basic_research_statistics_course_completed_date, :advanced_research_statistics_course_completed_date, :neuroscience_course_completed_date, :hsoph_summer_session_course_completed_date, :individual_funding_submission_date, :last_idp_date ]
 
       (general_dates + program_requirement_dates).each do |date|
@@ -281,6 +281,7 @@ class ApplicantsController < ApplicationController
           # Administrator Only
           'Reviewed', 'Review Date', 'Offered', 'Accepted', 'Enrolled', 'CV Number', 'Degree Type', 'Primary Preceptor ID', 'Secondary Preceptor ID', 'Trainee Code',
           'Status', 'Training Grant Years', 'Supported by Training Grant', 'Training Period Start Date', 'Training Period End Date', 'Notes',
+          'Curriculum Advisor', 'Most Recent Curriculum Advisor Meeting Date', 'Past Curriculum Advisor Meetings',
           # Automatically Updated Fields
           'Submitted At', 'Resubmitted At',
           # Termination
@@ -315,6 +316,7 @@ class ApplicantsController < ApplicationController
             a.secondary_preceptor ? a.secondary_preceptor.name_with_id : '',
             a.trainee_code,
             a.status, a.training_grant_years, a.supported_by_tg, a.training_period_start_date, a.training_period_end_date, a.notes,
+            a.curriculum_advisor, a.most_recent_curriculum_advisor_meeting_date, a.past_curriculum_advisor_meetings,
             # Automatically Updated Fields
             a.originally_submitted_at, a.submitted_at,
             # Termination

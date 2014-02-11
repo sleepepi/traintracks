@@ -42,4 +42,13 @@
 
   <dt>Notes</dt>
   <dd><%= simple_format applicant.notes %></dd>
+
+  <dt>Curriculum Advisor</dt>
+  <dd><%= applicant.curriculum_advisor %></dd>
+
+  <dt>Most Recent Curriculum Advisor Meeting Date</dt>
+  <dd style="min-height:80px"><%= applicant.most_recent_curriculum_advisor_meeting_date.strftime('%m/%d/%Y') rescue '' %></dd>
+
+  <dt>Past Curriculum Advisor Meetings</dt>
+  <dd style="min-height:60px"><%= simple_format applicant.past_curriculum_advisor_meetings %></dd>
 </dl>

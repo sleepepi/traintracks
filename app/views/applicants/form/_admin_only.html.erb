@@ -123,3 +123,28 @@
     <%= f.text_area :notes, rows: 7, class: 'form-control' %>
   </div>
 </div>
+
+<div class="form-group">
+  <%= f.label :curriculum_advisor, 'Curriculum Advisor', class: 'col-md-2 control-label' %>
+  <div class="col-md-10">
+    <%= f.text_field :curriculum_advisor, class: 'form-control' %>
+  </div>
+</div>
+
+
+<div class="form-group">
+  <%= f.label :most_recent_curriculum_advisor_meeting_date, 'Most Recent Curriculum Advisor Meeting Date', class: 'col-md-2 control-label' %>
+  <div class="col-md-10">
+    <div class="input-group">
+      <%= f.text_field :most_recent_curriculum_advisor_meeting_date, class: 'datepicker form-control', value: applicant.most_recent_curriculum_advisor_meeting_date ? applicant.most_recent_curriculum_advisor_meeting_date.strftime('%m/%d/%Y') : '' %>
+      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :past_curriculum_advisor_meetings, 'Past Curriculum Advisor Meetings', class: 'col-md-2 control-label' %>
+  <div class="col-md-10">
+    <%= f.text_area :past_curriculum_advisor_meetings, rows: 7, class: 'form-control' %>
+  </div>
+</div>
