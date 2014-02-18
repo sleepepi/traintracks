@@ -21,12 +21,13 @@
 
   <dt>Degrees earned</dt>
   <dd>
-    <%#= simple_format applicant.degrees_earned_text %>
-    <ul>
-    <% applicant.degrees_earned.each do |degree_earned| %>
-      <li><%= render partial: 'applicants/show/degrees', locals: { degree_earned: degree_earned } %></li>
-    <% end %>
-    </ul>
+      <ul>
+      <% applicant.degrees_earned.each do |degree_earned| %>
+        <% if degree_earned.values.count{|v| not v.blank?} > 0 %>
+          <li><%= render partial: 'applicants/show/degrees', locals: { degree_earned: degree_earned } %></li>
+        <% end %>
+      <% end %>
+      </ul>
   </dd>
 
   <% unless applicant.postdoc? %>
