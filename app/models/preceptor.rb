@@ -28,6 +28,9 @@ class Preceptor < ActiveRecord::Base
   validates_presence_of :first_name, :last_name
   validates_uniqueness_of :email, allow_blank: true, scope: :deleted
 
+  # Max Length Validation for PostgreSQL strings
+  validates_length_of :first_name, :last_name, :degree, :hospital_affiliation, :hospital_appointment, :program_role, maximum: 255
+
   # Model Relationships
   # has_many :applicants
 

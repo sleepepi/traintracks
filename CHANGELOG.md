@@ -2,6 +2,7 @@
 
 ### Bug Fix
 - Entering annual information for `Source of Support` longer than 255 now provides a friendly warning instead of a failure to load page as well as providing a hint to keep the information short
+- Added checks to assure active record would provide a warning before sending strings longer than 255 to PostgreSQL
 
 ## 0.10.1 (February 11, 2014)
 

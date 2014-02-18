@@ -115,6 +115,9 @@ class Applicant < ActiveRecord::Base
   validates_presence_of :transition_position, if: [:termination?, :immediate_transition?]
   validates_presence_of :transition_position_other, if: [:termination?, :other_position_selected?]
 
+  # Max Length Validation for PostgreSQL strings
+  validates_length_of :first_name, :last_name, :middle_initial, :current_institution, :department_program, :degree_type, :residency, :current_position, :address1, :address2, :city, :state, :country, :zip_code, :phone, :training_grant_years, :research_project_title, :trainee_code, :letters_from_a, :letters_from_b, :letters_from_c, :future_email, :transition_position_other, :research_interests_other, :research_in_progress_title, :curriculum_advisor, maximum: 255
+
   # Model Relationships
   belongs_to :preferred_preceptor, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_id'
   belongs_to :preferred_preceptor_two, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_two_id'

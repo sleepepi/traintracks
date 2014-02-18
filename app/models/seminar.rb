@@ -15,6 +15,9 @@ class Seminar < ActiveRecord::Base
   validates_presence_of :category, :presenter, :user_id
   validates_numericality_of :duration, only_integer: true, greater_than: 0
 
+  # Max Length Validation for PostgreSQL strings
+  validates_length_of :category, :presentation_title, :presenter, maximum: 255
+
   # Model Relationships
   belongs_to :user
   has_and_belongs_to_many :applicants
