@@ -1,4 +1,4 @@
-## 0.10.2
+## 0.10.2 (February 18, 2014)
 
 ### Bug Fix
 - Entering annual information for `Source of Support` longer than 255 now provides a friendly warning instead of a failure to load page as well as providing a hint to keep the information short
