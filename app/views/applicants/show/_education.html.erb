@@ -23,7 +23,7 @@
   <dd>
     <ul>
       <% applicant.degrees_earned.each do |degree_earned| %>
-        <% if degree_earned.values.count{|v| not v.blank?} > 0 %>
+        <% if degree_earned.kind_of?(Hash) and degree_earned.values.count{|v| not v.blank?} > 0 %>
           <li><%= render partial: 'applicants/show/degrees', locals: { degree_earned: degree_earned } %></li>
         <% end %>
       <% end %>
