@@ -1,4 +1,4 @@
-## 0.10.3
+## 0.10.3 (February 26, 2014)
 
 ### Enhancements
 - Admins now have better control over sending login links to applicants and preceptors
