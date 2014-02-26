@@ -1,4 +1,5 @@
 class AnnualsController < ApplicationController
+  before_action :authenticate_applicant_from_token!, only: [ :edit_me, :update_me ]
   before_action :authenticate_user!, except: [ :edit_me, :update_me ]
   before_action :check_administrator, except: [ :edit_me, :update_me ]
   before_action :authenticate_applicant!, only: [ :edit_me, :update_me ]
@@ -23,7 +24,7 @@ class AnnualsController < ApplicationController
       return
     end
 
-    @annuals = annual_scope.page(params[:page]).per( 20 )
+    @annuals = annual_scope.page(params[:page]).per( 40 )
   end
 
   # GET /annuals/1

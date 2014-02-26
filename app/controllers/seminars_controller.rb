@@ -36,7 +36,7 @@ class SeminarsController < ApplicationController
   # GET /seminars.json
   def index
     @order = scrub_order(Seminar, params[:order], "seminars.presentation_date DESC")
-    @seminars = current_user.all_viewable_seminars.order(@order).page(params[:page]).per( 20 )
+    @seminars = current_user.all_viewable_seminars.order(@order).page(params[:page]).per( 40 )
   end
 
   # GET /seminars/1

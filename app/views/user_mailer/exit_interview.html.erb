@@ -2,7 +2,7 @@ Hello <%= @applicant.first_name %>,<br />
 <br />
 <%= @user.name %> has requested that you complete your exit interview.<br />
 <br />
-You can access the exit interview here: <%= link_to "#{SITE_URL}/applicants/exit_interview?auth_token=#{@applicant.authentication_token}", "#{SITE_URL}/applicants/exit_interview?auth_token=#{@applicant.authentication_token}" %><br />
+You can access the exit interview here: <%= link_to "#{SITE_URL}/applicants/exit_interview?auth_token=#{@applicant.id_and_auth_token}", "#{SITE_URL}/applicants/exit_interview?auth_token=#{@applicant.id_and_auth_token}" %><br />
 <br />
 Thank you!<br />
 <br />

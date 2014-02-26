@@ -21,6 +21,13 @@
   </p>
 <% end %>
 
+<% if current_user.administrator? %>
+  <div class="bs-callout bs-callout-info">
+    <h4>Applicant Unique Login</h4>
+    <code class="text-primary"><%= "#{SITE_URL}/applicants/dashboard?auth_token=#{@applicant.id_and_auth_token}" %></code>
+  </div>
+<% end %>
+
 <div class="row">
   <div class="col-md-6">
     <%= render partial: 'applicants/show/general', locals: { applicant: @applicant } %>
@@ -77,7 +84,7 @@
 
 <%= render partial: 'applicants/email_modal', locals: { applicant_id: @applicant.id } %>
 
-<div class="modal fade" id="saving_modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal" id="saving_modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

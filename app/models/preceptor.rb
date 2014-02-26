@@ -2,7 +2,10 @@ class Preceptor < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :encryptable and :omniauthable, :registerable
   devise :database_authenticatable, :timeoutable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable, :lockable
+         :recoverable, :rememberable, :trackable, :validatable, :lockable
+
+  # Concerns
+  include TokenAuthenticatable
 
   # Setup accessible (or protected) attributes for your model
   # attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -19,6 +22,7 @@ class Preceptor < ActiveRecord::Base
 
   # Callbacks
   before_validation :set_password
+  before_save :ensure_authentication_token
 
   # Named Scopes
   scope :current, -> { where deleted: false }
@@ -50,11 +54,6 @@ class Preceptor < ActiveRecord::Base
     super and not self.deleted?
   end
 
-  def after_token_authentication
-    self.reset_authentication_token!
-    super
-  end
-
   def name
     "#{first_name} #{last_name}"
   end
@@ -74,14 +73,13 @@ class Preceptor < ActiveRecord::Base
   end
 
   def update_general_information_email!(current_user)
-    self.reset_authentication_token!
     self.update_column :emailed_at, Time.now
     UserMailer.update_preceptor(self, current_user).deliver if Rails.env.production?
   end
 
   def set_password
     if self.respond_to?('encrypted_password') and self.encrypted_password.blank?
-      self.password = Applicant.reset_password_token
+      self.password = Devise.friendly_token
       self.password_confirmation = self.password
     end
     true

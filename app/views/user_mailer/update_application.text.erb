@@ -2,7 +2,7 @@ Hello <%= @applicant.first_name %>,
 
 <%= @user.name %> has requested that you update your application information.
 
-You can access your application here: <%= "#{SITE_URL}?auth_token=#{@applicant.authentication_token}" %>
+You can access your application here: <%= "#{SITE_URL}/applicants/edit_me?auth_token=#{@applicant.id_and_auth_token}" %>
 
 Thank you!
 

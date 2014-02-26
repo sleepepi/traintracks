@@ -44,4 +44,20 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def authenticate_applicant_from_token!
+      (applicant_id, auth_token) = params[:auth_token].to_s.split('-')
+      applicant                  = applicant_id && Applicant.find_by_id(applicant_id)
+      if applicant && Devise.secure_compare(applicant.authentication_token, auth_token)
+        sign_in applicant
+      end
+    end
+
+    def authenticate_preceptor_from_token!
+      (preceptor_id, auth_token) = params[:auth_token].to_s.split('-')
+      preceptor               = preceptor_id && Preceptor.find_by_id(preceptor_id)
+      if preceptor && Devise.secure_compare(preceptor.authentication_token, auth_token)
+        sign_in preceptor
+      end
+    end
+
 end

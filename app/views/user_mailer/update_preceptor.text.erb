@@ -1,8 +1,8 @@
 Hello <%= @preceptor.first_name %>,
 
-<%= @user.name %> has requested that you update your application information.
+<%= @user.name %> has requested that you update your preceptor profile.
 
-You can access your application here: <%= "#{SITE_URL}?auth_token=#{@preceptor.authentication_token}" %>
+You can access your preceptor profile here: <%= "#{SITE_URL}/preceptors/edit_me?auth_token=#{@preceptor.id_and_auth_token}" %>
 
 Thank you!
 

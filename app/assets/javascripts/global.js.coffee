@@ -37,8 +37,6 @@
 
 @ready = () ->
   contourReady()
-  $(document).off("click", ".pagination a, .page a, .next a, .prev a")
-  $(document).off("click", ".per_page a")
   initializeTypeahead()
   $("[rel~=tooltip]").tooltip( trigger: 'hover' )
   $("input[rel=tooltip], textarea[rel=tooltip]").tooltip( trigger: 'focus' )

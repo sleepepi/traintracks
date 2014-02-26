@@ -2,7 +2,10 @@ class Applicant < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :encryptable and :omniauthable
   devise :database_authenticatable, :registerable, :timeoutable, :confirmable,
-         :recoverable, :rememberable, :trackable, :token_authenticatable, :lockable, :validatable
+         :recoverable, :rememberable, :trackable, :lockable, :validatable
+
+  # Concerns
+  include TokenAuthenticatable
 
   # # Setup accessible (or protected) attributes for your model
   # attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -73,7 +76,7 @@ class Applicant < ActiveRecord::Base
 
   # Callbacks
   before_validation :set_alien_registration_number, :set_password
-  before_save :set_submitted_at, :set_tge
+  before_save :set_submitted_at, :set_tge, :ensure_authentication_token
   before_validation :check_degrees_earned, if: :annual_or_publish?
   after_save :notify_preceptor
 
@@ -197,11 +200,6 @@ class Applicant < ActiveRecord::Base
     super and not self.deleted?
   end
 
-  def after_token_authentication
-    self.reset_authentication_token!
-    super
-  end
-
   def name
     "#{first_name} #{middle_initial} #{last_name}"
   end
@@ -253,7 +251,7 @@ class Applicant < ActiveRecord::Base
 
   def set_password
     if self.respond_to?('encrypted_password') and self.encrypted_password.blank?
-      self.password = Applicant.reset_password_token
+      self.password = Devise.friendly_token
       self.password_confirmation = self.password
     end
     true
@@ -283,7 +281,6 @@ class Applicant < ActiveRecord::Base
   end
 
   def update_general_information_email!(current_user)
-    self.reset_authentication_token!
     self.update_column :emailed_at, Time.now
     UserMailer.update_application(self, current_user).deliver if Rails.env.production?
   end
@@ -295,8 +292,6 @@ class Applicant < ActiveRecord::Base
       if annual.submitted?
         # Do nothing
       elsif annual.applicant and not annual.applicant.email.blank?
-        self.reset_authentication_token!
-        annual.reload
         self.update_column :emailed_at, Time.now
         UserMailer.update_annual(annual, subject, body).deliver if Rails.env.production?
       end
@@ -304,7 +299,6 @@ class Applicant < ActiveRecord::Base
   end
 
   def send_termination!(current_user)
-    self.reset_authentication_token!
     self.update_column :emailed_at, Time.now
     UserMailer.exit_interview(self, current_user).deliver if Rails.env.production?
   end

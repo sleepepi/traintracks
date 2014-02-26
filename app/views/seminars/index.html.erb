@@ -7,13 +7,11 @@
   </h1>
 </div>
 
-<%= form_tag seminars_path, method: :get, id: "seminars_search", class: 'form-inline' do %>
+<%= form_tag seminars_path, method: :get, class: 'form-inline' do %>
   <%= hidden_field_tag :order, params[:order] %>
 
   <%= text_field_tag 'search', params[:search], class: 'form-control' %>
   <%= submit_tag 'Search', class: 'btn btn-primary', name: nil %>
 <% end %>
 
-<div id="seminars">
-  <%= render partial: 'seminars/seminars' %>
-</div>
+<%= render partial: 'seminars/seminars' %>

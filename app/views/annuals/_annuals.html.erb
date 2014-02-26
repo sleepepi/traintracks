@@ -1,18 +1,18 @@
-<%= render partial: 'contour/layouts/per_page', locals: { type: 'annuals', per_page: 20, object_count: @annuals.total_count } %>
+<%= render partial: 'contour/layouts/per_page', locals: { per_page: 40, object_count: @annuals.total_count } %>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.applicant_id', 'Applicant', 'annuals_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.year', 'Year', 'annuals_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.coursework_completed', 'Coursework Completed', 'annuals_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.publications', 'Publications', 'annuals_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.presentations', 'Presentations', 'annuals_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.research_description', 'Research Description', 'annuals_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.source_of_support', 'Source Of Support', 'annuals_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.nih_other_support', 'NIH Other Support', 'annuals_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.submitted_at', 'Submitted At', 'annuals_search') %></th>
-      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.modified_at', 'Modified At', 'annuals_search') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.applicant_id', 'Applicant') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.year', 'Year') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.coursework_completed', 'Coursework Completed') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.publications', 'Publications') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.presentations', 'Presentations') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.research_description', 'Research Description') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.source_of_support', 'Source Of Support') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.nih_other_support', 'NIH Other Support') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.submitted_at', 'Submitted At') %></th>
+      <th style="white-space:nowrap"><%== sort_field_helper(@order, 'annuals.modified_at', 'Modified At') %></th>
       <th>Actions</th>
     </tr>
   </thead>

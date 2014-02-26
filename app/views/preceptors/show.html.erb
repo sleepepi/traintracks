@@ -14,6 +14,13 @@
   </p>
 <% end %>
 
+<% if current_user.administrator? %>
+  <div class="bs-callout bs-callout-info">
+    <h4>Preceptor Unique Login</h4>
+    <code class="text-primary"><%= "#{SITE_URL}/preceptors/dashboard?auth_token=#{@preceptor.id_and_auth_token}" %></code>
+  </div>
+<% end %>
+
 <div class="page-header"><h2>General Information</h2></div>
 
 <%= render partial: 'preceptors/show/general', locals: { preceptor: @preceptor } %>
