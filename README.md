@@ -4,7 +4,7 @@
 [![Dependency Status](https://gemnasium.com/sleepepi/traintracks.png)](https://gemnasium.com/sleepepi/traintracks)
 [![Code Climate](https://codeclimate.com/github/sleepepi/traintracks.png)](https://codeclimate.com/github/sleepepi/traintracks)
 
-Train Tracks manages new applicants, trainees, and preceptors over a 10-year time period. Using Rails 4.0+ and Ruby 2.1.0+.
+Train Tracks manages new applicants, trainees, and preceptors over a 10-year time period. Using Rails 4.0+ and Ruby 2.1+.
 
 ## Installation
 
@@ -53,7 +53,7 @@ All done!
 Edit Cron Jobs `sudo crontab -e` to run the task `lib/tasks/seminar_reminder_email.rake`
 
 ```
-0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/traintracks && /usr/local/rvm/gems/ruby-2.1.0/bin/bundle exec rake seminar_reminder_email RAILS_ENV=production
+0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/traintracks && /usr/local/rvm/gems/ruby-2.1.2/bin/bundle exec rake seminar_reminder_email RAILS_ENV=production
 ```
 
 ## Contributing to Training Grant
