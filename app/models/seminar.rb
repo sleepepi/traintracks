@@ -30,10 +30,10 @@ class Seminar < ActiveRecord::Base
 
   def presentation_date_with_time
     result = ""
-    result = if self.presentation_date and self.presentation_date.to_date == self.presentation_date_end.to_date
-      "#{self.presentation_date.strftime("%b %d, %Y at")} #{time_short(self.start_time)} to #{time_short(self.end_time)}"
-    else
-      "#{self.presentation_date.strftime("%b %d, %Y at")} #{time_short(self.start_time)} to #{self.presentation_date_end.strftime("%b %d, %Y")} at #{time_short(self.end_time)}"
+    if self.presentation_date and self.presentation_date.to_date == self.presentation_date_end.to_date
+      result = "#{self.presentation_date.strftime("%b %d, %Y at")} #{time_short(self.start_time)} to #{time_short(self.end_time)}"
+    elsif self.presentation_date
+      result = "#{self.presentation_date.strftime("%b %d, %Y at")} #{time_short(self.start_time)} to #{self.presentation_date_end.strftime("%b %d, %Y")} at #{time_short(self.end_time)}"
     end
     result
   end

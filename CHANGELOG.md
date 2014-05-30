@@ -1,5 +1,8 @@
 ## 0.10.5
 
+### Bug Fix
+- Fixed an issue that caused seminars without dates from being displayed properly
+
 ## 0.10.4 (May 30, 2014)
 
 ### Enhancements

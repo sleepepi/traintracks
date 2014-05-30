@@ -19,3 +19,13 @@ two:
   duration_units: minutes
   user: valid
   deleted: false
+
+no_date:
+  category: Research-In-Progress
+  presenter: Joe the Unreliable
+  presentation_title: Why I Didn't Set a Date
+  # presentation_date:
+  duration: 90
+  duration_units: minutes
+  user: valid
+  deleted: false
