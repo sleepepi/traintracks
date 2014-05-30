@@ -1,21 +1,23 @@
+<%= render partial: 'email_header' %>
+
 <h2>Upcoming Seminars</h2>
 
-<table cellspacing="0" cellpadding="4">
+<table style="width:100%;border:0px;border-collapse:collapse;margin:0px;padding:0px;color:#505050;font-family:Arial;font-size:14px;">
   <thead>
     <tr>
-      <th style="white-space:nowrap;text-align:left">Presenter</th>
-      <th style="white-space:nowrap;text-align:left">Presentation Title</th>
-      <th style="white-space:nowrap;text-align:left">Presentation Date</th>
-      <th style="white-space:nowrap;text-align:left">Category</th>
+      <th style="white-space:nowrap;text-align:left;padding-right:20px;">Presenter</th>
+      <th style="white-space:nowrap;text-align:left;padding-right:20px;">Presentation Title</th>
+      <th style="white-space:nowrap;text-align:left;padding-right:20px;">Presentation Date</th>
+      <th style="white-space:nowrap;text-align:left;">Category</th>
     </tr>
   </thead>
 
   <% @seminars.order('presentation_date').each do |seminar| %>
     <tr>
-      <td style="border-bottom:1px solid #777;"><%= seminar.presenter %></td>
-      <td style="border-bottom:1px solid #777;"><i><%= seminar.presentation_title %></i></td>
-      <td style="border-bottom:1px solid #777;"><%= seminar.presentation_date_with_time %></td>
-      <td style="border-bottom:1px solid #777;"><%= seminar.category %></td>
+      <td style="border-bottom:1px solid #777;padding-right:20px;padding-top:10px;padding-bottom:10px"><%= seminar.presenter %></td>
+      <td style="border-bottom:1px solid #777;padding-right:20px;padding-top:10px;padding-bottom:10px"><i><%= seminar.presentation_title %></i></td>
+      <td style="border-bottom:1px solid #777;padding-right:20px;padding-top:10px;padding-bottom:10px"><%= seminar.presentation_date_with_time %></td>
+      <td style="border-bottom:1px solid #777;padding-top:10px;padding-bottom:10px"><%= seminar.category %></td>
     </tr>
   <% end %>
 </table>
@@ -27,24 +29,30 @@
 <% if past_seminars.size > 0 %>
   <h2>Past 6-month Attendance (<%= @applicant.seminars.where(id: past_seminars.pluck(:id)).count %> out of <%= past_seminars.size %>)</h2>
 
-  <table cellspacing="0" cellpadding="4">
+  <table style="width:100%;border:0px;border-collapse:collapse;margin:0px;padding:0px;color:#505050;font-family:Arial;font-size:14px;">
     <thead>
       <tr>
-        <th>Attended</th>
-        <th style="white-space:nowrap;text-align:left">Presenter</th>
-        <th style="white-space:nowrap;text-align:left">Presentation Title</th>
-        <th style="white-space:nowrap;text-align:left">Presentation Date</th>
+        <th style="padding-right:20px;">Attended</th>
+        <th style="white-space:nowrap;text-align:left;padding-right:20px;">Presenter</th>
+        <th style="white-space:nowrap;text-align:left;padding-right:20px;">Presentation Title</th>
+        <th style="white-space:nowrap;text-align:left;padding-right:20px;">Presentation Date</th>
         <th style="white-space:nowrap;text-align:left">Category</th>
       </tr>
     </thead>
     <% past_seminars.each do |seminar| %>
       <% attended = (@applicant.seminars.where(id: seminar.id).count == 1) %>
       <tr>
-        <td style="border-bottom:1px solid #777;"><%= attended ? 'Yes' : 'No' %></td>
-        <td style="border-bottom:1px solid #777;"><%= seminar.presenter %></td>
-        <td style="border-bottom:1px solid #777;"><%= seminar.presentation_title %></td>
-        <td style="border-bottom:1px solid #777;"><%= seminar.presentation_date_with_time %></td>
-        <td style="border-bottom:1px solid #777;"><%= seminar.category %></td>
+        <td style="border-bottom:1px solid #777;padding-right:20px;padding-top:10px;padding-bottom:10px">
+        <% if attended %>
+          <span style="padding:5px;background-color:#5cb85c;color:white">Yes</span>
+        <% else %>
+          <span style="padding:5px;background-color:#d9534f;color:white">No</span>
+        <% end %>
+        </td>
+        <td style="border-bottom:1px solid #777;padding-right:20px;padding-top:10px;padding-bottom:10px"><%= seminar.presenter %></td>
+        <td style="border-bottom:1px solid #777;padding-right:20px;padding-top:10px;padding-bottom:10px"><i><%= seminar.presentation_title %></i></td>
+        <td style="border-bottom:1px solid #777;padding-right:20px;padding-top:10px;padding-bottom:10px"><%= seminar.presentation_date_with_time %></td>
+        <td style="border-bottom:1px solid #777;padding-top:10px;padding-bottom:10px"><%= seminar.category %></td>
       </tr>
     <% end %>
   </table>
@@ -53,8 +61,10 @@
 
 <% if defined?(TG_ADMIN_EMAIL) and not TG_ADMIN_EMAIL.blank? %>
   <br />
-  If you feel the above record is incorrect, please send an email to: <%= mail_to TG_ADMIN_EMAIL %><br />
+  <br />
+  If you feel the above record is incorrect, please send an email to: <%= mail_to TG_ADMIN_EMAIL, TG_ADMIN_EMAIL, style: "color: #428bca" %>
 <% end %>
 
-<br />
-<div style="color:#777">This email was automatically generated by the <%= link_to DEFAULT_APP_NAME, SITE_URL %> System Mailer.</div>
+
+
+<%= render partial: 'email_footer' %>

@@ -13,7 +13,7 @@ class UserMailerTest < ActionMailer::TestCase
     # Test the body of the sent email contains what we expect it to
     assert_equal [admin.email], email.to
     assert_equal "#{valid.name} Signed Up", email.subject
-    assert_match(/#{valid.name} \[#{valid.email}\] has signed up for an account\./, email.encoded)
+    assert_match(/#{valid.name} \[#{valid.email}\] signed up for an account\./, email.encoded)
   end
 
   test "status activated email" do
@@ -54,6 +54,68 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal ['applicant_one@example.com'], email.to
     assert_equal "Upcoming Seminars Reminder", email.subject
     assert_match(/Upcoming Seminars/, email.encoded)
+  end
+
+  test "update application email" do
+    applicant = applicants(:one)
+    user = users(:valid)
+
+    email = UserMailer.update_application(applicant, user).deliver
+    assert !ActionMailer::Base.deliveries.empty?
+
+    assert_equal [applicant.email], email.to
+    assert_equal "Please Update Your Application Information", email.subject
+    assert_match(/#{user.name} has requested that you update your application information\./, email.encoded)
+  end
+
+  test "update preceptor email" do
+    preceptor = preceptors(:one)
+    user = users(:valid)
+
+    email = UserMailer.update_preceptor(preceptor, user).deliver
+    assert !ActionMailer::Base.deliveries.empty?
+
+    assert_equal [preceptor.email], email.to
+    assert_equal "Please Update Your Information", email.subject
+    assert_match(/#{user.name} has requested that you update your preceptor profile\./, email.encoded)
+  end
+
+  test "update annual email" do
+    annual = annuals(:one)
+    user = users(:valid)
+    subject = ""
+    body = "This is in the body."
+
+    email = UserMailer.update_annual(annual, subject, body).deliver
+    assert !ActionMailer::Base.deliveries.empty?
+
+    assert_equal [annual.applicant.email], email.to
+    assert_equal "Please Update Your #{annual.year} Annual Information", email.subject
+    assert_match(/\/annuals\/#{annual.id}\/edit_me\?auth_token=#{annual.applicant.id_and_auth_token}/, email.encoded)
+  end
+
+  test "exit interview email" do
+    applicant = applicants(:one)
+    user = users(:valid)
+
+    email = UserMailer.exit_interview(applicant, user).deliver
+    assert !ActionMailer::Base.deliveries.empty?
+
+    assert_equal [applicant.email], email.to
+    assert_equal "Please Complete Your Exit Interview", email.subject
+    assert_match(/#{user.name} has requested that you complete your exit interview\./, email.encoded)
+  end
+
+  test "notify preceptor email" do
+    applicant = applicants(:one)
+    user = users(:valid)
+
+    email = UserMailer.notify_preceptor(applicant).deliver
+    assert !ActionMailer::Base.deliveries.empty?
+
+    assert_equal ["preceptor_one@example.com"], email.to
+    assert_equal "ACTION REQUIRED: You have been named as a potential preceptor for #{applicant.name}.", email.subject
+    assert_match(/#{applicant.name} has recently submitted an application to the Training Program in Sleep, Circadian, and Respiratory Neurobiology\. This candidate named you as a potential preceptor\./, email.encoded)
   end
 
 end

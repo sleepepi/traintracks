@@ -11,6 +11,7 @@ class UserMailer < ActionMailer::Base
     setup_email
     @system_admin = system_admin
     @user = user
+    @email_to = system_admin.email
     mail(to: system_admin.email,
          subject: "#{user.name} Signed Up",
          reply_to: user.email)
@@ -19,6 +20,7 @@ class UserMailer < ActionMailer::Base
   def status_activated(user)
     setup_email
     @user = user
+    @email_to = user.email
     mail(to: user.email,
          subject: "#{user.name}'s Account Activated")
   end
@@ -27,6 +29,7 @@ class UserMailer < ActionMailer::Base
     setup_email
     @applicant = applicant
     @user = user
+    @email_to = applicant.email
     mail(to: applicant.email,
          subject: "Please Update Your Application Information",
          reply_to: user.email)
@@ -36,6 +39,7 @@ class UserMailer < ActionMailer::Base
     setup_email
     @preceptor = preceptor
     @user = user
+    @email_to = preceptor.email
     mail(to: preceptor.email,
          subject: "Please Update Your Information",
          reply_to: user.email)
@@ -44,6 +48,7 @@ class UserMailer < ActionMailer::Base
   def update_annual(annual, subject, body)
     setup_email
     @annual = annual
+    @email_to = annual.applicant.email
     mail(to: annual.applicant.email,
          subject: subject.blank? ? "Please Update Your #{annual.year} Annual Information" : subject,
          body: "Dear #{annual.applicant.name},\n\n" + body + "\n\n#{SITE_URL}/annuals/#{annual.id}/edit_me?auth_token=#{annual.applicant.id_and_auth_token}",
@@ -54,6 +59,7 @@ class UserMailer < ActionMailer::Base
     setup_email
     @applicant = applicant
     @user = user
+    @email_to = applicant.email
     mail(to: applicant.email,
          subject: "Please Complete Your Exit Interview",
          reply_to: user.email)
@@ -63,6 +69,7 @@ class UserMailer < ActionMailer::Base
     setup_email
     @applicant = applicant
     @seminars = seminars
+    @email_to = applicant.email
     mail(to: applicant.email,
          subject: "Upcoming Seminars Reminder",
          reply_to: (defined?(TG_ADMIN_EMAIL) and not TG_ADMIN_EMAIL.blank?) ? TG_ADMIN_EMAIL : nil)
@@ -76,6 +83,7 @@ class UserMailer < ActionMailer::Base
 
     attachments["#{applicant.curriculum_vitae_url.split('/').last}"] = File.read(applicant.curriculum_vitae.path.to_s) if File.exists?(applicant.curriculum_vitae.path.to_s)
 
+    @email_to = @preceptors.collect{|p| p.email}.join(", ")
     mail(to: @preceptors.collect{|p| "#{p.name} <#{p.email}>"}.join(", "),
          cc: (defined?(TG_ADMIN_EMAIL) and not TG_ADMIN_EMAIL.blank?) ? TG_ADMIN_EMAIL : nil,
          subject: "ACTION REQUIRED: You have been named as a potential preceptor for #{applicant.name}.",

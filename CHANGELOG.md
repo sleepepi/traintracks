@@ -1,6 +1,8 @@
 ## 0.10.4
 
 ### Enhancements
+- **General Changes**
+  - Updated email styling template
 - Use of Ruby 2.1.2 is now recommended
 - **Gem Changes**
   - Updated to rails 4.1.1

@@ -15,9 +15,9 @@ one:
   enrolled: true
   expected_year: 1
   offered: false
-  preferred_preceptor_id: 1
-  primary_preceptor_id: 1
-  secondary_preceptor_id: 1
+  preferred_preceptor: one
+  primary_preceptor: one
+  secondary_preceptor: one
   review_date: 2012-04-02
   reviewed: false
   tge: false
@@ -71,9 +71,9 @@ two:
   enrolled: true
   expected_year: 1
   offered: false
-  preferred_preceptor_id: 1
-  primary_preceptor_id: 1
-  secondary_preceptor_id: 1
+  preferred_preceptor: one
+  primary_preceptor: one
+  secondary_preceptor: one
   review_date: 2012-04-02
   reviewed: false
   tge: false
