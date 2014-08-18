@@ -55,6 +55,7 @@ one:
   gender: MyString
   urm_types: ['hispanic latin', 'americanindian alskanative']
   research_interests: ['human physiology']
+  era_commons_username: MYERA1234
 
 two:
   first_name: MyString
@@ -111,3 +112,4 @@ two:
   gender: MyString
   urm_types: ['americanindian alskanative']
   seminars: one, two
+  era_commons_username: MYERA0123

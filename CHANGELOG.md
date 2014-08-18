@@ -1,6 +1,8 @@
 ## 0.10.6
 
 ### Enhancements
+- **Applicants Changes**
+  - Added eRA Commons Username as an editable field for administrators
 - **Gem Changes**
   - Updated to rails 4.1.4
   - Updated to kaminari 0.16.1

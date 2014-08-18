@@ -69,6 +69,17 @@ class ApplicantsControllerTest < ActionController::TestCase
     assert_redirected_to applicant_path(assigns(:applicant))
   end
 
+  test "should create applicant and add era commons username" do
+    assert_difference('Applicant.count') do
+      post :create, applicant: { era_commons_username: 'MYERACOMMONSNAME', first_name: @applicant.first_name, last_name: @applicant.last_name }
+    end
+
+    assert_not_nil assigns(:applicant)
+    assert_equal 'MYERACOMMONSNAME', assigns(:applicant).era_commons_username
+
+    assert_redirected_to applicant_path(assigns(:applicant))
+  end
+
   test "should show applicant" do
     get :show, id: @applicant
     assert_response :success

@@ -282,7 +282,7 @@ class ApplicantsController < ApplicationController
           # Administrator Only
           'Reviewed', 'Review Date', 'Offered', 'Accepted', 'Enrolled', 'CV Number', 'Degree Type', 'Primary Preceptor ID', 'Secondary Preceptor ID', 'Trainee Code',
           'Status', 'Training Grant Years', 'Supported by Training Grant', 'Training Period Start Date', 'Training Period End Date', 'Notes',
-          'Curriculum Advisor', 'Most Recent Curriculum Advisor Meeting Date', 'Past Curriculum Advisor Meetings',
+          'Curriculum Advisor', 'Most Recent Curriculum Advisor Meeting Date', 'Past Curriculum Advisor Meetings', 'eRA Commons Username',
           # Automatically Updated Fields
           'Submitted At', 'Resubmitted At',
           # Termination
@@ -317,7 +317,7 @@ class ApplicantsController < ApplicationController
             a.secondary_preceptor ? a.secondary_preceptor.name_with_id : '',
             a.trainee_code,
             a.status, a.training_grant_years, a.supported_by_tg, a.training_period_start_date, a.training_period_end_date, a.notes,
-            a.curriculum_advisor, a.most_recent_curriculum_advisor_meeting_date, a.past_curriculum_advisor_meetings,
+            a.curriculum_advisor, a.most_recent_curriculum_advisor_meeting_date, a.past_curriculum_advisor_meetings, a.era_commons_username,
             # Automatically Updated Fields
             a.originally_submitted_at, a.submitted_at,
             # Termination
