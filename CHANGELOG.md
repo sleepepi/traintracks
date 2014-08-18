@@ -1,5 +1,11 @@
 ## 0.10.6
 
+### Enhancements
+- **Gem Changes**
+  - Updated to rails 4.1.4
+  - Updated to kaminari 0.16.1
+  - Updated to simplecov 0.9.0
+
 ## 0.10.5 (May 30, 2014)
 
 ### Bug Fix
