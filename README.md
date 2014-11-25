@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/sleepepi/traintracks.svg?branch=master)](https://travis-ci.org/sleepepi/traintracks)
 [![Dependency Status](https://gemnasium.com/sleepepi/traintracks.svg)](https://gemnasium.com/sleepepi/traintracks)
-[![Code Climate](https://codeclimate.com/github/sleepepi/traintracks.png)](https://codeclimate.com/github/sleepepi/traintracks)
+[![Code Climate](https://codeclimate.com/github/sleepepi/traintracks/badges/gpa.svg)](https://codeclimate.com/github/sleepepi/traintracks)
 
-Train Tracks manages new applicants, trainees, and preceptors over a 10-year time period. Using Rails 4.1+ and Ruby 2.1+.
+Train Tracks manages new applicants, trainees, and preceptors over a 10-year time period. Using Rails 4.2+ and Ruby 2.1+.
 
 ## Installation
 

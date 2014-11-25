@@ -238,7 +238,7 @@ class Applicant < ActiveRecord::Base
 
   def notify_preceptor
     if self.publish.to_s == '1' and self.preferred_preceptor and not self.preferred_preceptor.email.blank?
-      UserMailer.notify_preceptor(self).deliver if Rails.env.production?
+      UserMailer.notify_preceptor(self).deliver_later if Rails.env.production?
     end
   end
 
@@ -282,7 +282,7 @@ class Applicant < ActiveRecord::Base
 
   def update_general_information_email!(current_user)
     self.update_column :emailed_at, Time.now
-    UserMailer.update_application(self, current_user).deliver if Rails.env.production?
+    UserMailer.update_application(self, current_user).deliver_later if Rails.env.production?
   end
 
   def send_annual_reminder!(current_user, year, subject, body)
@@ -293,14 +293,14 @@ class Applicant < ActiveRecord::Base
         # Do nothing
       elsif annual.applicant and not annual.applicant.email.blank?
         self.update_column :emailed_at, Time.now
-        UserMailer.update_annual(annual, subject, body).deliver if Rails.env.production?
+        UserMailer.update_annual(annual, subject, body).deliver_later if Rails.env.production?
       end
     end
   end
 
   def send_termination!(current_user)
     self.update_column :emailed_at, Time.now
-    UserMailer.exit_interview(self, current_user).deliver if Rails.env.production?
+    UserMailer.exit_interview(self, current_user).deliver_later if Rails.env.production?
   end
 
   protected

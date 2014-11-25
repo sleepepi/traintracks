@@ -2,6 +2,11 @@
 
 ### Enhancements
 - Use of Ruby 2.1.5 is now recommended
+- Updated Google Omniauth to no longer write to disk
+- **Gem Changes**
+  - Updated to rails 4.2.0.beta4
+  - Updated to contour 2.6.0.beta8
+  - Updated to mysql 0.3.17
 
 ## 0.10.6 (August 18, 2014)
 

@@ -7,7 +7,7 @@ class UserMailerTest < ActionMailer::TestCase
     admin = users(:admin)
 
     # Send the email, then test that it got queued
-    email = UserMailer.notify_system_admin(admin, valid).deliver
+    email = UserMailer.notify_system_admin(admin, valid).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -20,7 +20,7 @@ class UserMailerTest < ActionMailer::TestCase
     valid = users(:valid)
 
     # Send the email, then test that it got queued
-    email = UserMailer.status_activated(valid).deliver
+    email = UserMailer.status_activated(valid).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -33,7 +33,7 @@ class UserMailerTest < ActionMailer::TestCase
     applicant = applicants(:one)
 
     # Send the email, then test that it got queued
-    email = UserMailer.help_email(applicant, 'Help Me With...', 'Body').deliver
+    email = UserMailer.help_email(applicant, 'Help Me With...', 'Body').deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -47,7 +47,7 @@ class UserMailerTest < ActionMailer::TestCase
     seminars = users(:valid).seminars
 
     # Send the email, then test that it got queued
-    email = UserMailer.seminars_reminder(applicant, seminars).deliver
+    email = UserMailer.seminars_reminder(applicant, seminars).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -60,7 +60,7 @@ class UserMailerTest < ActionMailer::TestCase
     applicant = applicants(:one)
     user = users(:valid)
 
-    email = UserMailer.update_application(applicant, user).deliver
+    email = UserMailer.update_application(applicant, user).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     assert_equal [applicant.email], email.to
@@ -72,7 +72,7 @@ class UserMailerTest < ActionMailer::TestCase
     preceptor = preceptors(:one)
     user = users(:valid)
 
-    email = UserMailer.update_preceptor(preceptor, user).deliver
+    email = UserMailer.update_preceptor(preceptor, user).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     assert_equal [preceptor.email], email.to
@@ -86,7 +86,7 @@ class UserMailerTest < ActionMailer::TestCase
     subject = ""
     body = "This is in the body."
 
-    email = UserMailer.update_annual(annual, subject, body).deliver
+    email = UserMailer.update_annual(annual, subject, body).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     assert_equal [annual.applicant.email], email.to
@@ -98,7 +98,7 @@ class UserMailerTest < ActionMailer::TestCase
     applicant = applicants(:one)
     user = users(:valid)
 
-    email = UserMailer.exit_interview(applicant, user).deliver
+    email = UserMailer.exit_interview(applicant, user).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     assert_equal [applicant.email], email.to
@@ -110,7 +110,7 @@ class UserMailerTest < ActionMailer::TestCase
     applicant = applicants(:one)
     user = users(:valid)
 
-    email = UserMailer.notify_preceptor(applicant).deliver
+    email = UserMailer.notify_preceptor(applicant).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     assert_equal ["preceptor_one@example.com"], email.to

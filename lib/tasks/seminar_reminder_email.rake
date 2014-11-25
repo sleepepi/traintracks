@@ -5,7 +5,7 @@ task :seminar_reminder_email => :environment do
 
   if upcoming_seminars.size > 0
     Applicant.current_trainee.each do |applicant|
-      UserMailer.seminars_reminder(applicant, upcoming_seminars).deliver if Rails.env.production? and not applicant.email.blank?
+      UserMailer.seminars_reminder(applicant, upcoming_seminars).deliver_later if Rails.env.production? and not applicant.email.blank?
     end
   end
 end
