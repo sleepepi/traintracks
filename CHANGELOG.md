@@ -1,5 +1,9 @@
 ## 0.10.8
 
+### Enhancements
+- **Gem Changes**
+  - Updated to rails 4.2.0.rc2
+
 ## 0.10.7 (November 25, 2014)
 
 ### Enhancements
