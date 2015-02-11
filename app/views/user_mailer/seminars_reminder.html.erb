@@ -59,10 +59,10 @@
 
 <% end %>
 
-<% if defined?(TG_ADMIN_EMAIL) and not TG_ADMIN_EMAIL.blank? %>
+<% if defined?(ENV['tg_admin_email']) and not ENV['tg_admin_email'].blank? %>
   <br />
   <br />
-  If you feel the above record is incorrect, please send an email to: <%= mail_to TG_ADMIN_EMAIL, TG_ADMIN_EMAIL, style: "color: #428bca" %>
+  If you feel the above record is incorrect, please send an email to: <%= mail_to ENV['tg_admin_email'], ENV['tg_admin_email'], style: "color: #428bca" %>
 <% end %>
 
 

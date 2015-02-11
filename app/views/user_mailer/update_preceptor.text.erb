@@ -2,8 +2,8 @@ Dear <%= @preceptor.first_name %>,
 
 <%= @user.name %> has requested that you update your preceptor profile.
 
-You can access your preceptor profile here: <%= "#{SITE_URL}/preceptors/edit_me?auth_token=#{@preceptor.id_and_auth_token}" %>
+You can access your preceptor profile here: <%= "#{ENV['website_url']}/preceptors/edit_me?auth_token=#{@preceptor.id_and_auth_token}" %>
 
 Thank you!
 
-<%= DEFAULT_APP_NAME %> System Mailer
+<%= ENV['website_name'] %> System Mailer

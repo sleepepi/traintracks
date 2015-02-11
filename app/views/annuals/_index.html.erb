@@ -13,7 +13,7 @@
             <% if current_user and current_user.administrator? %>
               <div class="bs-callout bs-callout-info">
                 <h4>Annual <%= annual.year %> Login</h4>
-                <code class="text-primary" style="font-size:0.7em"><%= "#{SITE_URL}/annuals/#{annual.id}/edit_me?auth_token=#{annual.applicant.id_and_auth_token}" %></code>
+                <code class="text-primary" style="font-size:0.7em"><%= "#{ENV['website_url']}/annuals/#{annual.id}/edit_me?auth_token=#{annual.applicant.id_and_auth_token}" %></code>
               </div>
             <% end %>
           </div>

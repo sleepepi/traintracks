@@ -17,7 +17,7 @@
 <% if current_user.administrator? %>
   <div class="bs-callout bs-callout-info">
     <h4>Preceptor Unique Login</h4>
-    <code class="text-primary"><%= "#{SITE_URL}/preceptors/dashboard?auth_token=#{@preceptor.id_and_auth_token}" %></code>
+    <code class="text-primary"><%= "#{ENV['website_url']}/preceptors/dashboard?auth_token=#{@preceptor.id_and_auth_token}" %></code>
   </div>
 <% end %>
 

@@ -2,8 +2,8 @@ Dear <%= @applicant.first_name %>,
 
 <%= @user.name %> has requested that you complete your exit interview.
 
-You can access the exit interview here: <%= "#{SITE_URL}/applicants/exit_interview?auth_token=#{@applicant.id_and_auth_token}" %>
+You can access the exit interview here: <%= "#{ENV['website_url']}/applicants/exit_interview?auth_token=#{@applicant.id_and_auth_token}" %>
 
 Thank you!
 
-<%= DEFAULT_APP_NAME %> System Mailer
+<%= ENV['website_name'] %> System Mailer

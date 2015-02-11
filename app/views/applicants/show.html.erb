@@ -24,7 +24,7 @@
 <% if current_user.administrator? %>
   <div class="bs-callout bs-callout-info">
     <h4>Applicant Unique Login</h4>
-    <code class="text-primary"><%= "#{SITE_URL}/applicants/dashboard?auth_token=#{@applicant.id_and_auth_token}" %></code>
+    <code class="text-primary"><%= "#{ENV['website_url']}/applicants/dashboard?auth_token=#{@applicant.id_and_auth_token}" %></code>
   </div>
 <% end %>
 

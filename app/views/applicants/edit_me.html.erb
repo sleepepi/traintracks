@@ -28,7 +28,7 @@
     <h2>Applicant Assurance and Sign Off</h2>
   </div>
 
-  <% if defined?(TG_ADMIN_EMAIL) and not TG_ADMIN_EMAIL.blank? and defined?(TG_ADMIN_ADDRESS) and not TG_ADMIN_ADDRESS.blank? %>
+  <% if defined?(ENV['tg_admin_email']) and not ENV['tg_admin_email'].blank? and defined?(ENV['tg_admin_address']) and not ENV['tg_admin_address'].blank? %>
     <div class="form-group">
       <%= f.label :letters_from_a, 'My Recommendation Letters will be from', class: 'col-md-2 control-label' %>
       <div class="col-md-10">
@@ -45,9 +45,9 @@
 
     <dl class="dl-horizontal">
       <dt>Email</dt>
-      <dd><address><%= simple_format TG_ADMIN_EMAIL %></address></dd>
+      <dd><address><%= simple_format ENV['tg_admin_email'] %></address></dd>
       <dt>Mail</dt>
-      <dd><address><%= simple_format TG_ADMIN_ADDRESS %></address></dd>
+      <dd><address><%= simple_format ENV['tg_admin_address'] %></address></dd>
     </dl>
 
   <% end %>

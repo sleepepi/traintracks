@@ -28,14 +28,14 @@
           <div class="form-group">
             <%= label_tag :subject, nil, class: 'col-md-2 control-label' %>
             <div class="col-md-10">
-              <%= text_field_tag :subject, ANNUAL_EMAIL_SUBJECT, class: 'form-control' %>
+              <%= text_field_tag :subject, ENV['annual_email_subject'], class: 'form-control' %>
             </div>
           </div>
 
           <div class="form-group">
             <%= label_tag :body, nil, class: 'col-md-2 control-label' %>
             <div class="col-md-10">
-              <%= text_area_tag :body, ANNUAL_EMAIL_BODY, rows: 20, class: 'form-control' %>
+              <%= text_area_tag :body, ENV['annual_email_body'], rows: 20, class: 'form-control' %>
             </div>
           </div>
 
