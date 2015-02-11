@@ -20,8 +20,9 @@ Rails.application.configure do
   # NGINX, varnish or squid.
   # config.action_dispatch.rack_cache = true
 
-  # Disable Rails's static asset server (Apache or NGINX will already do this).
-  config.serve_static_assets = false
+  # Disable serving static files from the `/public` folder by default since
+  # Apache or NGINX already handles this.
+  config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -74,4 +75,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   # config.active_record.dump_schema_after_migration = false
+
+  # Set the relative root, if it exists
+  config.action_controller.relative_url_root = URI.parse(ENV['website_url']).path rescue nil
 end

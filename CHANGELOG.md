@@ -1,5 +1,12 @@
 ## 0.10.9
 
+### Enhancements
+- Use of Ruby 2.2.0 is now recommended
+- **Gem Changes**
+  - Updated to rails 4.2.0
+  - Updated to contour 2.7.0.beta1
+  - Updated to kaminari 0.16.3
+
 ## 0.10.8 (December 12, 2014)
 
 ### Enhancements
