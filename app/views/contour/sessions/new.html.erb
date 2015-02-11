@@ -114,7 +114,7 @@
           <% PROVIDERS.each do |provider| %>
             <% provider_name = OmniAuth.config.camelizations[provider.to_s.downcase] || provider.to_s.titleize %>
             <% image_name = provider.to_s.downcase %>
-            <a href="<%= request.script_name %><%= "/" + OmniAuth.config.path_prefix.split('/').last.to_s %><%= "/" + provider.to_s.downcase %>" class="btn btn-default" style="white-space:nowrap;padding:0px 2px" rel='tooltip' data-title='<%= provider_name %>' data-placement='bottom'>
+            <a href="<%= request.script_name %><%= "/" + OmniAuth.config.path_prefix.split('/').last.to_s %><%= "/" + provider.to_s.downcase %>" class="btn btn-default" style="white-space:nowrap;padding:0px 2px" rel='tooltip' data-title='<%= provider_name %>' data-placement='bottom' data-container="body">
               <%= image_tag "contour/#{image_name}_32.png", align: 'absmiddle', height: "28px" %>
             </a>
           <% end %>
