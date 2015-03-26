@@ -1,0 +1,24 @@
+.page-header
+  %h2 Progress Report Data
+
+.form-group
+  = f.label :approved_irb_protocols, 'Approved IRB Protocols', class: 'col-md-2 control-label'
+  .col-md-10
+    = f.text_area :approved_irb_protocols, rows: 7, class: 'form-control'
+
+.form-group
+  = f.label :approved_irb_document, 'Upload IRB Approval and Protocols Document (PDF, Word)', class: 'col-md-2 control-label'
+  .col-md-10
+    = f.file_field :approved_irb_document, class: 'form-control'
+    = f.hidden_field :approved_irb_document_cache
+
+.form-group
+  = f.label :approved_iacuc_protocols, 'Approved IACUC Protocols', class: 'col-md-2 control-label'
+  .col-md-10
+    = f.text_area :approved_iacuc_protocols, rows: 7, class: 'form-control'
+
+.form-group
+  = f.label :approved_iacuc_document, 'Upload IACUC Protocols Document (PDF, Word)', class: 'col-md-2 control-label'
+  .col-md-10
+    = f.file_field :approved_iacuc_document, class: 'form-control'
+    = f.hidden_field :approved_iacuc_document_cache

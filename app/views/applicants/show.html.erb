@@ -49,15 +49,21 @@
 </div>
 
 <div class="row">
-  <% if current_user.administrator? %>
-    <div class="col-md-6">
-      <%= render partial: 'applicants/show/submission', locals: { applicant: @applicant } %>
-    </div>
-  <% end %>
+  <div class="col-md-6">
+    <%= render partial: 'applicants/show/progress_report_data', locals: { applicant: @applicant } %>
+  </div>
 
   <% if @applicant.enrolled? %>
     <div class="col-md-6">
       <%= render partial: 'applicants/show/termination', locals: { applicant: @applicant } %>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <% if current_user.administrator? %>
+    <div class="col-md-6">
+      <%= render partial: 'applicants/show/submission', locals: { applicant: @applicant } %>
     </div>
   <% end %>
 </div>

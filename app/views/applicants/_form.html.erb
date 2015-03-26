@@ -23,6 +23,8 @@
 
   <%= render partial: 'applicants/form/demographic', locals: { f: f, applicant: @applicant } %>
 
+  <%= render partial: 'applicants/form/progress_report_data', locals: { f: f, applicant: @applicant } %>
+
   <%= render partial: 'applicants/form/termination', locals: { f: f, applicant: @applicant } %>
 
   <% if current_user.administrator? %>

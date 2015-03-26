@@ -40,13 +40,17 @@
   </div>
 </div>
 
-<% if current_applicant.enrolled? %>
-  <div class="row">
+<div class="row">
+  <div class="col-md-6">
+    <%= render partial: 'applicants/show/progress_report_data', locals: { applicant: current_applicant } %>
+  </div>
+  <% if current_applicant.enrolled? %>
     <div class="col-md-6">
       <%= render partial: 'applicants/show/termination', locals: { applicant: current_applicant } %>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
+
 
 <%= render partial: 'annuals/index', locals: { applicant: current_applicant } %>
 

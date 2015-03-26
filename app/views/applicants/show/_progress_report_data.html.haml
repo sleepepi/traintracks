@@ -1,0 +1,23 @@
+.page-header
+  %h2 Progress Report Data
+
+%dl.dl-horizontal
+  %dt{ title: "Approved IRB Protocols" } Approved IRB Protocols
+  %dd= simple_format applicant.approved_irb_protocols
+
+  %dt IRB Approval and Protocols Document
+  %dd
+    - unless applicant.approved_irb_document_url.blank?
+      - full_url = "#{request.script_name}#{applicant.approved_irb_document.url}"
+      = link_to applicant.approved_irb_document_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
+      = number_to_human_size(applicant.approved_irb_document.size)
+
+  %dt{ title: "Approved IACUC Protocols" } Approved IACUC Protocols
+  %dd= simple_format applicant.approved_iacuc_protocols
+
+  %dt IACUC Protocols Document
+  %dd
+    - unless applicant.approved_iacuc_document_url.blank?
+      - full_url = "#{request.script_name}#{applicant.approved_iacuc_document.url}"
+      = link_to applicant.approved_iacuc_document_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
+      = number_to_human_size(applicant.approved_iacuc_document.size)

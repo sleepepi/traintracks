@@ -6,6 +6,12 @@
   - Improved registration, login, password reset, and other pages for admins, trainees, and preceptors
     - Added user role icons from http://www.aha-soft.com/free-icons/free-large-boss-icon-set/
   - Added a contact page
+- **Applicant Changes**
+  - The Progress Report Data Section is now available for applicants and trainees to fill out
+    - Approved IRB Protocols (multi-line string)
+    - IRB Approval and Protocols Document (PDF or DOC)
+    - Approved IACUC Protocols (multi-line string)
+    - IACUC Protocols Document (PDF or DOC)
 - Use of Ruby 2.2.1 is now recommended
 - **Gem Changes**
   - Updated to rails 4.2.1
@@ -45,7 +51,7 @@
 ## 0.10.6 (August 18, 2014)
 
 ### Enhancements
-- **Applicants Changes**
+- **Applicant Changes**
   - Added eRA Commons Username as an editable field for administrators
 - **Gem Changes**
   - Updated to rails 4.1.4

@@ -246,6 +246,11 @@ class ApplicantsController < ApplicationController
           :gender, :disabled, :disabled_description, :disadvantaged, :urm,
           [ :urm_types => [] ],
           :marital_status,
+          # Progress Report Data
+          :approved_irb_protocols,
+          :approved_irb_document, :approved_irb_document_uploaded_at, :approved_irb_document_cache,
+          :approved_iacuc_protocols,
+          :approved_iacuc_document, :approved_iacuc_document_uploaded_at, :approved_iacuc_document_cache,
           # Applicant Assurance
           :assurance, :publish, :letters_from_a, :letters_from_b, :letters_from_c,
           # Termination
@@ -285,6 +290,8 @@ class ApplicantsController < ApplicationController
           'Curriculum Advisor', 'Most Recent Curriculum Advisor Meeting Date', 'Past Curriculum Advisor Meetings', 'eRA Commons Username',
           # Automatically Updated Fields
           'Submitted At', 'Resubmitted At',
+          # Progress Report Data
+          'Approved IRB Protocols', 'Approved IACUC Protocols',
           # Termination
           'Future Email', 'Entrance Year', 'T32 Funded', 'T32 Funded Years', 'Academic Program Completed',
           'Research Project Title', 'Laboratories', 'Immediate Transition',
@@ -320,6 +327,8 @@ class ApplicantsController < ApplicationController
             a.curriculum_advisor, a.most_recent_curriculum_advisor_meeting_date, a.past_curriculum_advisor_meetings, a.era_commons_username,
             # Automatically Updated Fields
             a.originally_submitted_at, a.submitted_at,
+            # Progress Report Data
+            a.approved_irb_protocols, a.approved_iacuc_protocols,
             # Termination
             a.future_email, a.entrance_year, a.t32_funded, a.t32_funded_years, a.academic_program_completed,
             a.research_project_title, a.laboratories, a.immediate_transition,

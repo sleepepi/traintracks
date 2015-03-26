@@ -48,6 +48,8 @@ class Applicant < ActiveRecord::Base
 
   mount_uploader :curriculum_vitae, DocumentUploader
   mount_uploader :certificate_application, DocumentUploader
+  mount_uploader :approved_irb_document, DocumentUploader
+  mount_uploader :approved_iacuc_document, DocumentUploader
 
   STATUS = ["current", "former"].collect{|i| [i,i]}
   APPLICANT_TYPE = ["predoc", "postdoc", "summer"].collect{|i| [i,i]}
