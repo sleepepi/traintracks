@@ -5,7 +5,7 @@ class Preceptor < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   # Concerns
-  include TokenAuthenticatable
+  include TokenAuthenticatable, Deletable
 
   # Setup accessible (or protected) attributes for your model
   # attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -25,7 +25,6 @@ class Preceptor < ActiveRecord::Base
   before_save :ensure_authentication_token
 
   # Named Scopes
-  scope :current, -> { where deleted: false }
   scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
 
   # Model Validation
@@ -63,8 +62,9 @@ class Preceptor < ActiveRecord::Base
   end
 
   def destroy
-    update_column :deleted, true
+    super
     update_column :email, ''
+    update_column :updated_at, Time.now
   end
 
   # Return true if an email has been sent to the applicant and they have not yet logged in

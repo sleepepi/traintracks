@@ -5,7 +5,7 @@ class Applicant < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :lockable, :validatable
 
   # Concerns
-  include TokenAuthenticatable
+  include TokenAuthenticatable, Deletable
 
   # # Setup accessible (or protected) attributes for your model
   # attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -81,7 +81,6 @@ class Applicant < ActiveRecord::Base
   after_save :notify_preceptor
 
   # Named Scopes
-  scope :current, -> { where deleted: false }
   scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
   scope :submitted_before, lambda { |arg| where( "applicants.originally_submitted_at < ?", (arg+1.day).at_midnight ) }
   scope :submitted_after, lambda { |arg| where( "applicants.originally_submitted_at >= ?", arg.at_midnight ) }
@@ -217,8 +216,9 @@ class Applicant < ActiveRecord::Base
   end
 
   def destroy
-    update_column :deleted, true
+    super
     update_column :email, ''
+    update_column :updated_at, Time.now
   end
 
   def set_submitted_at

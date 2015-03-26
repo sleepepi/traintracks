@@ -23,14 +23,13 @@ Contour.setup do |config|
       name: 'Login', display: 'not_signed_in', path: 'new_user_session_path', position: 'right'
     },
     {
-      name: 'image_tag(current_user.avatar_url(18, "blank"))+" "+current_user.name', eval: true, display: 'signed_in', position: 'right', path: 'authentications_path', condition: 'user_signed_in?',
+      name: 'image_tag(current_user.avatar_url(18, "blank"))+" "+current_user.name', eval: true, display: 'signed_in', position: 'right', path: '#', condition: 'user_signed_in?',
       links: [{ name: "About #{ENV['website_name']} v#{TrainingGrant::VERSION::STRING}", path: 'about_path' },
               { divider: true },
               { header: 'Administrative', condition: 'current_user.system_admin?' },
               { name: 'Users', path: 'users_path', condition: 'current_user.system_admin?' },
               { divider: true, condition: 'current_user.system_admin?' },
               { header: 'current_user.email', eval: true },
-              { name: 'Authentications', path: 'authentications_path', condition: 'not PROVIDERS.blank?' },
               { divider: true },
               { name: 'Logout', path: 'destroy_user_session_path' }]
     },
