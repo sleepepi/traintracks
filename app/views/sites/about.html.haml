@@ -1,0 +1,64 @@
+- @title = "About #{ENV['website_name']}"
+
+.row{ style: "margin-top:54px" }
+  .col-md-12
+    %h1.about-title= @title
+    %p.about-tagline
+      Visit our
+      = link_to 'online community', 'https://sleepepi.partners.org', target: '_blank'
+      or
+      = link_to('contact us', contact_path) + "."
+    %p.about-signup
+      = link_to 'New Applicant Registration', new_applicant_registration_path, class: "btn btn-primary btn-lg"
+
+%hr.soften
+
+%p.about-description
+  = ENV['website_name']
+  is a
+  = link_to 'free to use*', 'https://github.com/remomueller/training_grant/blob/master/LICENSE', rel: 'tooltip', data: { title: 'Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License' }
+  and
+  = link_to 'open source', 'https://github.com/remomueller/training_grant', rel: 'tooltip', data: { title: 'Source code freely available on GitHub' }
+  web application used to manages new applicants, trainees, and preceptors over
+  a 10-year time period.
+
+.row
+  .col-md-4
+    %h2.about-title New Applicants
+    .center{ style: 'margin-bottom:20px' }
+      = image_tag 'student.png', style: 'max-width:100%;max-height:140px'
+    %ul
+      %li Register for Training Grant eligibility.
+      %li Update your profile.
+      %li Receive emails to update your information once a year.
+  .col-md-4
+    %h2.about-title Preceptors
+    .center{ style: 'margin-bottom:20px' }
+      = image_tag 'preceptor.png', style: 'max-width:100%;max-height:140px'
+    %ul
+      %li Track your trainees progress.
+      %li Update your profile information.
+      %li Receive emails to update information once a year.
+  .col-md-4
+    %h2.about-title 10-year Reporting
+    .center{ style: 'margin-bottom:20px' }
+      = image_tag 'administrator.png', style: 'max-width:100%;max-height:140px'
+    %ul
+      %li Generate reports for applicant versus trainee acceptance rates.
+      %li Keep in touch with applicants, trainees, and preceptors.
+      %li Track current and former trainees easily over 10-year period.
+
+%hr.soften
+
+%p.muted.about-footer
+  = ENV['website_name']
+  Version
+  = link_to TrainingGrant::VERSION::STRING, "https://github.com/remomueller/training_grant/tree/#{TrainingGrant::VERSION::MAJOR}.#{TrainingGrant::VERSION::MINOR}.#{TrainingGrant::VERSION::TINY}"
+
+%p.muted.about-footer
+  User role icons are from the
+  = link_to '"Free Large Boss Icon Set"', 'https://www.iconfinder.com/iconsets/free-large-boss-icon-set'
+  by
+  = link_to "Victor Petrovich Ivlichev", 'http://www.aha-soft.com/free-icons/free-large-boss-icon-set/'
+  and licensed under
+  = link_to('CC BY 3.0 US', 'https://creativecommons.org/licenses/by/3.0/us/') + '.'
