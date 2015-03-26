@@ -1,0 +1,32 @@
+- @title = 'Resend unlock instructions'
+
+.sign-up-form
+  .sign-up-form-title
+    Resend Unlock Instructions
+
+  .center{ style: 'margin-bottom:20px' }
+    = render partial: 'sites/resource_image'
+
+  %p.lead.center
+    Enter your email address if you need instructions to unlock your account.
+    You may
+    = link_to 'contact us', contact_path
+    if you don't remember which email you used to register.
+
+  = form_for resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: 'form-vertical' } do |f|
+    - if resource.errors.any?
+      #error_explanation.bs-callout.bs-callout-danger
+        %h4
+          Please enter a valid email
+
+        %ul
+          - resource.errors.full_messages.each do |msg|
+            %li= msg
+
+
+    .form-group
+      = f.label :email, class: 'control-label'
+      = f.email_field :email, class: 'form-control'
+
+    .form-group
+      = f.submit "Resend unlock instructions", class: 'btn btn-success'

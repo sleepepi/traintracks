@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  layout "contour/layouts/application"
+  layout "layouts/application-footer"
 
   protected
 

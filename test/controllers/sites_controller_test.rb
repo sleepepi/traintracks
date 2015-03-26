@@ -17,4 +17,14 @@ class SitesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get contact" do
+    get :contact
+    assert_response :success
+  end
+
+  test "should get forgot my password" do
+    get :forgot_my_password
+    assert_response :success
+  end
+
 end

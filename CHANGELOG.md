@@ -3,6 +3,9 @@
 ### Enhancements
 - **General Changes**
   - Streamlined login system by removing alternate logins
+  - Improved registration, login, password reset, and other pages for admins, trainees, and preceptors
+    - Added user role icons from http://www.aha-soft.com/free-icons/free-large-boss-icon-set/
+  - Added a contact page
 - Use of Ruby 2.2.1 is now recommended
 - **Gem Changes**
   - Updated to rails 4.2.1

@@ -1,0 +1,73 @@
+- @title = 'Login'
+
+#choose-role{ style: "#{'display:none' if params[:user]}" }
+  %h1 Welcome to Train Tracks!
+
+  %p.lead Please select your role below to get started.
+
+  %h2 I am...
+
+  .row
+    .col-xs-4
+      .panel.panel-default
+        .panel-heading{ style: "overflow:hidden" }
+          .panel-title{ style: "white-space:nowrap" }
+            Applicant or Trainee
+        .panel-body{ style: "position:relative" }
+          .center{ style: "background-color:white;padding-bottom:5px;height:145px;line-height:145px" }
+            = link_to image_tag( 'student.png', style: 'max-width:100%;max-height:140px' ), new_applicant_session_path
+    .col-xs-4
+      .panel.panel-default
+        .panel-heading{ style: "overflow:hidden" }
+          .panel-title{ style: "white-space:nowrap" }
+            Preceptor
+        .panel-body{ style: "position:relative" }
+          .center{ style: "background-color:white;padding-bottom:5px;height:145px;line-height:145px" }
+            = link_to image_tag( 'preceptor.png', style: 'max-width:100%;max-height:140px' ), new_preceptor_session_path
+    .col-xs-4
+      .panel.panel-default
+        .panel-heading{ style: "overflow:hidden" }
+          .panel-title{ style: "white-space:nowrap" }
+            Administrator
+        .panel-body{ style: "position:relative" }
+          .center{ style: "background-color:white;padding-bottom:5px;height:145px;line-height:145px" }
+            = link_to image_tag( 'administrator.png', style: 'max-width:100%;max-height:140px' ), '#', data: { object: 'show-administrator-login' }
+
+#administrator-login{ style: "#{'display:none' unless params[:user]}" }
+  .sign-up-form
+    .sign-up-form-title
+      Sign in for
+      - if resource_name == :preceptor
+        Preceptors
+      - elsif resource_name == :applicant
+        Applicants and Trainees
+      - elsif resource_name == :user
+        Admins
+
+    .center{ style: 'margin-bottom:20px' }
+      = render partial: 'sites/resource_image'
+
+    = form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-vertical' } do |f|
+      .form-group
+        = f.label :email, class: 'control-label'
+        = f.email_field :email, class: 'form-control'
+
+      .form-group
+        = f.label :password, class: 'control-label'
+        = link_to "(Forgot password?)", new_password_path(resource_name), tabindex: '-1'
+        = f.password_field :password, class: 'form-control', autocomplete: 'off'
+
+      .form-group
+        = f.submit "Sign in", class: 'btn btn-success'
+
+  .center
+    %h2 Other Useful Links
+
+    - if devise_mapping.registerable? && controller_name != 'registrations'
+      = link_to "Sign up", new_registration_path(resource_name), class: 'btn btn-primary btn-xs'
+
+    - if devise_mapping.confirmable? && controller_name != 'confirmations'
+      = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name), class: 'btn btn-default btn-xs'
+
+    - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
+      = link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name), class: 'btn btn-default btn-xs'
