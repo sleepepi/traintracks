@@ -8,6 +8,7 @@
   - Updated to rails 4.2.1
   - Updated to mysql2 0.3.18
   - Updated to contour 3.0.0.beta1
+  - Use Haml for new views
 
 ## 0.10.9 (February 12, 2015)
 
