@@ -13,6 +13,9 @@
   - Updated to contour 3.0.0.beta1
   - Use Haml for new views
 
+### Bug Fix
+- Reduced the amount of information logged to the log file
+
 ## 0.10.9 (February 12, 2015)
 
 ### Enhancements
