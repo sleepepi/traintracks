@@ -4,6 +4,7 @@
 - Use of Ruby 2.2.1 is now recommended
 - **Gem Changes**
   - Updated to rails 4.2.1
+  - Updated to mysql2 0.3.18
 
 ## 0.10.9 (February 12, 2015)
 
