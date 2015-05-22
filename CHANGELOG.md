@@ -2,6 +2,8 @@
 
 ### Enhancements
 - Use of Ruby 2.2.2 is now recommended
+- **Gem Changes**
+  - Updated to simplecov 0.10.0
 
 ## 0.11.0 (March 26, 2015)
 
