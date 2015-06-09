@@ -4,6 +4,8 @@
 - **Seminar Changes**
   - Seminars outside a trainee's training period start date and training period end date no longer count against the trainee's attendance percentage
   - Future seminars no longer count against a trainee's attendance percentage
+- **General Changes**
+  - Updated about page links to new GitHub repository location
 - **Gem Changes**
   - Updated to contour 3.0.0.rc
   - Updated to figaro 1.1.1
