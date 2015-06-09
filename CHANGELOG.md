@@ -2,6 +2,7 @@
 
 - **Gem Changes**
   - Updated to contour 3.0.0.rc
+  - Updated to figaro 1.1.1
 
 ## 0.11.1 (May 22, 2015)
 
