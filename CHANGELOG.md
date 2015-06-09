@@ -1,4 +1,4 @@
-## 0.12.0
+## 0.12.0 (June 9, 2015)
 
 ### Enhancements
 - **Seminar Changes**
