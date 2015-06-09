@@ -146,6 +146,26 @@ class Applicant < ActiveRecord::Base
     self.seminars.delete(seminar)
   end
 
+  def eligible_seminar?(seminar)
+    Seminar.current.where(id: seminar.id).where("(DATE(presentation_date) >= ? or ? IS NULL) and (DATE(presentation_date) <= ? or ? IS NULL) and DATE(presentation_date) <= ?", self.training_period_start_date, self.training_period_start_date, self.training_period_end_date, self.training_period_end_date, Date.today).count > 0
+  end
+
+  def eligible_seminars(all_seminars)
+    Seminar.where(id: all_seminars.collect(&:id)).where("(DATE(presentation_date) >= ? or ? IS NULL) and (DATE(presentation_date) <= ? or ? IS NULL) and DATE(presentation_date) <= ?", self.training_period_start_date, self.training_period_start_date, self.training_period_end_date, self.training_period_end_date, Date.today)
+  end
+
+  def seminars_attended(all_seminars)
+    self.seminars.where(id: eligible_seminars(all_seminars).select(:id)).count
+  end
+
+  def seminars_attended_percentage(all_seminars)
+    if eligible_seminars(all_seminars).count == 0
+      0
+    else
+      seminars_attended(all_seminars) * 100 / eligible_seminars(all_seminars).count
+    end
+  end
+
   def degrees_earned_text
     self.degrees_earned.collect{|d| "#{Applicant.degree_type_name(d[:degree_type])} #{d[:institution]} #{d[:year]} #{d[:advisor]} #{d[:thesis]} #{d[:concentration_major]}"}.join("\n")
   end
