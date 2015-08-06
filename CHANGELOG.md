@@ -1,4 +1,4 @@
-## 0.12.1
+## 0.12.1 (August 6, 2015)
 
 ### Enhancements
 - **Preceptor Changes**
