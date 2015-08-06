@@ -6,6 +6,7 @@
 - **Gem Changes**
   - Updated to rails 4.2.3
   - Updated to contour 3.0.1
+  - Updated to mysql2 0.3.19
 
 ## 0.12.0 (June 9, 2015)
 
