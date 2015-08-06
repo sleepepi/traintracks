@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # devise_for :applicants, controllers: { registrations: 'contour/registrations', sessions: 'contour/sessions', passwords: 'contour/passwords' }, path_names: { sign_up: 'register', sign_in: 'login' }
   devise_for :applicants, path: 'trainee', path_names: { sign_up: 'register', sign_in: 'login' }
 
   resources :applicants do
@@ -59,11 +58,15 @@ Rails.application.routes.draw do
 
   resources :users
 
-  get "/about" => "sites#about", as: :about
-  get "/contact" => "sites#contact", as: :contact
-  get "/forgot-my-password" => "sites#forgot_my_password", as: :forgot_my_password
   get "/settings" => "users#settings", as: :settings
-  get "/dashboard" => "sites#dashboard", as: :dashboard
+
+  scope module: 'sites' do
+    get :about
+    get :contact
+    get "forgot-my-password", action: :forgot_my_password, as: :forgot_my_password
+    get :dashboard
+    get :version
+  end
 
   root to: 'sites#dashboard'
 

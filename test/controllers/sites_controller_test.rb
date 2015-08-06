@@ -27,4 +27,19 @@ class SitesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get version" do
+    get :version
+    assert_response :success
+  end
+
+  test "should get version as json" do
+    get :version, format: 'json'
+    version = JSON.parse(response.body)
+    assert_equal TrainingGrant::VERSION::STRING, version['version']['string']
+    assert_equal TrainingGrant::VERSION::MAJOR, version['version']['major']
+    assert_equal TrainingGrant::VERSION::TINY, version['version']['tiny']
+    assert_equal TrainingGrant::VERSION::BUILD, version['version']['build']
+    assert_response :success
+  end
+
 end
