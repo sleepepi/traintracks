@@ -3,6 +3,8 @@
 ### Enhancements
 - **Preceptor Changes**
   - Added publications and grants fields to preceptors
+- **General Changes**
+  - Added turbolinks progress bar
 - **Gem Changes**
   - Updated to rails 4.2.3
   - Updated to contour 3.0.1

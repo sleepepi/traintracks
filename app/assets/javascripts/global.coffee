@@ -42,7 +42,7 @@
   $("input[rel=tooltip], textarea[rel=tooltip]").tooltip( trigger: 'focus' )
   togglePostdocFields()
   setFocusToField("#search")
-
+  Turbolinks.enableProgressBar()
 
 $(document).ready(ready)
 $(document)
