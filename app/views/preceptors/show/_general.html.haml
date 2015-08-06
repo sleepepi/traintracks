@@ -1,0 +1,63 @@
+%dl.dl-horizontal
+  - if preceptor.unconfirmed_email.blank?
+    %dt Email
+    %dd= preceptor.email
+  - else
+    %dt Current Email
+    %dd= preceptor.email
+
+    %dt Unconfirmed Email
+    %dd
+      = preceptor.unconfirmed_email
+      = link_to "Resend confirmation instructions", confirmation_path(preceptor, preceptor: { email: preceptor.unconfirmed_email }), method: :post, class: 'btn btn-xs btn-default'
+      .alert.alert-info
+        %strong Heads up!
+        This email will remain unconfirmed until you click the link in the "Confirmation instructions" email sent to your account.
+
+  %dt Status
+  %dd= preceptor.status
+
+  %dt Degree
+  %dd= preceptor.degree
+
+  %dt Hospital affiliation
+  %dd= preceptor.hospital_affiliation
+
+  %dt Hospital appointment
+  %dd= preceptor.hospital_appointment
+
+  %dt NIH Biosketch
+  %dd
+    - if preceptor.biosketch.size > 0
+      - full_url = "#{request.script_name}#{preceptor.biosketch.url}"
+      = link_to preceptor.biosketch_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
+      = number_to_human_size(preceptor.biosketch.size)
+
+  %dt Curriculum Vitae
+  %dd
+    - if preceptor.curriculum_vitae.size > 0
+      - full_url = "#{request.script_name}#{preceptor.curriculum_vitae.url}"
+      = link_to preceptor.curriculum_vitae_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
+      = number_to_human_size(preceptor.curriculum_vitae.size)
+
+  %dt Other support
+  %dd
+    - if preceptor.other_support.size > 0
+      - full_url = "#{request.script_name}#{preceptor.other_support.url}"
+      = link_to preceptor.other_support_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
+      = number_to_human_size(preceptor.other_support.size)
+
+  %dt Rank
+  %dd= preceptor.rank
+
+  %dt Research interest
+  %dd= preceptor.research_interest
+
+  %dt Program role
+  %dd= preceptor.program_role
+
+  %dt Publications
+  %dd= simple_format preceptor.publications
+
+  %dt Grants
+  %dd= simple_format preceptor.grants

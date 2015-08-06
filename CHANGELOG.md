@@ -1,5 +1,9 @@
 ## 0.12.1
 
+### Enhancements
+- **Preceptor Changes**
+  - Added publications and grants fields to preceptors
+
 ## 0.12.0 (June 9, 2015)
 
 ### Enhancements

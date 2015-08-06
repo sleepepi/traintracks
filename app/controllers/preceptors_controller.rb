@@ -1,10 +1,10 @@
 class PreceptorsController < ApplicationController
-  before_action :authenticate_preceptor_from_token!, only: [ :dashboard, :edit_me, :update_me ]
-  before_action :authenticate_user!, except: [ :dashboard, :edit_me, :update_me ]
-  before_action :check_administrator, except: [ :dashboard, :edit_me, :update_me ]
-  before_action :authenticate_preceptor!, only: [ :dashboard, :edit_me, :update_me ]
-  before_action :set_preceptor, only: [ :show, :edit, :update, :destroy, :email ]
-  before_action :redirect_without_preceptor, only: [ :show, :edit, :update, :destroy, :email ]
+  before_action :authenticate_preceptor_from_token!,  only: [ :dashboard, :edit_me, :update_me ]
+  before_action :authenticate_user!,                except: [ :dashboard, :edit_me, :update_me ]
+  before_action :check_administrator,               except: [ :dashboard, :edit_me, :update_me ]
+  before_action :authenticate_preceptor!,             only: [ :dashboard, :edit_me, :update_me ]
+  before_action :set_preceptor,                       only: [ :show, :edit, :update, :destroy, :email ]
+  before_action :redirect_without_preceptor,          only: [ :show, :edit, :update, :destroy, :email ]
 
 
   def dashboard
@@ -125,7 +125,13 @@ class PreceptorsController < ApplicationController
         params.require(:preceptor).permit!
       else
         params.require(:preceptor).permit(
-          :email, :password, :password_confirmation, :remember_me, :degree, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :other_support, :other_support_cache, :program_role, :research_interest, :biosketch, :biosketch_cache, :curriculum_vitae, :curriculum_vitae_cache
+          :email, :password, :password_confirmation, :remember_me, :degree,
+          :first_name, :hospital_affiliation, :hospital_appointment, :last_name,
+          :other_support, :other_support_cache,
+          :program_role, :research_interest,
+          :biosketch, :biosketch_cache,
+          :curriculum_vitae, :curriculum_vitae_cache,
+          :publications, :grants
         )
       end
     end
@@ -135,14 +141,22 @@ class PreceptorsController < ApplicationController
         csv << [
           'Preceptor ID',
           # Preceptor Information
-          'Email', 'Last Name', 'First Name', 'Status', 'Degree', 'Hospital Affiliation', 'Hospital Appointment', 'Rank', 'Research Interest', 'Program Role'
+          'Email', 'Last Name', 'First Name',
+          'Status', 'Degree',
+          'Hospital Affiliation', 'Hospital Appointment', 'Rank',
+          'Research Interest', 'Program Role',
+          'Publications', 'Grants'
        ]
 
         preceptor_scope.each do |p|
           row = [
             p.id,
             # Preceptor Information
-            p.email, p.last_name, p.first_name, p.status, p.degree, p.hospital_affiliation, p.hospital_appointment, p.rank, p.research_interest, p.program_role
+            p.email, p.last_name, p.first_name,
+            p.status, p.degree,
+            p.hospital_affiliation, p.hospital_appointment, p.rank,
+            p.research_interest, p.program_role,
+            p.publications, p.grants
           ]
           csv << row
         end

@@ -1,0 +1,9 @@
+- @title = "Preceptor Dashboard"
+.page-header
+  %h1
+    = @title
+    = link_to "Edit", edit_me_preceptors_path, class: 'btn btn-xs btn-default'
+
+= render 'preceptors/show/general', preceptor: current_preceptor
+
+= render 'preceptors/show/trainees', preceptor: current_preceptor

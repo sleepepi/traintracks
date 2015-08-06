@@ -1,0 +1,27 @@
+- @title = @preceptor.name
+.page-header
+  %h1
+    = link_to "Preceptors", preceptors_path
+    &middot;
+    = @title
+  = link_to "Edit Preceptor", edit_preceptor_path(@preceptor), class: 'btn btn-xs btn-default'
+  = link_to "Delete Preceptor", @preceptor, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Preceptor #{@preceptor.name}?" }
+  = link_to "Email Preceptor Link", email_preceptor_path(@preceptor), method: :post, class: 'btn btn-xs btn-default'
+
+- if @preceptor.recently_notified?
+  %p
+    Last notified by email
+    %span.label.label-info= simple_time @preceptor.emailed_at
+
+- if current_user.administrator?
+  .bs-callout.bs-callout-info
+    %h4 Preceptor Unique Login
+    %code.text-primary
+      = "#{ENV['website_url']}/preceptors/dashboard?auth_token=#{@preceptor.id_and_auth_token}"
+
+.page-header
+  %h2 General Information
+
+= render 'preceptors/show/general', preceptor: @preceptor
+
+= render 'preceptors/show/trainees', preceptor: @preceptor

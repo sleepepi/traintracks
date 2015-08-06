@@ -28,3 +28,7 @@ td.error {
 .table-striped tbody > tr:nth-child(odd) > td.error {
   background-color: #ebcccc;
 }
+
+.nowrap {
+  white-space: nowrap;
+}
