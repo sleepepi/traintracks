@@ -6,7 +6,7 @@ gem 'rails',                '4.2.3'
 gem 'mysql2',               '0.3.18'
 
 # Gems used by project
-gem 'contour',              '~> 3.0.0.rc'
+gem 'contour',              '~> 3.0.1'
 gem 'kaminari',             '~> 0.16.3'
 gem 'carrierwave',          '~> 0.10.0'
 gem 'ruby-ntlm-namespace',  '~> 0.0.1'
