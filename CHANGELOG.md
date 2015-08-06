@@ -3,6 +3,8 @@
 ### Enhancements
 - **Preceptor Changes**
   - Added publications and grants fields to preceptors
+- **Gem Changes**
+  - Updated to rails 4.2.3
 
 ## 0.12.0 (June 9, 2015)
 
