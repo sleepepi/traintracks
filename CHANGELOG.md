@@ -3,6 +3,7 @@
 ### Enhancements
 - **Gem Changes**
   - Updated to Ruby 2.3.0
+  - Updated to mysql2 0.4.2
 
 ## 0.12.1 (August 6, 2015)
 
