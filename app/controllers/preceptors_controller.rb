@@ -163,7 +163,7 @@ class PreceptorsController < ApplicationController
       end
 
       send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
-                             disposition: "attachment; filename=\"Training Grant Preceptors #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+                             disposition: "attachment; filename=\"Training Grant Preceptors #{Time.zone.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
     end
 
 end

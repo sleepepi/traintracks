@@ -164,7 +164,7 @@ class SeminarsController < ApplicationController
       end
 
       send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
-                             disposition: "attachment; filename=\"Training Grant Attendance #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+                             disposition: "attachment; filename=\"Training Grant Attendance #{Time.zone.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
     end
 
 end

@@ -64,7 +64,7 @@ class Preceptor < ActiveRecord::Base
   def destroy
     super
     update_column :email, ''
-    update_column :updated_at, Time.now
+    update_column :updated_at, Time.zone.now
   end
 
   # Return true if an email has been sent to the applicant and they have not yet logged in
@@ -73,7 +73,7 @@ class Preceptor < ActiveRecord::Base
   end
 
   def update_general_information_email!(current_user)
-    self.update_column :emailed_at, Time.now
+    self.update_column :emailed_at, Time.zone.now
     UserMailer.update_preceptor(self, current_user).deliver_later if Rails.env.production?
   end
 

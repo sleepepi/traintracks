@@ -36,7 +36,7 @@ class Annual < ActiveRecord::Base
 
   def set_submitted_at
     if self.publish.to_s == '1'
-      self.modified_at = Time.now
+      self.modified_at = Time.zone.now
       self.submitted_at = self.modified_at if self.submitted_at.blank?
     end
   end

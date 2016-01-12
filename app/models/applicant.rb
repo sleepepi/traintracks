@@ -240,12 +240,12 @@ class Applicant < ActiveRecord::Base
   def destroy
     super
     update_column :email, ''
-    update_column :updated_at, Time.now
+    update_column :updated_at, Time.zone.now
   end
 
   def set_submitted_at
     if self.respond_to?('submitted_at') and self.submitted_at.blank? and self.publish.to_s == '1'
-      self.submitted_at = Time.now
+      self.submitted_at = Time.zone.now
       self.originally_submitted_at = self.submitted_at if self.respond_to?('originally_submitted_at') and self.originally_submitted_at.blank?
     end
     true
@@ -303,7 +303,7 @@ class Applicant < ActiveRecord::Base
   end
 
   def update_general_information_email!(current_user)
-    self.update_column :emailed_at, Time.now
+    self.update_column :emailed_at, Time.zone.now
     UserMailer.update_application(self, current_user).deliver_later if Rails.env.production?
   end
 
@@ -314,14 +314,14 @@ class Applicant < ActiveRecord::Base
       if annual.submitted?
         # Do nothing
       elsif annual.applicant and not annual.applicant.email.blank?
-        self.update_column :emailed_at, Time.now
+        self.update_column :emailed_at, Time.zone.now
         UserMailer.update_annual(annual, subject, body).deliver_later if Rails.env.production?
       end
     end
   end
 
   def send_termination!(current_user)
-    self.update_column :emailed_at, Time.now
+    self.update_column :emailed_at, Time.zone.now
     UserMailer.exit_interview(self, current_user).deliver_later if Rails.env.production?
   end
 

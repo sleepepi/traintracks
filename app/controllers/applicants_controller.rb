@@ -339,7 +339,7 @@ class ApplicantsController < ApplicationController
       end
 
       send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
-                             disposition: "attachment; filename=\"Training Grant Applicants and Trainees #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+                             disposition: "attachment; filename=\"Training Grant Applicants and Trainees #{Time.zone.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
     end
 
     def generate_program_requirements_csv(applicant_scope)
@@ -372,6 +372,6 @@ class ApplicantsController < ApplicationController
       end
 
       send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
-                             disposition: "attachment; filename=\"Training Grant Applicants and Trainees Program Requirements #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+                             disposition: "attachment; filename=\"Training Grant Applicants and Trainees Program Requirements #{Time.zone.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
     end
 end
