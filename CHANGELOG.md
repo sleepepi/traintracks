@@ -1,6 +1,8 @@
 ## 0.12.2
 
 ### Enhancements
+- **Applicant Changes**
+  - Trainee yearly reporting now covers 15 years
 - **Gem Changes**
   - Updated to Ruby 2.3.0
   - Updated to rails 4.2.5

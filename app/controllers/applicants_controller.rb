@@ -80,11 +80,11 @@ class ApplicantsController < ApplicationController
 
   def send_annual_reminder_email
     if params[:applicant_id].blank?
-      applicant_scope = Applicant.supported_by_tg_in_last_ten_years
+      applicant_scope = Applicant.supported_by_tg_in_last_fifteen_years
       notice = "Annual Reminder email successfully sent to #{applicant_scope.count} applicants."
     else
       applicant_scope = Applicant.current.where( id: params[:applicant_id] )
-      notice = (applicant_scope.first ? "Annual Reminder email successfully sent to #{applicant_scope.first.name}." : "No valid applicant selected.")
+      notice = (applicant_scope.first ? "Annual Reminder email successfully sent to #{applicant_scope.first.name}." : 'No valid applicant selected.')
     end
 
     if params[:year].to_i > 2000

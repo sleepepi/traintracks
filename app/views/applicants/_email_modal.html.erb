@@ -1,7 +1,7 @@
 <% if defined?(applicant_id) %>
   <% applicant_scope = Applicant.current.where( id: applicant_id ) %>
 <% else %>
-  <% applicant_scope = Applicant.supported_by_tg_in_last_ten_years %>
+  <% applicant_scope = Applicant.supported_by_tg_in_last_fifteen_years %>
 <% end %>
 
 

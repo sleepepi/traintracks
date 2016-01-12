@@ -22,7 +22,7 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should send annual reminder email' do
     post :send_annual_reminder_email, year: '2001', subject: 'Subject', body: 'Body'
-    assert_equal "Annual Reminder email successfully sent to #{Applicant.supported_by_tg_in_last_ten_years.count} applicants.", flash[:notice]
+    assert_equal "Annual Reminder email successfully sent to #{Applicant.supported_by_tg_in_last_fifteen_years.count} applicants.", flash[:notice]
     assert_redirected_to applicants_path
   end
 
