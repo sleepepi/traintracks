@@ -1,4 +1,4 @@
-## 0.12.2
+## 0.12.2 (January 12, 2016)
 
 ### Enhancements
 - **Applicant Changes**
