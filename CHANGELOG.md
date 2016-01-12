@@ -4,6 +4,7 @@
 - **Gem Changes**
   - Updated to Ruby 2.3.0
   - Updated to mysql2 0.4.2
+  - Updated simplecov to 0.11.1
 
 ## 0.12.1 (August 6, 2015)
 
