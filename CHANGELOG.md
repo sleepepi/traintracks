@@ -7,6 +7,7 @@
   - Updated to mysql2 0.4.2
   - Updated to simplecov 0.11.1
   - Updated to web-console 3.0
+  - Removed minitest-reporters
 
 ## 0.12.1 (August 6, 2015)
 
