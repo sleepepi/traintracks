@@ -9,6 +9,9 @@
   - Updated to web-console 3.0
   - Removed minitest-reporters
 
+### Bug Fix
+- Fixed a bug that prevented users with tokens ending in hyphens from authenticating correctly
+
 ## 0.12.1 (August 6, 2015)
 
 ### Enhancements
