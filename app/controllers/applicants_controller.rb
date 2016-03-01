@@ -8,7 +8,7 @@ class ApplicantsController < ApplicationController
 
 
   def help_email
-    UserMailer.help_email(current_applicant, params[:subject], params[:body]).deliver_later if Rails.env.production?
+    UserMailer.help_email(current_applicant, params[:subject], params[:body]).deliver_later if EMAILS_ENABLED
   end
 
   def add_degree

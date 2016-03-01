@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
 
   # Overriding Devise built-in active_for_authentication? method
   def active_for_authentication?
-    super and self.status == 'active' and not self.deleted?
+    super && status == 'active' && !deleted?
   end
 
   def destroy
@@ -49,27 +49,19 @@ class User < ActiveRecord::Base
   # end
 
   def all_annuals
-    @all_annuals ||= begin
-      Annual.current
-    end
+    Annual.current
   end
 
   def all_viewable_annuals
-    @all_viewble_annuals ||= begin
-      self.all_annuals
-    end
+    all_annuals
   end
 
   def all_seminars
-    @all_seminars ||= begin
-      Seminar.current
-    end
+    Seminar.current
   end
 
   def all_viewable_seminars
-    @all_viewable_seminars ||= begin
-      self.all_seminars
-    end
+    all_seminars
   end
 
   def name
@@ -83,8 +75,9 @@ class User < ActiveRecord::Base
   private
 
   def notify_system_admins
+    return unless EMAILS_ENABLED
     User.current.system_admins.each do |system_admin|
-      UserMailer.notify_system_admin(system_admin, self).deliver_later if Rails.env.production?
+      UserMailer.notify_system_admin(system_admin, self).deliver_later
     end
   end
 end

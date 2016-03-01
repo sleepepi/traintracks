@@ -1,6 +1,8 @@
 ## 0.12.4
 
 ### Enhancements
+- **General Changes**
+  - Improvements to how emails are generated and sent
 - **Gem Changes**
   - Updated to rails 4.2.5.2
 
