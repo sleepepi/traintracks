@@ -5,6 +5,7 @@
   - Improvements to how emails are generated and sent
 - **Gem Changes**
   - Updated to rails 4.2.5.2
+  - Updated to mysql2 0.4.3
 
 ### Refactoring
 - Updated files based on RuboCop recommendations
