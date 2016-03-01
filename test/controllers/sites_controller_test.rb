@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
+# Tests to assure static pages can be viewed.
 class SitesControllerTest < ActionController::TestCase
   test 'should get about' do
     get :about

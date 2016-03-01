@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
+# Allows administrators to manage user accounts and set roles
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_system_admin, only: [ :new, :create, :edit, :update, :destroy ]
-  before_action :set_user, only: [ :show, :edit, :update, :destroy ]
-  before_action :redirect_without_user, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_system_admin, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_without_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    unless current_user.system_admin? or params[:format] == 'json'
-      redirect_to root_path, alert: "You do not have sufficient privileges to access that page."
+    unless current_user.system_admin? || params[:format] == 'json'
+      redirect_to root_path, alert: 'You do not have sufficient privileges to access that page.'
       return
     end
 
@@ -52,20 +55,18 @@ class UsersController < ApplicationController
 
   private
 
-    def set_user
-      @user = User.current.find_by_id(params[:id])
-    end
+  def set_user
+    @user = User.current.find_by_id(params[:id])
+  end
 
-    def redirect_without_user
-      empty_response_or_root_path(users_path) unless @user
-    end
+  def redirect_without_user
+    empty_response_or_root_path(users_path) unless @user
+  end
 
-    def user_params
-      params[:user] ||= {}
-
-      params.require(:user).permit(
-        :first_name, :last_name, :email, :password, :password_confirmation, :administrator, :system_admin, :status
-      )
-    end
-
+  def user_params
+    params.require(:user).permit(
+      :first_name, :last_name, :email, :password, :password_confirmation,
+      :administrator, :system_admin, :status
+    )
+  end
 end

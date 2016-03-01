@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
+# Tests to make sure that applicant information can be viewed and updated by
+# administrators.
 class ApplicantsControllerTest < ActionController::TestCase
   setup do
     login(users(:administrator))

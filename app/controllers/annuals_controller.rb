@@ -1,17 +1,18 @@
-class AnnualsController < ApplicationController
-  before_action :authenticate_applicant_from_token!, only: [ :edit_me, :update_me ]
-  before_action :authenticate_user!, except: [ :edit_me, :update_me ]
-  before_action :check_administrator, except: [ :edit_me, :update_me ]
-  before_action :authenticate_applicant!, only: [ :edit_me, :update_me ]
-  before_action :set_viewable_annual, only: [ :show ]
-  before_action :set_editable_annual, only: [ :edit, :update, :destroy ]
-  before_action :redirect_without_annual, only: [ :show, :edit, :update, :destroy ]
+# frozen_string_literal: true
 
+# Tracks annual information for trainees
+class AnnualsController < ApplicationController
+  before_action :authenticate_applicant_from_token!, only: [:edit_me, :update_me]
+  before_action :authenticate_user!, except: [:edit_me, :update_me]
+  before_action :check_administrator, except: [:edit_me, :update_me]
+  before_action :authenticate_applicant!, only: [:edit_me, :update_me]
+  before_action :set_viewable_annual, only: [:show]
+  before_action :set_editable_annual, only: [:edit, :update, :destroy]
+  before_action :redirect_without_annual, only: [:show, :edit, :update, :destroy]
 
   # GET /annuals
-  # GET /annuals.json
   def index
-    @order = scrub_order(Annual, params[:order], "annuals.id")
+    @order = scrub_order(Annual, params[:order], 'annuals.id')
     annual_scope = current_user.all_viewable_annuals.search(params[:search]).order(@order)
     annual_scope = annual_scope.where(year: params[:year]) unless params[:year].blank?
 
@@ -24,11 +25,10 @@ class AnnualsController < ApplicationController
       return
     end
 
-    @annuals = annual_scope.page(params[:page]).per( 40 )
+    @annuals = annual_scope.page(params[:page]).per(40)
   end
 
   # GET /annuals/1
-  # GET /annuals/1.json
   def show
   end
 
@@ -47,32 +47,22 @@ class AnnualsController < ApplicationController
   end
 
   # POST /annuals
-  # POST /annuals.json
   def create
     @annual = current_user.annuals.new(annual_params)
 
-    respond_to do |format|
-      if @annual.save
-        format.html { redirect_to @annual, notice: 'Annual was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @annual }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @annual.errors, status: :unprocessable_entity }
-      end
+    if @annual.save
+      redirect_to @annual, notice: 'Annual was successfully created.'
+    else
+      render :new
     end
   end
 
-  # PUT /annuals/1
-  # PUT /annuals/1.json
+  # PATCH /annuals/1
   def update
-    respond_to do |format|
-      if @annual.update(annual_params)
-        format.html { redirect_to @annual, notice: 'Annual was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @annual.errors, status: :unprocessable_entity }
-      end
+    if @annual.update(annual_params)
+      redirect_to @annual, notice: 'Annual was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -96,100 +86,102 @@ class AnnualsController < ApplicationController
   end
 
   # DELETE /annuals/1
-  # DELETE /annuals/1.json
   def destroy
     @annual.destroy
-
-    respond_to do |format|
-      format.html { redirect_to annuals_path }
-      format.json { head :no_content }
-    end
+    redirect_to annuals_path
   end
 
   private
 
-    def set_viewable_annual
-      @annual = current_user.all_viewable_annuals.find_by_id(params[:id])
-    end
+  def set_viewable_annual
+    @annual = current_user.all_viewable_annuals.find_by_id(params[:id])
+  end
 
-    def set_editable_annual
-      @annual = current_user.all_annuals.find_by_id(params[:id])
-    end
+  def set_editable_annual
+    @annual = current_user.all_annuals.find_by_id(params[:id])
+  end
 
-    def redirect_without_annual
-      empty_response_or_root_path(annuals_path) unless @annual
-    end
+  def redirect_without_annual
+    empty_response_or_root_path(annuals_path) unless @annual
+  end
 
-    def annual_params
-      if current_user
-        params.require(:annual).permit(
-          # Admin Only
-          :applicant_id, :year,
-          # General Annual
-          :coursework_completed, :publications, :presentations, :research_description, :degree_or_certifications_earned, :source_of_support,
-          # NIH File Upload
-          :nih_other_support, :nih_other_support_cache, :nih_other_support_uploaded_at
-        )
-      else # Current Applicant
-        params.require(:annual).permit(
-          # General Annual
-          :coursework_completed, :publications, :presentations, :research_description, :degree_or_certifications_earned, :source_of_support,
-          # NIH File Upload
-          :nih_other_support, :nih_other_support_cache, :nih_other_support_uploaded_at,
-          # Publish
-          :publish
-        )
-      end
-    end
-
-    def applicant_params
-      params[:applicant] ||= {}
-
-      params[:applicant][:degrees_earned] ||= [] if params[:set_degrees_earned] == '1'
-
-      params.require(:applicant).permit(
-        # Contact Information
-        :phone, :address1, :address2, :city, :state, :country, :zip_code,
-        # Uploaded Curriculum Vitae
-        :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache,
-        # Education
-        :current_institution, :department_program, :current_position,
-        { :degrees_earned => [ :degree_type, :institution, :year, :advisor, :thesis, :concentration_major ] },
-        # Applicant Assurance
-        :publish_annual
+  def annual_params
+    if current_user
+      params.require(:annual).permit(
+        # Admin Only
+        :applicant_id, :year,
+        # General Annual
+        :coursework_completed, :publications, :presentations,
+        :research_description, :degree_or_certifications_earned,
+        :source_of_support,
+        # NIH File Upload
+        :nih_other_support, :nih_other_support_cache,
+        :nih_other_support_uploaded_at
+      )
+    else # Current Applicant
+      params.require(:annual).permit(
+        # General Annual
+        :coursework_completed, :publications, :presentations,
+        :research_description, :degree_or_certifications_earned,
+        :source_of_support,
+        # NIH File Upload
+        :nih_other_support, :nih_other_support_cache,
+        :nih_other_support_uploaded_at,
+        # Publish
+        :publish
       )
     end
+  end
 
-    def generate_csv(annual_scope)
-      @csv_string = CSV.generate do |csv|
-        csv << [
-          'Applicant ID',
-          # Applicant Information
-          'Email', 'Last Name', 'First Name',
-          # Annual Information
-          'Year', 'Coursework Completed', 'Publications', 'Conferences, Presentations, Honors, and Fellowships', 'Research Description', 'Degree or Certifications earned (Year) or Other Relevant Outcome', 'Source of Support'
+  def applicant_params
+    params[:applicant] ||= {}
+    params[:applicant][:degrees_earned] ||= [] if params[:set_degrees_earned] == '1'
+    params.require(:applicant).permit(
+      # Contact Information
+      :phone, :address1, :address2, :city, :state, :country, :zip_code,
+      # Uploaded Curriculum Vitae
+      :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache,
+      # Education
+      :current_institution, :department_program, :current_position,
+      { degrees_earned: [:degree_type, :institution, :year, :advisor, :thesis, :concentration_major] },
+      # Applicant Assurance
+      :publish_annual
+    )
+  end
+
+  def generate_csv(annual_scope)
+    @csv_string = CSV.generate do |csv|
+      csv << [
+        'Applicant ID',
+        # Applicant Information
+        'Email', 'Last Name', 'First Name',
+        # Annual Information
+        'Year', 'Coursework Completed', 'Publications',
+        'Conferences, Presentations, Honors, and Fellowships',
+        'Research Description',
+        'Degree or Certifications earned (Year) or Other Relevant Outcome',
+        'Source of Support'
+      ]
+
+      annual_scope.each do |a|
+        row = [
+          a.applicant_id,
+          a.applicant ? a.applicant.email : '',
+          a.applicant ? a.applicant.last_name : '',
+          a.applicant ? a.applicant.first_name : '',
+          a.year,
+          a.coursework_completed,
+          a.publications,
+          a.presentations,
+          a.research_description,
+          a.degree_or_certifications_earned,
+          a.source_of_support
         ]
-
-        annual_scope.each do |a|
-          row = [
-            a.applicant_id,
-            a.applicant ? a.applicant.email : '',
-            a.applicant ? a.applicant.last_name : '',
-            a.applicant ? a.applicant.first_name : '',
-            a.year,
-            a.coursework_completed,
-            a.publications,
-            a.presentations,
-            a.research_description,
-            a.degree_or_certifications_earned,
-            a.source_of_support
-          ]
-          csv << row
-        end
+        csv << row
       end
-
-      send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
-                             disposition: "attachment; filename=\"Training Grant Annual Information #{Time.zone.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
     end
 
+    send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
+                           disposition: "attachment; filename=\"Training Grant Annual Information #{Time.zone.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+  end
 end

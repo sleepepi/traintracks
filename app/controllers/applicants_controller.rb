@@ -1,22 +1,22 @@
-class ApplicantsController < ApplicationController
-  before_action :authenticate_applicant_from_token!, only: [ :dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :help_email ]
-  before_action :authenticate_user!, except: [ :dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :add_degree, :help_email ]
-  before_action :check_administrator, except: [ :dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :add_degree, :help_email ]
-  before_action :authenticate_applicant!, only: [ :dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :help_email ]
-  before_action :set_applicant, only: [ :show, :edit, :update, :destroy, :email, :annual_email, :termination_email, :unlock, :update_submitted_at_date ]
-  before_action :redirect_without_applicant, only: [ :show, :edit, :update, :destroy, :email, :annual_email, :termination_email, :unlock, :update_submitted_at_date ]
+# frozen_string_literal: true
 
+# Allows applicants to edit profile information
+class ApplicantsController < ApplicationController
+  before_action :authenticate_applicant_from_token!, only: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :help_email]
+  before_action :authenticate_user!, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :add_degree, :help_email]
+  before_action :check_administrator, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :add_degree, :help_email]
+  before_action :authenticate_applicant!, only: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :help_email]
+  before_action :set_applicant, only: [:show, :edit, :update, :destroy, :email, :annual_email, :termination_email, :unlock, :update_submitted_at_date]
+  before_action :redirect_without_applicant, only: [:show, :edit, :update, :destroy, :email, :annual_email, :termination_email, :unlock, :update_submitted_at_date]
 
   def help_email
     UserMailer.help_email(current_applicant, params[:subject], params[:body]).deliver_later if EMAILS_ENABLED
   end
 
   def add_degree
-
   end
 
   def dashboard
-
   end
 
   def edit_me
@@ -24,14 +24,10 @@ class ApplicantsController < ApplicationController
   end
 
   def update_me
-    respond_to do |format|
-      if current_applicant.update(applicant_params)
-        format.html { redirect_to dashboard_applicants_path, notice: 'Application successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit_me' }
-        format.json { render json: current_applicant.errors, status: :unprocessable_entity }
-      end
+    if current_applicant.update(applicant_params)
+      redirect_to dashboard_applicants_path, notice: 'Application successfully updated.'
+    else
+      render action: 'edit_me'
     end
   end
 
@@ -40,14 +36,10 @@ class ApplicantsController < ApplicationController
   end
 
   def update_exit_interview
-    respond_to do |format|
-      if current_applicant.update(applicant_params)
-        format.html { redirect_to dashboard_applicants_path, notice: 'Exit Interview successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'exit_interview' }
-        format.json { render json: current_applicant.errors, status: :unprocessable_entity }
-      end
+    if current_applicant.update(applicant_params)
+      redirect_to dashboard_applicants_path, notice: 'Exit Interview successfully updated.'
+    else
+      render action: 'exit_interview'
     end
   end
 
@@ -139,7 +131,6 @@ class ApplicantsController < ApplicationController
   end
 
   # GET /applicants/1
-  # GET /applicants/1.json
   def show
   end
 
@@ -153,225 +144,209 @@ class ApplicantsController < ApplicationController
   end
 
   # POST /applicants
-  # POST /applicants.json
   def create
     @applicant = Applicant.new(applicant_params)
-
     @applicant.skip_confirmation!
-
-    respond_to do |format|
-      if @applicant.save
-        format.html { redirect_to @applicant, notice: 'Applicant was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @applicant }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @applicant.errors, status: :unprocessable_entity }
-      end
+    if @applicant.save
+      redirect_to @applicant, notice: 'Applicant was successfully created.'
+    else
+      render :new
     end
   end
 
-  # PUT /applicants/1
-  # PUT /applicants/1.json
+  # PATCH /applicants/1
   def update
     @applicant.skip_reconfirmation!
-
-    respond_to do |format|
-      if @applicant.update(applicant_params)
-        format.html { redirect_to @applicant, notice: 'Applicant was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @applicant.errors, status: :unprocessable_entity }
-      end
+    if @applicant.update(applicant_params)
+      redirect_to @applicant, notice: 'Applicant was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
   # DELETE /applicants/1
-  # DELETE /applicants/1.json
   def destroy
     @applicant.destroy
-
-    respond_to do |format|
-      format.html { redirect_to applicants_path }
-      format.json { head :no_content }
-    end
+    redirect_to applicants_path
   end
 
   private
 
-    def set_applicant
-      @applicant = Applicant.find_by_id(params[:id])
+  def set_applicant
+    @applicant = Applicant.find_by_id(params[:id])
+  end
+
+  def redirect_without_applicant
+    empty_response_or_root_path(applicants_path) unless @applicant
+  end
+
+  def applicant_params
+    params[:applicant] ||= {}
+
+    general_dates = [:desired_start_date, :review_date, :training_period_start_date, :training_period_end_date, :most_recent_curriculum_advisor_meeting_date]
+    program_requirement_dates = [ :research_in_progress_date, :research_ethics_training_completed_date, :grant_writing_training_completed_date, :basic_research_statistics_course_completed_date, :advanced_research_statistics_course_completed_date, :neuroscience_course_completed_date, :hsoph_summer_session_course_completed_date, :individual_funding_submission_date, :last_idp_date ]
+
+    (general_dates + program_requirement_dates).each do |date|
+      params[:applicant][date] = parse_date(params[:applicant][date]) unless params[:applicant][date] == nil
     end
 
-    def redirect_without_applicant
-      empty_response_or_root_path(applicants_path) unless @applicant
+    params[:applicant][:degrees_earned] ||= [] if params[:set_degrees_earned] == '1'
+    params[:applicant][:research_interests] ||= [] if params[:set_research_interests] == '1'
+    params[:applicant][:urm_types] ||= [] if params[:set_urm_types] == '1'
+    params[:applicant][:laboratories] ||= [] if params[:set_laboratories] == '1'
+    params[:applicant][:transition_position] ||= [] if params[:set_transition_position] == '1'
+
+    if current_user and current_user.administrator?
+      params[:applicant][:admin_update] = '1'
+      params.require(:applicant).permit!
+    else
+      params.require(:applicant).permit(
+        # Applicant Information
+        :email, :first_name, :last_name, :middle_initial, :applicant_type,
+        :citizenship_status, :alien_registration_number, :desired_start_date,
+        :personal_statement,
+        # Contact Information
+        :phone, :address1, :address2, :city, :state, :country, :zip_code,
+        # Uploaded Curriculum Vitae
+        :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache,
+        # Education
+        :current_institution, :department_program, :current_position,
+        { degrees_earned: [:degree_type, :institution, :year, :advisor, :thesis, :concentration_major] },
+        :degree_sought, :expected_year, :residency,
+        [research_interests: []],
+        :research_interests_other,
+        :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id,
+        :previous_nrsa_support,
+        # Demographic Information
+        :gender, :disabled, :disabled_description, :disadvantaged, :urm,
+        [urm_types: []],
+        :marital_status,
+        # Progress Report Data
+        :approved_irb_protocols,
+        :approved_irb_document, :approved_irb_document_uploaded_at, :approved_irb_document_cache,
+        :approved_iacuc_protocols,
+        :approved_iacuc_document, :approved_iacuc_document_uploaded_at, :approved_iacuc_document_cache,
+        # Applicant Assurance
+        :assurance, :publish, :letters_from_a, :letters_from_b, :letters_from_c,
+        # Termination
+        :publish_termination,
+        :future_email, :entrance_year, :t32_funded, :t32_funded_years, :academic_program_completed,
+        :research_project_title,
+        [laboratories: []],
+        :immediate_transition,
+        [transition_position: []],
+        :transition_position_other, :termination_feedback,
+        :certificate_application, :certificate_application_cache
+       )
     end
+  end
 
-    def applicant_params
-      params[:applicant] ||= {}
+  def generate_csv(applicant_scope)
+    @csv_string = CSV.generate do |csv|
+      csv << [
+        'Applicant ID',
+        # Applicant Information
+        'Email', 'Last Name', 'First Name', 'Middle Initial', 'Applicant Type', 'TGE', 'Desired Start Date', 'Personal Statement', 'Alien Registration Number', 'Citizenship Status',
+        # Education
+        'Current Institution', 'Degree Sought', 'Department/Program', 'Expected Year', 'Research Interests', 'Research Interests Other',
+        'Preferred Preceptor ID', 'Preferred Preceptor Hospital Affiliation', 'Preferred Preceptor Two ID', 'Preferred Preceptor Three ID',
+        'Degrees Earned', 'Current Position', 'Previous NRSA Support',
+        # Demographic Information
+        'Gender', 'Disabled', 'Disabled Description', 'Disadvantaged', 'URM', 'URM Types', 'Marital Status',
+        # Contact Information
+        'Phone', 'Address1', 'Address2', 'City', 'State', 'Country', 'Zip Code',
+        # Postdoc Only
+        'Residency',
+        # Applicant Assurance
+        'Assurance', 'Letters From A', 'Letters From B', 'Letters From C',
+        # Administrator Only
+        'Reviewed', 'Review Date', 'Offered', 'Accepted', 'Enrolled', 'CV Number', 'Degree Type', 'Primary Preceptor ID', 'Secondary Preceptor ID', 'Trainee Code',
+        'Status', 'Training Grant Years', 'Supported by Training Grant', 'Training Period Start Date', 'Training Period End Date', 'Notes',
+        'Curriculum Advisor', 'Most Recent Curriculum Advisor Meeting Date', 'Past Curriculum Advisor Meetings', 'eRA Commons Username',
+        # Automatically Updated Fields
+        'Submitted At', 'Resubmitted At',
+        # Progress Report Data
+        'Approved IRB Protocols', 'Approved IACUC Protocols',
+        # Termination
+        'Future Email', 'Entrance Year', 'T32 Funded', 'T32 Funded Years', 'Academic Program Completed',
+        'Research Project Title', 'Laboratories', 'Immediate Transition',
+        'Transition Position', 'Transition Position Other', 'Termination Feedback'
+     ]
 
-      general_dates = [:desired_start_date, :review_date, :training_period_start_date, :training_period_end_date, :most_recent_curriculum_advisor_meeting_date]
-      program_requirement_dates = [ :research_in_progress_date, :research_ethics_training_completed_date, :grant_writing_training_completed_date, :basic_research_statistics_course_completed_date, :advanced_research_statistics_course_completed_date, :neuroscience_course_completed_date, :hsoph_summer_session_course_completed_date, :individual_funding_submission_date, :last_idp_date ]
-
-      (general_dates + program_requirement_dates).each do |date|
-        params[:applicant][date] = parse_date(params[:applicant][date]) unless params[:applicant][date] == nil
-      end
-
-      params[:applicant][:degrees_earned] ||= [] if params[:set_degrees_earned] == '1'
-      params[:applicant][:research_interests] ||= [] if params[:set_research_interests] == '1'
-      params[:applicant][:urm_types] ||= [] if params[:set_urm_types] == '1'
-      params[:applicant][:laboratories] ||= [] if params[:set_laboratories] == '1'
-      params[:applicant][:transition_position] ||= [] if params[:set_transition_position] == '1'
-
-      if current_user and current_user.administrator?
-        params[:applicant][:admin_update] = '1'
-        params.require(:applicant).permit!
-      else
-        params.require(:applicant).permit(
+      applicant_scope.each do |a|
+        row = [
+          a.id,
           # Applicant Information
-          :email, :first_name, :last_name, :middle_initial, :applicant_type, :citizenship_status, :alien_registration_number, :desired_start_date, :personal_statement,
-          # Contact Information
-          :phone, :address1, :address2, :city, :state, :country, :zip_code,
-          # Uploaded Curriculum Vitae
-          :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache,
+          a.email, a.last_name, a.first_name, a.middle_initial, a.applicant_type, a.tge, a.desired_start_date, a.personal_statement, a.alien_registration_number, a.citizenship_status,
           # Education
-          :current_institution, :department_program, :current_position,
-          { :degrees_earned => [ :degree_type, :institution, :year, :advisor, :thesis, :concentration_major ] },
-          :degree_sought, :expected_year, :residency,
-          [ :research_interests => [] ],
-          :research_interests_other,
-          :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id,
-          :previous_nrsa_support,
+          a.current_institution, a.degree_sought, a.department_program, a.expected_year, a.research_interests, a.research_interests_other,
+          a.preferred_preceptor ? a.preferred_preceptor.name_with_id : '',
+          a.preferred_preceptor ? a.preferred_preceptor.hospital_affiliation : '',
+          a.preferred_preceptor_two ? a.preferred_preceptor_two.name_with_id : '',
+          a.preferred_preceptor_three ? a.preferred_preceptor_three.name_with_id : '',
+          a.degrees_earned_text, a.current_position, a.previous_nrsa_support,
           # Demographic Information
-          :gender, :disabled, :disabled_description, :disadvantaged, :urm,
-          [ :urm_types => [] ],
-          :marital_status,
-          # Progress Report Data
-          :approved_irb_protocols,
-          :approved_irb_document, :approved_irb_document_uploaded_at, :approved_irb_document_cache,
-          :approved_iacuc_protocols,
-          :approved_iacuc_document, :approved_iacuc_document_uploaded_at, :approved_iacuc_document_cache,
-          # Applicant Assurance
-          :assurance, :publish, :letters_from_a, :letters_from_b, :letters_from_c,
-          # Termination
-          :publish_termination,
-          :future_email, :entrance_year, :t32_funded, :t32_funded_years, :academic_program_completed,
-          :research_project_title,
-          [ :laboratories => [] ],
-          :immediate_transition,
-          [ :transition_position => [] ],
-          :transition_position_other, :termination_feedback,
-          :certificate_application, :certificate_application_cache
-         )
-      end
-    end
-
-    def generate_csv(applicant_scope)
-      @csv_string = CSV.generate do |csv|
-        csv << [
-          'Applicant ID',
-          # Applicant Information
-          'Email', 'Last Name', 'First Name', 'Middle Initial', 'Applicant Type', 'TGE', 'Desired Start Date', 'Personal Statement', 'Alien Registration Number', 'Citizenship Status',
-          # Education
-          'Current Institution', 'Degree Sought', 'Department/Program', 'Expected Year', 'Research Interests', 'Research Interests Other',
-          'Preferred Preceptor ID', 'Preferred Preceptor Hospital Affiliation', 'Preferred Preceptor Two ID', 'Preferred Preceptor Three ID',
-          'Degrees Earned', 'Current Position', 'Previous NRSA Support',
-          # Demographic Information
-          'Gender', 'Disabled', 'Disabled Description', 'Disadvantaged', 'URM', 'URM Types', 'Marital Status',
+          a.gender, a.disabled, a.disabled_description, a.disadvantaged, a.urm, a.urm_types, a.marital_status,
           # Contact Information
-          'Phone', 'Address1', 'Address2', 'City', 'State', 'Country', 'Zip Code',
+          a.phone, a.address1, a.address2, a.city, a.state, a.country, a.zip_code,
           # Postdoc Only
-          'Residency',
+          a.residency,
           # Applicant Assurance
-          'Assurance', 'Letters From A', 'Letters From B', 'Letters From C',
+          a.assurance, a.letters_from_a, a.letters_from_b, a.letters_from_c,
           # Administrator Only
-          'Reviewed', 'Review Date', 'Offered', 'Accepted', 'Enrolled', 'CV Number', 'Degree Type', 'Primary Preceptor ID', 'Secondary Preceptor ID', 'Trainee Code',
-          'Status', 'Training Grant Years', 'Supported by Training Grant', 'Training Period Start Date', 'Training Period End Date', 'Notes',
-          'Curriculum Advisor', 'Most Recent Curriculum Advisor Meeting Date', 'Past Curriculum Advisor Meetings', 'eRA Commons Username',
+          a.reviewed, a.review_date, a.offered, a.accepted, a.enrolled, a.cv_number, a.degree_type,
+          a.primary_preceptor ? a.primary_preceptor.name_with_id : '',
+          a.secondary_preceptor ? a.secondary_preceptor.name_with_id : '',
+          a.trainee_code,
+          a.status, a.training_grant_years, a.supported_by_tg, a.training_period_start_date, a.training_period_end_date, a.notes,
+          a.curriculum_advisor, a.most_recent_curriculum_advisor_meeting_date, a.past_curriculum_advisor_meetings, a.era_commons_username,
           # Automatically Updated Fields
-          'Submitted At', 'Resubmitted At',
+          a.originally_submitted_at, a.submitted_at,
           # Progress Report Data
-          'Approved IRB Protocols', 'Approved IACUC Protocols',
+          a.approved_irb_protocols, a.approved_iacuc_protocols,
           # Termination
-          'Future Email', 'Entrance Year', 'T32 Funded', 'T32 Funded Years', 'Academic Program Completed',
-          'Research Project Title', 'Laboratories', 'Immediate Transition',
-          'Transition Position', 'Transition Position Other', 'Termination Feedback'
-       ]
-
-        applicant_scope.each do |a|
-          row = [
-            a.id,
-            # Applicant Information
-            a.email, a.last_name, a.first_name, a.middle_initial, a.applicant_type, a.tge, a.desired_start_date, a.personal_statement, a.alien_registration_number, a.citizenship_status,
-            # Education
-            a.current_institution, a.degree_sought, a.department_program, a.expected_year, a.research_interests, a.research_interests_other,
-            a.preferred_preceptor ? a.preferred_preceptor.name_with_id : '',
-            a.preferred_preceptor ? a.preferred_preceptor.hospital_affiliation : '',
-            a.preferred_preceptor_two ? a.preferred_preceptor_two.name_with_id : '',
-            a.preferred_preceptor_three ? a.preferred_preceptor_three.name_with_id : '',
-            a.degrees_earned_text, a.current_position, a.previous_nrsa_support,
-            # Demographic Information
-            a.gender, a.disabled, a.disabled_description, a.disadvantaged, a.urm, a.urm_types, a.marital_status,
-            # Contact Information
-            a.phone, a.address1, a.address2, a.city, a.state, a.country, a.zip_code,
-            # Postdoc Only
-            a.residency,
-            # Applicant Assurance
-            a.assurance, a.letters_from_a, a.letters_from_b, a.letters_from_c,
-            # Administrator Only
-            a.reviewed, a.review_date, a.offered, a.accepted, a.enrolled, a.cv_number, a.degree_type,
-            a.primary_preceptor ? a.primary_preceptor.name_with_id : '',
-            a.secondary_preceptor ? a.secondary_preceptor.name_with_id : '',
-            a.trainee_code,
-            a.status, a.training_grant_years, a.supported_by_tg, a.training_period_start_date, a.training_period_end_date, a.notes,
-            a.curriculum_advisor, a.most_recent_curriculum_advisor_meeting_date, a.past_curriculum_advisor_meetings, a.era_commons_username,
-            # Automatically Updated Fields
-            a.originally_submitted_at, a.submitted_at,
-            # Progress Report Data
-            a.approved_irb_protocols, a.approved_iacuc_protocols,
-            # Termination
-            a.future_email, a.entrance_year, a.t32_funded, a.t32_funded_years, a.academic_program_completed,
-            a.research_project_title, a.laboratories, a.immediate_transition,
-            a.transition_position, a.transition_position_other, a.termination_feedback
-          ]
-          csv << row
-        end
+          a.future_email, a.entrance_year, a.t32_funded, a.t32_funded_years, a.academic_program_completed,
+          a.research_project_title, a.laboratories, a.immediate_transition,
+          a.transition_position, a.transition_position_other, a.termination_feedback
+        ]
+        csv << row
       end
-
-      send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
-                             disposition: "attachment; filename=\"Training Grant Applicants and Trainees #{Time.zone.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
     end
 
-    def generate_program_requirements_csv(applicant_scope)
-      @csv_string = CSV.generate do |csv|
-        csv << [
-          'Applicant ID',
+    send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
+                           disposition: "attachment; filename=\"Training Grant Applicants and Trainees #{Time.zone.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+  end
+
+  def generate_program_requirements_csv(applicant_scope)
+    @csv_string = CSV.generate do |csv|
+      csv << [
+        'Applicant ID',
+        # Applicant Information
+        'Last Name', 'First Name',
+        # Program Requirements
+        'Research-In-Progress Title', 'Research-In-Progress Date', 'Additional Research-In-Progress Titles and Dates',
+        'Research Ethics Training Completed', 'Research Ethics Training Notes', 'Grant Writing Training Completed',
+        'Basic Research Statistics Course Completed', 'Advanced Research Statistics Course Completed',
+        'Neuroscience Course Completed', 'Harvard School of Public Health Summer Session Courses Completed',
+        'Submitted application for Individual Funding', 'Individual Funding Type', 'Last IDP'
+     ]
+
+      applicant_scope.each do |a|
+        row = [
+          a.id,
           # Applicant Information
-          'Last Name', 'First Name',
-          # Program Requirements
-          'Research-In-Progress Title', 'Research-In-Progress Date', 'Additional Research-In-Progress Titles and Dates',
-          'Research Ethics Training Completed', 'Research Ethics Training Notes', 'Grant Writing Training Completed',
-          'Basic Research Statistics Course Completed', 'Advanced Research Statistics Course Completed',
-          'Neuroscience Course Completed', 'Harvard School of Public Health Summer Session Courses Completed',
-          'Submitted application for Individual Funding', 'Individual Funding Type', 'Last IDP'
-       ]
-
-        applicant_scope.each do |a|
-          row = [
-            a.id,
-            # Applicant Information
-            a.last_name, a.first_name,
-            a.research_in_progress_title, a.research_in_progress_date, a.research_in_progress_additional,
-            a.research_ethics_training_completed_date, a.research_ethics_training_notes, a.grant_writing_training_completed_date,
-            a.basic_research_statistics_course_completed_date, a.advanced_research_statistics_course_completed_date,
-            a.neuroscience_course_completed_date, a.hsoph_summer_session_course_completed_date,
-            a.individual_funding_submission_date, a.individual_funding_type, a.last_idp_date
-          ]
-          csv << row
-        end
+          a.last_name, a.first_name,
+          a.research_in_progress_title, a.research_in_progress_date, a.research_in_progress_additional,
+          a.research_ethics_training_completed_date, a.research_ethics_training_notes, a.grant_writing_training_completed_date,
+          a.basic_research_statistics_course_completed_date, a.advanced_research_statistics_course_completed_date,
+          a.neuroscience_course_completed_date, a.hsoph_summer_session_course_completed_date,
+          a.individual_funding_submission_date, a.individual_funding_type, a.last_idp_date
+        ]
+        csv << row
       end
-
-      send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
-                             disposition: "attachment; filename=\"Training Grant Applicants and Trainees Program Requirements #{Time.zone.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
     end
+
+    send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
+                           disposition: "attachment; filename=\"Training Grant Applicants and Trainees Program Requirements #{Time.zone.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+  end
 end
