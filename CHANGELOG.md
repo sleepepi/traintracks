@@ -1,4 +1,4 @@
-## 0.12.5
+## 0.12.5 (March 2, 2016)
 
 ### Enhancements
 - **Email Changes**
