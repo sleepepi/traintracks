@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# The user class provides methods to scope resources in system that the user is
+# allowed to view and edit.
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable and :omniauthable
@@ -7,35 +11,39 @@ class User < ActiveRecord::Base
   # Callbacks
   after_create :notify_system_admins
 
-  STATUS = ["active", "denied", "inactive", "pending"].collect{|i| [i,i]}
+  STATUS = %w(active denied inactive pending).collect { |i| [i, i] }
 
   # Concerns
   include Deletable
 
   # Named Scopes
-  scope :status, lambda { |arg|  where( status: arg ) }
-  scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
+  scope :status, -> (arg) { where status: arg }
+  scope :search, -> (arg) { where('LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%')) }
   scope :system_admins, -> { where system_admin: true }
   scope :administrators, -> { where administrator: true }
 
   # Model Validation
-  validates_presence_of :first_name, :last_name
+  validates :first_name, :last_name, presence: true
 
   # Model Relationships
   has_many :authentications
-  has_many :annuals, -> { where deleted: false }
-  has_many :seminars, -> { where deleted: false }
+  has_many :annuals, -> { current }
+  has_many :seminars, -> { current }
 
   # User Methods
 
   def avatar_url(size = 80, default = 'mm')
-    gravatar_id = Digest::MD5.hexdigest(self.email.to_s.downcase)
+    gravatar_id = Digest::MD5.hexdigest(email.to_s.downcase)
     "//gravatar.com/avatar/#{gravatar_id}.png?&s=#{size}&r=pg&d=#{default}"
   end
 
   # Overriding Devise built-in active_for_authentication? method
   def active_for_authentication?
     super && status == 'active' && !deleted?
+  end
+
+  def devise_path
+    ''
   end
 
   def destroy

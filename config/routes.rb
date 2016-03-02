@@ -1,7 +1,6 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-
-  resources :hospitals
-
   resources :annuals do
     member do
       get :edit_me
@@ -9,7 +8,9 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :applicants, path: 'trainee', path_names: { sign_up: 'register', sign_in: 'login' }
+  devise_for :applicants,
+             path: 'trainee',
+             path_names: { sign_up: 'register', sign_in: 'login' }
 
   resources :applicants do
     collection do
@@ -32,7 +33,11 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :preceptors, path: 'preceptor', path_names: { sign_up: 'register', sign_in: 'login' }
+  resources :hospitals
+
+  devise_for :preceptors,
+             path: 'preceptor',
+             path_names: { sign_up: 'register', sign_in: 'login' }
 
   resources :preceptors do
     collection do
@@ -54,20 +59,32 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, controllers: { registrations: 'contour/registrations', sessions: 'contour/sessions', passwords: 'contour/passwords', confirmations: 'contour/confirmations', unlocks: 'contour/unlocks' }, path_names: { sign_up: 'register', sign_in: 'login' }, path: ""
+  devise_for :users,
+             controllers: {
+               registrations: 'contour/registrations',
+               sessions: 'contour/sessions',
+               passwords: 'contour/passwords',
+               confirmations: 'contour/confirmations',
+               unlocks: 'contour/unlocks'
+             },
+             path_names: {
+               sign_up: 'register',
+               sign_in: 'login'
+             },
+             path: ''
 
   resources :users
 
-  get "/settings" => "users#settings", as: :settings
+  get '/settings' => 'users#settings', as: :settings
 
   scope module: 'sites' do
     get :about
     get :contact
-    get "forgot-my-password", action: :forgot_my_password, as: :forgot_my_password
+    get 'forgot-my-password', action: :forgot_my_password,
+                              as: :forgot_my_password
     get :dashboard
     get :version
   end
 
   root to: 'sites#dashboard'
-
 end

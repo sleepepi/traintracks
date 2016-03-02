@@ -1,9 +1,11 @@
-class UserMailerPreview < ActionMailer::Preview
+# frozen_string_literal: true
 
+# Allows emails to be viewed at /rails/mailers
+class UserMailerPreview < ActionMailer::Preview
   def help_email
     applicant = Applicant.first
-    subject = "This is the Subject"
-    body = "This is the Body"
+    subject = 'This is the Subject'
+    body = 'This is the Body'
     UserMailer.help_email(applicant, subject, body)
   end
 
@@ -32,8 +34,8 @@ class UserMailerPreview < ActionMailer::Preview
 
   def update_annual
     annual = Annual.first
-    subject = "This is the Subject"
-    body = "This is the Body"
+    subject = 'This is the Subject'
+    body = 'This is the Body'
     UserMailer.update_annual(annual, subject, body)
   end
 
@@ -53,5 +55,4 @@ class UserMailerPreview < ActionMailer::Preview
     applicant = Applicant.first
     UserMailer.notify_preceptor(applicant)
   end
-
 end

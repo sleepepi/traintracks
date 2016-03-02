@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# The preceptor class provides methods to to access information about preceptors
+# and allows preceptors to be connected to applicants and trainees.
 class Preceptor < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :encryptable and :omniauthable, :registerable
@@ -7,32 +11,27 @@ class Preceptor < ActiveRecord::Base
   # Concerns
   include TokenAuthenticatable, Deletable
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :email, :password, :password_confirmation, :remember_me
-
-  # attr_accessible :degree, :deleted, :first_name, :hospital_affiliation, :hospital_appointment, :last_name, :program_role, :rank, :research_interest, :status,
-  #                 :other_support, :other_support_cache
-
   mount_uploader :other_support, DocumentUploader
   mount_uploader :biosketch, DocumentUploader
   mount_uploader :curriculum_vitae, DocumentUploader
 
-  STATUS = ["current", "former"].collect{|i| [i,i]}
-  RANK = ["Associate Preceptor", "Full Preceptor"].collect{|i| [i,i]}
+  STATUS = %w(current former).collect { |i| [i, i] }
+  RANK = ['Associate Preceptor', 'Full Preceptor'].collect { |i| [i, i] }
 
   # Callbacks
   before_validation :set_password
   before_save :ensure_authentication_token
 
   # Named Scopes
-  scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
+  scope :search, -> (arg) { where('LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%')) }
 
   # Model Validation
-  validates_presence_of :first_name, :last_name
-  validates_uniqueness_of :email, allow_blank: true, scope: :deleted
+  validates :first_name, :last_name, presence: true
+  validates :email, uniqueness: { scope: :deleted }, allow_blank: true
 
   # Max Length Validation for PostgreSQL strings
-  validates_length_of :first_name, :last_name, :degree, :hospital_affiliation, :hospital_appointment, :program_role, maximum: 255
+  validates :first_name, :last_name, :degree, :hospital_affiliation,
+            :hospital_appointment, :program_role, length: { maximum: 255 }
 
   # Model Relationships
   # has_many :applicants
@@ -40,17 +39,21 @@ class Preceptor < ActiveRecord::Base
   # Preceptor Methods
 
   def avatar_url(size = 80, default = 'mm')
-    gravatar_id = Digest::MD5.hexdigest(self.email.to_s.downcase)
+    gravatar_id = Digest::MD5.hexdigest(email.to_s.downcase)
     "//gravatar.com/avatar/#{gravatar_id}.png?&s=#{size}&r=pg&d=#{default}"
   end
 
   def name_with_id
-    "#{self.id}: #{self.name}"
+    "#{id}: #{name}"
   end
 
   # Overriding Devise built-in active_for_authentication? method
   def active_for_authentication?
-    super and not self.deleted?
+    super && !deleted?
+  end
+
+  def devise_path
+    'preceptor/'
   end
 
   def name
@@ -69,20 +72,19 @@ class Preceptor < ActiveRecord::Base
 
   # Return true if an email has been sent to the applicant and they have not yet logged in
   def recently_notified?
-    not self.emailed_at.blank? and not self.current_sign_in_at.blank? and self.current_sign_in_at < self.emailed_at
+    emailed_at.present? && current_sign_in_at.present? && current_sign_in_at < emailed_at
   end
 
   def update_general_information_email!(current_user)
-    self.update_column :emailed_at, Time.zone.now
+    update_column :emailed_at, Time.zone.now
     UserMailer.update_preceptor(self, current_user).deliver_later if EMAILS_ENABLED
   end
 
   def set_password
-    if self.respond_to?('encrypted_password') and self.encrypted_password.blank?
+    if respond_to?('encrypted_password') && encrypted_password.blank?
       self.password = Devise.friendly_token
-      self.password_confirmation = self.password
+      self.password_confirmation = password
     end
     true
   end
-
 end

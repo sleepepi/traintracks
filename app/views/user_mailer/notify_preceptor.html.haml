@@ -1,0 +1,13 @@
+= @applicant.name
+has recently submitted an application to the Training Program in Sleep, Circadian, and Respiratory Neurobiology.
+%br
+%br
+%span{ style: 'text-decoration: underline' } This candidate named you as a potential preceptor.
+%br
+- if @preceptors.size > 1
+  The other preferred preceptors have been CC'd on this email.
+  %br
+%br
+This candidate's CV is attached to this email. To email the candidate, hit "reply".
+%br
+= simple_format ENV['tg_preceptor_body']

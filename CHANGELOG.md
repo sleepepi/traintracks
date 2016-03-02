@@ -1,5 +1,13 @@
 ## 0.12.5
 
+### Enhancements
+- **Email Changes**
+  - Updated styling consistency across emails
+
+### Bug Fix
+- Fixed URLs for password reset, password confirmation, and email confirmation
+  emails
+
 ## 0.12.4 (March 1, 2016)
 
 ### Enhancements

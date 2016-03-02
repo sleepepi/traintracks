@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# The applicant class provides methods to to access information about trainees
+# and applicants.
 class Applicant < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :encryptable and :omniauthable
@@ -191,34 +195,38 @@ class Applicant < ActiveRecord::Base
   # end
 
   def trainee?
-    self.enrolled?
+    enrolled?
   end
 
   def termination?
-    self.publish_termination == '1'
+    publish_termination == '1'
   end
 
   # Validates on annual or on published
   def annual_or_publish?
-    self.publish_annual == '1' or self.publish == '1'
+    publish_annual == '1' || publish == '1'
   end
 
   # Should be changed to 'publish?' for consistency
   def submitted?
-    self.publish == '1'
+    publish == '1'
   end
 
   def not_submitted?
-    not self.submitted?
+    !submitted?
   end
 
   def permanent_resident?
-    self.citizenship_status == 'permanent resident'
+    citizenship_status == 'permanent resident'
   end
 
   # Overriding Devise built-in active_for_authentication? method
   def active_for_authentication?
-    super and not self.deleted?
+    super && !deleted?
+  end
+
+  def devise_path
+    'trainee/'
   end
 
   def name
@@ -234,7 +242,9 @@ class Applicant < ActiveRecord::Base
   end
 
   def years_since_training_end_date
-    ((Date.today - self.training_period_end_date).day / 1.year).floor rescue 0
+    ((Date.today - self.training_period_end_date).day / 1.year).floor
+  rescue
+    0
   end
 
   def destroy
@@ -244,53 +254,53 @@ class Applicant < ActiveRecord::Base
   end
 
   def set_submitted_at
-    if self.respond_to?('submitted_at') and self.submitted_at.blank? and self.publish.to_s == '1'
+    if respond_to?('submitted_at') && submitted_at.blank? && publish.to_s == '1'
       self.submitted_at = Time.zone.now
-      self.originally_submitted_at = self.submitted_at if self.respond_to?('originally_submitted_at') and self.originally_submitted_at.blank?
+      self.originally_submitted_at = submitted_at if respond_to?('originally_submitted_at') && originally_submitted_at.blank?
     end
     true
   end
 
   def set_tge
-    if self.respond_to?('tge')
-      self.tge = ["citizen", "permanent resident"].include?(self.citizenship_status)
+    if respond_to?('tge')
+      self.tge = ['citizen', 'permanent resident'].include?(citizenship_status)
     end
     true
   end
 
   def notify_preceptor
-    if self.publish.to_s == '1' and self.preferred_preceptor and not self.preferred_preceptor.email.blank?
+    if publish.to_s == '1' && preferred_preceptor && preferred_preceptor.email.present?
       UserMailer.notify_preceptor(self).deliver_later if EMAILS_ENABLED
     end
   end
 
   def set_alien_registration_number
-    if attribute_present?("alien_registration_number")
-      self.alien_registration_number = "A" + alien_registration_number.to_s.gsub(/[^\d]/, '')
+    if attribute_present?('alien_registration_number')
+      self.alien_registration_number = 'A' + alien_registration_number.to_s.gsub(/[^\d]/, '')
     end
     true
   end
 
   def set_password
-    if self.respond_to?('encrypted_password') and self.encrypted_password.blank?
+    if respond_to?('encrypted_password') && encrypted_password.blank?
       self.password = Devise.friendly_token
-      self.password_confirmation = self.password
+      self.password_confirmation = password
     end
     true
   end
 
   def check_degrees_earned
     result = true
-    self.degrees_earned.each do |degree_earned|
+    degrees_earned.each do |degree_earned|
       result = true
       [:degree_type, :institution].each do |attr|
         if degree_earned[attr].blank?
-          self.errors.add(:degrees_earned, "#{attr.to_s.gsub('_', ' ')} can't be blank" ) unless self.errors[:degrees_earned].include?("#{attr.to_s.gsub('_', ' ')} can't be blank")
+          self.errors.add(:degrees_earned, "#{attr.to_s.gsub('_', ' ')} can't be blank" ) unless errors[:degrees_earned].include?("#{attr.to_s.gsub('_', ' ')} can't be blank")
           result = false
         end
       end
       if degree_earned[:year].to_i <= 0
-        self.errors.add(:degrees_earned, "year can't be blank" ) unless self.errors[:degrees_earned].include?("year can't be blank")
+        self.errors.add(:degrees_earned, "year can't be blank" ) unless errors[:degrees_earned].include?("year can't be blank")
         result = false
       end
     end
@@ -299,29 +309,29 @@ class Applicant < ActiveRecord::Base
 
   # Return true if an email has been sent to the applicant and they have not yet logged in
   def recently_notified?
-    not self.emailed_at.blank? and not self.current_sign_in_at.blank? and self.current_sign_in_at < self.emailed_at
+    emailed_at.present? && current_sign_in_at.present? && current_sign_in_at < emailed_at
   end
 
   def update_general_information_email!(current_user)
-    self.update_column :emailed_at, Time.zone.now
+    update_column :emailed_at, Time.zone.now
     UserMailer.update_application(self, current_user).deliver_later if EMAILS_ENABLED
   end
 
   def send_annual_reminder!(current_user, year, subject, body)
-    annual = Annual.current.where( applicant_id: self.id, year: year ).first_or_create( user_id: current_user.id )
+    annual = Annual.current.where(applicant_id: id, year: year).first_or_create(user_id: current_user.id)
 
     if annual
       if annual.submitted?
         # Do nothing
-      elsif annual.applicant and not annual.applicant.email.blank?
-        self.update_column :emailed_at, Time.zone.now
+      elsif annual.applicant && annual.applicant.email.present?
+        update_column :emailed_at, Time.zone.now
         UserMailer.update_annual(annual, subject, body).deliver_later if EMAILS_ENABLED
       end
     end
   end
 
   def send_termination!(current_user)
-    self.update_column :emailed_at, Time.zone.now
+    update_column :emailed_at, Time.zone.now
     UserMailer.exit_interview(self, current_user).deliver_later if EMAILS_ENABLED
   end
 
@@ -329,7 +339,6 @@ class Applicant < ActiveRecord::Base
 
   # Override Devise Email Required
   def email_required?
-    self.admin_update != '1'
+    admin_update != '1'
   end
-
 end

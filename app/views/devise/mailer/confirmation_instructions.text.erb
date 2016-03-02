@@ -1,0 +1,6 @@
+Dear <%= @resource.first_name %>,
+
+You can confirm your account email through the link below:
+
+
+  <%= "#{ENV['website_url']}/#{@resource.devise_path}confirmation?confirmation_token=#{@token}" %>

@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  first_name: MyString
-  last_name: MyString
-  degree: MyString
+  first_name: John
+  last_name: Locke
+  degree: PhD
   status: MyString
   hospital_affiliation: MyString
   hospital_appointment: MyString

@@ -1,0 +1,10 @@
+Dear
+= succeed ',' do
+  = @resource.first_name
+%br
+%br
+You can confirm your account email through the link below:
+%br
+%br
+%center
+  = link_to 'Confirm my account', "#{ENV['website_url']}/#{@resource.devise_path}confirmation?confirmation_token=#{@token}", style: 'color: #428bca'

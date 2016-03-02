@@ -1,0 +1,14 @@
+Dear
+= succeed ',' do
+  = @applicant.first_name
+%br
+%br
+= @user.name
+has requested that you update your application information.
+%br
+%br
+You can access your application here:
+%br
+%br
+%center
+  = link_to 'Access Your Application', "#{ENV['website_url']}/applicants/edit_me?auth_token=#{@applicant.id_and_auth_token}", style: 'color: #428bca'
