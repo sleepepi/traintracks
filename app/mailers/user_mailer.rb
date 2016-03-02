@@ -2,9 +2,6 @@
 
 # Sends out application emails to users
 class UserMailer < ApplicationMailer
-  default from: "#{ENV['website_name']} <#{ActionMailer::Base.smtp_settings[:email]}>"
-  add_template_helper(ApplicationHelper)
-
   def help_email(current_applicant, subject, body)
     to_email = if defined?(ENV['tg_admin_email']) && ENV['tg_admin_email'].present?
                  ENV['tg_admin_email']
@@ -95,12 +92,5 @@ class UserMailer < ApplicationMailer
          cc: (defined?(ENV['tg_admin_email']) and not ENV['tg_admin_email'].blank?) ? ENV['tg_admin_email'] : nil,
          subject: "ACTION REQUIRED: You have been named as a potential preceptor for #{applicant.name}.",
          reply_to: applicant.email)
-  end
-
-  protected
-
-  def setup_email
-    @footer_html = "<br /><div style=\"color:#777\">Change #{ENV['website_name']} email settings here: <a href=\"#{ENV['website_url']}/settings\">#{ENV['website_url']}/settings</a></div><br /><br />".html_safe
-    @footer_txt = "Change #{ENV['website_name']} email settings here: #{ENV['website_url']}/settings"
   end
 end
