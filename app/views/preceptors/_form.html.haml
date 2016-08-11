@@ -8,16 +8,16 @@
   - if @preceptor.errors.any?
     .callout.callout-danger
       %h4
-        = pluralize(@preceptor.errors.count, "error")
+        = pluralize @preceptor.errors.count, 'error'
         prohibited this preceptor from being saved
 
       %ul
-        - @preceptor.errors.full_messages.each do |msg|
-          %li= msg
+        - @preceptor.errors.full_messages.each do |message|
+          %li= message
 
   = render 'preceptors/form/general', f: f
 
   .form-group
     .col-md-offset-2.col-md-10
-      = f.submit (@preceptor.new_record? ? "Create Preceptor" : "Update Preceptor"), class: 'btn btn-primary'
+      = f.submit (@preceptor.new_record? ? 'Create Preceptor' : 'Update Preceptor'), class: 'btn btn-primary'
       = cancel

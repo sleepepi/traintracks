@@ -1,0 +1,55 @@
+.page-header
+  %h1
+    = link_to 'Users', users_path
+    &middot;
+    = @title
+
+= form_for @user, html: { class: 'form-horizontal' } do |f|
+  - if @user.errors.any?
+    .callout.callout-danger
+      %h4
+        = pluralize @user.errors.count, 'error'
+        prohibited this user from being saved
+
+      %ul
+        - @user.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = f.label :first_name, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :first_name, class: 'form-control'
+
+  .form-group
+    = f.label :last_name, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :last_name, class: 'form-control'
+
+  .form-group
+    = f.label :status, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.select :status, User::STATUS, {}, class: 'form-control'
+
+  .form-group
+    = f.label :email, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :email, class: 'form-control'
+
+  .form-group
+    = f.label :system_admin, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      .checkbox
+        %label{ style: 'width:185px;' }
+          = f.check_box :system_admin
+
+  .form-group
+    = f.label :administrator, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      .checkbox
+        %label{ style: 'width:185px;' }
+          = f.check_box :administrator
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit nil, class: 'btn btn-primary'
+      = cancel
