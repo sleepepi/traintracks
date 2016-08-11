@@ -6,6 +6,7 @@
   - Updated to devise 4.2.0
   - Updated to turbolinks 5
   - Removed dependency on contour
+  - Removed dependency on ruby-ntlm-namespace
 
 ## 0.12.5 (March 2, 2016)
 
