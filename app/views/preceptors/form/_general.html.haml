@@ -23,7 +23,7 @@
   = f.label :degree, class: 'col-md-2 control-label'
   .col-md-10
     = f.text_field :degree, class: 'form-control'
-    .bs-callout.bs-callout-info
+    .callout.callout-info
       %h4 Example
       %code
         M.D.
@@ -35,7 +35,7 @@
   .col-md-10
     = f.text_field :hospital_affiliation, autocomplete: 'off', data: { object: 'typeahead', local: Hospital.current.order('name').pluck(:name).uniq.to_json }, class: 'form-control'
     - if user_signed_in? and current_user.administrator?
-      .bs-callout.bs-callout-info
+      .callout.callout-info
         %h4 Manage Hospital List
         You can edit the
         = succeed '.' do
@@ -63,7 +63,7 @@
   .col-md-10
     = f.file_field :other_support, class: 'form-control'
     = f.hidden_field :other_support_cache
-    .bs-callout.bs-callout-info
+    .callout.callout-info
       %h4 Example Document
       You can download an example
       = link_to 'Other-Support.doc', "#{root_path}Other-Support.doc", class: 'btn btn-xs btn-default', target: '_blank'

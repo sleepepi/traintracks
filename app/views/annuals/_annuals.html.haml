@@ -1,0 +1,38 @@
+= render 'layouts/per_page', per_page: 40, object_count: @annuals.total_count
+
+%table.table.table-striped
+  %thead
+    %tr
+      = th_sort_field @order, 'annuals.applicant_id', 'Applicant'
+      = th_sort_field @order, 'annuals.year', 'Year'
+      = th_sort_field @order, 'annuals.coursework_completed', 'Coursework Completed'
+      = th_sort_field @order, 'annuals.publications', 'Publications'
+      = th_sort_field @order, 'annuals.presentations', 'Presentations'
+      = th_sort_field @order, 'annuals.research_description', 'Research Description'
+      = th_sort_field @order, 'annuals.source_of_support', 'Source Of Support'
+      = th_sort_field @order, 'annuals.nih_other_support', 'NIH Other Support'
+      = th_sort_field @order, 'annuals.submitted_at', 'Submitted'
+      = th_sort_field @order, 'annuals.modified_at', 'Modified'
+      %th Actions
+
+  - @annuals.each do |annual|
+    %tr
+      %td= link_to annual.applicant.name, annual.applicant if annual.applicant
+      %td= link_to annual.year, annual
+      %td= truncate annual.coursework_completed
+      %td= truncate annual.publications
+      %td= truncate annual.presentations
+      %td= truncate annual.research_description
+      %td= annual.source_of_support
+      %td
+        - unless annual.nih_other_support_url.blank?
+          - full_url = "#{request.script_name}#{annual.nih_other_support.url}"
+          = link_to annual.nih_other_support_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
+          = number_to_human_size(annual.nih_other_support.size)
+      %td= simple_time annual.submitted_at
+      %td= simple_time annual.modified_at
+      %td.nowrap
+        = link_to 'Edit', edit_annual_path(annual), class: 'btn btn-xs btn-default'
+        = link_to 'Delete', annual, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Annual #{annual.name}?" }
+
+.center= paginate @annuals, theme: 'bootstrap'

@@ -30,7 +30,7 @@ class SeminarsController < ApplicationController
         @applicant.remove_seminar(@seminar)
       end
     else
-      render nothing: true
+      head :ok
     end
   end
 

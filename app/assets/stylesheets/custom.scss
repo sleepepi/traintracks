@@ -2,17 +2,6 @@ span.selected {
   color: #5cb85c;
 }
 
-.tag_bubble {
-  background-color: #ddd;
-  padding: 1px 2px;
-  margin: 0px 2px;
-  border: 1px solid #bbb;
-
-  -moz-border-radius: 5px; /* Mozilla */
-  -webkit-border-radius: 5px; /* Webkit */
-  border-radius: 5px;
-}
-
 td.warning {
   background-color: #fcf8e3;
 }
@@ -27,8 +16,4 @@ td.error {
 
 .table-striped tbody > tr:nth-child(odd) > td.error {
   background-color: #ebcccc;
-}
-
-.nowrap {
-  white-space: nowrap;
 }

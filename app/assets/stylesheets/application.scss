@@ -1,1 +1,21 @@
-@import 'tree';
+// Bootstrap and general variable definitions
+@import 'variables/all';
+
+// Core Bootstrap styles
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+
+// App Mixins
+@import 'mixins/all';
+
+// App specific styles
+@import 'components/all';
+@import 'extensions/all';
+@import 'fixes/all';
+@import 'objects/all';
+
+
+// TODO: Remove "Custom"
+@import 'custom';
+@import 'footer';
+@import 'forms';

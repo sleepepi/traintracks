@@ -11,7 +11,7 @@
               <%= link_to 'Edit', current_user ? edit_annual_path(annual) : edit_me_annual_path(annual), class: "btn btn-xs #{annual.submitted? ? 'btn-default' : 'btn-primary'}" %>
             </h3>
             <% if current_user and current_user.administrator? %>
-              <div class="bs-callout bs-callout-info">
+              <div class="callout callout-info">
                 <h4>Annual <%= annual.year %> Login</h4>
                 <code class="text-primary" style="font-size:0.7em"><%= "#{ENV['website_url']}/annuals/#{annual.id}/edit_me?auth_token=#{annual.applicant.id_and_auth_token}" %></code>
               </div>

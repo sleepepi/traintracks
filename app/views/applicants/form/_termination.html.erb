@@ -30,7 +30,7 @@
   <%= f.label :t32_funded_years, '3. a. If yes, how many years?', class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.select :t32_funded_years, [['---', nil]] + (1..5).collect{|i| [pluralize(i, 'Year'), i]}, {}, class: 'form-control' %>
-    <div class="bs-callout bs-callout-info">
+    <div class="callout callout-info">
       <h4>Calculating Total Years</h4>
       <p>Please round up, e.g. 1.5 years = 2 years.</p>
       <p>If supported for both pre- and postdoctoral training, list the number of postdoctoral training years.</p>
@@ -53,7 +53,7 @@
   <div class="col-md-10">
     <%= f.file_field :certificate_application, class: 'form-control' %>
     <%= f.hidden_field :certificate_application_cache %>
-    <div class="bs-callout bs-callout-info">
+    <div class="callout callout-info">
       <h4>Example Document</h4>
       You can download an example <%= link_to 'Certificate Program', 'https://sleep.med.harvard.edu/training/research-training-program/certificate', class: 'btn btn-xs btn-default', target: '_blank' %> as a template.
     </div>

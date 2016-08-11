@@ -5,7 +5,7 @@
     Resend Unlock Instructions
 
   .center{ style: 'margin-bottom:20px' }
-    = render partial: 'sites/resource_image'
+    = render 'sites/resource_image'
 
   %p.lead.center
     Enter your email address if you need instructions to unlock your account.
@@ -15,7 +15,7 @@
 
   = form_for resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: 'form-vertical' } do |f|
     - if resource.errors.any?
-      #error_explanation.bs-callout.bs-callout-danger
+      .callout.callout-danger
         %h4
           Please enter a valid email
 
@@ -29,4 +29,4 @@
       = f.email_field :email, class: 'form-control'
 
     .form-group
-      = f.submit "Resend unlock instructions", class: 'btn btn-success'
+      = f.submit 'Resend unlock instructions', class: 'btn btn-success'

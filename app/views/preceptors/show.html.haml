@@ -14,7 +14,7 @@
     %span.label.label-info= simple_time @preceptor.emailed_at
 
 - if current_user.administrator?
-  .bs-callout.bs-callout-info
+  .callout.callout-info
     %h4 Preceptor Unique Login
     %code.text-primary
       = "#{ENV['website_url']}/preceptors/dashboard?auth_token=#{@preceptor.id_and_auth_token}"

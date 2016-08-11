@@ -23,30 +23,25 @@
       for field in predoc_summer_fields
         $(field).removeAttr('disabled')
 
-@initializeTypeahead = () ->
-  $('[data-object~="typeahead"]').each( () ->
-    $this = $(this)
-    $this.typeahead(
-      local: $this.data('local')
-    )
-  )
-
 @setFocusToField = (element_id) ->
   val = $(element_id).val()
   $(element_id).focus().val('').val(val)
 
-@ready = () ->
-  contourReady()
-  initializeTypeahead()
-  $("[rel~=tooltip]").tooltip( trigger: 'hover' )
-  $("input[rel=tooltip], textarea[rel=tooltip]").tooltip( trigger: 'focus' )
+@extensionsReady = ->
+  datepickerReady()
+  notouchReady()
+  tooltipsReady()
+  typeaheadReady()
+
+@ready = ->
   togglePostdocFields()
   setFocusToField("#search")
-  Turbolinks.enableProgressBar()
+  $('[data-object~="form-load"]').submit()
+  extensionsReady()
 
 $(document).ready(ready)
 $(document)
-  .on('page:load', ready)
+  .on('turbolinks:load', ready)
   .on('click', '[data-object~="value-set"]', () ->
     $(this).find('input').prop('checked', true)
     $('#applicants_search').submit()

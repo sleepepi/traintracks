@@ -4,7 +4,7 @@
 
 <%= form_for @seminar, html: { class: 'form-horizontal' } do |f| %>
   <% if @seminar.errors.any? %>
-    <div id="error_explanation" class="bs-callout bs-callout-danger">
+    <div id="error_explanation" class="callout callout-danger">
       <h4><%= pluralize(@seminar.errors.count, "error") %> prohibited this seminar from being saved</h4>
 
       <ul>

@@ -4,7 +4,7 @@
 <% form_name = "edit_applicant_#{current_applicant.id}" %>
 <%= form_for current_applicant, url: update_me_applicants_path, method: :put, html: { id: form_name, class: 'form-horizontal' } do |f| %>
   <% if current_applicant.errors.any? %>
-    <div id="error_explanation" class="bs-callout bs-callout-danger">
+    <div id="error_explanation" class="callout callout-danger">
       <h4><%= pluralize(current_applicant.errors.count, "error") %> prohibited this applicant from being saved</h4>
 
       <ul>
@@ -37,7 +37,7 @@
         <%= f.text_field :letters_from_a, class: 'form-control' %>
         <%= f.text_field :letters_from_b, class: 'form-control' %>
         <%= f.text_field :letters_from_c, class: 'form-control' %>
-        <div class="bs-callout bs-callout-info">
+        <div class="callout callout-info">
           <h4>Important!</h4>
           Please remember you need <strong>3 letters of recommendation</strong> and <strong>a letter from your potential preceptor!</strong>
         </div>

@@ -16,7 +16,7 @@
   <% @applicant = current_applicant %>
 
   <% if @applicant.errors.any? %>
-    <div id="error_explanation" class="bs-callout bs-callout-danger">
+    <div id="error_explanation" class="callout callout-danger">
       <h4><%= pluralize(@applicant.errors.count, "error") %> prohibited this applicant from being saved</h4>
 
       <ul>
@@ -28,7 +28,7 @@
   <% end %>
 
   <% if @annual.errors.any? %>
-    <div id="error_explanation" class="bs-callout bs-callout-danger">
+    <div id="error_explanation" class="callout callout-danger">
       <h4><%= pluralize(@annual.errors.count, "error") %> prohibited this form from being saved</h4>
 
       <ul>

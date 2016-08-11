@@ -9,7 +9,7 @@
   <%= f.label :publications, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_area :publications, rows: 7, class: 'form-control' %>
-    <div class="bs-callout bs-callout-warning">
+    <div class="callout callout-warning">
       <h4>Important</h4>
       NIH-funded publications after April, 2008 must comply with the <%= link_to 'NIH Public Access policy', 'https://www.countway.harvard.edu/menuNavigation/libraryServices/nihPublicAccess.html', target: '_blank' %> by listing a PMCID.
     </div>
@@ -34,7 +34,7 @@
   <%= f.label :degree_or_certifications_earned, "Degree or Certifications earned (Year) or Other Relevant Outcome", class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_area :degree_or_certifications_earned, rows: 7, class: 'form-control' %>
-    <div class="bs-callout bs-callout-info">
+    <div class="callout callout-info">
       <h4>Example</h4>
       <code>Certificate of Clinical Investigation (2013)</code>, <code>Board Certification in Sleep Medicine (2013)</code>
     </div>
@@ -45,7 +45,7 @@
   <%= f.label :source_of_support, nil, class: 'col-md-2 control-label' %>
   <div class="col-md-10">
     <%= f.text_field :source_of_support, class: 'form-control' %>
-    <div class="bs-callout bs-callout-info">
+    <div class="callout callout-info">
       <h4>Example</h4>
       <code>NIH</code>, <code>NHLBI</code>, <code>Private Funding</code>, <code>None</code>
       <p>Upload full NIH Grant information in your NIH Other Support Document.</p>
@@ -58,7 +58,7 @@
   <div class="col-md-10">
     <%= f.file_field :nih_other_support, class: 'form-control' %>
     <%= f.hidden_field :nih_other_support_cache %>
-    <div class="bs-callout bs-callout-info">
+    <div class="callout callout-info">
       <h4>Example Document</h4>
       You can download an example <%= link_to 'othersupport.pdf', 'http://grants.nih.gov/grants/funding/phs398/othersupport.pdf', target: '_blank', class: 'btn btn-xs btn-default' %> as a template.
     </div>

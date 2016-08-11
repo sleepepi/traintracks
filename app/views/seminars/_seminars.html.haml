@@ -1,0 +1,22 @@
+= render 'layouts/per_page', per_page: 40, object_count: @seminars.total_count
+
+%table.table.table-striped
+  %thead
+    %tr
+      = th_sort_field @order, 'seminars.presenter', 'Presenter'
+      = th_sort_field @order, 'seminars.presentation_title', 'Presentation Title', extra_class: 'nowrap'
+      = th_sort_field @order, 'seminars.presentation_date', 'Presentation Date', extra_class: 'nowrap'
+      = th_sort_field @order, 'seminars.category', 'Category'
+      %th Actions
+
+  - @seminars.each do |seminar|
+    %tr
+      %td= link_to seminar.presenter, seminar
+      %td= seminar.presentation_title
+      %td= seminar.presentation_date_with_time
+      %td= seminar.category
+      %td.nowrap
+        = link_to 'Edit', edit_seminar_path(seminar), class: 'btn btn-xs btn-default'
+        = link_to 'Delete', seminar, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Seminar #{seminar.name}?" }
+
+.center= paginate @seminars, theme: 'bootstrap'

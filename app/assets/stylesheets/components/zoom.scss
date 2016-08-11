@@ -1,0 +1,17 @@
+.no-touch {
+  .zoom-hover {
+    transition: transform .25s ease-out;
+  }
+
+  .zoom-hover:hover {
+    transform: scale(1.2);
+  }
+
+  .bg-hover {
+    transition: background .25s ease-out;
+  }
+
+  .bg-hover:hover {
+    background-color: $brand-primary;
+  }
+}

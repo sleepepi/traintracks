@@ -5,11 +5,11 @@
     Change Password
 
   .center{ style: 'margin-bottom:20px' }
-    = render partial: 'sites/resource_image'
+    = render 'sites/resource_image'
 
   = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'form-vertical' }) do |f|
     - if resource.errors.any?
-      #error_explanation.bs-callout.bs-callout-danger
+      .callout.callout-danger
         %h4
           The following
           = 'error'.pluralize(resource.errors.count)
@@ -22,12 +22,12 @@
     = f.hidden_field :reset_password_token
 
     .form-group
-      = f.label :password, "New password", class: 'control-label'
+      = f.label :password, 'New password', class: 'control-label'
       = f.password_field :password, class: 'form-control'
 
     .form-group
-      = f.label :password_confirmation, "Confirm new password", class: 'control-label'
+      = f.label :password_confirmation, 'Confirm new password', class: 'control-label'
       = f.password_field :password_confirmation, class: 'form-control'
 
     .form-group
-      = f.submit "Change my password", class: 'btn btn-success'
+      = f.submit 'Change my password', class: 'btn btn-success'

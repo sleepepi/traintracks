@@ -3,7 +3,7 @@
 </div>
 
 <% if current_user and current_user.administrator? %>
-  <div class="bs-callout bs-callout-info">
+  <div class="callout callout-info">
     <h4>Exit Interview Login</h4>
     <code class="text-primary" style="font-size:0.7em"><%= "#{ENV['website_url']}/applicants/exit_interview?auth_token=#{applicant.id_and_auth_token}" %></code>
   </div>

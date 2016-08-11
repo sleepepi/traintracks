@@ -1,4 +1,10 @@
+# frozen_string_literal: true
+
+# Methods to help across all application views.
 module ApplicationHelper
+  def cancel
+    link_to 'Cancel', URI.parse(request.referer.to_s).path.blank? ? root_path : (URI.parse(request.referer.to_s).path), class: 'btn btn-default'
+  end
 
   # Prints out '6 hours ago, Yesterday, 2 weeks ago, 5 months ago, 1 year ago'
   def recent_activity(past_time)
@@ -46,4 +52,18 @@ module ApplicationHelper
     checked ? '<span class="glyphicon glyphicon-ok"></span>'.html_safe : '<span class="glyphicon glyphicon-unchecked"></span>'.html_safe
   end
 
+  def th_sort_field(order, sort_field, display_name, extra_class: '')
+    sort_params = params.permit(:search)
+    sort_field_order = (order == sort_field) ? "#{sort_field} desc" : sort_field
+    if order == sort_field
+      selected_class = 'sort-selected'
+    elsif order == "#{sort_field} desc nulls last" || order == "#{sort_field} desc"
+      selected_class = 'sort-selected'
+    end
+    content_tag(:th, class: [selected_class, extra_class]) do
+      link_to url_for(sort_params.merge(order: sort_field_order)), style: 'text-decoration:none' do
+        display_name.to_s.html_safe
+      end
+    end.html_safe
+  end
 end
