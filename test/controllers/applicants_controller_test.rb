@@ -95,12 +95,76 @@ class ApplicantsControllerTest < ActionController::TestCase
   end
 
   test 'should update applicant' do
-    put :update, id: @applicant, applicant: { accepted: @applicant.accepted, address1: @applicant.address1, address2: @applicant.address2, cv_number: @applicant.cv_number, applicant_type: @applicant.applicant_type, city: @applicant.city, country: @applicant.country, current_institution: @applicant.current_institution, current_position: @applicant.current_position, degree_sought: @applicant.degree_sought, degree_type: @applicant.degree_type, degrees_earned: @applicant.degrees_earned, department_program: @applicant.department_program, disabled: @applicant.disabled, disadvantaged: @applicant.disadvantaged, email: @applicant.email, enrolled: @applicant.enrolled, expected_year: @applicant.expected_year, first_name: @applicant.first_name, last_name: @applicant.last_name, middle_initial: @applicant.middle_initial, notes: @applicant.notes, offered: @applicant.offered, phone: @applicant.phone, preferred_preceptor_id: @applicant.preferred_preceptor_id, primary_preceptor_id: @applicant.primary_preceptor_id, research_project_title: @applicant.research_project_title, residency: @applicant.residency, review_date: '1/30/2012', reviewed: @applicant.reviewed, secondary_preceptor_id: @applicant.secondary_preceptor_id, state: @applicant.state, status: @applicant.status, supported_by_tg: @applicant.supported_by_tg, training_grant_years: @applicant.training_grant_years, tge: @applicant.tge, trainee_code: @applicant.trainee_code, training_period_end_date: '2/10/2013', training_period_start_date: '2/10/2012', urm: @applicant.urm, zip_code: @applicant.zip_code, desired_start_date: '4/16/2012', marital_status: @applicant.marital_status, assurance: @applicant.assurance, personal_statement: @applicant.personal_statement, alien_registration_number: @applicant.alien_registration_number, citizenship_status: @applicant.citizenship_status, letters_from_a: @applicant.letters_from_a, letters_from_b: @applicant.letters_from_b, letters_from_c: @applicant.letters_from_c, gender: @applicant.gender, urm_types: @applicant.urm_types }
+    patch :update, id: @applicant, applicant: { accepted: @applicant.accepted, address1: @applicant.address1, address2: @applicant.address2, cv_number: @applicant.cv_number, applicant_type: @applicant.applicant_type, city: @applicant.city, country: @applicant.country, current_institution: @applicant.current_institution, current_position: @applicant.current_position, degree_sought: @applicant.degree_sought, degree_type: @applicant.degree_type, degrees_earned: @applicant.degrees_earned, department_program: @applicant.department_program, disabled: @applicant.disabled, disadvantaged: @applicant.disadvantaged, email: @applicant.email, enrolled: @applicant.enrolled, expected_year: @applicant.expected_year, first_name: @applicant.first_name, last_name: @applicant.last_name, middle_initial: @applicant.middle_initial, notes: @applicant.notes, offered: @applicant.offered, phone: @applicant.phone, preferred_preceptor_id: @applicant.preferred_preceptor_id, primary_preceptor_id: @applicant.primary_preceptor_id, research_project_title: @applicant.research_project_title, residency: @applicant.residency, review_date: '1/30/2012', reviewed: @applicant.reviewed, secondary_preceptor_id: @applicant.secondary_preceptor_id, state: @applicant.state, status: @applicant.status, supported_by_tg: @applicant.supported_by_tg, training_grant_years: @applicant.training_grant_years, tge: @applicant.tge, trainee_code: @applicant.trainee_code, training_period_end_date: '2/10/2013', training_period_start_date: '2/10/2012', urm: @applicant.urm, zip_code: @applicant.zip_code, desired_start_date: '4/16/2012', marital_status: @applicant.marital_status, assurance: @applicant.assurance, personal_statement: @applicant.personal_statement, alien_registration_number: @applicant.alien_registration_number, citizenship_status: @applicant.citizenship_status, letters_from_a: @applicant.letters_from_a, letters_from_b: @applicant.letters_from_b, letters_from_c: @applicant.letters_from_c, gender: @applicant.gender, urm_types: @applicant.urm_types }
     assert_redirected_to applicant_path(assigns(:applicant))
   end
 
   test 'should update applicant with blank email' do
-    put :update, id: @applicant, applicant: { accepted: @applicant.accepted, address1: @applicant.address1, address2: @applicant.address2, cv_number: @applicant.cv_number, applicant_type: @applicant.applicant_type, city: @applicant.city, country: @applicant.country, current_institution: @applicant.current_institution, current_position: @applicant.current_position, degree_sought: @applicant.degree_sought, degree_type: @applicant.degree_type, degrees_earned: @applicant.degrees_earned, department_program: @applicant.department_program, disabled: @applicant.disabled, disadvantaged: @applicant.disadvantaged, email: '', enrolled: @applicant.enrolled, expected_year: @applicant.expected_year, first_name: @applicant.first_name, last_name: @applicant.last_name, middle_initial: @applicant.middle_initial, notes: @applicant.notes, offered: @applicant.offered, phone: @applicant.phone, preferred_preceptor_id: @applicant.preferred_preceptor_id, primary_preceptor_id: @applicant.primary_preceptor_id, research_project_title: @applicant.research_project_title, residency: @applicant.residency, review_date: '1/30/2012', reviewed: @applicant.reviewed, secondary_preceptor_id: @applicant.secondary_preceptor_id, state: @applicant.state, status: @applicant.status, supported_by_tg: @applicant.supported_by_tg, training_grant_years: @applicant.training_grant_years, tge: @applicant.tge, trainee_code: @applicant.trainee_code, training_period_end_date: '2/10/2013', training_period_start_date: '2/10/2012', urm: @applicant.urm, zip_code: @applicant.zip_code, desired_start_date: '4/16/2012', marital_status: @applicant.marital_status, assurance: @applicant.assurance, personal_statement: @applicant.personal_statement, alien_registration_number: @applicant.alien_registration_number, citizenship_status: @applicant.citizenship_status, letters_from_a: @applicant.letters_from_a, letters_from_b: @applicant.letters_from_b, letters_from_c: @applicant.letters_from_c, gender: @applicant.gender, urm_types: @applicant.urm_types }
+    patch :update, id: @applicant, applicant: { accepted: @applicant.accepted, address1: @applicant.address1, address2: @applicant.address2, cv_number: @applicant.cv_number, applicant_type: @applicant.applicant_type, city: @applicant.city, country: @applicant.country, current_institution: @applicant.current_institution, current_position: @applicant.current_position, degree_sought: @applicant.degree_sought, degree_type: @applicant.degree_type, degrees_earned: @applicant.degrees_earned, department_program: @applicant.department_program, disabled: @applicant.disabled, disadvantaged: @applicant.disadvantaged, email: '', enrolled: @applicant.enrolled, expected_year: @applicant.expected_year, first_name: @applicant.first_name, last_name: @applicant.last_name, middle_initial: @applicant.middle_initial, notes: @applicant.notes, offered: @applicant.offered, phone: @applicant.phone, preferred_preceptor_id: @applicant.preferred_preceptor_id, primary_preceptor_id: @applicant.primary_preceptor_id, research_project_title: @applicant.research_project_title, residency: @applicant.residency, review_date: '1/30/2012', reviewed: @applicant.reviewed, secondary_preceptor_id: @applicant.secondary_preceptor_id, state: @applicant.state, status: @applicant.status, supported_by_tg: @applicant.supported_by_tg, training_grant_years: @applicant.training_grant_years, tge: @applicant.tge, trainee_code: @applicant.trainee_code, training_period_end_date: '2/10/2013', training_period_start_date: '2/10/2012', urm: @applicant.urm, zip_code: @applicant.zip_code, desired_start_date: '4/16/2012', marital_status: @applicant.marital_status, assurance: @applicant.assurance, personal_statement: @applicant.personal_statement, alien_registration_number: @applicant.alien_registration_number, citizenship_status: @applicant.citizenship_status, letters_from_a: @applicant.letters_from_a, letters_from_b: @applicant.letters_from_b, letters_from_c: @applicant.letters_from_c, gender: @applicant.gender, urm_types: @applicant.urm_types }
+    assert_redirected_to applicant_path(assigns(:applicant))
+  end
+
+  def degrees_earned
+    [
+      {
+        degree_type: 'mams',
+        institution: 'Online School',
+        year: '2016',
+        advisor: 'Advisor',
+        thesis: 'Thesis',
+        concentration_major: 'Computer Science'
+      },
+      {
+        degree_type: 'babs',
+        institution: 'Institution',
+        year: '2010',
+        advisor: '',
+        thesis: '',
+        concentration_major: ''
+      }
+    ]
+  end
+
+  test 'should update applicant serializable attributes' do
+    patch :update, id: @applicant, applicant: {
+      urm_types: ['nativehawaiian pacific_islander', 'black africanamerica'],
+      laboratories: ['basic science', 'clinical science'],
+      transition_position: ['private practice'],
+      research_interests: ['human physiology', 'circadian chronobiology'],
+      degrees_earned: degrees_earned
+    },
+    set_urm_types: '1', set_laboratories: '1', set_transition_position: '1',
+    set_research_interests: '1', set_degrees_earned: '1'
+    assert_not_nil assigns(:applicant)
+    assert_equal ['black africanamerica', 'nativehawaiian pacific_islander'], assigns(:applicant).urm_types.sort
+    assert_equal ['basic science', 'clinical science'], assigns(:applicant).laboratories.sort
+    assert_equal ['private practice'], assigns(:applicant).transition_position.sort
+    assert_equal ['circadian chronobiology', 'human physiology'], assigns(:applicant).research_interests.sort
+    assert_equal 'mams', assigns(:applicant).degrees_earned[0][:degree_type]
+    assert_equal 'Online School', assigns(:applicant).degrees_earned[0][:institution]
+    assert_equal '2016', assigns(:applicant).degrees_earned[0][:year]
+    assert_equal 'Advisor', assigns(:applicant).degrees_earned[0][:advisor]
+    assert_equal 'Thesis', assigns(:applicant).degrees_earned[0][:thesis]
+    assert_equal 'Computer Science', assigns(:applicant).degrees_earned[0][:concentration_major]
+    assert_equal 'babs', assigns(:applicant).degrees_earned[1][:degree_type]
+    assert_equal 'Institution', assigns(:applicant).degrees_earned[1][:institution]
+    assert_equal '2010', assigns(:applicant).degrees_earned[1][:year]
+    assert_equal '', assigns(:applicant).degrees_earned[1][:advisor]
+    assert_equal '', assigns(:applicant).degrees_earned[1][:thesis]
+    assert_equal '', assigns(:applicant).degrees_earned[1][:concentration_major]
+    assert_redirected_to applicant_path(assigns(:applicant))
+  end
+
+  test 'should update applicant and clear serializable attributes' do
+    patch :update, id: @applicant, applicant: { }, set_urm_types: '1',
+          set_laboratories: '1', set_transition_position: '1',
+          set_research_interests: '1', set_degrees_earned: '1'
+    assert_not_nil assigns(:applicant)
+    assert_equal [], assigns(:applicant).urm_types
+    assert_equal [], assigns(:applicant).laboratories
+    assert_equal [], assigns(:applicant).transition_position
+    assert_equal [], assigns(:applicant).research_interests
+    assert_equal [], assigns(:applicant).degrees_earned
     assert_redirected_to applicant_path(assigns(:applicant))
   end
 
@@ -126,7 +190,7 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should update me and save draft' do
     login(applicants(:one))
-    put :update_me, applicant: {
+    patch :update_me, applicant: {
         publish: '0',
         # Basic Information
         email: @applicant.email, first_name: @applicant.first_name, last_name: @applicant.last_name, middle_initial: @applicant.middle_initial, applicant_type: @applicant.applicant_type,
@@ -154,7 +218,7 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should not update me with blank degrees_earned' do
     login(applicants(:one))
-    put :update_me, applicant: {
+    patch :update_me, applicant: {
         publish: '1',
         # Basic Information
         email: @applicant.email, first_name: @applicant.first_name, last_name: @applicant.last_name, middle_initial: @applicant.middle_initial, applicant_type: @applicant.applicant_type,
@@ -182,7 +246,7 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should update me and publish' do
     login(applicants(:one))
-    put :update_me, applicant: {
+    patch :update_me, applicant: {
         publish: '1',
         # Basic Information
         email: @applicant.email, first_name: @applicant.first_name, last_name: @applicant.last_name, middle_initial: @applicant.middle_initial, applicant_type: @applicant.applicant_type,
