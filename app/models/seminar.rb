@@ -1,22 +1,23 @@
-class Seminar < ActiveRecord::Base
-  # attr_accessible :category, :duration, :duration_units, :presentation_date, :presentation_title, :presenter
+# frozen_string_literal: true
 
-  DURATION_UNITS = ['minutes', 'hours'].collect{|i| [i,i]}
+# Provides information about scheduled seminars and trainee attendance.
+class Seminar < ActiveRecord::Base
+  DURATION_UNITS = %w(minutes hours).collect { |i| [i, i] }
 
   # Concerns
   include Deletable
 
   # Scopes
-  scope :search, lambda { |arg| where('LOWER(presenter) LIKE ? or LOWER(presentation_title) LIKE ?', arg.downcase.gsub(/^| |$/, '%'), arg.downcase.gsub(/^| |$/, '%')) }
-  scope :date_before, lambda { |arg| where( "presentation_date < ?", (arg+1.day).at_midnight ) }
-  scope :date_after, lambda { |arg| where( "presentation_date >= ?", arg.at_midnight ) }
+  scope :search, -> (arg) { where('LOWER(presenter) LIKE ? or LOWER(presentation_title) LIKE ?', arg.downcase.gsub(/^| |$/, '%'), arg.downcase.gsub(/^| |$/, '%')) }
+  scope :date_before, -> (arg) { where 'presentation_date < ?', (arg + 1.day).at_midnight }
+  scope :date_after, -> (arg) { where 'presentation_date >= ?', arg.at_midnight }
 
   # Model Validation
-  validates_presence_of :category, :presenter, :user_id
-  validates_numericality_of :duration, only_integer: true, greater_than: 0
+  validates :category, :presenter, :user_id, presence: true
+  validates :duration, numericality: { only_integer: true, greater_than: 0 }
 
   # Max Length Validation for PostgreSQL strings
-  validates_length_of :category, :presentation_title, :presenter, maximum: 255
+  validates :category, :presentation_title, :presenter, length: { maximum: 255 }
 
   # Model Relationships
   belongs_to :user
@@ -25,33 +26,36 @@ class Seminar < ActiveRecord::Base
   # Methods
 
   def name
-    "#{self.category} - #{self.presenter}"
+    "#{category} - #{presenter}"
+  end
+
+  def name_was
+    "#{category_was} - #{presenter_was}"
   end
 
   def presentation_date_with_time
-    result = ""
-    if self.presentation_date and self.presentation_date.to_date == self.presentation_date_end.to_date
-      result = "#{self.presentation_date.strftime("%b %d, %Y at")} #{time_short(self.start_time)} to #{time_short(self.end_time)}"
-    elsif self.presentation_date
-      result = "#{self.presentation_date.strftime("%b %d, %Y at")} #{time_short(self.start_time)} to #{self.presentation_date_end.strftime("%b %d, %Y")} at #{time_short(self.end_time)}"
+    if presentation_date && presentation_date.to_date == presentation_date_end.to_date
+      "#{presentation_date.strftime('%b %d, %Y at')} #{time_short(start_time)} to #{time_short(end_time)}"
+    elsif presentation_date
+      "#{presentation_date.strftime('%b %d, %Y at')} #{time_short(start_time)} to #{presentation_date_end.strftime('%b %d, %Y')} at #{time_short(end_time)}"
+    else
+      ''
     end
-    result
   end
 
   def presentation_date_end
-    self.presentation_date ? self.presentation_date + (self.duration).send(self.duration_units) : nil
+    presentation_date ? presentation_date + (duration).send(duration_units) : nil
   end
 
   def start_time
-    self.presentation_date.localtime.strftime("%l:%M %p").strip
+    presentation_date.localtime.strftime('%l:%M %p').strip
   end
 
   def end_time
-    self.presentation_date_end.localtime.strftime("%l:%M %p").strip
+    presentation_date_end.localtime.strftime('%l:%M %p').strip
   end
 
   def time_short(time)
     time.gsub(':00', '').gsub(' AM', 'a').gsub(' PM', 'p')
   end
-
 end

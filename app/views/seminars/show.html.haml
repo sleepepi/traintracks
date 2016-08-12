@@ -1,0 +1,33 @@
+- @title = @seminar.name
+.page-header
+  %h1
+    = link_to 'Seminars', seminars_path
+    &middot;
+    = @title
+  = link_to 'Edit Seminar', edit_seminar_path(@seminar), class: 'btn btn-xs btn-default'
+  = link_to 'Delete Seminar', @seminar, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Seminar #{@seminar.name}?" }
+
+%dl.dl-horizontal
+  %dt Category
+  %dd= @seminar.category
+
+  %dt Presenter
+  %dd= @seminar.presenter
+
+  %dt Presentation Title
+  %dd= @seminar.presentation_title
+
+  %dt Presentation Date
+  %dd= @seminar.presentation_date_with_time
+
+%table.table.table-striped.table-hover
+  %thead
+    %tr
+      %th Trainee
+      %th Attended?
+
+  - Applicant.current_trainee.order('last_name, first_name').each do |applicant|
+    %tr
+      %td= link_to applicant.reverse_name, applicant
+      %td{ id: "applicant_#{applicant.id}_seminar_#{@seminar.id}_attendance" }
+        = render 'attendance', applicant: applicant, seminar: @seminar

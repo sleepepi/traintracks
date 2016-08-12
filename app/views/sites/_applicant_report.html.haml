@@ -1,0 +1,16 @@
+%table.table.table-striped
+  %tr{ style: 'font-weight: bold;' }
+    %td Applications
+    %td= @applicants.count
+  %tr
+    %td{ style: 'padding-left: 20px;' } Postdoc
+    %td= @applicants.where(applicant_type: 'postdoc').count
+  %tr
+    %td{ style: 'padding-left: 20px;' } Predoc
+    %td= @applicants.where(applicant_type: 'predoc').count
+  %tr
+    %td{ style: 'padding-left: 20px;' } Summer
+    %td= @applicants.where(applicant_type: 'summer').count
+  %tr{ style: 'font-weight: bold;' }
+    %td Acceptance rate
+    %td= @applicants.count == 0 ? 'N/A' : '%0.00f %' % (@applicants.where(accepted: true).count * 100.0 / @applicants.count)

@@ -50,7 +50,7 @@
         Admins
 
     .center{ style: 'margin-bottom:20px' }
-      = render partial: 'sites/resource_image'
+      = render 'sites/resource_image'
 
     = form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-vertical' } do |f|
       .form-group
