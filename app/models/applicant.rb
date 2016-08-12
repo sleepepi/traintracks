@@ -55,24 +55,23 @@ class Applicant < ActiveRecord::Base
   mount_uploader :approved_irb_document, DocumentUploader
   mount_uploader :approved_iacuc_document, DocumentUploader
 
-  STATUS = ["current", "former"].collect{|i| [i,i]}
-  APPLICANT_TYPE = ["predoc", "postdoc", "summer"].collect{|i| [i,i]}
-  MARITAL_STATUS = [["Single", "single"], ["Married", "married"], ["Divorced", "divorced"], ["Widowed", "widowed"]]
-  CITIZENSHIP_STATUS = ["citizen", "permanent resident", "noncitizen", "unknown"]
+  STATUS = %w(current former).collect { |i| [i, i] }
+  APPLICANT_TYPE = %w(predoc postdoc summer).collect { |i| [i, i] }
+  MARITAL_STATUS = [['Single', 'single'], ['Married', 'married'], ['Divorced', 'divorced'], ['Widowed', 'widowed']]
+  CITIZENSHIP_STATUS = ['citizen', 'permanent resident', 'noncitizen', 'unknown']
   DEGREE_TYPES = [['BA/BS', 'babs'], ['MA/MS', 'mams'], ['MD/DO', 'mddo'], ['PhD/ScD', 'phdscd'], ['Other Professional', 'other']]
   LABORATORIES = [['Basic Science', 'basic science'], ['Clinical Science', 'clinical science'], ['Population-based Science', 'population-based science'], ['Translational', 'translational'], ['Other', 'other']]
   TRANSITION_POSITIONS = [['Research Fellow', 'research fellow'], ['Clinical Fellow', 'clinical fellow'], ['Instructor/Assistant Professor', 'instructor or assistant professor'], ['Commercial Research Laboratory', 'commercial research laboratory'], ['Private Practice', 'private practice'], ['Other', 'other']]
 
-  DEGREE_SOUGHT = ["MD/MBBS", "PhD", "MD/PhD", "Masters", "Undergrad", "Other"].collect{|i| [i,i]}
+  DEGREE_SOUGHT = ['MD/MBBS', 'PhD', 'MD/PhD', 'Masters', 'Undergrad', 'Other'].collect{|i| [i,i]}
 
   RESEARCH_INTERESTS = [['Human Physiology', 'human physiology'], ['Circadian/Chronobiology', 'circadian chronobiology'], ['Neurophysiology', 'neurophysiology'], ['Molecular Biology', 'molecular biology'],
                         ['Mathematical Modeling', 'mathematical modeling'], ['Physiology', 'physiology'], ['Neuroanatomy', 'neuroanatomy'], ['Neuropsychiatry', 'neuropsychiatry'], ['Neuropsychology', 'neuropsychology'],
                         ['Learning and Memory', 'learning and memory'], ['Neuropharmacology', 'neuropharmacology'], ['Cardiorespiratory Physiology', 'cardiorespiratory physiology'], ['Upper Airway Muscle Physiology', 'upper airway muscle physiology'],
                         ['Sleep', 'sleep'], ['Genetics of Circadian Clocks', 'genetics of circadian clocks'], ['Other (please specify)', 'other']]
 
-
-  GENDER = ["Male", "Female", "No Response"].collect{|i| [i,i]}
-  URM_TYPES = [["Hispanic or Latin", 'hispanic latin'], ["American Indian or Alaska Native", 'americanindian alskanative'], ["Black or African American", 'black africanamerica'], ["Native Hawaiian or Pacific Islander", 'nativehawaiian pacific_islander']]
+  GENDER = ['Male', 'Female', 'No Response'].collect{|i| [i,i]}
+  URM_TYPES = [['Hispanic or Latin', 'hispanic latin'], ['American Indian or Alaska Native', 'americanindian alskanative'], ['Black or African American', 'black africanamerica'], ['Native Hawaiian or Pacific Islander', 'nativehawaiian pacific_islander']]
 
   serialize :urm_types, Array
   serialize :laboratories, Array
@@ -88,8 +87,8 @@ class Applicant < ActiveRecord::Base
 
   # Named Scopes
   scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
-  scope :submitted_before, lambda { |arg| where( "applicants.originally_submitted_at < ?", (arg+1.day).at_midnight ) }
-  scope :submitted_after, lambda { |arg| where( "applicants.originally_submitted_at >= ?", arg.at_midnight ) }
+  scope :submitted_before, lambda { |arg| where( 'applicants.originally_submitted_at < ?', (arg+1.day).at_midnight ) }
+  scope :submitted_after, lambda { |arg| where( 'applicants.originally_submitted_at >= ?', arg.at_midnight ) }
   scope :current_trainee, -> { current.where( enrolled: true, status: 'current' ) }
   scope :supported_by_tg_in_last_fifteen_years, -> { current.where( enrolled: true, supported_by_tg: true ).where( 'training_period_end_date >= ?', Date.today - 15.years ) }
 

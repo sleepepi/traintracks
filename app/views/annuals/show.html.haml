@@ -1,0 +1,46 @@
+- @title = @annual.name
+.page-header
+  %h1
+    = link_to 'Annuals', annuals_path
+    &middot;
+    = @title
+  = link_to 'Edit Annual', edit_annual_path(@annual), class: 'btn btn-xs btn-default'
+  = link_to 'Delete Annual', @annual, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Annual #{@annual.name}?" }
+
+%dl.dl-horizontal
+  %dt Applicant
+  %dd= link_to @annual.applicant.name, @annual.applicant if @annual.applicant
+
+  %dt Year
+  %dd= @annual.year
+
+  %dt Coursework Completed
+  %dd= simple_format @annual.coursework_completed
+
+  %dt Publications
+  %dd= simple_format @annual.publications
+
+  %dt Conferences, Presentations, Honors, and Fellowships
+  %dd= simple_format @annual.presentations
+
+  %dt Research Description
+  %dd= simple_format @annual.research_description
+
+  %dt Degree or Certifications earned (Year) or Other Relevant Outcome
+  %dd= simple_format @annual.degree_or_certifications_earned
+
+  %dt Source Of Support
+  %dd= @annual.source_of_support
+
+  %dt NIH Other Support
+  %dd
+    - if @annual.nih_other_support_url.present?
+      - full_url = "#{request.script_name}#{@annual.nih_other_support.url}"
+      = link_to @annual.nih_other_support_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
+      = number_to_human_size @annual.nih_other_support.size
+
+  %dt Submitted At
+  %dd= @annual.submitted_at
+
+  %dt Modified At
+  %dd= @annual.modified_at

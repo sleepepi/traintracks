@@ -1,0 +1,36 @@
+.page-header
+  %h2 Education / Experience
+
+.form-group
+  = label :applicant, :curriculum_vitae, 'Upload Curriculum Vitae (PDF, Word)', class: 'col-md-2 control-label'
+  .col-md-10
+    = file_field :applicant, :curriculum_vitae, class: 'form-control'
+    = hidden_field :applicant, :curriculum_vitae_cache
+    %span.help-inline= @applicant.curriculum_vitae_url.split('/').last if @applicant.curriculum_vitae_url.present? && @applicant.curriculum_vitae_cache.blank?
+
+.form-group
+  = label :applicant, :current_institution, nil, class: 'col-md-2 control-label'
+  .col-md-10
+    = text_field :applicant, :current_institution, class: 'form-control'
+
+.form-group
+  = label :applicant, :department_program, 'Department / Program', class: 'col-md-2 control-label'
+  .col-md-10
+    = text_field :applicant, :department_program, class: 'form-control'
+
+.form-group
+  = label :applicant, :current_position, nil, class: 'col-md-2 control-label'
+  .col-md-10
+    = text_field :applicant, :current_position, class: 'form-control'
+
+.form-group
+  = label :applicant, :degrees_earned, nil, class: 'col-md-2 control-label'
+  .col-md-10
+    #degrees_container
+      = hidden_field_tag :set_degrees_earned, '1'
+      = render 'applicants/form/degrees', degree_earned: {} if @applicant.degrees_earned.size == 0
+
+      - @applicant.degrees_earned.each do |degree_earned|
+        = render 'applicants/form/degrees', degree_earned: degree_earned
+
+    = link_to 'add more', add_degree_applicants_path, method: :post, remote: true, class: 'btn btn-xs btn-default'

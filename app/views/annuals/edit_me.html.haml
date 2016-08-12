@@ -1,0 +1,59 @@
+- @title = "My #{@annual.year} Annual Information"
+
+.page-header
+  %h1
+    .pull-right
+      = link_to 'Help', '#', class: 'btn btn-info', data: { object: 'modal-show', target: '#help_email_modal' }
+    = @title
+  %p.lead
+    Please complete the fields below with your most recent information
+    (September
+    = @annual.year - 1
+    through September
+    = succeed ').' do
+      = @annual.year
+    If you have no new information to add, please write "N/A" in the field, as
+    it will not allow you to submit without completing all fields. If you do not
+    have an NIH Other Support, please attach a document that details your
+    current funding situation.
+
+= form_for @annual, url: update_me_annual_path(@annual), method: :put, html: { class: 'form-horizontal' } do |f|
+  - @applicant = current_applicant
+
+  - if @applicant.errors.any?
+    .callout.callout-danger
+      %h4
+        = pluralize @applicant.errors.count, 'error'
+        prohibited this applicant from being saved
+
+      %ul
+        - @applicant.errors.full_messages.each do |message|
+          %li= message
+
+  - if @annual.errors.any?
+    .callout.callout-danger
+      %h4
+        = pluralize @annual.errors.count, 'error'
+        prohibited this form from being saved
+
+      %ul
+        - @annual.errors.full_messages.each do |message|
+          %li= message
+
+  = render 'annuals/form/contact'
+
+  = render 'annuals/form/education'
+
+  .page-header
+    %h2 Annual Information
+
+  = render 'inner_form', f: f
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = hidden_field :applicant, :publish_annual, value: '1'
+      = f.hidden_field :publish, value: '1'
+      = f.submit 'Submit Annual Information', class: 'btn btn-primary'
+      = link_to 'Cancel', dashboard_applicants_path, class: 'btn btn-default'
+
+= render 'applicants/help_modal', applicant: current_applicant, subject: 'Updating Annual Information'

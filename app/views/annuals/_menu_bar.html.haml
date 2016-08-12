@@ -1,0 +1,9 @@
+- if applicant.annuals.size > 0
+  .btn-toolbar
+    .btn-group
+      - applicant.annuals.reverse_each do |annual|
+        - if annual.year == Time.zone.today.year
+          </div><div class="btn-group">
+        = link_to "Year #{annual.year}", current_user ? edit_annual_path(annual) : edit_me_annual_path(annual) , class: "btn #{ annual.submitted? ? 'btn-default' : 'btn-primary' }"
+        - if annual.year == Time.zone.today.year
+          </div><div class="btn-group">
