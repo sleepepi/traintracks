@@ -1,0 +1,63 @@
+- @title = 'Edit My Application'
+.pull-right= link_to "Help", '#', class: 'btn btn-info', data: { object: 'modal-show', target: '#help_email_modal' }
+
+- form_name = "edit_applicant_#{current_applicant.id}"
+= form_for current_applicant, url: update_me_applicants_path, method: :put, html: { id: form_name, class: 'form-horizontal' } do |f|
+  - if current_applicant.errors.any?
+    .callout.callout-danger
+      %h4
+        = pluralize current_applicant.errors.count, 'error'
+        prohibited this applicant from being saved
+
+      %ul
+        - current_applicant.errors.full_messages.each do |message|
+          %li= message
+
+  = render 'applicants/form/general', f: f, applicant: current_applicant
+  = render 'applicants/form/contact', f: f
+  = render 'applicants/form/education', f: f, applicant: current_applicant
+  = render 'applicants/form/demographic', f: f, applicant: current_applicant
+  = render 'applicants/form/progress_report_data', f: f, applicant: current_applicant
+
+  .page-header
+    %h2 Applicant Assurance and Sign Off
+
+  - if defined?(ENV['tg_admin_email']) && ENV['tg_admin_email'].present? && defined?(ENV['tg_admin_address']) && ENV['tg_admin_address'].present?
+    .form-group
+      = f.label :letters_from_a, 'My Recommendation Letters will be from', class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_field :letters_from_a, class: 'form-control'
+        = f.text_field :letters_from_b, class: 'form-control'
+        = f.text_field :letters_from_c, class: 'form-control'
+        .callout.callout-info
+          %h4 Important!
+          Please remember you need
+          %strong 3 letters of recommendation
+          and
+          %strong a letter from your potential preceptor!
+
+    %dl.dl-horizontal
+      %dt Email
+      %dd
+        %address= simple_format ENV['tg_admin_email']
+      %dt Mail
+      %dd
+        %address= simple_format ENV['tg_admin_address']
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      %blockquote
+        I certify that the above information is true and correct to the best of my knowledge.
+      .checkbox
+        %label
+          = f.check_box :assurance
+          Please tick to confirm that you have read and understand the above text
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.hidden_field :publish, value: '0'
+      = link_to 'Save Draft', '#', data: { object: 'applicant-save', publish: '0', target: "##{form_name}" }, class: 'btn btn-warning'
+      = link_to 'Submit Application for Review', '#', data: { object: 'applicant-save', publish: '1', target: "##{form_name}", assurance: true }, class: 'btn btn-primary'
+      = link_to 'Cancel', dashboard_applicants_path, class: 'btn btn-default'
+
+= render 'applicants/help_modal', applicant: current_applicant, subject: 'Editing Application'

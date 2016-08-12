@@ -1,0 +1,33 @@
+.page-header
+  %h2 Basic Info
+
+%dl.dl-horizontal
+  %dt Email
+  %dd= applicant.email
+
+  %dt Applicant type
+  %dd= applicant.applicant_type
+
+  %dt Citizen or Perm. Resident
+  %dd{ style: 'min-height: 60px;' }= simple_check applicant.tge
+
+  %dt Citizenship status
+  %dd{ style: 'min-height: 60px;' }= applicant.citizenship_status
+
+  %dt Alien Registration #
+  %dd{ style: 'min-height: 60px;' }= applicant.alien_registration_number
+
+  %dt Desired start date
+  %dd{ style: 'min-height: 60px;' }= applicant.desired_start_date
+
+  %dt Personal statement
+  %dd{ style: 'min-height: 60px;' }= applicant.personal_statement
+
+  %dt{ title: 'Recommendation Letter From' } Recommendation Letter From
+  %dd{ style: 'min-height: 60px;' }= applicant.letters_from_a
+
+  %dt{ title: 'Recommendation Letter From' } Recommendation Letter From
+  %dd{ style: 'min-height: 60px;' }= applicant.letters_from_b
+
+  %dt{ title: 'Recommendation Letter From' } Recommendation Letter From
+  %dd= applicant.letters_from_c

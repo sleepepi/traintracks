@@ -23,6 +23,14 @@
       for field in predoc_summer_fields
         $(field).removeAttr('disabled')
 
+@flashMessage = (message, alert_type = 'success', overwrite = true) ->
+  div_block = "<div class='navbar-alert alert alert-#{alert_type}'><button type='button' class='close' data-dismiss='alert'>&times;</button>#{message}</div>"
+  flash_container = $('[data-object~="flash-container"]')
+  if overwrite
+    flash_container.html(div_block)
+  else
+    flash_container.append(div_block)
+
 @setFocusToField = (element_id) ->
   val = $(element_id).val()
   $(element_id).focus().val('').val(val)

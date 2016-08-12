@@ -1,0 +1,21 @@
+#help_email_modal.modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', data: { dismiss: 'modal' }, aria: { hidden: 'true' } } &times;
+        %h4.modal-title Help Request Email
+      .modal-body
+        = form_tag help_email_applicant_path(applicant), method: :post, remote: true, id: 'help_email_form', class: 'form-horizontal' do
+          .form-group
+            = label_tag :subject, nil, class: 'col-md-2 control-label'
+            .col-md-10
+              = text_field_tag :subject, "Help Request [#{subject}]", class: 'form-control'
+
+          .form-group
+            = label_tag :body, nil, class: 'col-md-2 control-label'
+            .col-md-10
+              = text_area_tag :body, '', rows: 20, class: 'form-control', placeholder: 'Please explain what you are attempting to do here.'
+
+      .modal-footer
+        = link_to 'Close', '#', class: 'btn btn-default', data: { dismiss: 'modal' }
+        = link_to 'Send Email', '#', class: 'btn btn-primary', data: { object: 'submit', target: '#help_email_form' }

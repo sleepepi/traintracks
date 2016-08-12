@@ -1,0 +1,39 @@
+- if defined?(applicant_id)
+  - applicant_scope = Applicant.current.where(id: applicant_id)
+- else
+  - applicant_scope = Applicant.supported_by_tg_in_last_fifteen_years
+
+#send_email_modal.modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{ type: 'button', data: { dismiss: 'modal' }, aria: { hidden: 'true' } } &times;
+        %h4.modal-title Annual Update Reminder Email
+
+      .modal-body
+        = form_tag send_annual_reminder_email_applicants_path, method: :post, id: 'annual_reminder_email_form', class: 'form-horizontal' do
+          = hidden_field_tag 'applicant_id', (defined?(applicant_id) ? applicant_id : nil)
+
+          .form-group
+            = label_tag :year, nil, class: 'col-md-2 control-label'
+            .col-md-10
+              = text_field_tag :year, Date.today.year, class: 'form-control'
+
+          .form-group
+            = label_tag :subject, nil, class: 'col-md-2 control-label'
+            .col-md-10
+              = text_field_tag :subject, ENV['annual_email_subject'], class: 'form-control'
+
+          .form-group
+            = label_tag :body, nil, class: 'col-md-2 control-label'
+            .col-md-10
+              = text_area_tag :body, ENV['annual_email_body'], rows: 20, class: 'form-control'
+
+          .form-group
+            = label_tag :recipients, nil, class: 'col-md-2 control-label'
+            .col-md-10{ style: 'margin-top: 8px' }
+              = applicant_scope.sort { |a, b| a.years_since_training_end_date <=> b.years_since_training_end_date }.collect { |applicant| "<span style='white-space:nowrap'><span class='badge'>#{pluralize applicant.years_since_training_end_date, 'year'}</span> #{applicant.name} &lt;#{applicant.email}&gt; </span>" }.join('<br />').html_safe
+
+      .modal-footer
+        = link_to 'Close', '#', class: 'btn btn-default', data: { dismiss: 'modal' }
+        = link_to 'Send Email', '#', class: 'btn btn-primary', id: 'send_annual_email'

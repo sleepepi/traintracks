@@ -232,6 +232,10 @@ class Applicant < ActiveRecord::Base
     "#{first_name} #{middle_initial} #{last_name}"
   end
 
+  def name_was
+    "#{first_name_was} #{middle_initial_was} #{last_name_was}"
+  end
+
   def reverse_name
     "#{last_name}, #{first_name}"
   end

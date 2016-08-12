@@ -1,0 +1,77 @@
+- @title = @applicant.name
+.page-header
+  %h1
+    = link_to 'Applicants', applicants_path
+    &middot;
+    = @title
+  = link_to 'Edit Applicant', edit_applicant_path(@applicant), class: 'btn btn-xs btn-default'
+  = link_to 'Delete Applicant', @applicant, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Applicant #{@applicant.name}?" }
+  = link_to 'Annual Reminder Email', '#', class: 'btn btn-xs btn-default', data: { target: '#send_email_modal', object: 'modal-show' }
+  = link_to 'Email Applicant Link', email_applicant_path(@applicant), method: :post, class: 'btn btn-xs btn-primary'
+  = link_to 'Exit Interview Email', termination_email_applicant_path(@applicant), method: :post, class: 'btn btn-xs btn-primary' if @applicant.enrolled?
+  - if @applicant.submitted_at.blank?
+    %span.label.label-warning Draft
+  - else
+    = link_to 'Allow Applicant to Resubmit', unlock_applicant_path(@applicant), method: :post, class: 'btn btn-xs btn-primary'
+
+- if @applicant.recently_notified?
+  %p
+    Last notified by email
+    %span.label.label-info= simple_time @applicant.emailed_at
+
+- if current_user.administrator?
+  .callout.callout-info
+    %h4 Applicant Unique Login
+    %code.text-primary.small= "#{ENV['website_url']}/applicants/dashboard?auth_token=#{@applicant.id_and_auth_token}"
+
+.row
+  .col-md-6
+    = render 'applicants/show/general', applicant: @applicant
+  .col-md-6
+    = render 'applicants/show/education', applicant: @applicant
+
+.row
+  .col-md-6
+    = render 'applicants/show/contact', applicant: @applicant
+  .col-md-6
+    = render 'applicants/show/demographic', applicant: @applicant
+
+.row
+  .col-md-6
+    = render 'applicants/show/progress_report_data', applicant: @applicant
+  - if @applicant.enrolled?
+    .col-md-6
+      = render 'applicants/show/termination', applicant: @applicant
+
+.row
+  - if current_user.administrator?
+    .col-md-6
+      = render 'applicants/show/submission', applicant: @applicant
+
+= render 'annuals/index', applicant: @applicant
+
+- if current_user.administrator?
+  .row
+    .col-md-6
+      = render 'applicants/show/admin_only', applicant: @applicant
+    .col-md-6
+      = render 'applicants/show/program_requirements', applicant: @applicant
+
+= form_tag annual_email_applicant_path(@applicant), method: :post, remote: true, id: 'applicants_search' do
+  = hidden_field_tag :annual_subject
+  = hidden_field_tag :annual_body
+  = hidden_field_tag :annual_year
+
+= render 'applicants/email_modal', applicant_id: @applicant.id
+
+#saving_modal.modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4.modal-title
+          Sending Email to
+          = @applicant.name
+      .modal-body
+        %p
+          Your email notification is being sent...this message will disappear
+          when the email has completed sending.

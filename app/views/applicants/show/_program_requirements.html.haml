@@ -1,0 +1,44 @@
+.page-header
+  %h2 Additional Program Requirements
+
+%dl.dl-horizontal
+
+  %dt{ style: 'min-height: 80px;' } Research-In-Progress Title
+  %dd{ style: 'min-height: 80px;' }= applicant.research_in_progress_title
+
+  %dt{ style: 'min-height: 80px;' } Research-In-Progress Date
+  %dd{ style: 'min-height: 80px;' }= applicant.research_in_progress_date
+
+  %dt{ style: 'min-height: 80px;' } Additional Research-In-Progress Titles and Dates
+  %dd{ style: 'min-height: 80px;' }= simple_format applicant.research_in_progress_additional
+
+  %dt{ style: 'min-height: 80px;' } Research Ethics Training Completed
+  %dd{ style: 'min-height: 80px;' }= applicant.research_ethics_training_completed_date
+
+  %dt{ style: 'min-height: 80px;' } Research Ethics Training Notes
+  %dd{ style: 'min-height: 80px;' }= simple_format applicant.research_ethics_training_notes
+
+  %dt{ style: 'min-height: 80px;' } Grant Writing Training Completed
+  %dd{ style: 'min-height: 80px;' }= applicant.grant_writing_training_completed_date
+
+  %dt{ style: 'min-height: 80px;' } Basic Research Statistics Course Completed
+  %dd{ style: 'min-height: 80px;' }= applicant.basic_research_statistics_course_completed_date
+
+  %dt{ style: 'min-height: 80px;' } Advanced Research Statistics Course Completed
+  %dd{ style: 'min-height: 80px;' }= applicant.advanced_research_statistics_course_completed_date
+
+  %dt{ style: 'min-height: 80px;' } Neuroscience Course Completed
+  %dd{ style: 'min-height: 80px;' }= applicant.neuroscience_course_completed_date
+
+  %dt{ style: 'min-height: 80px;' } Harvard School of Public Health Summer Session Courses Completed
+  %dd{ style: 'min-height: 80px;' }= applicant.hsoph_summer_session_course_completed_date
+
+  %dt{ style: 'min-height: 80px;' } Submitted application for Individual Funding
+  %dd{ style: 'min-height: 80px;' }= applicant.individual_funding_submission_date
+
+  %dt{ style: 'min-height: 80px;' } Individual Funding Type
+  %dd{ style: 'min-height: 80px;' }= simple_format applicant.individual_funding_type
+
+  %dt{ style: 'min-height: 80px;' } Last IDP
+  %dd{ style: 'min-height: 80px;' }= applicant.last_idp_date
+

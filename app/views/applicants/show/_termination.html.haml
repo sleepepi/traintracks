@@ -1,0 +1,48 @@
+.page-header
+  %h2 Exit Interview
+
+- if current_user && current_user.administrator?
+  .callout.callout-info
+    %h4 Exit Interview Login
+    %code.text-primary.small= "#{ENV['website_url']}/applicants/exit_interview?auth_token=#{applicant.id_and_auth_token}"
+
+%dl.dl-horizontal
+  %dt Future email
+  %dd= applicant.future_email
+
+  %dt Entrance year
+  %dd= applicant.entrance_year
+
+  %dt T32 funded
+  %dd{ style: 'min-height: 60px;' }= simple_check applicant.t32_funded
+
+  %dt T32 funded years
+  %dd{ style: 'min-height: 60px;' }= applicant.t32_funded_years.blank? ? '' : pluralize(applicant.t32_funded_years, 'Year')
+
+  %dt Academic program completed
+  %dd{ style: 'min-height: 60px;' }= simple_check applicant.academic_program_completed
+
+  %dt Certificate Application
+  %dd{ style: 'min-height: 60px;' }
+    - if applicant.certificate_application_url.present?
+      - full_url = "#{request.script_name}#{applicant.certificate_application.url}"
+      = link_to applicant.certificate_application_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
+      = number_to_human_size applicant.certificate_application.size
+
+  %dt Research project title
+  %dd{ style: 'min-height: 60px;' }= applicant.research_project_title
+
+  %dt Laboratories
+  %dd{ style: 'min-height: 60px;' }= applicant.laboratories.join(', ')
+
+  %dt Immediate transition
+  %dd{ style: 'min-height: 60px;' }= simple_check applicant.immediate_transition
+
+  %dt Transition position
+  %dd{ style: 'min-height: 60px;' }= applicant.transition_position.join(', ')
+
+  %dt Transition position other
+  %dd{ style: 'min-height: 60px;' }= applicant.transition_position_other
+
+  %dt Feedback
+  %dd= applicant.termination_feedback

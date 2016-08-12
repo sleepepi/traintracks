@@ -1,2 +1,2 @@
-$("#degrees_container").append("<%= escape_javascript(render partial: "applicants/form/degrees", locals: { degree_earned: {} } ) %>");
-$("input[rel=tooltip]").tooltip({ trigger: 'focus' });
+$("#degrees_container").append("<%=j render 'applicants/form/degrees', degree_earned: {} %>");
+tooltipsReady();
