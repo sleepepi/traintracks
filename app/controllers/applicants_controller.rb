@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Allows applicants to edit profile information
+# Allows applicants to edit profile information.
 class ApplicantsController < ApplicationController
   before_action :authenticate_applicant_from_token!, only: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :help_email]
   before_action :authenticate_user!, except: [:dashboard, :edit_me, :update_me, :exit_interview, :update_exit_interview, :add_degree, :help_email]

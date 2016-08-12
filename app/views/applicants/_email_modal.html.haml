@@ -17,7 +17,7 @@
           .form-group
             = label_tag :year, nil, class: 'col-md-2 control-label'
             .col-md-10
-              = text_field_tag :year, Date.today.year, class: 'form-control'
+              = text_field_tag :year, Time.zone.today.year, class: 'form-control'
 
           .form-group
             = label_tag :subject, nil, class: 'col-md-2 control-label'

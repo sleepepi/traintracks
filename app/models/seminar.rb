@@ -5,10 +5,9 @@ class Seminar < ActiveRecord::Base
   DURATION_UNITS = %w(minutes hours).collect { |i| [i, i] }
 
   # Concerns
-  include Deletable
+  include Deletable, Searchable
 
   # Scopes
-  scope :search, -> (arg) { where('LOWER(presenter) LIKE ? or LOWER(presentation_title) LIKE ?', arg.downcase.gsub(/^| |$/, '%'), arg.downcase.gsub(/^| |$/, '%')) }
   scope :date_before, -> (arg) { where 'presentation_date < ?', (arg + 1.day).at_midnight }
   scope :date_after, -> (arg) { where 'presentation_date >= ?', arg.at_midnight }
 
@@ -24,6 +23,9 @@ class Seminar < ActiveRecord::Base
   has_and_belongs_to_many :applicants
 
   # Methods
+  def self.searchable_attributes
+    %w(presenter presentation_title)
+  end
 
   def name
     "#{category} - #{presenter}"
@@ -44,7 +46,7 @@ class Seminar < ActiveRecord::Base
   end
 
   def presentation_date_end
-    presentation_date ? presentation_date + (duration).send(duration_units) : nil
+    presentation_date ? presentation_date + duration.send(duration_units) : nil
   end
 
   def start_time

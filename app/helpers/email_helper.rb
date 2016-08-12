@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Helper functions for application emails
+# Helper functions for application emails.
 module EmailHelper
   def emphasis_color
     '#4bbf74'

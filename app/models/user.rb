@@ -14,13 +14,10 @@ class User < ActiveRecord::Base
   STATUS = %w(active denied inactive pending).collect { |i| [i, i] }
 
   # Concerns
-  include Deletable
+  include Deletable, Searchable
 
   # Named Scopes
-  scope :status, -> (arg) { where status: arg }
-  scope :search, -> (arg) { where('LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%')) }
   scope :system_admins, -> { where system_admin: true }
-  scope :administrators, -> { where administrator: true }
 
   # Model Validation
   validates :first_name, :last_name, presence: true
@@ -30,7 +27,10 @@ class User < ActiveRecord::Base
   has_many :annuals, -> { current }
   has_many :seminars, -> { current }
 
-  # User Methods
+  # Model Methods
+  def self.searchable_attributes
+    %w(first_name last_name email)
+  end
 
   def avatar_url(size = 80, default = 'mm')
     gravatar_id = Digest::MD5.hexdigest(email.to_s.downcase)

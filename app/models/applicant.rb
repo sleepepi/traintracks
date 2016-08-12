@@ -90,7 +90,7 @@ class Applicant < ActiveRecord::Base
   scope :submitted_before, lambda { |arg| where( 'applicants.originally_submitted_at < ?', (arg+1.day).at_midnight ) }
   scope :submitted_after, lambda { |arg| where( 'applicants.originally_submitted_at >= ?', arg.at_midnight ) }
   scope :current_trainee, -> { current.where( enrolled: true, status: 'current' ) }
-  scope :supported_by_tg_in_last_fifteen_years, -> { current.where( enrolled: true, supported_by_tg: true ).where( 'training_period_end_date >= ?', Date.today - 15.years ) }
+  scope :supported_by_tg_in_last_fifteen_years, -> { current.where( enrolled: true, supported_by_tg: true ).where( 'training_period_end_date >= ?', Time.zone.today - 15.years ) }
 
   # Model Validation
   validates_presence_of :first_name, :last_name
@@ -150,11 +150,11 @@ class Applicant < ActiveRecord::Base
   end
 
   def eligible_seminar?(seminar)
-    Seminar.current.where(id: seminar.id).where("(DATE(presentation_date) >= ? or ? IS NULL) and (DATE(presentation_date) <= ? or ? IS NULL) and DATE(presentation_date) <= ?", self.training_period_start_date, self.training_period_start_date, self.training_period_end_date, self.training_period_end_date, Date.today).count > 0
+    Seminar.current.where(id: seminar.id).where("(DATE(presentation_date) >= ? or ? IS NULL) and (DATE(presentation_date) <= ? or ? IS NULL) and DATE(presentation_date) <= ?", self.training_period_start_date, self.training_period_start_date, self.training_period_end_date, self.training_period_end_date, Time.zone.today).count > 0
   end
 
   def eligible_seminars(all_seminars)
-    Seminar.where(id: all_seminars.collect(&:id)).where("(DATE(presentation_date) >= ? or ? IS NULL) and (DATE(presentation_date) <= ? or ? IS NULL) and DATE(presentation_date) <= ?", self.training_period_start_date, self.training_period_start_date, self.training_period_end_date, self.training_period_end_date, Date.today)
+    Seminar.where(id: all_seminars.collect(&:id)).where("(DATE(presentation_date) >= ? or ? IS NULL) and (DATE(presentation_date) <= ? or ? IS NULL) and DATE(presentation_date) <= ?", self.training_period_start_date, self.training_period_start_date, self.training_period_end_date, self.training_period_end_date, Time.zone.today)
   end
 
   def seminars_attended(all_seminars)
@@ -245,7 +245,7 @@ class Applicant < ActiveRecord::Base
   end
 
   def years_since_training_end_date
-    ((Date.today - self.training_period_end_date).day / 1.year).floor
+    ((Time.zone.today - self.training_period_end_date).day / 1.year).floor
   rescue
     0
   end

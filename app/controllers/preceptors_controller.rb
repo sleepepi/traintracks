@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Allows preceptors to update their profile
+# Allows preceptors to update their profile.
 class PreceptorsController < ApplicationController
   before_action :authenticate_preceptor_from_token!,  only: [:dashboard, :edit_me, :update_me]
   before_action :authenticate_user!,                except: [:dashboard, :edit_me, :update_me]

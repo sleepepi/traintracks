@@ -70,14 +70,14 @@
       = label :submitted_after, 'Submitted After', class: 'col-md-3 control-label'
       .col-md-9
         .input-group
-          = text_field_tag 'submitted_after', Date.today.at_beginning_of_year.strftime('%m/%d/%Y'), class: 'datepicker form-control'
+          = text_field_tag 'submitted_after', Time.zone.today.at_beginning_of_year.strftime('%m/%d/%Y'), class: 'datepicker form-control'
           %span.input-group-addon
             %span.glyphicon.glyphicon-calendar
     .col-md-4.form-group
       = label :submitted_before, 'Submitted Before', class: 'col-md-3 control-label'
       .col-md-9
         .input-group
-          = text_field_tag 'submitted_before', Date.today.at_end_of_year.strftime('%m/%d/%Y'), class: 'datepicker form-control'
+          = text_field_tag 'submitted_before', Time.zone.today.at_end_of_year.strftime('%m/%d/%Y'), class: 'datepicker form-control'
           %span.input-group-addon
             %span.glyphicon.glyphicon-calendar
     .col-md-4

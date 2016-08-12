@@ -9,7 +9,7 @@ class Preceptor < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   # Concerns
-  include TokenAuthenticatable, Deletable
+  include TokenAuthenticatable, Deletable, Searchable
 
   mount_uploader :other_support, DocumentUploader
   mount_uploader :biosketch, DocumentUploader
@@ -22,9 +22,6 @@ class Preceptor < ActiveRecord::Base
   before_validation :set_password
   before_save :ensure_authentication_token
 
-  # Named Scopes
-  scope :search, -> (arg) { where('LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%')) }
-
   # Model Validation
   validates :first_name, :last_name, presence: true
   validates :email, uniqueness: { scope: :deleted }, allow_blank: true
@@ -36,7 +33,10 @@ class Preceptor < ActiveRecord::Base
   # Model Relationships
   # has_many :applicants
 
-  # Preceptor Methods
+  # Model Methods
+  def self.searchable_attributes
+    %w(first_name last_name)
+  end
 
   def avatar_url(size = 80, default = 'mm')
     gravatar_id = Digest::MD5.hexdigest(email.to_s.downcase)

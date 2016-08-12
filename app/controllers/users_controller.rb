@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Allows administrators to manage user accounts and set roles
+# Allows administrators to manage user accounts and set roles.
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :check_system_admin, only: [:new, :create, :edit, :update, :destroy]

@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
+# Helps popuplate list of hospitals.
 class Hospital < ActiveRecord::Base
-
   # Concerns
-  include Deletable
-
-  # Scopes
-  scope :search, lambda { |arg| where( "LOWER(name) LIKE ?", arg.to_s.downcase.gsub(/^| |$/, '%') ) }
+  include Deletable, Searchable
 
   # Model Validation
-  validates_presence_of :name
-  validates_uniqueness_of :name, scope: :deleted
+  validates :name, presence: true, uniqueness: { scope: :deleted }
 
+  # Model Methods
+  def self.searchable_attributes
+    %w(name)
+  end
 end

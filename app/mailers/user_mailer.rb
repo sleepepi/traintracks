@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Sends out application emails to users
+# Sends out application emails to users.
 class UserMailer < ApplicationMailer
   def help_email(current_applicant, subject, body)
     to_email = if defined?(ENV['tg_admin_email']) && ENV['tg_admin_email'].present?

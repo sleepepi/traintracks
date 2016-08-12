@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Allows hospital list to be maintained by administrator
+# Allows hospital list to be maintained by administrator.
 class HospitalsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_administrator

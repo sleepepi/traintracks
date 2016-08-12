@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Allow admins to track trainee seminar attendance
+# Allow admins to track trainee seminar attendance.
 class SeminarsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_administrator
@@ -10,7 +10,7 @@ class SeminarsController < ApplicationController
 
   def attendance
     @applicants = Applicant.current.where(enrolled: true).where(status: (params[:status].blank? ? Applicant::STATUS.flatten.uniq : params[:status]))
-    @year = params[:year].blank? ? (Date.today.month > 6 ? Date.today.year + 1 : Date.today.year) : params[:year].to_i
+    @year = params[:year].blank? ? (Time.zone.today.month > 6 ? Time.zone.today.year + 1 : Time.zone.today.year) : params[:year].to_i
     @seminars = Seminar.current.date_after(Date.parse("#{@year-1}-07-01")).date_before(Date.parse("#{@year}-06-30"))
 
     if params[:format] == 'csv'

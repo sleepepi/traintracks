@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Tracks annual information for trainees
+# Tracks annual information for trainees.
 class AnnualsController < ApplicationController
   before_action :authenticate_applicant_from_token!, only: [:edit_me, :update_me]
   before_action :authenticate_user!, except: [:edit_me, :update_me]
