@@ -7,7 +7,7 @@ task seminar_reminder_email: :environment do
 
   if EMAILS_ENABLED && upcoming_seminars.size > 0
     Applicant.current_trainee.each do |applicant|
-      UserMailer.seminars_reminder(applicant, upcoming_seminars).deliver_later if applicant.email.present?
+      UserMailer.seminars_reminder(applicant, upcoming_seminars).deliver_now if applicant.email.present?
     end
   end
 end

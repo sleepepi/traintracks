@@ -77,7 +77,7 @@ class Preceptor < ActiveRecord::Base
 
   def update_general_information_email!(current_user)
     update_column :emailed_at, Time.zone.now
-    UserMailer.update_preceptor(self, current_user).deliver_later if EMAILS_ENABLED
+    UserMailer.update_preceptor(self, current_user).deliver_now if EMAILS_ENABLED
   end
 
   def set_password

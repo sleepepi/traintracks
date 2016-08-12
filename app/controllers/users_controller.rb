@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   def update
     original_status = @user.status
     if @user.update(user_params)
-      UserMailer.status_activated(@user).deliver_later if EMAILS_ENABLED and original_status != @user.status and @user.status == 'active'
+      UserMailer.status_activated(@user).deliver_now if EMAILS_ENABLED and original_status != @user.status and @user.status == 'active'
       redirect_to @user, notice: 'User was successfully updated.'
     else
       render action: 'edit'

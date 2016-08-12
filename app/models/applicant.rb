@@ -270,7 +270,7 @@ class Applicant < ActiveRecord::Base
 
   def notify_preceptor
     if publish.to_s == '1' && preferred_preceptor && preferred_preceptor.email.present?
-      UserMailer.notify_preceptor(self).deliver_later if EMAILS_ENABLED
+      UserMailer.notify_preceptor(self).deliver_now if EMAILS_ENABLED
     end
   end
 
@@ -314,7 +314,7 @@ class Applicant < ActiveRecord::Base
 
   def update_general_information_email!(current_user)
     update_column :emailed_at, Time.zone.now
-    UserMailer.update_application(self, current_user).deliver_later if EMAILS_ENABLED
+    UserMailer.update_application(self, current_user).deliver_now if EMAILS_ENABLED
   end
 
   def send_annual_reminder!(current_user, year, subject, body)
@@ -325,14 +325,14 @@ class Applicant < ActiveRecord::Base
         # Do nothing
       elsif annual.applicant && annual.applicant.email.present?
         update_column :emailed_at, Time.zone.now
-        UserMailer.update_annual(annual, subject, body).deliver_later if EMAILS_ENABLED
+        UserMailer.update_annual(annual, subject, body).deliver_now if EMAILS_ENABLED
       end
     end
   end
 
   def send_termination!(current_user)
     update_column :emailed_at, Time.zone.now
-    UserMailer.exit_interview(self, current_user).deliver_later if EMAILS_ENABLED
+    UserMailer.exit_interview(self, current_user).deliver_now if EMAILS_ENABLED
   end
 
   protected
