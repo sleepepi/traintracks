@@ -1,10 +1,10 @@
 .page-header
   %h1
-    = link_to "Preceptors", preceptors_path
+    = link_to 'Preceptors', preceptors_path
     &middot;
     = @title
 
-= form_for(@preceptor, html: { class: 'form-horizontal' }) do |f|
+= form_for @preceptor, html: { class: 'form-horizontal' } do |f|
   - if @preceptor.errors.any?
     .callout.callout-danger
       %h4
@@ -19,5 +19,5 @@
 
   .form-group
     .col-md-offset-2.col-md-10
-      = f.submit (@preceptor.new_record? ? 'Create Preceptor' : 'Update Preceptor'), class: 'btn btn-primary'
-      = cancel
+      = f.submit nil, class: 'btn btn-primary'
+      = link_to 'Cancel', @preceptor.new_record? ? preceptors_path : @preceptor, class: 'btn btn-default'

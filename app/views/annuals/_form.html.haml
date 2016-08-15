@@ -32,4 +32,4 @@
   .form-group
     .col-md-offset-2.col-md-10
       = f.submit nil, class: 'btn btn-primary'
-      = cancel
+      = link_to 'Cancel', @annual.new_record? ? annuals_path : @annual, class: 'btn btn-default'

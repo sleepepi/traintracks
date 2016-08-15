@@ -2,10 +2,6 @@
 
 # Methods to help across all application views.
 module ApplicationHelper
-  def cancel
-    link_to 'Cancel', URI.parse(request.referer.to_s).path.blank? ? root_path : (URI.parse(request.referer.to_s).path), class: 'btn btn-default'
-  end
-
   # Prints out '6 hours ago, Yesterday, 2 weeks ago, 5 months ago, 1 year ago'
   def recent_activity(past_time)
     return '' unless past_time.is_a?(Time)

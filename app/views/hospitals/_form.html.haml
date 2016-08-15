@@ -23,4 +23,4 @@
   .form-group
     .col-md-offset-2.col-md-10
       = f.submit nil, class: 'btn btn-primary'
-      = cancel
+      = link_to 'Cancel', @hospital.new_record? ? hospitals_path : @hospital, class: 'btn btn-default'

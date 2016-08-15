@@ -55,4 +55,4 @@
   .form-group
     .col-md-offset-2.col-md-10
       = f.submit nil, class: 'btn btn-primary'
-      = cancel
+      = link_to 'Cancel', @seminar.new_record? ? seminars_path : @seminar, class: 'btn btn-default'
