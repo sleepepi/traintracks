@@ -21,9 +21,8 @@
   %dt Degrees earned
   %dd
     %ul
-      - applicant.degrees_earned.each do |degree_earned|
-        - if degree_earned.is_a?(Hash) && degree_earned.values.count(&:present?) > 0
-          %li= render 'applicants/show/degrees', degree_earned: degree_earned
+      - applicant.degrees.each do |degree|
+        %li= render 'degrees/show', degree: degree
 
   - unless applicant.postdoc?
     %dt Degree sought

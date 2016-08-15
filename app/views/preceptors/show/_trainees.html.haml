@@ -11,7 +11,7 @@
       %th Current Position
       %th Source of Support
   %tbody
-    - Applicant.current.where("primary_preceptor_id = ? or secondary_preceptor_id = ?", preceptor.id, preceptor.id ).order('training_period_end_date DESC').each do |applicant|
+    - Applicant.current.where('primary_preceptor_id = ? or secondary_preceptor_id = ?', preceptor.id, preceptor.id ).order(training_period_end_date: :desc).each do |applicant|
       %tr
         %td= applicant.status
         %td= link_to applicant.reverse_name, applicant
@@ -20,8 +20,8 @@
         %td= applicant.training_period_end_date
         %td
           %ul
-            - applicant.degrees_earned.each do |degree_earned|
-              %li= render 'applicants/show/degrees', degree_earned: degree_earned
+            - applicant.degrees.each do |degree|
+              %li= render 'degrees/show', degree: degree
         %td= applicant.research_project_title
         %td= applicant.current_position
         %td

@@ -135,7 +135,7 @@ class AnnualsController < ApplicationController
 
   def applicant_params
     params[:applicant] ||= {}
-    params[:applicant][:degrees_earned] ||= [] if params[:set_degrees_earned] == '1'
+    params[:applicant][:degree_hashes] ||= [] if params[:set_degree_hashes] == '1'
     params.require(:applicant).permit(
       # Contact Information
       :phone, :address1, :address2, :city, :state, :country, :zip_code,
@@ -143,7 +143,7 @@ class AnnualsController < ApplicationController
       :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache,
       # Education
       :current_institution, :department_program, :current_position,
-      { degrees_earned: [:degree_type, :institution, :year, :advisor, :thesis, :concentration_major] },
+      { degree_hashes: [:degree_type, :institution, :year, :advisor, :thesis, :concentration_major] },
       # Applicant Assurance
       :publish_annual
     )

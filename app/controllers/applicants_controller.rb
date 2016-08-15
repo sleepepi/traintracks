@@ -14,6 +14,7 @@ class ApplicantsController < ApplicationController
   end
 
   def add_degree
+    @degree = Degree.new
   end
 
   def dashboard
@@ -27,7 +28,7 @@ class ApplicantsController < ApplicationController
     if current_applicant.update(applicant_params)
       redirect_to dashboard_applicants_path, notice: 'Application successfully updated.'
     else
-      render action: 'edit_me'
+      render :edit_me
     end
   end
 
@@ -190,13 +191,13 @@ class ApplicantsController < ApplicationController
       params[:applicant][date] = parse_date(params[:applicant][date]) unless params[:applicant][date] == nil
     end
 
-    params[:applicant][:degrees_earned] ||= [] if params[:set_degrees_earned] == '1'
+    params[:applicant][:degree_hashes] ||= [] if params[:set_degree_hashes] == '1'
     params[:applicant][:research_interests] ||= [] if params[:set_research_interests] == '1'
     params[:applicant][:urm_types] ||= [] if params[:set_urm_types] == '1'
     params[:applicant][:laboratories] ||= [] if params[:set_laboratories] == '1'
     params[:applicant][:transition_position] ||= [] if params[:set_transition_position] == '1'
 
-    if current_user and current_user.administrator?
+    if current_user && current_user.administrator?
       params[:applicant][:admin_update] = '1'
       params.require(:applicant).permit!
     else
@@ -211,7 +212,7 @@ class ApplicantsController < ApplicationController
         :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache,
         # Education
         :current_institution, :department_program, :current_position,
-        { degrees_earned: [:degree_type, :institution, :year, :advisor, :thesis, :concentration_major] },
+        { degree_hashes: [:degree_type, :institution, :year, :advisor, :thesis, :concentration_major] },
         :degree_sought, :expected_year, :residency,
         [research_interests: []],
         :research_interests_other,
@@ -284,7 +285,7 @@ class ApplicantsController < ApplicationController
           a.preferred_preceptor ? a.preferred_preceptor.hospital_affiliation : '',
           a.preferred_preceptor_two ? a.preferred_preceptor_two.name_with_id : '',
           a.preferred_preceptor_three ? a.preferred_preceptor_three.name_with_id : '',
-          a.degrees_earned_text, a.current_position, a.previous_nrsa_support,
+          a.degrees_text, a.current_position, a.previous_nrsa_support,
           # Demographic Information
           a.gender, a.disabled, a.disabled_description, a.disadvantaged, a.urm, a.urm_types, a.marital_status,
           # Contact Information

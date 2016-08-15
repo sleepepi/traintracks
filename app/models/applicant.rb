@@ -3,6 +3,9 @@
 # The applicant class provides methods to to access information about trainees
 # and applicants.
 class Applicant < ActiveRecord::Base
+  attr_accessor :degree_hashes
+  after_save :set_degrees
+
   # Include default devise modules. Others available are:
   # :encryptable and :omniauthable
   devise :database_authenticatable, :registerable, :timeoutable, :confirmable,
@@ -22,7 +25,7 @@ class Applicant < ActiveRecord::Base
   # attr_accessible :curriculum_vitae, :curriculum_vitae_uploaded_at, :curriculum_vitae_cache
 
   # # Education
-  # attr_accessible :current_institution, :department_program, :current_position, :degrees_earned,
+  # attr_accessible :current_institution, :department_program, :current_position, :degree_hashes,
   #                 :degree_sought, :expected_year, :residency, :research_interests, :research_interests_other,
   #                 :preferred_preceptor_id, :preferred_preceptor_two_id, :preferred_preceptor_three_id,
   #                 :previous_nrsa_support
@@ -59,7 +62,6 @@ class Applicant < ActiveRecord::Base
   APPLICANT_TYPE = %w(predoc postdoc summer).collect { |i| [i, i] }
   MARITAL_STATUS = [['Single', 'single'], ['Married', 'married'], ['Divorced', 'divorced'], ['Widowed', 'widowed']]
   CITIZENSHIP_STATUS = ['citizen', 'permanent resident', 'noncitizen', 'unknown']
-  DEGREE_TYPES = [['BA/BS', 'babs'], ['MA/MS', 'mams'], ['MD/DO', 'mddo'], ['PhD/ScD', 'phdscd'], ['Other Professional', 'other']]
   LABORATORIES = [['Basic Science', 'basic science'], ['Clinical Science', 'clinical science'], ['Population-based Science', 'population-based science'], ['Translational', 'translational'], ['Other', 'other']]
   TRANSITION_POSITIONS = [['Research Fellow', 'research fellow'], ['Clinical Fellow', 'clinical fellow'], ['Instructor/Assistant Professor', 'instructor or assistant professor'], ['Commercial Research Laboratory', 'commercial research laboratory'], ['Private Practice', 'private practice'], ['Other', 'other']]
 
@@ -77,53 +79,65 @@ class Applicant < ActiveRecord::Base
   serialize :laboratories, Array
   serialize :transition_position, Array
   serialize :research_interests, Array
+  # TODO: Remove in 0.14.0
   serialize :degrees_earned, Array
+  # END TODO
 
   # Callbacks
   before_validation :set_alien_registration_number, :set_password
   before_save :set_submitted_at, :set_tge, :ensure_authentication_token
-  before_validation :check_degrees_earned, if: :annual_or_publish?
+  before_validation :check_degree_hashes, if: :annual_or_publish?
   after_save :notify_preceptor
 
   # Named Scopes
-  scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
-  scope :submitted_before, lambda { |arg| where( 'applicants.originally_submitted_at < ?', (arg+1.day).at_midnight ) }
-  scope :submitted_after, lambda { |arg| where( 'applicants.originally_submitted_at >= ?', arg.at_midnight ) }
+  scope :search, -> (arg) { where('LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%')) }
+  scope :submitted_before, -> (arg) { where('applicants.originally_submitted_at < ?', (arg+1.day).at_midnight) }
+  scope :submitted_after, -> (arg) { where('applicants.originally_submitted_at >= ?', arg.at_midnight) }
   scope :current_trainee, -> { current.where( enrolled: true, status: 'current' ) }
-  scope :supported_by_tg_in_last_fifteen_years, -> { current.where( enrolled: true, supported_by_tg: true ).where( 'training_period_end_date >= ?', Time.zone.today - 15.years ) }
+  scope :supported_by_tg_in_last_fifteen_years, -> { current.where(enrolled: true, supported_by_tg: true).where('training_period_end_date >= ?', Time.zone.today - 15.years) }
 
   # Model Validation
-  validates_presence_of :first_name, :last_name
-  validates_uniqueness_of :email, allow_blank: true, scope: :deleted
+  validates :first_name, :last_name, presence: true
+  validates :email, uniqueness: { scope: :deleted }, allow_blank: true
 
-  validates_presence_of :expected_year, :degree_sought, unless: [:postdoc?, :not_submitted?]
-  validates_presence_of :desired_start_date, :personal_statement, :research_interests, :preferred_preceptor_id, :marital_status, if: :submitted?
-  validates_presence_of :research_interests_other, if: [:submitted?, 'research_interests.include?("other")']
-  validates_presence_of :disabled_description, if: [:submitted?, :disabled?]
-  validates_presence_of :alien_registration_number, if: [:submitted?, :permanent_resident?]
-  validates_format_of :alien_registration_number, with: /\AA\d*\Z/, if: [:submitted?, :permanent_resident?]
-  validates_presence_of :letters_from_a, :letters_from_b, :letters_from_c, if: [:submitted?]
-  validates_presence_of :gender, if: [:submitted?]
+  validates :expected_year, :degree_sought, presence: true, unless: [:postdoc?, :not_submitted?]
+  validates :desired_start_date, :personal_statement, :research_interests, :preferred_preceptor_id, :marital_status,
+            presence: true, if: :submitted?
+  validates :research_interests_other, presence: true, if: [:submitted?, 'research_interests.include?("other")']
+  validates :disabled_description, presence: true, if: [:submitted?, :disabled?]
+  validates :alien_registration_number, presence: true, if: [:submitted?, :permanent_resident?]
+  validates :alien_registration_number, format: { with: /\AA\d*\Z/ }, if: [:submitted?, :permanent_resident?]
+  validates :letters_from_a, :letters_from_b, :letters_from_c, presence: true, if: [:submitted?]
+  validates :gender, presence: true, if: [:submitted?]
 
   # Validations required on Annual or Publish State
   # Contact Information
-  validates_presence_of :phone, :address1, :city, :state, :country, :zip_code, if: :annual_or_publish?
+  validates :phone, :address1, :city, :state, :country, :zip_code, presence: true, if: :annual_or_publish?
   # Education Experience
-  validates_presence_of :curriculum_vitae, :current_institution, :department_program, :current_position, :degrees_earned, if: :annual_or_publish?
+  validates :curriculum_vitae, :current_institution, :department_program, :current_position,
+            presence: true, if: :annual_or_publish?
+  validates :degree_hashes, presence: { message: "Degrees hashes can't be blank" }, if: :annual_or_publish?
 
   # Validations required for Exit Interview
-  validates_presence_of :future_email, :entrance_year, if: :termination?
-  validates_presence_of :t32_funded, if: [:termination?, 't32_funded.nil?']
-  validates_presence_of :t32_funded_years, if: [:termination?, :t32_funded?]
-  validates_presence_of :academic_program_completed, if: [:termination?, 'academic_program_completed.nil?']
-  validates_presence_of :certificate_application, if: [:termination?, :academic_program_completed?]
-  validates_presence_of :research_project_title, :laboratories, if: :termination?
-  validates_presence_of :immediate_transition, if: [:termination?, 'immediate_transition.nil?']
-  validates_presence_of :transition_position, if: [:termination?, :immediate_transition?]
-  validates_presence_of :transition_position_other, if: [:termination?, :other_position_selected?]
+  validates :future_email, :entrance_year, presence: true, if: :termination?
+  validates :t32_funded, presence: true, if: [:termination?, 't32_funded.nil?']
+  validates :t32_funded_years, presence: true, if: [:termination?, :t32_funded?]
+  validates :academic_program_completed, presence: true, if: [:termination?, 'academic_program_completed.nil?']
+  validates :certificate_application, presence: true, if: [:termination?, :academic_program_completed?]
+  validates :research_project_title, :laboratories, presence: true, if: :termination?
+  validates :immediate_transition, presence: true, if: [:termination?, 'immediate_transition.nil?']
+  validates :transition_position, presence: true, if: [:termination?, :immediate_transition?]
+  validates :transition_position_other, presence: true, if: [:termination?, :other_position_selected?]
 
   # Max Length Validation for PostgreSQL strings
-  validates_length_of :first_name, :last_name, :middle_initial, :current_institution, :department_program, :degree_type, :residency, :current_position, :address1, :address2, :city, :state, :country, :zip_code, :phone, :training_grant_years, :research_project_title, :trainee_code, :letters_from_a, :letters_from_b, :letters_from_c, :future_email, :transition_position_other, :research_interests_other, :research_in_progress_title, :curriculum_advisor, maximum: 255
+  validates :first_name, :last_name, :middle_initial, :current_institution,
+            :department_program, :degree_type, :residency, :current_position,
+            :address1, :address2, :city, :state, :country, :zip_code, :phone,
+            :training_grant_years, :research_project_title, :trainee_code,
+            :letters_from_a, :letters_from_b, :letters_from_c, :future_email,
+            :transition_position_other, :research_interests_other,
+            :research_in_progress_title, :curriculum_advisor,
+            length: { maximum: 255 }
 
   # Model Relationships
   belongs_to :preferred_preceptor, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_id'
@@ -131,7 +145,8 @@ class Applicant < ActiveRecord::Base
   belongs_to :preferred_preceptor_three, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_three_id'
   belongs_to :primary_preceptor, class_name: 'Preceptor', foreign_key: 'primary_preceptor_id'
   belongs_to :secondary_preceptor, class_name: 'Preceptor', foreign_key: 'secondary_preceptor_id'
-  has_many :annuals, -> { where( deleted: false ).order('year DESC') }
+  has_many :annuals, -> { current.order(year: :desc) }
+  has_many :degrees, -> { order :position }
   has_and_belongs_to_many :seminars
 
   # Applicant Methods
@@ -142,7 +157,7 @@ class Applicant < ActiveRecord::Base
   end
 
   def add_seminar(seminar)
-    self.seminars << seminar unless self.seminars.include?(seminar)
+    self.seminars << seminar unless seminars.include?(seminar)
   end
 
   def remove_seminar(seminar)
@@ -158,7 +173,7 @@ class Applicant < ActiveRecord::Base
   end
 
   def seminars_attended(all_seminars)
-    self.seminars.where(id: eligible_seminars(all_seminars).select(:id)).count
+    seminars.where(id: eligible_seminars(all_seminars).select(:id)).count
   end
 
   def seminars_attended_percentage(all_seminars)
@@ -169,24 +184,20 @@ class Applicant < ActiveRecord::Base
     end
   end
 
-  def degrees_earned_text
-    self.degrees_earned.collect{|d| "#{Applicant.degree_type_name(d[:degree_type])} #{d[:institution]} #{d[:year]} #{d[:advisor]} #{d[:thesis]} #{d[:concentration_major]}"}.join("\n")
+  def degrees_text
+    degrees.collect(&:to_text).join("\n")
   end
 
   def other_position_selected?
-    self.transition_position.include?('other')
+    transition_position.include?('other')
   end
 
   def postdoc?
-    self.applicant_type == 'postdoc'
-  end
-
-  def self.degree_type_name(degree_type)
-    DEGREE_TYPES.select{|a,b| degree_type == b}.collect{|a,b| a}.first
+    applicant_type == 'postdoc'
   end
 
   def urm_types_names
-    URM_TYPES.select{|a,b| self.urm_types.include?(b)}.collect{|a,b| a}
+    URM_TYPES.select { |a, b| urm_types.include?(b) }.collect { |a, b| a }
   end
 
   # def predoc_or_summer?
@@ -292,18 +303,18 @@ class Applicant < ActiveRecord::Base
     true
   end
 
-  def check_degrees_earned
+  def check_degree_hashes
     result = true
-    degrees_earned.each do |degree_earned|
+    degree_hashes.each do |hash|
       result = true
       [:degree_type, :institution].each do |attr|
-        if degree_earned[attr].blank?
-          self.errors.add(:degrees_earned, "#{attr.to_s.gsub('_', ' ')} can't be blank" ) unless errors[:degrees_earned].include?("#{attr.to_s.gsub('_', ' ')} can't be blank")
+        if hash[attr].blank?
+          errors.add(:degrees, "#{attr.to_s.gsub('_', ' ')} can't be blank" ) unless errors[:degrees].include?("#{attr.to_s.gsub('_', ' ')} can't be blank")
           result = false
         end
       end
-      if degree_earned[:year].to_i <= 0
-        self.errors.add(:degrees_earned, "year can't be blank" ) unless errors[:degrees_earned].include?("year can't be blank")
+      if hash[:year].to_i <= 0
+        errors.add(:degrees, "year can't be blank" ) unless errors[:degrees].include?("year can't be blank")
         result = false
       end
     end
@@ -322,7 +333,6 @@ class Applicant < ActiveRecord::Base
 
   def send_annual_reminder!(current_user, year, subject, body)
     annual = Annual.current.where(applicant_id: id, year: year).first_or_create(user_id: current_user.id)
-
     if annual
       if annual.submitted?
         # Do nothing
@@ -338,10 +348,39 @@ class Applicant < ActiveRecord::Base
     UserMailer.exit_interview(self, current_user).deliver_now if EMAILS_ENABLED
   end
 
+  def degrees_or_params(params)
+    params.permit!
+    if params[:applicant] && params[:applicant][:degree_hashes].present?
+      params[:applicant][:degree_hashes].collect do |hash|
+        degrees.new(hash)
+      end
+    else
+      degrees
+    end
+  end
+
   protected
 
   # Override Devise Email Required
   def email_required?
     admin_update != '1'
+  end
+
+  private
+
+  def set_degrees
+    return unless degree_hashes && degree_hashes.is_a?(Array)
+    degrees.destroy_all
+    degree_hashes.each_with_index do |hash, index|
+      degrees.create(
+        position: index,
+        degree_type: (Degree::DEGREE_TYPES.collect(&:second).include?(hash[:degree_type]) ? hash[:degree_type] : ''),
+        institution: hash[:institution],
+        year: hash[:year],
+        advisor: hash[:advisor],
+        thesis: hash[:thesis],
+        concentration_major: hash[:concentration_major]
+      )
+    end
   end
 end

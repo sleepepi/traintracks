@@ -27,13 +27,17 @@
     = f.text_field :current_position, class: 'form-control'
 
 .form-group
-  = f.label :degrees_earned, nil, class: 'col-md-2 control-label'
+  = f.label :degrees, nil, class: 'col-md-2 control-label'
   .col-md-10
     #degrees_container
-      = hidden_field_tag :set_degrees_earned, '1'
-      = render 'applicants/form/degrees', degree_earned: {} if applicant.degrees_earned.size == 0
-      - applicant.degrees_earned.each do |degree_earned|
-        = render 'applicants/form/degrees', degree_earned: degree_earned
+      = hidden_field_tag :set_degree_hashes, '1'
+      - if applicant.degrees_or_params(params).size == 0
+        - degree = applicant.degrees.new
+        = render 'degrees/form', degree: degree
+      - else
+        - applicant.degrees_or_params(params).each do |degree|
+          = render 'degrees/form', degree: degree
+
     = link_to 'add more', add_degree_applicants_path, method: :post, remote: true, class: 'btn btn-xs btn-default'
 
 .form-group

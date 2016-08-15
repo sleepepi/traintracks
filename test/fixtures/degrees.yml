@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one_babs:
+  applicant: one
+  position: 0
+  degree_type: babs
+  institution: Institution
+  year: 2010
+  # advisor:
+  # thesis:
+  # concentration_major:
