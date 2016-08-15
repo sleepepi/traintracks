@@ -9,6 +9,7 @@
   - Updated to turbolinks 5
   - Updated to carrierwave 0.11.2
   - Updated to kaminari 0.17.0
+  - Updated to simplecov 0.12.0
   - Removed dependency on contour
   - Removed dependency on ruby-ntlm-namespace
 
