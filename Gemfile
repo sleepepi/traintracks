@@ -9,7 +9,7 @@ gem 'mysql2',               '0.4.3'
 
 # Gems used by project
 gem 'devise',               '~> 4.2.0'
-gem 'kaminari',             '~> 0.16.3'
+gem 'kaminari',             '~> 0.17.0'
 gem 'carrierwave',          '~> 0.11.2'
 gem 'bootstrap-sass',       '~> 3.3.7'
 gem 'haml',                 '~> 4.0.7'
