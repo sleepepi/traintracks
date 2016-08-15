@@ -10,6 +10,7 @@
   - Updated to carrierwave 0.11.2
   - Updated to kaminari 0.17.0
   - Updated to simplecov 0.12.0
+  - Updated to mysql2 0.4.4
   - Removed dependency on contour
   - Removed dependency on ruby-ntlm-namespace
 
