@@ -40,7 +40,7 @@ class ApplicantsController < ApplicationController
     if current_applicant.update(applicant_params)
       redirect_to dashboard_applicants_path, notice: 'Exit Interview successfully updated.'
     else
-      render action: 'exit_interview'
+      render :exit_interview
     end
   end
 
@@ -161,7 +161,7 @@ class ApplicantsController < ApplicationController
     if @applicant.update(applicant_params)
       redirect_to @applicant, notice: 'Applicant was successfully updated.'
     else
-      render action: 'edit'
+      render :edit
     end
   end
 

@@ -69,19 +69,14 @@ class AnnualsController < ApplicationController
   def update_me
     @annual = current_applicant.annuals.find_by_id(params[:id])
 
-    respond_to do |format|
-      if @annual
-        if current_applicant.update(applicant_params) and @annual.update(annual_params)
-          format.html { redirect_to dashboard_applicants_path, notice: 'Annual information was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: 'edit_me' }
-          format.json { render json: @annual.errors, status: :unprocessable_entity }
-        end
+    if @annual
+      if current_applicant.update(applicant_params) and @annual.update(annual_params)
+        redirect_to dashboard_applicants_path, notice: 'Annual information was successfully updated.'
       else
-        format.html { redirect_to dashboard_applicants_path }
-        format.json { head :no_content }
+        render :edit_me
       end
+    else
+      redirect_to dashboard_applicants_path
     end
   end
 
