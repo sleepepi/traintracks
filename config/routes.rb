@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :annuals do
     member do
       get :edit_me
-      put :update_me
+      patch :update_me
     end
   end
 
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       get :dashboard
       get :edit_me
       get :program_requirements
-      put :update_me
+      patch :update_me
       get :exit_interview
       post :update_exit_interview
       post :add_degree
@@ -45,7 +45,7 @@ Rails.application.routes.draw do
     collection do
       get :dashboard
       get :edit_me
-      put :update_me
+      patch :update_me
     end
     member do
       post :email

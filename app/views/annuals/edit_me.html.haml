@@ -17,7 +17,7 @@
     have an NIH Other Support, please attach a document that details your
     current funding situation.
 
-= form_for @annual, url: update_me_annual_path(@annual), method: :put, html: { class: 'form-horizontal' } do |f|
+= form_for @annual, url: update_me_annual_path(@annual), method: :patch, html: { class: 'form-horizontal' } do |f|
   - @applicant = current_applicant
 
   - if @applicant.errors.any?

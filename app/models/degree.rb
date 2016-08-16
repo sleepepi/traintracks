@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Tracks the degrees an applicant has earned over time.
-class Degree < ActiveRecord::Base
+class Degree < ApplicationRecord
   DEGREE_TYPES = [
     ['BA/BS', 'babs'],
     ['MA/MS', 'mams'],

@@ -1,9 +1,5 @@
-class RemovePreviousInstitutionsFromApplicants < ActiveRecord::Migration
-  def up
-    remove_column :applicants, :previous_institutions
-  end
-
-  def down
-    add_column :applicants, :previous_institutions, :text
+class RemovePreviousInstitutionsFromApplicants < ActiveRecord::Migration[4.2]
+  def change
+    remove_column :applicants, :previous_institutions, :text
   end
 end

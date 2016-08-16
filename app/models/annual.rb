@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Tracks annual updates for applicants.
-class Annual < ActiveRecord::Base
+class Annual < ApplicationRecord
   attr_accessor :publish
 
   mount_uploader :nih_other_support, DocumentUploader

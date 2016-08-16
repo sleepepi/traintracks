@@ -1,4 +1,4 @@
-class CreateAnnuals < ActiveRecord::Migration
+class CreateAnnuals < ActiveRecord::Migration[4.2]
   def change
     create_table :annuals do |t|
       t.integer :user_id

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Helps popuplate list of hospitals.
-class Hospital < ActiveRecord::Base
+class Hospital < ApplicationRecord
   # Concerns
   include Deletable, Searchable
 

@@ -33,73 +33,80 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should show user' do
-    get :show, id: @user
+    get :show, params: { id: @user }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @user
+    get :edit, params: { id: @user }
     assert_response :success
   end
 
   test 'should update user' do
-    put :update, id: @user,
-                 user: {
-                   first_name: 'FirstName',
-                   last_name: 'LastName',
-                   email: 'valid_updated_email@example.com',
-                   status: 'active',
-                   system_admin: false,
-                   administrator: false
-                 }
+    patch :update, params: {
+      id: @user,
+      user: {
+        first_name: 'FirstName',
+        last_name: 'LastName',
+        email: 'valid_updated_email@example.com',
+        status: 'active',
+        system_admin: false,
+        administrator: false
+      }
+    }
     assert_redirected_to user_path(assigns(:user))
   end
 
   test 'should update user and set user active' do
-    put :update, id: users(:pending),
-                 user: {
-                   status: 'active',
-                   first_name: users(:pending).first_name,
-                   last_name: users(:pending).last_name,
-                   email: users(:pending).email,
-                   system_admin: false,
-                   administrator: false
-                 }
+    patch :update, params: {
+      id: users(:pending),
+      user: {
+        status: 'active',
+        first_name: users(:pending).first_name,
+        last_name: users(:pending).last_name,
+        email: users(:pending).email,
+        system_admin: false,
+        administrator: false
+      }
+    }
     assert_equal 'active', assigns(:user).status
     assert_redirected_to user_path(assigns(:user))
   end
 
   test 'should update user and set user inactive' do
-    put :update, id: users(:pending),
-                 user: {
-                   status: 'inactive',
-                   first_name: users(:pending).first_name,
-                   last_name: users(:pending).last_name,
-                   email: users(:pending).email,
-                   system_admin: false,
-                   administrator: false
-                 }
+    patch :update, params: {
+      id: users(:pending),
+      user: {
+        status: 'inactive',
+        first_name: users(:pending).first_name,
+        last_name: users(:pending).last_name,
+        email: users(:pending).email,
+        system_admin: false,
+        administrator: false
+      }
+    }
     assert_equal 'inactive', assigns(:user).status
     assert_redirected_to user_path(assigns(:user))
   end
 
   test 'should not update user with blank name' do
-    put :update, id: @user, user: { first_name: '', last_name: '' }
+    patch :update, params: {
+      id: @user, user: { first_name: '', last_name: '' }
+    }
     assert_not_nil assigns(:user)
     assert_template 'edit'
   end
 
   test 'should not update user with invalid id' do
-    put :update, id: -1, user: @user.attributes
+    patch :update, params: { id: -1, user: @user.attributes }
     assert_nil assigns(:user)
     assert_redirected_to users_path
   end
 
   test 'should destroy user' do
     assert_difference('User.current.count', -1) do
-      delete :destroy, id: @user
+      delete :destroy, params: { id: @user }
     end
-
     assert_redirected_to users_path
   end
 end

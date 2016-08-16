@@ -7,7 +7,7 @@
   .center{ style: 'margin-bottom:20px' }
     = render 'sites/resource_image'
 
-  = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'form-vertical' } do |f|
+  = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :patch, class: 'form-vertical' } do |f|
     - if resource.errors.any?
       .callout.callout-danger
         %h4

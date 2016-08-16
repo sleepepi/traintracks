@@ -6,7 +6,13 @@ require 'test_helper'
 class RegistrationTest < ActionDispatch::IntegrationTest
   test 'a new applicant should be able to sign up' do
     assert_difference('Applicant.count') do
-      post '/trainee', applicant: { first_name: 'First Name', last_name: 'Last Name', email: 'new_applicant@example.com', password: 'password', password_confirmation: 'password' }
+      post '/trainee', params: {
+        applicant: {
+          first_name: 'First Name', last_name: 'Last Name',
+          email: 'new_applicant@example.com',
+          password: 'password', password_confirmation: 'password'
+        }
+      }
     end
     assert_not_nil assigns(:applicant)
     assert_equal 'First Name', assigns(:applicant).first_name

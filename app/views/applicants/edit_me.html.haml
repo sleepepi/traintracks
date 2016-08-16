@@ -2,7 +2,7 @@
 .pull-right= link_to "Help", '#', class: 'btn btn-info', data: { object: 'modal-show', target: '#help_email_modal' }
 
 - form_name = "edit_applicant_#{current_applicant.id}"
-= form_for current_applicant, url: update_me_applicants_path, method: :put, html: { id: form_name, class: 'form-horizontal' } do |f|
+= form_for current_applicant, url: update_me_applicants_path, method: :patch, html: { id: form_name, class: 'form-horizontal' } do |f|
   - if current_applicant.errors.any?
     .callout.callout-danger
       %h4

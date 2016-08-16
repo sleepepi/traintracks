@@ -1,4 +1,4 @@
-class AddDeviseToApplicants < ActiveRecord::Migration
+class AddDeviseToApplicants < ActiveRecord::Migration[4.2]
   def change
     # Database authenticatable
     add_column :applicants, :encrypted_password, :string, null: false, default: ""

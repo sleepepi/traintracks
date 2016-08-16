@@ -1,4 +1,4 @@
-class CreateDegrees < ActiveRecord::Migration
+class CreateDegrees < ActiveRecord::Migration[4.2]
   def change
     create_table :degrees do |t|
       t.integer :applicant_id

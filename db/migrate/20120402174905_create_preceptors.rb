@@ -1,4 +1,4 @@
-class CreatePreceptors < ActiveRecord::Migration
+class CreatePreceptors < ActiveRecord::Migration[4.2]
   def change
     create_table :preceptors do |t|
       t.string :first_name

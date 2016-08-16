@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Provides information about scheduled seminars and trainee attendance.
-class Seminar < ActiveRecord::Base
+class Seminar < ApplicationRecord
   DURATION_UNITS = %w(minutes hours).collect { |i| [i, i] }
 
   # Concerns

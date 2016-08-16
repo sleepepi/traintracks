@@ -1,4 +1,4 @@
-class CreateSeminars < ActiveRecord::Migration
+class CreateSeminars < ActiveRecord::Migration[4.2]
   def change
     create_table :seminars do |t|
       t.string :category

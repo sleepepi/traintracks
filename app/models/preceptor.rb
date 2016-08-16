@@ -2,7 +2,7 @@
 
 # The preceptor class provides methods to to access information about preceptors
 # and allows preceptors to be connected to applicants and trainees.
-class Preceptor < ActiveRecord::Base
+class Preceptor < ApplicationRecord
   # Include default devise modules. Others available are:
   # :encryptable and :omniauthable, :registerable
   devise :database_authenticatable, :timeoutable, :confirmable,

@@ -111,7 +111,7 @@ class ApplicantsControllerTest < ActionController::TestCase
   # Currently no fixtures have enrolled trainees
   test 'should not get csv if no applicants are selected' do
     login(@administrator)
-    get :index, format: 'csv', enrolled: 'except'
+    get :index, params: { enrolled: 'except' }, format: 'csv'
     assert_nil assigns(:csv_string)
     assert_equal flash[:alert], 'No data was exported since no applicants matched the specified filters.'
     assert_redirected_to applicants_path
@@ -119,21 +119,27 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should send annual reminder email' do
     login(@administrator)
-    post :send_annual_reminder_email, year: '2001', subject: 'Subject', body: 'Body'
+    post :send_annual_reminder_email, params: {
+      year: '2001', subject: 'Subject', body: 'Body'
+    }
     assert_equal "Annual Reminder email successfully sent to #{Applicant.supported_by_tg_in_last_fifteen_years.count} applicants.", flash[:notice]
     assert_redirected_to applicants_path
   end
 
   test 'should send annual reminder email to individual applicant' do
     login(@administrator)
-    post :send_annual_reminder_email, year: '2001', subject: 'Subject', body: 'Body', applicant_id: applicants(:one).id
+    post :send_annual_reminder_email, params: {
+      year: '2001', subject: 'Subject', body: 'Body', applicant_id: applicants(:one).id
+    }
     assert_equal "Annual Reminder email successfully sent to #{applicants(:one).name}.", flash[:notice]
     assert_redirected_to applicants(:one)
   end
 
   test 'should not send annual reminder email with year less than 2001' do
     login(@administrator)
-    post :send_annual_reminder_email, year: '2000', subject: 'Subject', body: 'Body'
+    post :send_annual_reminder_email, params: {
+      year: '2000', subject: 'Subject', body: 'Body'
+    }
     assert_equal "'2000' is not a valid year.", flash[:alert]
     assert_redirected_to applicants_path
   end
@@ -168,7 +174,9 @@ class ApplicantsControllerTest < ActionController::TestCase
   test 'should create applicant' do
     login(@administrator)
     assert_difference('Applicant.count') do
-      post :create, applicant: applicant_params.merge(email: 'new@example.com')
+      post :create, params: {
+        applicant: applicant_params.merge(email: 'new@example.com')
+      }
     end
     assert_redirected_to applicant_path(assigns(:applicant))
   end
@@ -176,7 +184,9 @@ class ApplicantsControllerTest < ActionController::TestCase
   test 'should create applicant and add era commons username' do
     login(@administrator)
     assert_difference('Applicant.count') do
-      post :create, applicant: applicant_params.merge(email: 'era@example.com', era_commons_username: 'MYERACOMMONSNAME')
+      post :create, params: {
+        applicant: applicant_params.merge(email: 'era@example.com', era_commons_username: 'MYERACOMMONSNAME')
+      }
     end
     assert_not_nil assigns(:applicant)
     assert_equal 'MYERACOMMONSNAME', assigns(:applicant).era_commons_username
@@ -185,25 +195,27 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should show applicant' do
     login(@administrator)
-    get :show, id: @applicant
+    get :show, params: { id: @applicant }
     assert_response :success
   end
 
   test 'should get edit' do
     login(@administrator)
-    get :edit, id: @applicant
+    get :edit, params: { id: @applicant }
     assert_response :success
   end
 
   test 'should update applicant' do
     login(@administrator)
-    patch :update, id: @applicant, applicant: applicant_params
+    patch :update, params: { id: @applicant, applicant: applicant_params }
     assert_redirected_to @applicant
   end
 
   test 'should update applicant with blank email' do
     login(@administrator)
-    patch :update, id: @applicant, applicant: applicant_params.merge(email: '')
+    patch :update, params: {
+      id: @applicant, applicant: applicant_params.merge(email: '')
+    }
     assert_not_nil assigns(:applicant)
     assert_equal '', assigns(:applicant).email
     assert_redirected_to @applicant
@@ -211,15 +223,17 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should update applicant serializable attributes' do
     login(@administrator)
-    patch :update, id: @applicant, applicant: applicant_params.merge(
-      urm_types: ['nativehawaiian pacific_islander', 'black africanamerica'],
-      laboratories: ['basic science', 'clinical science'],
-      transition_position: ['private practice'],
-      research_interests: ['human physiology', 'circadian chronobiology'],
-      degree_hashes: degree_hashes
-    ),
-    set_urm_types: '1', set_laboratories: '1', set_transition_position: '1',
-    set_research_interests: '1', set_degree_hashes: '1'
+    patch :update, params: {
+      id: @applicant, applicant: applicant_params.merge(
+        urm_types: ['nativehawaiian pacific_islander', 'black africanamerica'],
+        laboratories: ['basic science', 'clinical science'],
+        transition_position: ['private practice'],
+        research_interests: ['human physiology', 'circadian chronobiology'],
+        degree_hashes: degree_hashes
+      ),
+      set_urm_types: '1', set_laboratories: '1', set_transition_position: '1',
+      set_research_interests: '1', set_degree_hashes: '1'
+    }
     assert_not_nil assigns(:applicant)
     assert_equal ['black africanamerica', 'nativehawaiian pacific_islander'], assigns(:applicant).urm_types.sort
     assert_equal ['basic science', 'clinical science'], assigns(:applicant).laboratories.sort
@@ -244,9 +258,11 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should update applicant and clear serializable attributes' do
     login(@administrator)
-    patch :update, id: @applicant, applicant: { }, set_urm_types: '1',
-          set_laboratories: '1', set_transition_position: '1',
-          set_research_interests: '1', set_degree_hashes: '1'
+    patch :update, params: {
+      id: @applicant, applicant: { }, set_urm_types: '1',
+      set_laboratories: '1', set_transition_position: '1',
+      set_research_interests: '1', set_degree_hashes: '1'
+    }
     assert_not_nil assigns(:applicant)
     assert_equal [], assigns(:applicant).urm_types
     assert_equal [], assigns(:applicant).laboratories
@@ -259,7 +275,7 @@ class ApplicantsControllerTest < ActionController::TestCase
   test 'should destroy applicant' do
     login(@administrator)
     assert_difference('Applicant.current.count', -1) do
-      delete :destroy, id: @applicant
+      delete :destroy, params: { id: @applicant }
     end
     assert_redirected_to applicants_path
   end
@@ -278,7 +294,7 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should update me and save draft' do
     login(@applicant)
-    patch :update_me, applicant: applicant_params.merge(publish: '0')
+    patch :update_me, params: { applicant: applicant_params.merge(publish: '0') }
     assert_equal [], @controller.current_applicant.errors.full_messages
     assert_equal 'Application successfully updated.', flash[:notice]
     assert_redirected_to dashboard_applicants_path
@@ -286,10 +302,12 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should not update me with blank degree hashes' do
     login(@applicant)
-    patch :update_me, applicant: applicant_params.merge(
-      publish: '1',
-      degree_hashes: [{ degree_type: '', institution: '', year: '' }]
-    )
+    patch :update_me, params: {
+      applicant: applicant_params.merge(
+        publish: '1',
+        degree_hashes: [{ degree_type: '', institution: '', year: '' }]
+      )
+    }
     assert_equal ["degree type can't be blank", "institution can't be blank", "year can't be blank"], @controller.current_applicant.errors[:degrees]
     assert_template 'edit_me'
     assert_response :success
@@ -297,7 +315,7 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should update me and publish with CV as PDF' do
     login(@applicant)
-    patch :update_me, applicant: applicant_params.merge(publish: '1')
+    patch :update_me, params: { applicant: applicant_params.merge(publish: '1') }
     assert_equal [], @controller.current_applicant.errors.full_messages
     assert_equal 'Application successfully updated.', flash[:notice]
     assert_redirected_to dashboard_applicants_path
@@ -305,10 +323,12 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should update me and publish with CV as DOC' do
     login(@applicant)
-    patch :update_me, applicant: applicant_params.merge(
-      publish: '1',
-      curriculum_vitae: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.doc')
-    )
+    patch :update_me, params: {
+      applicant: applicant_params.merge(
+        publish: '1',
+        curriculum_vitae: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.doc')
+      )
+    }
     assert_equal [], @controller.current_applicant.errors.full_messages
     assert_equal 'Application successfully updated.', flash[:notice]
     assert_redirected_to dashboard_applicants_path
@@ -316,10 +336,12 @@ class ApplicantsControllerTest < ActionController::TestCase
 
   test 'should update me and publish with CV as DOCX' do
     login(@applicant)
-    patch :update_me, applicant: applicant_params.merge(
-      publish: '1',
-      curriculum_vitae: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.docx')
-    )
+    patch :update_me, params: {
+      applicant: applicant_params.merge(
+        publish: '1',
+        curriculum_vitae: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.docx')
+      )
+    }
     assert_equal [], @controller.current_applicant.errors.full_messages
     assert_equal 'Application successfully updated.', flash[:notice]
     assert_redirected_to dashboard_applicants_path

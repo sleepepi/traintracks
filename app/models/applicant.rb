@@ -2,7 +2,7 @@
 
 # The applicant class provides methods to to access information about trainees
 # and applicants.
-class Applicant < ActiveRecord::Base
+class Applicant < ApplicationRecord
   attr_accessor :degree_hashes
   after_save :set_degrees
 

@@ -1,4 +1,4 @@
-class AddProgramRequirementsToApplicants < ActiveRecord::Migration
+class AddProgramRequirementsToApplicants < ActiveRecord::Migration[4.2]
   def change
     add_column :applicants, :research_in_progress_title, :string
     add_column :applicants, :research_in_progress_date, :date

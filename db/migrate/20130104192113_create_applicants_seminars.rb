@@ -1,4 +1,4 @@
-class CreateApplicantsSeminars < ActiveRecord::Migration
+class CreateApplicantsSeminars < ActiveRecord::Migration[4.2]
   def change
     create_table :applicants_seminars, id: false do |t|
       t.integer :seminar_id

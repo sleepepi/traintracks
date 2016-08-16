@@ -28,7 +28,7 @@ class SeminarsControllerTest < ActionController::TestCase
   end
 
   test 'should get attendance with year and status specified' do
-    get :attendance, year: '2013', status: 'current'
+    get :attendance, params: { year: '2013', status: 'current' }
     assert_not_nil assigns(:applicants)
     assert_not_nil assigns(:seminars)
     assert_not_nil assigns(:year)
@@ -37,33 +37,33 @@ class SeminarsControllerTest < ActionController::TestCase
   end
 
   test 'should mark attendance as attended' do
-    post :attended, id: @seminar, attended: '1', applicant_id: applicants(:one).id, format: 'js'
-
+    post :attended, params: {
+      id: @seminar, attended: '1', applicant_id: applicants(:one).id
+    }, format: 'js'
     assert_not_nil assigns(:seminar)
     assert_not_nil assigns(:applicant)
     assert_equal 1, assigns(:applicant).seminars.where(id: @seminar.id).count
-
     assert_template 'attended'
     assert_response :success
   end
 
   test 'should mark attendance as not attended' do
-    post :attended, id: @seminar, attended: '0', applicant_id: applicants(:two).id, format: 'js'
-
+    post :attended, params: {
+      id: @seminar, attended: '0', applicant_id: applicants(:two).id
+    }, format: 'js'
     assert_not_nil assigns(:seminar)
     assert_not_nil assigns(:applicant)
     assert_equal 0, assigns(:applicant).seminars.where(id: @seminar.id).count
-
     assert_template 'attended'
     assert_response :success
   end
 
   test 'should not mark attendance with invalid applicant' do
-    post :attended, id: @seminar, attended: '1', applicant_id: -1, format: 'js'
-
+    post :attended, params: {
+      id: @seminar, attended: '1', applicant_id: -1
+    }, format: 'js'
     assert_not_nil assigns(:seminar)
     assert_nil assigns(:applicant)
-
     assert_response :success
   end
 
@@ -80,7 +80,34 @@ class SeminarsControllerTest < ActionController::TestCase
 
   test 'should create seminar' do
     assert_difference('Seminar.count') do
-      post :create, seminar: {
+      post :create, params: {
+        seminar: {
+          category: @seminar.category,
+          duration: @seminar.duration,
+          duration_units: @seminar.duration_units,
+          presentation_date: @seminar.presentation_date,
+          presentation_title: @seminar.presentation_title,
+          presenter: @seminar.presenter
+        }
+      }
+    end
+    assert_redirected_to seminar_path(assigns(:seminar))
+  end
+
+  test 'should show seminar' do
+    get :show, params: { id: @seminar }
+    assert_response :success
+  end
+
+  test 'should get edit' do
+    get :edit, params: { id: @seminar }
+    assert_response :success
+  end
+
+  test 'should update seminar' do
+    patch :update, params: {
+      id: @seminar,
+      seminar: {
         category: @seminar.category,
         duration: @seminar.duration,
         duration_units: @seminar.duration_units,
@@ -88,39 +115,14 @@ class SeminarsControllerTest < ActionController::TestCase
         presentation_title: @seminar.presentation_title,
         presenter: @seminar.presenter
       }
-    end
-
-    assert_redirected_to seminar_path(assigns(:seminar))
-  end
-
-  test 'should show seminar' do
-    get :show, id: @seminar
-    assert_response :success
-  end
-
-  test 'should get edit' do
-    get :edit, id: @seminar
-    assert_response :success
-  end
-
-  test 'should update seminar' do
-    put :update, id: @seminar,
-                 seminar: {
-                   category: @seminar.category,
-                   duration: @seminar.duration,
-                   duration_units: @seminar.duration_units,
-                   presentation_date: @seminar.presentation_date,
-                   presentation_title: @seminar.presentation_title,
-                   presenter: @seminar.presenter
-                 }
+    }
     assert_redirected_to seminar_path(assigns(:seminar))
   end
 
   test 'should destroy seminar' do
     assert_difference('Seminar.current.count', -1) do
-      delete :destroy, id: @seminar
+      delete :destroy, params: { id: @seminar }
     end
-
     assert_redirected_to seminars_path
   end
 end

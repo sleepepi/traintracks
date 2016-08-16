@@ -1,4 +1,4 @@
-class AddProgressReportDataFieldsToApplicants < ActiveRecord::Migration
+class AddProgressReportDataFieldsToApplicants < ActiveRecord::Migration[4.2]
   def change
     add_column :applicants, :approved_irb_protocols, :text
     add_column :applicants, :approved_irb_document, :string

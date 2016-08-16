@@ -1,4 +1,4 @@
-class AddTerminationColumnsToApplicants < ActiveRecord::Migration
+class AddTerminationColumnsToApplicants < ActiveRecord::Migration[4.2]
   def change
     add_column :applicants, :future_email, :string
     add_column :applicants, :entrance_year, :integer

@@ -1,9 +1,5 @@
-class RemoveYearFromApplicants < ActiveRecord::Migration
-  def up
-    remove_column :applicants, :year
-  end
-
-  def down
-    add_column :applicants, :year, :integer
+class RemoveYearFromApplicants < ActiveRecord::Migration[4.2]
+  def change
+    remove_column :applicants, :year, :integer
   end
 end

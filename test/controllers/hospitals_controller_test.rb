@@ -22,32 +22,32 @@ class HospitalsControllerTest < ActionController::TestCase
 
   test 'should create hospital' do
     assert_difference('Hospital.count') do
-      post :create, hospital: { name: 'Hospital A' }
+      post :create, params: { hospital: { name: 'Hospital A' } }
     end
-
     assert_redirected_to hospital_path(assigns(:hospital))
   end
 
   test 'should show hospital' do
-    get :show, id: @hospital
+    get :show, params: { id: @hospital }
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @hospital
+    get :edit, params: { id: @hospital }
     assert_response :success
   end
 
   test 'should update hospital' do
-    patch :update, id: @hospital, hospital: { name: 'Hospital A Updated' }
+    patch :update, params: {
+      id: @hospital, hospital: { name: 'Hospital A Updated' }
+    }
     assert_redirected_to hospital_path(assigns(:hospital))
   end
 
   test 'should destroy hospital' do
     assert_difference('Hospital.current.count', -1) do
-      delete :destroy, id: @hospital
+      delete :destroy, params: { id: @hospital }
     end
-
     assert_redirected_to hospitals_path
   end
 end

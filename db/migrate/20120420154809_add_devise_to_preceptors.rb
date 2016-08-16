@@ -1,4 +1,4 @@
-class AddDeviseToPreceptors < ActiveRecord::Migration
+class AddDeviseToPreceptors < ActiveRecord::Migration[4.2]
     def change
     # Database authenticatable
     add_column :preceptors, :email, :string, null: false, default: ""

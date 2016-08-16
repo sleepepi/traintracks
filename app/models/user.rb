@@ -2,14 +2,14 @@
 
 # The user class provides methods to scope resources in system that the user is
 # allowed to view and edit.
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :encryptable, :confirmable, :lockable and :omniauthable
   devise :database_authenticatable, :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
   # Callbacks
-  after_commit :notify_system_admins, on: :create
+  after_create_commit :notify_system_admins
 
   STATUS = %w(active denied inactive pending).collect { |i| [i, i] }
 
