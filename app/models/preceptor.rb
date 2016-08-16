@@ -81,10 +81,8 @@ class Preceptor < ApplicationRecord
   end
 
   def set_password
-    if respond_to?('encrypted_password') && encrypted_password.blank?
-      self.password = Devise.friendly_token
-      self.password_confirmation = password
-    end
-    true
+    return if encrypted_password.present?
+    self.password = Devise.friendly_token
+    self.password_confirmation = password
   end
 end

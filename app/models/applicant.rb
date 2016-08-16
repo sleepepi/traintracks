@@ -79,9 +79,6 @@ class Applicant < ApplicationRecord
   serialize :laboratories, Array
   serialize :transition_position, Array
   serialize :research_interests, Array
-  # TODO: Remove in 0.14.0
-  serialize :degrees_earned, Array
-  # END TODO
 
   # Callbacks
   before_validation :set_alien_registration_number, :set_password
@@ -116,7 +113,7 @@ class Applicant < ApplicationRecord
   # Education Experience
   validates :curriculum_vitae, :current_institution, :department_program, :current_position,
             presence: true, if: :annual_or_publish?
-  validates :degree_hashes, presence: { message: "Degrees hashes can't be blank" }, if: :annual_or_publish?
+  validates :degree_hashes, presence: true, if: :annual_or_publish?
 
   # Validations required for Exit Interview
   validates :future_email, :entrance_year, presence: true, if: :termination?
@@ -268,18 +265,14 @@ class Applicant < ApplicationRecord
   end
 
   def set_submitted_at
-    if respond_to?('submitted_at') && submitted_at.blank? && publish.to_s == '1'
+    if submitted_at.blank? && publish.to_s == '1'
       self.submitted_at = Time.zone.now
-      self.originally_submitted_at = submitted_at if respond_to?('originally_submitted_at') && originally_submitted_at.blank?
+      self.originally_submitted_at = submitted_at if originally_submitted_at.blank?
     end
-    true
   end
 
   def set_tge
-    if respond_to?('tge')
-      self.tge = ['citizen', 'permanent resident'].include?(citizenship_status)
-    end
-    true
+    self.tge = ['citizen', 'permanent resident'].include?(citizenship_status)
   end
 
   def notify_preceptor
@@ -296,29 +289,26 @@ class Applicant < ApplicationRecord
   end
 
   def set_password
-    if respond_to?('encrypted_password') && encrypted_password.blank?
-      self.password = Devise.friendly_token
-      self.password_confirmation = password
-    end
-    true
+    return if encrypted_password.present?
+    self.password = Devise.friendly_token
+    self.password_confirmation = password
   end
 
   def check_degree_hashes
-    result = true
+    error_found = false
     degree_hashes.each do |hash|
-      result = true
       [:degree_type, :institution].each do |attr|
         if hash[attr].blank?
-          errors.add(:degrees, "#{attr.to_s.gsub('_', ' ')} can't be blank" ) unless errors[:degrees].include?("#{attr.to_s.gsub('_', ' ')} can't be blank")
-          result = false
+          errors.add(:degrees, "#{attr.to_s.gsub('_', ' ')} can't be blank") unless errors[:degrees].include?("#{attr.to_s.gsub('_', ' ')} can't be blank")
+          error_found = true
         end
       end
       if hash[:year].to_i <= 0
-        errors.add(:degrees, "year can't be blank" ) unless errors[:degrees].include?("year can't be blank")
-        result = false
+        errors.add(:degrees, "year can't be blank") unless errors[:degrees].include?("year can't be blank")
+        error_found = true
       end
     end
-    result
+    throw :abort if error_found
   end
 
   # Return true if an email has been sent to the applicant and they have not yet logged in
