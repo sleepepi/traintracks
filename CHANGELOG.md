@@ -1,6 +1,9 @@
 ## 0.14.0
 
 ### Enhancements
+- **Annual Changes**
+  - Trainees updating their annual information can now save the updated
+    information as a draft
 - **Gem Changes**
   - Updated to rails 5.0.0.1
   - Updated to coffee-rails 4.2
