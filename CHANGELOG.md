@@ -1,5 +1,8 @@
 ## 0.14.2
 
+### Bug Fix
+- Fixed a bug that prevented typeahead fields from displaying correctly
+
 ## 0.14.1 (August 19, 2016)
 
 ### Bug Fixes
