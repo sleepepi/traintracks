@@ -1,4 +1,4 @@
-## 0.14.1
+## 0.14.1 (August 19, 2016)
 
 ### Bug Fixes
 - Fixed a bug that prevented seminars without presentation dates from displaying
