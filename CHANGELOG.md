@@ -3,6 +3,7 @@
 ### Bug Fixes
 - Fixed a bug that prevented seminars without presentation dates from displaying
   properly
+- Fixed a bug that prevented forms from being submitted due to CSRF origin check
 
 ## 0.14.0 (August 18, 2016)
 
