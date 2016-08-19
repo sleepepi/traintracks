@@ -99,6 +99,11 @@ class SeminarsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should show seminar with no presentation date' do
+    get :show, params: { id: seminars(:no_date) }
+    assert_response :success
+  end
+
   test 'should get edit' do
     get :edit, params: { id: @seminar }
     assert_response :success
