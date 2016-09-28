@@ -1,5 +1,9 @@
 ## 0.15.0
 
+### Enhancements
+- **Gem Changes**
+  - Updated to jquery-rails 4.2.1
+
 ## 0.14.2 (August 19, 2016)
 
 ### Bug Fix
