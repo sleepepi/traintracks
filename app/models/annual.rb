@@ -10,7 +10,7 @@ class Annual < ApplicationRecord
   before_save :set_submitted_at
 
   # Concerns
-  include Deletable
+  include Deletable, Forkable
 
   # Named Scopes
   scope :search, -> (arg) { where('annuals.applicant_id in (select applicants.id from applicants where LOWER(applicants.first_name) LIKE ? or LOWER(applicants.last_name) LIKE ? or LOWER(applicants.email) LIKE ?)', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%')).references(:applicants) }
@@ -49,5 +49,16 @@ class Annual < ApplicationRecord
 
   def submitted?
     submitted_at.present?
+  end
+
+  def send_annual_submitted_in_background!
+    fork_process(:send_annual_submitted!)
+  end
+
+  protected
+
+  def send_annual_submitted!
+    return unless EMAILS_ENABLED
+    UserMailer.annual_submitted(self).deliver_now
   end
 end

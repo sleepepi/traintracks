@@ -11,4 +11,12 @@ class ApplicationMailer < ActionMailer::Base
   def setup_email
     # attachments.inline['slice-logo.png'] = File.read('app/assets/images/try-slice-logo-no-text.png') rescue nil
   end
+
+  def tg_admin_email
+    if defined?(ENV['tg_admin_email']) && ENV['tg_admin_email'].present?
+      ENV['tg_admin_email']
+    else
+      ActionMailer::Base.smtp_settings[:email]
+    end
+  end
 end

@@ -34,6 +34,13 @@ class UserMailerTest < ActionMailer::TestCase
     )
   end
 
+  test 'annual submitted email' do
+    annual = annuals(:one)
+    email = UserMailer.annual_submitted(annual).deliver_now
+    assert_equal 'FirstName MyString LastName Submitted Annual Update', email.subject
+    assert_match(/FirstName MyString LastName has submitted a profile update\./, email.encoded)
+  end
+
   test 'help email' do
     applicant = applicants(:one)
     # Send the email, then test that it got queued

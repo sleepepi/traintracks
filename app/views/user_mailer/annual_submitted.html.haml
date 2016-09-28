@@ -1,0 +1,9 @@
+= @annual.applicant.name
+has submitted a profile update.
+%br
+%br
+You may view the updated annual information here:
+%br
+%br
+%center
+  = link_to "#{ENV['website_url']}/applicants/#{@annual.applicant.id}", "#{ENV['website_url']}/applicants/#{@annual.applicant.id}", style: link_style

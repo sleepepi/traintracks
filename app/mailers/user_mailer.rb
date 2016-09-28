@@ -3,11 +3,7 @@
 # Sends out application emails to users.
 class UserMailer < ApplicationMailer
   def help_email(current_applicant, subject, body)
-    to_email = if defined?(ENV['tg_admin_email']) && ENV['tg_admin_email'].present?
-                 ENV['tg_admin_email']
-               else
-                 ActionMailer::Base.smtp_settings[:email]
-               end
+    to_email = tg_admin_email
 
     mail(to: to_email, reply_to: current_applicant.email_with_name,
          subject: subject + " - " + current_applicant.name,
@@ -30,6 +26,14 @@ class UserMailer < ApplicationMailer
     @email_to = user.email
     mail(to: user.email,
          subject: "#{user.name}'s Account Activated")
+  end
+
+  def annual_submitted(annual)
+    setup_email
+    @annual = annual
+    @email_to = tg_admin_email
+    mail(to: @email_to,
+         subject: "#{@annual.applicant.name} Submitted Annual Update")
   end
 
   def update_application(applicant, user)

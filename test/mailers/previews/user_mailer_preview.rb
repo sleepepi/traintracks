@@ -20,6 +20,11 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.status_activated(user)
   end
 
+  def annual_submitted
+    annual = Annual.current.last
+    UserMailer.annual_submitted(annual)
+  end
+
   def update_application
     applicant = Applicant.first
     user = User.current.first

@@ -41,6 +41,7 @@ class AnnualsController < ApplicationController
   def edit
   end
 
+  # GET /annuals/1/edit_me
   def edit_me
     @annual = current_applicant.annuals.find_by_id(params[:id])
     redirect_to dashboard_applicants_path unless @annual
@@ -70,7 +71,8 @@ class AnnualsController < ApplicationController
     @annual = current_applicant.annuals.find_by_id(params[:id])
 
     if @annual
-      if current_applicant.update(applicant_params) and @annual.update(annual_params)
+      if current_applicant.update(applicant_params) && @annual.update(annual_params)
+        @annual.send_annual_submitted_in_background!
         redirect_to dashboard_applicants_path, notice: 'Annual information was successfully updated.'
       else
         render :edit_me
