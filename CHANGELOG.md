@@ -4,6 +4,8 @@
 - **Annual Changes**
   - Training grant administrators now receive an email when trainees update
     their annual profile information
+- **Email Changes**
+  - Annual update reminder emails are now sent in background
 - **Gem Changes**
   - Updated to jquery-rails 4.2.1
 

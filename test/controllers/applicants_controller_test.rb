@@ -346,4 +346,26 @@ class ApplicantsControllerTest < ActionController::TestCase
     assert_equal 'Application successfully updated.', flash[:notice]
     assert_redirected_to dashboard_applicants_path
   end
+
+  test 'should send general update email to applicant' do
+    login(@administrator)
+    post :email, params: { id: @applicant }, format: 'js'
+    assert_not_nil assigns(:applicant)
+    assert_redirected_to @applicant
+  end
+
+  test 'should send annual reminder email to applicant' do
+    login(@administrator)
+    get :annual_email, params: { id: @applicant, annual_year: 2016, annual_subject: 'ACTION REQUIRED: Data Update', annual_body: 'You are being contacted' }, xhr: true, format: 'js'
+    assert_not_nil assigns(:applicant)
+    assert_template 'annual_email'
+    assert_response :success
+  end
+
+  test 'should send termination email to applicant' do
+    login(@administrator)
+    post :termination_email, params: { id: @applicant }, format: 'js'
+    assert_not_nil assigns(:applicant)
+    assert_redirected_to @applicant
+  end
 end

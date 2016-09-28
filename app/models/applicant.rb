@@ -12,7 +12,7 @@ class Applicant < ApplicationRecord
          :recoverable, :rememberable, :trackable, :lockable, :validatable
 
   # Concerns
-  include TokenAuthenticatable, Deletable
+  include TokenAuthenticatable, Deletable, Forkable
 
   # # Setup accessible (or protected) attributes for your model
   # attr_accessible :email, :password, :password_confirmation, :remember_me
@@ -321,18 +321,6 @@ class Applicant < ApplicationRecord
     UserMailer.update_application(self, current_user).deliver_now if EMAILS_ENABLED
   end
 
-  def send_annual_reminder!(current_user, year, subject, body)
-    annual = Annual.current.where(applicant_id: id, year: year).first_or_create(user_id: current_user.id)
-    if annual
-      if annual.submitted?
-        # Do nothing
-      elsif annual.applicant && annual.applicant.email.present?
-        update_column :emailed_at, Time.zone.now
-        UserMailer.update_annual(annual, subject, body).deliver_now if EMAILS_ENABLED
-      end
-    end
-  end
-
   def send_termination!(current_user)
     update_column :emailed_at, Time.zone.now
     UserMailer.exit_interview(self, current_user).deliver_now if EMAILS_ENABLED
@@ -349,11 +337,37 @@ class Applicant < ApplicationRecord
     end
   end
 
+  def send_annual_reminder_in_background!(current_user, year, subject, body)
+    fork_process(:send_annual_reminder!, current_user, year, subject, body)
+  end
+
+  def self.send_annual_reminders_in_background!(applicant_scope, current_user, year, subject, body)
+    new.fork_process(:send_annual_reminders!, applicant_scope, current_user, year, subject, body)
+  end
+
   protected
 
   # Override Devise Email Required
   def email_required?
     admin_update != '1'
+  end
+
+  def send_annual_reminder!(current_user, year, subject, body)
+    annual = Annual.current.where(applicant_id: id, year: year).first_or_create(user_id: current_user.id)
+    if annual
+      if annual.submitted?
+        # Do nothing
+      elsif annual.applicant && annual.applicant.email.present?
+        update_column :emailed_at, Time.zone.now
+        UserMailer.update_annual(annual, subject, body).deliver_now if EMAILS_ENABLED
+      end
+    end
+  end
+
+  def send_annual_reminders!(applicant_scope, current_user, year, subject, body)
+    applicant_scope.find_each do |applicant|
+      applicant.send_annual_reminder!(current_user, year, subject, body)
+    end
   end
 
   private

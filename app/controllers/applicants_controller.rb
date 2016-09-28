@@ -56,8 +56,9 @@ class ApplicantsController < ApplicationController
     redirect_to @applicant, notice: 'Applicant has been notified by email to update application information.'
   end
 
+  # GET /applicants/1/annual_email
   def annual_email
-    @applicant.send_annual_reminder!(current_user, params[:annual_year].to_i, params[:annual_subject], params[:annual_body])
+    @applicant.send_annual_reminder_in_background!(current_user, params[:annual_year].to_i, params[:annual_subject], params[:annual_body])
   end
 
   def termination_email
@@ -81,9 +82,7 @@ class ApplicantsController < ApplicationController
     end
 
     if params[:year].to_i > 2000
-      applicant_scope.each do |applicant|
-        applicant.send_annual_reminder!(current_user, params[:year].to_i, params[:subject], params[:body])
-      end
+      Applicant.send_annual_reminders_in_background!(applicant_scope, current_user, params[:year].to_i, params[:subject], params[:body])
       redirect_to (applicant_scope.count == 1 ? applicant_scope.first : applicants_path), notice: notice
     else
       redirect_to applicants_path, alert: "'#{params[:year].to_i}' is not a valid year."
