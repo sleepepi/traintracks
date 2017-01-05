@@ -4,13 +4,17 @@
 [![Dependency Status](https://gemnasium.com/sleepepi/traintracks.svg)](https://gemnasium.com/sleepepi/traintracks)
 [![Code Climate](https://codeclimate.com/github/sleepepi/traintracks/badges/gpa.svg)](https://codeclimate.com/github/sleepepi/traintracks)
 
-Train Tracks manages new applicants, trainees, and preceptors over a 15-year time period. Using Rails 5.0+ and Ruby 2.4+.
+Train Tracks manages new applicants, trainees, and preceptors over a 15-year
+time period. Using Rails 5.0+ and Ruby 2.4+.
 
 ## Installation
 
-[Prerequisites Install Guide](https://github.com/remomueller/documentation): Instructions for installing prerequisites like Ruby, Git, JavaScript compiler, etc.
+[Prerequisites Install Guide](https://github.com/remomueller/documentation):
+Instructions for installing prerequisites like Ruby, Git, JavaScript compiler,
+etc.
 
-Once you have the prerequisites in place, you can proceed to install bundler which will handle most of the remaining dependencies.
+Once you have the prerequisites in place, you can proceed to install bundler
+which will handle most of the remaining dependencies.
 
 ```
 gem install bundler
@@ -28,14 +32,15 @@ cd traintracks
 bundle install
 ```
 
-Install default configuration files for database connection, email server connection, server url, and application name.
+Install default configuration files for database connection, email server
+connection, server url, and application name.
 
 ```
 ruby lib/initial_setup.rb
 
-bundle exec rake db:migrate RAILS_ENV=production
+rails db:migrate RAILS_ENV=production
 
-bundle exec rake assets:precompile RAILS_ENV=production
+rails assets:precompile RAILS_ENV=production
 ```
 
 Run Rails Server (or use Apache or nginx)
@@ -50,7 +55,8 @@ All done!
 
 ## Setting up Seminar Reminder Emails
 
-Edit Cron Jobs `sudo crontab -e` to run the task `lib/tasks/seminar_reminder_email.rake`
+Edit Cron Jobs `sudo crontab -e` to run the task
+`lib/tasks/seminar_reminder_email.rake`
 
 ```
 SHELL=/bin/bash
@@ -59,13 +65,18 @@ SHELL=/bin/bash
 
 ## Contributing to Training Grant
 
-- Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-- Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
+- Check out the latest master to make sure the feature hasn't been implemented
+  or the bug hasn't been fixed yet
+- Check out the issue tracker to make sure someone already hasn't requested it
+  and/or contributed it
 - Fork the project
 - Start a feature/bugfix branch
 - Commit and push until you are happy with your contribution
-- Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-- Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+- Make sure to add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+- Please try not to mess with the Rakefile, version, or history. If you want to
+  have your own version, or is otherwise necessary, that is fine, but please
+  isolate to its own commit so I can cherry-pick around it.
 
 ## License
 
