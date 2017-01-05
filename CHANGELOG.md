@@ -1,5 +1,9 @@
 ## 0.16.0
 
+### Enhancements
+- **Gem Changes**
+  - Updated to rails 5.0.1
+
 ## 0.15.0 (September 28, 2016)
 
 ### Enhancements
