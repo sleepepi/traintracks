@@ -63,7 +63,7 @@ class DeviseMailerTest < ActionMailer::TestCase
     email = Devise::Mailer.unlock_instructions(applicant, 'faketoken').deliver_now
     assert !ActionMailer::Base.deliveries.empty?
     assert_equal [applicant.email], email.to
-    assert_equal 'Unlock Instructions', email.subject
+    assert_equal 'Unlock instructions', email.subject
     assert_match(%r{#{ENV['website_url']}/trainee/unlock\?unlock_token=faketoken}, email.encoded)
   end
 
@@ -72,7 +72,7 @@ class DeviseMailerTest < ActionMailer::TestCase
     email = Devise::Mailer.unlock_instructions(preceptor, 'faketoken').deliver_now
     assert !ActionMailer::Base.deliveries.empty?
     assert_equal [preceptor.email], email.to
-    assert_equal 'Unlock Instructions', email.subject
+    assert_equal 'Unlock instructions', email.subject
     assert_match(%r{#{ENV['website_url']}/preceptor/unlock\?unlock_token=faketoken}, email.encoded)
   end
 
