@@ -37,7 +37,11 @@ class SitesControllerTest < ActionController::TestCase
     assert_equal TrainingGrant::VERSION::MAJOR, version['version']['major']
     assert_equal TrainingGrant::VERSION::MINOR, version['version']['minor']
     assert_equal TrainingGrant::VERSION::TINY, version['version']['tiny']
-    assert_equal TrainingGrant::VERSION::BUILD, version['version']['build']
+    if TrainingGrant::VERSION::BUILD.nil?
+      assert_nil version['version']['build']
+    else
+      assert_equal TrainingGrant::VERSION::BUILD, version['version']['build']
+    end
     assert_response :success
   end
 end
