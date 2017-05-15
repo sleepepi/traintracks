@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/sleepepi/traintracks/badges/gpa.svg)](https://codeclimate.com/github/sleepepi/traintracks)
 
 Train Tracks manages new applicants, trainees, and preceptors over a 15-year
-time period. Using Rails 5.0+ and Ruby 2.4+.
+time period. Using Rails 5.1+ and Ruby 2.4+.
 
 ## Installation
 

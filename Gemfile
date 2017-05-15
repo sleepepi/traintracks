@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'rails',                '5.0.1'
+gem 'rails',                '5.1.1'
 
 # Database Adapter
 gem 'mysql2',               '0.4.6'
@@ -11,7 +11,7 @@ gem 'mysql2',               '0.4.6'
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass',       '~> 3.3.7'
 gem 'carrierwave',          '~> 1.1.0'
-gem 'devise',               '~> 4.2.0'
+gem 'devise',               '~> 4.3.0'
 gem 'figaro',               '~> 1.1.1'
 gem 'haml',                 '~> 5.0.1'
 gem 'kaminari',             '~> 1.0.1'
