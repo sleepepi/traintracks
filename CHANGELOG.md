@@ -4,6 +4,7 @@
 - **General Changes**
   - Login cookies are now cross subdomain and work between www and non-www URLs
   - Rails `belongs_to` relationship is now required by default
+  - Improved loading of annuals index page
 - **Gem Changes**
   - Updated to Ruby 2.4.1
   - Updated to rails 5.1.1

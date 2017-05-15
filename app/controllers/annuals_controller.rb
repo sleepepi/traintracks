@@ -13,8 +13,10 @@ class AnnualsController < ApplicationController
   # GET /annuals
   def index
     @order = scrub_order(Annual, params[:order], 'annuals.id')
-    annual_scope = current_user.all_viewable_annuals.search(params[:search]).order(@order)
-    annual_scope = annual_scope.where(year: params[:year]) unless params[:year].blank?
+    annual_scope = current_user.all_viewable_annuals
+                               .includes(:applicant)
+                               .search(params[:search]).order(@order)
+    annual_scope = annual_scope.where(year: params[:year]) if params[:year].present?
 
     if params[:format] == 'csv'
       if annual_scope.count == 0
