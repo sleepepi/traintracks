@@ -1,5 +1,8 @@
 ## 0.17.0
 
+- **Gem Changes**
+  - Updated to Ruby 2.4.1
+
 ## 0.16.0 (January 5, 2017)
 
 ### Enhancements
