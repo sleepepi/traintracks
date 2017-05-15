@@ -137,11 +137,11 @@ class Applicant < ApplicationRecord
             length: { maximum: 255 }
 
   # Model Relationships
-  belongs_to :preferred_preceptor, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_id'
-  belongs_to :preferred_preceptor_two, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_two_id'
-  belongs_to :preferred_preceptor_three, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_three_id'
-  belongs_to :primary_preceptor, class_name: 'Preceptor', foreign_key: 'primary_preceptor_id'
-  belongs_to :secondary_preceptor, class_name: 'Preceptor', foreign_key: 'secondary_preceptor_id'
+  belongs_to :preferred_preceptor, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_id', optional: true
+  belongs_to :preferred_preceptor_two, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_two_id', optional: true
+  belongs_to :preferred_preceptor_three, class_name: 'Preceptor', foreign_key: 'preferred_preceptor_three_id', optional: true
+  belongs_to :primary_preceptor, class_name: 'Preceptor', foreign_key: 'primary_preceptor_id', optional: true
+  belongs_to :secondary_preceptor, class_name: 'Preceptor', foreign_key: 'secondary_preceptor_id', optional: true
   has_many :annuals, -> { current.order(year: :desc) }
   has_many :degrees, -> { order :position }
   has_and_belongs_to_many :seminars
