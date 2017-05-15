@@ -45,7 +45,7 @@ class AnnualsController < ApplicationController
 
   # GET /annuals/1/edit_me
   def edit_me
-    @annual = current_applicant.annuals.find_by_id(params[:id])
+    @annual = current_applicant.annuals.find_by(id: params[:id])
     redirect_to dashboard_applicants_path unless @annual
   end
 
@@ -70,7 +70,7 @@ class AnnualsController < ApplicationController
   end
 
   def update_me
-    @annual = current_applicant.annuals.find_by_id(params[:id])
+    @annual = current_applicant.annuals.find_by(id: params[:id])
 
     if @annual
       if current_applicant.update(applicant_params) && @annual.update(annual_params)
@@ -93,11 +93,11 @@ class AnnualsController < ApplicationController
   private
 
   def set_viewable_annual
-    @annual = current_user.all_viewable_annuals.find_by_id(params[:id])
+    @annual = current_user.all_viewable_annuals.find_by(id: params[:id])
   end
 
   def set_editable_annual
-    @annual = current_user.all_annuals.find_by_id(params[:id])
+    @annual = current_user.all_annuals.find_by(id: params[:id])
   end
 
   def redirect_without_annual

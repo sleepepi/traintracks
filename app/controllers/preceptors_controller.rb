@@ -88,7 +88,7 @@ class PreceptorsController < ApplicationController
   private
 
   def set_preceptor
-    @preceptor = Preceptor.find_by_id(params[:id])
+    @preceptor = Preceptor.find_by(id: params[:id])
   end
 
   def redirect_without_preceptor

@@ -57,7 +57,7 @@ class HospitalsController < ApplicationController
   private
 
   def set_hospital
-    @hospital = Hospital.current.find_by_id(params[:id])
+    @hospital = Hospital.current.find_by(id: params[:id])
     redirect_without_hospital
   end
 

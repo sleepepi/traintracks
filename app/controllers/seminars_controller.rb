@@ -20,8 +20,8 @@ class SeminarsController < ApplicationController
   end
 
   def attended
-    @seminar = current_user.all_seminars.find_by_id(params[:id])
-    @applicant = Applicant.current.find_by_id(params[:applicant_id])
+    @seminar = current_user.all_seminars.find_by(id: params[:id])
+    @applicant = Applicant.current.find_by(id: params[:applicant_id])
 
     if @seminar and @applicant
       if params[:attended] == '1'
@@ -81,11 +81,11 @@ class SeminarsController < ApplicationController
   private
 
   def set_viewable_seminar
-    @seminar = current_user.all_viewable_seminars.find_by_id(params[:id])
+    @seminar = current_user.all_viewable_seminars.find_by(id: params[:id])
   end
 
   def set_editable_seminar
-    @seminar = current_user.all_seminars.find_by_id(params[:id])
+    @seminar = current_user.all_seminars.find_by(id: params[:id])
   end
 
   def redirect_without_seminar

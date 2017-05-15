@@ -173,7 +173,7 @@ class ApplicantsController < ApplicationController
   private
 
   def set_applicant
-    @applicant = Applicant.find_by_id(params[:id])
+    @applicant = Applicant.find_by(id: params[:id])
   end
 
   def redirect_without_applicant

@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.current.find_by_id(params[:id])
+    @user = User.current.find_by(id: params[:id])
   end
 
   def redirect_without_user
