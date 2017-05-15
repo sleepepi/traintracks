@@ -5,6 +5,7 @@
   - Updated to carrierwave 1.1.0
   - Updated to haml 5.0.1
   - Updated to kaminari 1.0.1
+  - Updated to jquery-rails 4.3.1
 
 ## 0.16.0 (January 5, 2017)
 
