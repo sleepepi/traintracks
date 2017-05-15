@@ -1,5 +1,6 @@
 ## 0.17.0
 
+### Enhancements
 - **Gem Changes**
   - Updated to Ruby 2.4.1
   - Updated to rails 5.1.1
@@ -10,6 +11,10 @@
   - Updated to jquery-rails 4.3.1
   - Updated to mysql2 0.4.6
   - Updated to simplecov 0.14.1
+
+### Bug Fixes
+- Fixed a bug that caused JavaScript functions to run twice in browsers that
+  supported Turbolinks
 
 ## 0.16.0 (January 5, 2017)
 
