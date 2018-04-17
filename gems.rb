@@ -10,7 +10,7 @@ gem "mysql2",               "0.4.6"
 # Gems used by project
 gem "autoprefixer-rails"
 gem "bootstrap-sass",       "~> 3.3.7"
-gem "carrierwave",          "~> 1.1.0"
+gem "carrierwave",          "~> 1.2.2"
 gem "devise",               "~> 4.4.3"
 gem "figaro",               "~> 1.1.1"
 gem "haml",                 "~> 5.0.4"
