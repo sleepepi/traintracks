@@ -100,7 +100,7 @@ class Applicant < ApplicationRecord
   validates :expected_year, :degree_sought, presence: true, unless: [:postdoc?, :not_submitted?]
   validates :desired_start_date, :personal_statement, :research_interests, :preferred_preceptor_id, :marital_status,
             presence: true, if: :submitted?
-  validates :research_interests_other, presence: true, if: [:submitted?, 'research_interests.include?("other")']
+  validates :research_interests_other, presence: true, if: [:submitted?, -> { research_interests.include?("other") }]
   validates :disabled_description, presence: true, if: [:submitted?, :disabled?]
   validates :alien_registration_number, presence: true, if: [:submitted?, :permanent_resident?]
   validates :alien_registration_number, format: { with: /\AA\d*\Z/ }, if: [:submitted?, :permanent_resident?]
@@ -117,12 +117,12 @@ class Applicant < ApplicationRecord
 
   # Validations required for Exit Interview
   validates :future_email, :entrance_year, presence: true, if: :termination?
-  validates :t32_funded, presence: true, if: [:termination?, 't32_funded.nil?']
+  validates :t32_funded, presence: true, if: [:termination?, -> { t32_funded.nil? }]
   validates :t32_funded_years, presence: true, if: [:termination?, :t32_funded?]
-  validates :academic_program_completed, presence: true, if: [:termination?, 'academic_program_completed.nil?']
+  validates :academic_program_completed, presence: true, if: [:termination?, -> { academic_program_completed.nil? }]
   validates :certificate_application, presence: true, if: [:termination?, :academic_program_completed?]
   validates :research_project_title, :laboratories, presence: true, if: :termination?
-  validates :immediate_transition, presence: true, if: [:termination?, 'immediate_transition.nil?']
+  validates :immediate_transition, presence: true, if: [:termination?, -> { immediate_transition.nil? }]
   validates :transition_position, presence: true, if: [:termination?, :immediate_transition?]
   validates :transition_position_other, presence: true, if: [:termination?, :other_position_selected?]
 

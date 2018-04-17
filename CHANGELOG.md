@@ -2,6 +2,7 @@
 
 ### Enhancements
 - **Gem Changes**
+  - Updated to rails 5.2.0
   - Updated to devise 4.4.3
 
 ## 0.17.0 (May 16, 2017)
