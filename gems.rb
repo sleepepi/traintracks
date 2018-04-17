@@ -13,7 +13,7 @@ gem "bootstrap-sass",       "~> 3.3.7"
 gem "carrierwave",          "~> 1.1.0"
 gem "devise",               "~> 4.4.3"
 gem "figaro",               "~> 1.1.1"
-gem "haml",                 "~> 5.0.1"
+gem "haml",                 "~> 5.0.4"
 gem "kaminari",             "~> 1.0.1"
 
 # Rails Defaults
