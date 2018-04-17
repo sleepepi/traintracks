@@ -14,7 +14,7 @@ gem "carrierwave",          "~> 1.2.2"
 gem "devise",               "~> 4.4.3"
 gem "figaro",               "~> 1.1.1"
 gem "haml",                 "~> 5.0.4"
-gem "kaminari",             "~> 1.0.1"
+gem "kaminari",             "~> 1.1.1"
 
 # Rails Defaults
 gem "coffee-rails",         "~> 4.2"
