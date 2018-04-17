@@ -2,6 +2,7 @@
 
 ### Enhancements
 - **Gem Changes**
+  - Updated to ruby 2.5.1
   - Updated to rails 5.2.0
   - Updated to carrierwave 1.2.2
   - Updated to devise 4.4.3
