@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'sites#dashboard'
+  root "sites#dashboard"
 
   resources :annuals do
     member do
@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   end
 
   devise_for :applicants,
-             path: 'trainee',
-             path_names: { sign_up: 'register', sign_in: 'login' }
+             path: "trainee",
+             path_names: { sign_up: "register", sign_in: "login" }
 
   resources :applicants do
     collection do
@@ -35,11 +35,15 @@ Rails.application.routes.draw do
     end
   end
 
+  scope module: :external do
+    get :privacy_policy, path: "privacy-policy"
+  end
+
   resources :hospitals
 
   devise_for :preceptors,
-             path: 'preceptor',
-             path_names: { sign_up: 'register', sign_in: 'login' }
+             path: "preceptor",
+             path_names: { sign_up: "register", sign_in: "login" }
 
   resources :preceptors do
     collection do
@@ -61,16 +65,16 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, path_names: { sign_up: 'register', sign_in: 'login' }, path: ''
+  devise_for :users, path_names: { sign_up: "register", sign_in: "login" }, path: ""
 
   resources :users
 
-  get '/settings' => 'users#settings', as: :settings
+  get "/settings" => "users#settings", as: :settings
 
-  scope module: 'sites' do
+  scope module: "sites" do
     get :about
     get :contact
-    get 'forgot-my-password', action: :forgot_my_password,
+    get "forgot-my-password", action: :forgot_my_password,
                               as: :forgot_my_password
     get :dashboard
     get :version

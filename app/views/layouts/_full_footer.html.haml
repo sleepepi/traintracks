@@ -1,4 +1,4 @@
-%div{ style: 'clear:both;height:0px' }
+%div{ style: "clear:both;height:0px" }
   &nbsp;
 
 %footer.dark-texture
@@ -7,24 +7,25 @@
       .col-sm-3.col-xs-6
         %h4 Train Tracks
         %ul.list-unstyled
-          %li= link_to 'Home', root_path
-          %li= link_to 'About', about_path
+          %li= link_to "Home", root_path
+          %li= link_to "About", about_path
+          %li= link_to "Privacy Policy", privacy_policy_path
       .col-sm-3.col-xs-6
         %h4 New To Site
         %ul.list-unstyled
-          %li= link_to 'New Applicant Registration', new_applicant_registration_path
-          %li= link_to 'I forgot my password!', forgot_my_password_path
+          %li= link_to "New Applicant Registration", new_applicant_registration_path
+          %li= link_to "I forgot my password!", forgot_my_password_path
       .col-sm-3.col-xs-6
         %h4 Administrative
         %ul.list-unstyled
-          %li= link_to 'New Admin Registration', new_user_registration_path
-          %li= link_to 'Seminar Attendance', attendance_seminars_path(status: 'current')
+          %li= link_to "New Admin Registration", new_user_registration_path
+          %li= link_to "Seminar Attendance", attendance_seminars_path(status: "current")
       .col-sm-3.col-xs-6
         %h4 Support
         %ul.list-unstyled
-          %li= link_to 'Contact Us', contact_path
+          %li= link_to "Contact Us", contact_path
 
-    %h4{ style: 'margin-top:20px' }
+    %h4{ style: "margin-top:20px" }
       &copy;
       = Date.today.year
       Division of Sleep And Circadian Disorders

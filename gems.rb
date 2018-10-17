@@ -25,13 +25,15 @@ gem "jbuilder",             "~> 2.5"
 gem "jquery-rails",         "~> 4.3.1"
 gem "turbolinks",           "~> 5"
 
-# Testing
-group :test do
-  gem "minitest"
-  gem "rails-controller-testing"
-  gem "simplecov",          "~> 0.16.1", require: false
-end
-
 group :development do
   gem "web-console", "~> 3.0"
+end
+
+group :test do
+  gem "capybara",           "~> 3.0"
+  gem "minitest"
+  gem "puma"
+  gem "rails-controller-testing"
+  gem "selenium-webdriver"
+  gem "simplecov",          "~> 0.16.1", require: false
 end
