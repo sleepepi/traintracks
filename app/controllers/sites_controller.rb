@@ -18,4 +18,10 @@ class SitesController < ApplicationController
     applicant_scope = applicant_scope.submitted_before(@submitted_before) unless @submitted_before.blank?
     @applicants = applicant_scope
   end
+
+  # GET /version
+  # GET /version.json
+  def version
+    render layout: "layouts/full_page"
+  end
 end

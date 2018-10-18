@@ -1,9 +1,8 @@
-- @title = 'Version'
+- @title = "Version"
 
+- @theme = "default"
 
-%h1 Version
-
-.text-center{ style: 'margin-top:40px' }
-  %p.lead
-    Current version
-    %strong= TrainTracks::VERSION::STRING
+.page-box.last-box.d-flex.align-items-center.theme-bg{ class: "theme-#{@theme}-focus-bg" }
+  .container
+    .text-center.text-white{ style: "font-size: 2rem;" }
+      = "v#{TrainTracks::VERSION::STRING}"
