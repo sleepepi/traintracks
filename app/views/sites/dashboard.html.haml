@@ -41,7 +41,7 @@
             %td= year_applicants.where(applicant_type: "summer").count
           %tr{ style: "font-weight: bold;" }
             %td Acceptance rate this calendar year
-            %td= year_applicants.count == 0 ? "N/A" : "%0.00f %" % (year_applicants.where(accepted: true).count * 100.0 / year_applicants.count)
+            %td= year_applicants.count == 0 ? "N/A" : "%0.00f %%" % (year_applicants.where(accepted: true).count * 100.0 / year_applicants.count)
 
       %td{ style: "vertical-align: bottom;border: 0;" }
         %table.table.table-striped.table-borderless.table-hover
@@ -61,7 +61,7 @@
             %td= last_year_applicants.where(applicant_type: "summer").count
           %tr{ style: "font-weight: bold;" }
             %td Acceptance rate last calendar year
-            %td= last_year_applicants.count == 0 ? "N/A" : "%0.00f %" % (last_year_applicants.where(accepted: true).count * 100.0 / last_year_applicants.count)
+            %td= last_year_applicants.count == 0 ? "N/A" : "%0.00f %%" % (last_year_applicants.where(accepted: true).count * 100.0 / last_year_applicants.count)
 
 .dashboard-container
   = form_with url: dashboard_path, method: :get, id: "applicants_search", class: "form-search", data: { object: "form-load" } do
