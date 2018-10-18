@@ -1,23 +1,6 @@
-.page-header
-  %h2 Progress Report Data
+.brand-title Progress Report Data
 
-%dl.dl-horizontal
-  %dt{ title: "Approved IRB Protocols", style: 'min-height: 80px' } Approved IRB Protocols
-  %dd{ style: 'min-height: 80px' }= simple_format applicant.approved_irb_protocols
-
-  %dt{ style: 'min-height: 80px' } IRB Approval and Protocols Document
-  %dd{ style: 'min-height: 80px' }
-    - unless applicant.approved_irb_document_url.blank?
-      - full_url = "#{request.script_name}#{applicant.approved_irb_document.url}"
-      = link_to applicant.approved_irb_document_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
-      = number_to_human_size(applicant.approved_irb_document.size)
-
-  %dt{ title: "Approved IACUC Protocols", style: 'min-height: 80px' } Approved IACUC Protocols
-  %dd{ style: 'min-height: 80px' }= simple_format applicant.approved_iacuc_protocols
-
-  %dt{ style: 'min-height: 80px' } IACUC Protocols Document
-  %dd{ style: 'min-height: 80px' }
-    - unless applicant.approved_iacuc_document_url.blank?
-      - full_url = "#{request.script_name}#{applicant.approved_iacuc_document.url}"
-      = link_to applicant.approved_iacuc_document_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
-      = number_to_human_size(applicant.approved_iacuc_document.size)
+= render "forms/horizontal/show/markdown", object: applicant, key: :approved_irb_protocols, key_name: "Approved IRB Protocols"
+= render "forms/horizontal/show/generic", title: "IRB Approval and Protocols Document", content: render("applicants/show/approved_irb_document", applicant: applicant)
+= render "forms/horizontal/show/markdown", object: applicant, key: :approved_iacuc_protocols, key_name: "Approved IACUC Protocols"
+= render "forms/horizontal/show/generic", title: "IACUC Protocols Document", content: render("applicants/show/approved_iacuc_document", applicant: applicant)

@@ -1,21 +1,21 @@
-// Bootstrap and general variable definitions
+// Themes and variable definitions.
+@import 'themes/all';
 @import 'variables/all';
 
-// Core Bootstrap styles
-@import 'bootstrap-sprockets';
+// Bootstrap styles
 @import 'bootstrap';
+
+// Font Awesome Icons
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
 
 // App Mixins
 @import 'mixins/all';
 
 // App specific styles
+// @import 'animations/all';
+@import 'decorations/all';
 @import 'components/all';
 @import 'extensions/all';
 @import 'fixes/all';
 @import 'objects/all';
-
-
-// TODO: Remove "Custom"
-@import 'custom';
-@import 'footer';
-@import 'forms';

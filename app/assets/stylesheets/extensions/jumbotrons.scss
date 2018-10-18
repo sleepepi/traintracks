@@ -1,0 +1,31 @@
+.jumbotron {
+  @include remove-last-child-bottom-margin;
+}
+
+.jumbotron-custom-text {
+  font-weight: 200;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .jumbotron-action {
+      background-color: map-get($theme, p500);
+      color: map-get($theme, brand-white);
+    }
+
+    .jumbotron-white {
+      background-color: map-get($theme, brand-white);
+      color: theme-color($theme, body-color, $p900-grey);
+    }
+
+    .jumbotron-shadow {
+      box-shadow: 0 1px 5px map-get($theme, box-shadow-color);
+    }
+
+    .jumbotron-shadow-inset {
+      box-shadow: inset 0 1px 5px map-get($theme, box-shadow-color);
+    }
+  }
+}

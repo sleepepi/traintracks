@@ -1,0 +1,8 @@
+= form_with model: resource, url: user_registration_path, local: true do |form|
+  = render "forms/vertical/text_field", form: form, object: resource, key: :first_name, placeholder: "Enter your first name"
+  = render "forms/vertical/text_field", form: form, object: resource, key: :last_name, placeholder: "Enter your last name"
+  = render "forms/vertical/email_field", form: form, object: resource, key: :email, placeholder: "you@example.com"
+  = render "forms/vertical/password_field", form: form, object: resource, key: :password, placeholder: "Create a password", autocomplete: "new-password"
+
+  .form-group.submit-btn-container
+    = form.submit "Next step", class: "btn btn-primary btn-block btn-shadow"

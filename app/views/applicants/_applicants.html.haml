@@ -1,19 +1,17 @@
-= render 'layouts/per_page', per_page: 40, object_count: @applicants.total_count
-
-%table.table.table-striped.table-condensed
+%table.table.table-striped.table-borderless.table-hover.table-sticky.table-sm
   %thead
     %tr
-      = th_sort_field @order, 'applicants.last_name', 'Name'
-      = th_sort_field @order, 'applicants.email', 'Email'
-      = th_sort_field @order, 'applicants.applicant_type', 'Type'
-      = th_sort_field @order, 'applicants.reviewed', 'Reviewed'
-      = th_sort_field @order, 'applicants.enrolled', 'Enrolled'
-      = th_sort_field @order, 'applicants.status', 'Status'
+      = th_sort_field @order, "applicants.last_name", "Name"
+      = th_sort_field @order, "applicants.email", "Email"
+      = th_sort_field @order, "applicants.applicant_type", "Type"
+      = th_sort_field @order, "applicants.reviewed", "Reviewed"
+      = th_sort_field @order, "applicants.enrolled", "Enrolled"
+      = th_sort_field @order, "applicants.status", "Status"
       %th Supported by TG
-      = th_sort_field @order, 'applicants.training_period_start_date', 'Training Period Start Date'
-      = th_sort_field @order, 'applicants.submitted_at', 'Submitted'
-      = th_sort_field @order, 'applicants.current_sign_in_at', 'Recent Activity'
-      %th Actions
+      = th_sort_field @order, "applicants.training_period_start_date", "Training Period Start Date"
+      = th_sort_field @order, "applicants.submitted_at", "Submitted"
+      = th_sort_field @order, "applicants.current_sign_in_at", "Activity"
+      %th.text-center Actions
 
   %tbody
     - @applicants.each_with_index do |applicant, index|
@@ -21,21 +19,15 @@
         %td= link_to applicant.name, applicant
         %td= applicant.email
         %td= applicant.applicant_type
-        %td.center
-          %span{ rel: "tooltip", title: 'Reviewed' }= simple_check applicant.reviewed
-        %td.center
-          %span{ rel: "tooltip", title: 'Enrolled' }= simple_check applicant.enrolled
+        %td.text-center= simple_check applicant.reviewed
+        %td.text-center= simple_check applicant.enrolled
+        %td= applicant.status
+        %td.text-center= simple_check applicant.supported_by_tg
+        %td= applicant.training_period_start_date.strftime("%b %d, %Y") if applicant.training_period_start_date
+        %td= simple_time applicant.submitted_at
         %td
-          %span{ rel: 'tooltip', title: 'Status' }= applicant.status
-        %td.center
-          %span{ rel: "tooltip", title: 'Supported' }= simple_check applicant.supported_by_tg
-        %td= applicant.training_period_start_date.strftime('%b %d, %Y') rescue ''
-        %td
-          %span{ rel: 'tooltip', title: 'Submitted' }= simple_time applicant.submitted_at
-        %td
-          %span{ rel: 'tooltip', title: 'Recent' }= recent_activity(applicant.current_sign_in_at)
-        %td.nowrap
-          = link_to 'Edit', edit_applicant_path(applicant), class: 'btn btn-xs btn-default'
-          = link_to 'Delete', applicant, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Applicant #{applicant.name}?" }
+          %small= abbreviated_time applicant.current_sign_in_at
+        %td.text-center
+          = render "layouts/edit_delete_dropdown", edit_url: edit_applicant_path(applicant), delete_url: applicant, delete_confirmation: "Delete #{applicant.name}?"
 
-.center= paginate @applicants, theme: 'bootstrap'
+.center-horizontally= paginate @applicants, theme: "bootstrap"

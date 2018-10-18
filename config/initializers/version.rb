@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module TrainingGrant
+module TrainTracks
   module VERSION #:nodoc:
     MAJOR = 19
     MINOR = 0

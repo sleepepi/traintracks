@@ -1,37 +1,43 @@
-.page-header
-  %h2 Contact Information
+.brand-title Contact Information
 
-.form-group
-  = label :applicant, :phone, nil, class: 'col-md-2 control-label'
+.form-group.row
+  = label :applicant, :phone, nil, class: "col-md-2 col-form-label"
   .col-md-10
-    = text_field :applicant, :phone, class: 'form-control'
+    = text_field :applicant, :phone, class: "form-control#{" is-invalid" if applicant.errors[:phone].present?}"
+    = render "forms/invalid_feedback", object: applicant, key: :phone
 
-.form-group
-  = label :applicant, :address1, nil, class: 'col-md-2 control-label'
+.form-group.row
+  = label :applicant, :address1, nil, class: "col-md-2 col-form-label"
   .col-md-10
-    = text_field :applicant, :address1, class: 'form-control'
+    = text_field :applicant, :address1, class: "form-control#{" is-invalid" if applicant.errors[:address1].present?}"
+    = render "forms/invalid_feedback", object: applicant, key: :address1
 
-.form-group
-  = label :applicant, :address2, nil, class: 'col-md-2 control-label'
+.form-group.row
+  = label :applicant, :address2, nil, class: "col-md-2 col-form-label"
   .col-md-10
-    = text_field :applicant, :address2, class: 'form-control'
+    = text_field :applicant, :address2, class: "form-control#{" is-invalid" if applicant.errors[:address2].present?}"
+    = render "forms/invalid_feedback", object: applicant, key: :address2
 
-.form-group
-  = label :applicant, :city, nil, class: 'col-md-2 control-label'
+.form-group.row
+  = label :applicant, :city, nil, class: "col-md-2 col-form-label"
   .col-md-10
-    = text_field :applicant, :city, class: 'form-control'
+    = text_field :applicant, :city, class: "form-control#{" is-invalid" if applicant.errors[:city].present?}"
+    = render "forms/invalid_feedback", object: applicant, key: :city
 
-.form-group
-  = label :applicant, :state, nil, class: 'col-md-2 control-label'
+.form-group.row
+  = label :applicant, :state, nil, class: "col-md-2 col-form-label"
   .col-md-10
-    = text_field :applicant, :state, class: 'form-control'
+    = text_field :applicant, :state, class: "form-control#{" is-invalid" if applicant.errors[:state].present?}"
+    = render "forms/invalid_feedback", object: applicant, key: :state
 
-.form-group
-  = label :applicant, :country, nil, class: 'col-md-2 control-label'
+.form-group.row
+  = label :applicant, :country, nil, class: "col-md-2 col-form-label"
   .col-md-10
-    = text_field :applicant, :country, class: 'form-control'
+    = text_field :applicant, :country, class: "form-control#{" is-invalid" if applicant.errors[:country].present?}"
+    = render "forms/invalid_feedback", object: applicant, key: :country
 
-.form-group
-  = label :applicant, :zip_code, nil, class: 'col-md-2 control-label'
+.form-group.row
+  = label :applicant, :zip_code, nil, class: "col-md-2 col-form-label"
   .col-md-10
-    = text_field :applicant, :zip_code, class: 'form-control'
+    = text_field :applicant, :zip_code, class: "form-control#{" is-invalid" if applicant.errors[:zip_code].present?}"
+    = render "forms/invalid_feedback", object: applicant, key: :zip_code

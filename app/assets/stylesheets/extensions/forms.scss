@@ -1,0 +1,37 @@
+.form-label-elegant {
+  font-weight: 300;
+  border-bottom: 2px solid transparent;
+
+  a {
+    color: $body-color;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $body-color;
+      text-decoration: none;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .col-form-label {
+    .form-label-elegant {
+      @include float-right;
+
+      text-align: right;
+    }
+  }
+}
+
+.form-control-plaintext {
+  @include remove-last-child-bottom-margin;
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .form-label-elegant {
+      border-color: map-get($theme, header-border);
+    }
+  }
+}

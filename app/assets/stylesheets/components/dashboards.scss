@@ -1,0 +1,52 @@
+.dashboard-container-margins,
+.dashboard-container {
+  @include scale-images;
+
+  border-radius: $border-radius;
+  margin-bottom: map-get($spacers, 4);
+  padding: map-get($spacers, 3);
+
+  > div,
+  > table {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &.dashboard-disclaimer {
+    font-size: .8rem;
+  }
+
+  &.dashboard-no-padding {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.dashboard-table {
+    padding: map-get($spacers, 1) 0;
+  }
+
+
+  @include media-breakpoint-up(sm) {
+    padding: map-get($spacers, 4);
+  }
+}
+
+.dashboard-container {
+  @include remove-last-child-bottom-margin;
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .dashboard-container-margins,
+    .dashboard-container {
+      background-color: map-get($theme, dashboard-bg);
+      box-shadow: 0 1px 5px map-get($theme, box-shadow-color);
+      color: theme-color($theme, body-color, $p900-grey);
+    }
+
+    .dashboard-container-border-accent {
+      border-left: 4px solid map-get($theme, header-border);
+    }
+  }
+}

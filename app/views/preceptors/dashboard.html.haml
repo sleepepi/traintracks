@@ -1,9 +1,15 @@
 - @title = "Preceptor Dashboard"
-.page-header
-  %h1
-    = @title
-    = link_to "Edit", edit_me_preceptors_path, class: 'btn btn-xs btn-default'
 
-= render 'preceptors/show/general', preceptor: current_preceptor
+- content_for :header, @title
 
-= render 'preceptors/show/trainees', preceptor: current_preceptor
+.dashboard-container
+  = link_to edit_me_preceptors_path, class: "btn btn-sm btn-light" do
+    = icon("fas", "pencil-alt")
+    Edit my information
+
+.dashboard-container
+  .brand-title General Information
+  = render "preceptors/show/general", preceptor: current_preceptor
+
+  .brand-title Trainees
+  = render "preceptors/show/trainees", preceptor: current_preceptor

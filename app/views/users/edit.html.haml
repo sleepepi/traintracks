@@ -1,3 +1,11 @@
-- @title = "Edit User: #{@user.name_was}"
+- @title = "Edit User - #{@user.name_was}"
 
-= render 'form'
+- content_for :header, @user.name_was
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "users", users_path
+    %li= link_to @user.name_was.to_s.downcase, @user
+    %li.breadcrumb-muted edit
+
+.dashboard-container
+  = render "form", user: @user

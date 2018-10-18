@@ -3,42 +3,51 @@
 }
 
 .table {
-  .sort-selected {
-    border-bottom-color: $link-color;
-  }
-
-  .sort-up:after,
-  .sort-down:after {
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    content: '';
-    display: inline-block;
-    height: 0;
-    margin-bottom: 2px;
-    margin-left: 5px;
-    margin-right: -10px;
-    width: 0;
-  }
-
-  .sort-up:after {
-    border-bottom: 4px solid;
-  }
-
-  .sort-down:after {
-    border-top: 4px solid;
-  }
-
   &.table-borderless {
-    tbody,
-    td {
+    td,
+    th {
+      border-width: 0;
+    }
+
+    > tbody + tbody {
       border-width: 0;
     }
   }
 }
 
-.table-responsive-always {
-  margin-bottom: 15px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  width: 100%;
+.table-sticky {
+  position: relative;
+  z-index: 1;
+
+  th {
+    position: sticky;
+    top: $header-height - 1px;
+    z-index: $zindex-sticky;
+  }
+}
+
+.tr-align-middle {
+  td,
+  th {
+    vertical-align: middle;
+  }
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .table-sticky {
+      th {
+        background-color: map-get($theme, dashboard-bg);
+      }
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: theme-color($theme, table-accent-bg, $table-accent-bg);
+    }
+    .table-striped tbody tr:nth-of-type(even) {
+      background-color: map-get($theme, dashboard-bg);
+    }
+    .table-hover tbody tr:hover {
+      background-color: theme-color($theme, table-hover-bg, $table-hover-bg);
+    }
+  }
 }

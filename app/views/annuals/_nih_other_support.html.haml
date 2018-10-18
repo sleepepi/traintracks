@@ -1,0 +1,4 @@
+- if annual.nih_other_support_url.present?
+  - full_url = "#{request.script_name}#{annual.nih_other_support.url}"
+  = link_to annual.nih_other_support_url.split("/").last, full_url, target: "_blank"
+  %span.badge.badge-light= number_to_human_size annual.nih_other_support.size

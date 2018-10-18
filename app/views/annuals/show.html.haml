@@ -1,46 +1,33 @@
-- @title = @annual.name
-.page-header
-  %h1
-    = link_to 'Annuals', annuals_path
-    &middot;
-    = @title
-  = link_to 'Edit Annual', edit_annual_path(@annual), class: 'btn btn-xs btn-default'
-  = link_to 'Delete Annual', @annual, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Annual #{@annual.name}?" }
+- @title = "#{@annual.applicant.name}, Year #{@annual.name} - Annuals"
+- @menu_title = "#{@annual.applicant.name}, Year #{@annual.name}"
 
-%dl.dl-horizontal
-  %dt Applicant
-  %dd= link_to @annual.applicant.name, @annual.applicant if @annual.applicant
+- content_for :header, @menu_title
 
-  %dt Year
-  %dd= @annual.year
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "annuals", annuals_path
+    %li= link_to @annual.applicant.name.downcase, @annual.applicant
+    %li.breadcrumb-muted= "year #{@annual.name.downcase}"
 
-  %dt Coursework Completed
-  %dd= simple_format @annual.coursework_completed
+.dashboard-container
+  = link_to 'Edit Annual', edit_annual_path(@annual), class: 'btn btn-sm btn-light'
+  = link_to 'Delete Annual', @annual, method: :delete, class: 'btn btn-sm btn-outline-danger', data: { confirm: "Delete Annual Year #{@annual.name}?" }
 
-  %dt Publications
-  %dd= simple_format @annual.publications
+.dashboard-container
+  = render "forms/horizontal/show/generic", title: "Applicant", content: link_to(@annual.applicant.name, @annual.applicant)
+  = render "forms/horizontal/show/text", object: @annual, key: :year
+  = render "forms/horizontal/show/markdown", object: @annual, key: :coursework_completed
+  = render "forms/horizontal/show/markdown", object: @annual, key: :publications
 
-  %dt Conferences, Presentations, Honors, and Fellowships
-  %dd= simple_format @annual.presentations
+  = render "forms/horizontal/show/markdown", object: @annual, key: :presentations, key_name: "Conferences, Presentations, Honors, and Fellowships"
 
-  %dt Research Description
-  %dd= simple_format @annual.research_description
+  = render "forms/horizontal/show/markdown", object: @annual, key: :research_description
 
-  %dt Degree or Certifications earned (Year) or Other Relevant Outcome
-  %dd= simple_format @annual.degree_or_certifications_earned
+  = render "forms/horizontal/show/markdown", object: @annual, key: :degree_or_certifications_earned, key_name: "Degree or Certifications earned (Year) or Other Relevant Outcome"
 
-  %dt Source Of Support
-  %dd= @annual.source_of_support
+  = render "forms/horizontal/show/text", object: @annual, key: :source_of_support
 
-  %dt NIH Other Support
-  %dd
-    - if @annual.nih_other_support_url.present?
-      - full_url = "#{request.script_name}#{@annual.nih_other_support.url}"
-      = link_to @annual.nih_other_support_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
-      = number_to_human_size @annual.nih_other_support.size
+  = render "forms/horizontal/show/generic", title: "NIH Other Support", content: render("annuals/nih_other_support", annual: @annual)
 
-  %dt Submitted At
-  %dd= @annual.submitted_at
-
-  %dt Modified At
-  %dd= @annual.modified_at
+  = render "forms/horizontal/show/text", object: @annual, key: :submitted_at
+  = render "forms/horizontal/show/text", object: @annual, key: :modified_at

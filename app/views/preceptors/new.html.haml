@@ -1,3 +1,10 @@
 - @title = "New Preceptor"
 
-= render 'form'
+- content_for :header, @title
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "preceptors", preceptors_path
+    %li.breadcrumb-muted new preceptor
+
+.dashboard-container
+  = render "form", preceptor: @preceptor

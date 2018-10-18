@@ -1,125 +1,27 @@
-.page-header
-  %h2 Administrator Only
+.brand-title Administrator Only
 
-.form-group
-  .col-md-offset-2.col-md-10
-    .checkbox
-      %label
-        = f.check_box :reviewed
-        Reviewed
+= render "forms/horizontal/check_box", form: form, object: applicant, key: :reviewed
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :review_date
+= render "forms/horizontal/check_box", form: form, object: applicant, key: :offered
+= render "forms/horizontal/check_box", form: form, object: applicant, key: :accepted
+= render "forms/horizontal/check_box", form: form, object: applicant, key: :enrolled
 
-.form-group
-  = f.label :review_date, class: 'col-md-2 control-label'
+.form-group.row
+  = form.label :cv_number, "CV number", class: "col-md-2 col-form-label"
   .col-md-10
-    .input-group
-      = f.text_field :review_date, class: 'datepicker form-control', value: applicant.review_date ? applicant.review_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
+    = form.number_field :cv_number, class: "form-control"
 
-.form-group
-  .col-md-offset-2.col-md-10
-    .checkbox
-      %label
-        = f.check_box :offered
-        Offered
-
-.form-group
-  .col-md-offset-2.col-md-10
-    .checkbox
-      %label
-        = f.check_box :accepted
-        Accepted
-
-.form-group
-  .col-md-offset-2.col-md-10
-    .checkbox
-      %label
-        = f.check_box :enrolled
-        Enrolled
-
-.form-group
-  = f.label :cv_number, 'CV number', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.number_field :cv_number, class: 'form-control'
-
-.form-group
-  = f.label :degree_type, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :degree_type, class: 'form-control'
-
-.form-group
-  = f.label :primary_preceptor_id, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.select :primary_preceptor_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]}, {}, class: 'form-control'
-
-.form-group
-  = f.label :secondary_preceptor_id, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.select :secondary_preceptor_id, [['---', nil]] + Preceptor.current.order('last_name, first_name').collect{|p| [p.reverse_name, p.id]}, {}, class: 'form-control'
-
-.form-group
-  = f.label :trainee_code, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :trainee_code, class: 'form-control'
-
-.form-group
-  = f.label :status, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.select :status, [['---', nil]] + Applicant::STATUS, {}, class: 'form-control'
-
-.form-group
-  = f.label :training_grant_years, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :training_grant_years, class: 'form-control'
-
-.form-group
-  .col-md-offset-2.col-md-10
-    .checkbox
-      %label
-        = f.check_box :supported_by_tg
-        Supported by TG
-
-.form-group
-  = f.label :training_period_start_date, class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :training_period_start_date, class: 'datepicker form-control', value: applicant.training_period_start_date ? applicant.training_period_start_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-
-.form-group
-  = f.label :training_period_end_date, class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :training_period_end_date, class: 'datepicker form-control', value: applicant.training_period_end_date ? applicant.training_period_end_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-
-.form-group
-  = f.label :notes, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :notes, rows: 7, class: 'form-control'
-
-.form-group
-  = f.label :curriculum_advisor, 'Curriculum Advisor', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :curriculum_advisor, class: 'form-control'
-
-
-.form-group
-  = f.label :most_recent_curriculum_advisor_meeting_date, 'Most Recent Curriculum Advisor Meeting Date', class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :most_recent_curriculum_advisor_meeting_date, class: 'datepicker form-control', value: applicant.most_recent_curriculum_advisor_meeting_date ? applicant.most_recent_curriculum_advisor_meeting_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-
-.form-group
-  = f.label :past_curriculum_advisor_meetings, 'Past Curriculum Advisor Meetings', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :past_curriculum_advisor_meetings, rows: 7, class: 'form-control'
-
-.form-group
-  = f.label :era_commons_username, 'eRA Commons Username', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :era_commons_username, class: 'form-control'
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :degree_type
+= render "forms/horizontal/select", form: form, object: applicant, key: :primary_preceptor_id, options: Preceptor.current.order("last_name, first_name").collect { |p| [p.reverse_name, p.id] }, include_blank: "---", id: true
+= render "forms/horizontal/select", form: form, object: applicant, key: :secondary_preceptor_id, options: Preceptor.current.order("last_name, first_name").collect { |p| [p.reverse_name, p.id] }, include_blank: "---", id: true
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :trainee_code
+= render "forms/horizontal/select", form: form, object: applicant, key: :status, options: Applicant::STATUS, include_blank: "---", id: true
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :training_grant_years
+= render "forms/horizontal/check_box", form: form, object: applicant, key: :supported_by_tg, key_name: "Supported by TG"
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :training_period_start_date
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :training_period_end_date
+= render "forms/horizontal/text_area", form: form, object: applicant, key: :notes, rows: 7
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :curriculum_advisor
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :most_recent_curriculum_advisor_meeting_date
+= render "forms/horizontal/text_area", form: form, object: applicant, key: :past_curriculum_advisor_meetings, rows: 7
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :era_commons_username, key_name: "eRA Commons Username"

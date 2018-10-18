@@ -1,21 +1,21 @@
-.row{ data: { object: 'degree-row' } }
-  .col-xs-2
-    = select_tag 'applicant[degree_hashes][][degree_type]', options_for_select([['---', nil]] + Degree::DEGREE_TYPES, degree.degree_type), class: 'form-control'
+.row{ data: { object: "degree-row" } }
+  .col-12.col-sm-6.col-lg
+    = select_tag "applicant[degree_hashes][][degree_type]", options_for_select([["---", nil]] + Degree::DEGREE_TYPES, degree.degree_type), class: "form-control"
 
-  .col-xs-2
-    = text_field_tag 'applicant[degree_hashes][][institution]', degree.institution, class: 'form-control', placeholder: 'Institution', rel: 'tooltip', title: 'Institution'
+  .col-12.col-sm-6.col-lg
+    = text_field_tag "applicant[degree_hashes][][institution]", degree.institution, class: "form-control", placeholder: "Institution", rel: "tooltip", title: "Institution"
 
-  .col-xs-1
-    = text_field_tag 'applicant[degree_hashes][][year]', degree.year, class: 'form-control', placeholder: 'Year', rel: 'tooltip', title: 'Year', style: 'min-width: 60px;'
+  .col-12.col-sm-6.col-lg
+    = text_field_tag "applicant[degree_hashes][][year]", degree.year, class: "form-control", placeholder: "Year", rel: "tooltip", title: "Year", style: "min-width: 60px;"
 
-  .col-xs-2
-    = text_field_tag 'applicant[degree_hashes][][advisor]', degree.advisor, class: 'form-control', placeholder: 'Advisor', rel: 'tooltip', title: 'Advisor'
+  .col-12.col-sm-6.col-lg
+    = text_field_tag "applicant[degree_hashes][][advisor]", degree.advisor, class: "form-control", placeholder: "Advisor", rel: "tooltip", title: "Advisor"
 
-  .col-xs-2
-    = text_field_tag 'applicant[degree_hashes][][thesis]', degree.thesis, class: 'form-control', placeholder: 'Thesis', rel: 'tooltip', title: 'Thesis'
+  .col-12.col-sm-6.col-lg
+    = text_field_tag "applicant[degree_hashes][][thesis]", degree.thesis, class: "form-control", placeholder: "Thesis", rel: "tooltip", title: "Thesis"
 
-  .col-xs-2
-    = text_field_tag 'applicant[degree_hashes][][concentration_major]', degree.concentration_major, class: 'form-control', placeholder: 'Concentration / Major', rel: 'tooltip', title: 'Concentration / Major'
+  .col-12.col-sm-6.col-lg
+    = text_field_tag "applicant[degree_hashes][][concentration_major]", degree.concentration_major, class: "form-control", placeholder: "Concentration / Major", rel: "tooltip", title: "Concentration / Major"
 
-  .col-xs-1
-    = link_to 'remove', '#', data: { object: 'remove-parent', target: 'degree-row' }, class: 'btn btn-xs btn-danger-inverse'
+  .col-12.col-sm-6.col-lg
+    = link_to "remove", "#", data: { object: "remove-parent", target: "degree-row" }, class: "btn btn-sm btn-outline-danger"

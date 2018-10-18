@@ -1,60 +1,26 @@
-.page-header
-  %h2 Basic Info
+.brand-title Basic Info
 
-.form-group
-  = f.label :email, nil, class: 'col-md-2 control-label'
+= render "forms/horizontal/email_field", form: form, object: applicant, key: :email
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :first_name
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :last_name
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :middle_initial
+= render "forms/horizontal/select", form: form, object: applicant, key: :applicant_type, options: Applicant::APPLICANT_TYPE, id: true
+
+.form-group.row
+  = form.label :citizenship_status, nil, class: "col-md-2 col-form-label"
   .col-md-10
-    = f.email_field :email, class: 'form-control'
+    .form-control-plaintext
+      - Applicant::CITIZENSHIP_STATUS.each_with_index do |citizenship_status, index|
+        - id = "citizenship_status_#{index}"
+        .custom-control.custom-radio
+          = form.radio_button :citizenship_status, citizenship_status, class: "custom-control-input", id: id
+          = form.label nil, citizenship_status.humanize, for: id, class: "custom-control-label"
+        - if citizenship_status == "permanent resident"
+          .input-group
+            .input-group-prepend
+              %span.input-group-text A
+            = form.text_field :alien_registration_number, value: applicant.alien_registration_number.to_s.gsub("A", ""), class: "form-control"
+          = render "forms/help_text", help_text: "Only US Citizens and Permanent Residents are eligible for training grant support."
 
-.form-group
-  = f.label :first_name, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :first_name, class: 'form-control'
-
-.form-group
-  = f.label :last_name, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :last_name, class: 'form-control'
-
-.form-group
-  = f.label :middle_initial, nil, class: 'col-md-2 control-label'
-  .col-md-1
-    = f.text_field :middle_initial, class: 'form-control'
-
-.form-group
-  = f.label :applicant_type, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.select :applicant_type, Applicant::APPLICANT_TYPE, {}, class: 'form-control'
-
-.form-group
-  = f.label :citizenship_status, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    - Applicant::CITIZENSHIP_STATUS.each do |citizenship_status|
-      .radio
-        %label
-          = f.radio_button :citizenship_status, citizenship_status
-          = citizenship_status.humanize
-      - if citizenship_status == 'permanent resident'
-        .input-group
-          %span.input-group-addon A
-          = f.text_field :alien_registration_number, value: applicant.alien_registration_number.to_s.gsub('A', ''), class: 'form-control'
-        .callout.callout-info
-          %h4 Important!
-          %p
-            Only US Citizens and Permanent Residents are eligible for training
-            grant support.
-
-.form-group
-  = f.label :desired_start_date, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :desired_start_date, class: 'datepicker form-control', value: applicant.desired_start_date ? applicant.desired_start_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-
-.form-group
-  = f.label :personal_statement, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :personal_statement, rows: 7, class: 'form-control'
-    .callout.callout-info
-      %p Maximum of 250 words.
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :desired_start_date
+= render "forms/horizontal/text_area", form: form, object: applicant, key: :personal_statement, rows: 7, help_text: "Maximum of 250 words."

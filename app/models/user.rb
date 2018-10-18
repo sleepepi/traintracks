@@ -32,23 +32,27 @@ class User < ApplicationRecord
     %w(first_name last_name email)
   end
 
-  def avatar_url(size = 80, default = 'mm')
+  def admin?
+    system_admin?
+  end
+
+  def avatar_url(size = 80, default = "mm")
     gravatar_id = Digest::MD5.hexdigest(email.to_s.downcase)
     "//gravatar.com/avatar/#{gravatar_id}.png?&s=#{size}&r=pg&d=#{default}"
   end
 
   # Overriding Devise built-in active_for_authentication? method
   def active_for_authentication?
-    super && status == 'active' && !deleted?
+    super && status == "active" && !deleted?
   end
 
   def devise_path
-    ''
+    ""
   end
 
   def destroy
     super
-    update_column :status, 'inactive'
+    update_column :status, "inactive"
     update_column :updated_at, Time.zone.now
   end
 

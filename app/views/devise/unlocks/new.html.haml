@@ -1,32 +1,24 @@
-- @title = 'Resend unlock instructions'
+- @title = "Unlock account"
 
-.sign-up-form
-  .sign-up-form-title
-    Resend Unlock Instructions
+- @theme = "default"
 
-  .center{ style: 'margin-bottom:20px' }
-    = render 'sites/resource_image'
+.page-box.last-box.d-flex.flex-column.justify-content-center.theme-bg{ class: "theme-#{@theme}-focus-bg" }
+  .container
+    %p.lead.text-center.text-white Resend unlock instructions
 
-  %p.lead.center
-    Enter your email address if you need instructions to unlock your account.
-    You may
-    = link_to 'contact us', contact_path
-    if you don't remember which email you used to register.
+    .sign-up-form
+      .sign-up-form-title
+        Unlock account
 
-  = form_for resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: 'form-vertical' } do |f|
-    - if resource.errors.any?
-      .callout.callout-danger
-        %h4
-          Please enter a valid email
+      .text-center.mb-3= render "sites/resource_image"
 
-        %ul
-          - resource.errors.full_messages.each do |msg|
-            %li= msg
+      = form_with model: resource, as: resource_name, url: unlock_path(resource_name), method: :post, local: true do |form|
+        = render "forms/vertical/email_field", form: form, object: resource, key: :email
 
+        - if resource.errors.any? && resource.errors.messages.keys.include?(:unlock_token)
+          %small.form-text.text-danger
+            Your unlock token has expired. Please enter an email to regenerate
+            a new unlock token and URL.
 
-    .form-group
-      = f.label :email, class: 'control-label'
-      = f.email_field :email, class: 'form-control'
-
-    .form-group
-      = f.submit 'Resend unlock instructions', class: 'btn btn-success'
+        .form-group.submit-btn-container
+          = form.submit "Resend unlock instructions", class: "btn btn-primary btn-block btn-shadow"

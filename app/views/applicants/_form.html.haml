@@ -1,37 +1,11 @@
-.page-header
-  %h1
-    = link_to 'Applicants', applicants_path
-    &middot;
-    = @title
-
-= form_for @applicant, html: { class: 'form-horizontal' } do |f|
-  - if @applicant.errors.any?
-    .callout.callout-danger
-      %h4
-        = pluralize @applicant.errors.count, 'error'
-        prohibited this applicant from being saved
-
-      %ul
-        - @applicant.errors.full_messages.each do |message|
-          %li= message
-
-  = render 'applicants/form/general', f: f, applicant: @applicant
-
-  = render 'applicants/form/contact', f: f
-
-  = render 'applicants/form/education', f: f, applicant: @applicant
-
-  = render 'applicants/form/demographic', f: f, applicant: @applicant
-
-  = render 'applicants/form/progress_report_data', f: f, applicant: @applicant
-
-  = render 'applicants/form/termination', f: f, applicant: @applicant
-
+= form_with model: applicant, local: true do |form|
+  = render "applicants/form/general", form: form, applicant: applicant
+  = render "applicants/form/contact", form: form, applicant: applicant
+  = render "applicants/form/education", form: form, applicant: applicant
+  = render "applicants/form/demographic", form: form, applicant: applicant
+  = render "applicants/form/progress_report_data", form: form, applicant: applicant
+  = render "applicants/form/termination", form: form, applicant: applicant
   - if current_user.administrator?
-    = render 'applicants/form/admin_only', f: f, applicant: @applicant
-    = render 'applicants/form/program_requirements', f: f, applicant: @applicant
-
-  .form-group
-    .col-md-offset-2.col-md-10
-      = f.submit nil, class: 'btn btn-primary'
-      = link_to 'Cancel', @applicant.new_record? ? root_path : @applicant, class: 'btn btn-default'
+    = render "applicants/form/admin_only", form: form, applicant: applicant
+    = render "applicants/form/program_requirements", form: form, applicant: applicant
+  = render "forms/horizontal/submit", form: form, object: applicant

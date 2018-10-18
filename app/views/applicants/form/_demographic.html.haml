@@ -1,67 +1,29 @@
-.page-header
-  %h2 Demographic Information
+.brand-title Demographic Information
 
-.form-group
-  = f.label :gender, nil, class: 'col-md-2 control-label'
+.form-group.row
+  = form.label :gender, nil, class: "col-md-2 col-form-label"
   .col-md-10
-    - Applicant::GENDER.each do |name, value|
-      %label.radio-inline
-        = f.radio_button :gender, value
-        = name
+    .form-control-plaintext
+      - Applicant::GENDER.each_with_index do |(name, value), index|
+        - id = "gender_#{index}"
+        .custom-control.custom-radio.custom-control-inline
+          = form.radio_button :gender, value, class: "custom-control-input", id: id
+          = form.label nil, name, for: id, class: "custom-control-label"
 
-.form-group
-  .col-md-offset-2.col-md-10
-    .checkbox
-      %label
-        = f.check_box :disabled
-        Check if you consider yourself to be a person with a disability
-    %span.help-block
-      An applicant who identifies as a person with a disability, or a physical
-      or mental impairment that substantially limits one or more activities
-      (requires explanation if checked yes).
-    = f.text_area :disabled_description, rows: 7, class: 'form-control'
+= render "forms/horizontal/check_box", form: form, object: applicant, key: :disabled, key_name: "Check if you consider yourself to be a person with a disability", help_text: "An applicant who identifies as a person with a disability, or a physical or mental impairment that substantially limits one or more activities (requires explanation if checked yes)."
+= render "forms/horizontal/text_area", form: form, object: applicant, key: :disabled_description, key_name: "Describe disability", rows: 7
+= render "forms/horizontal/check_box", form: form, object: applicant, key: :disadvantaged, help_text: "1. Individual has qualified for federal disadvantaged assistance, or for a loan or scholarship from one or more of the following: Health Professional Student Loan, Loans for Disadvantaged Student Program, or Scholarships for Individuals with Exceptional Financial Need (DHHS).<br />2. Individual has come from a social, cultural, or educational environment (e.g., rural, inner city) that has recently, directly, and demonstrably inhibited the individual from obtaining the knowledge, skills, and abilities necessary to participate in a research career.".html_safe
+= render "forms/horizontal/check_box", form: form, object: applicant, key: :urm, key_name: "Under-Represented Minority", help_text: "An applicant who identifies with any minority, ethnic, or racial population that is underrepresented in scientific research, including: Hispanic or Latino, American Indian or Alaska Native, Black or African American, and Native Hawaiian or Pacific Islander.".html_safe
 
-.form-group
-  .col-md-offset-2.col-md-10
-    .checkbox
-      %label
-        = f.check_box :disadvantaged
-        Disadvantaged
-    %span.help-block
-      %ol
-        %li
-          Individual has qualified for federal disadvantaged assistance, or for
-          a loan or scholarship from one or more of the following: Health
-          Professional Student Loan, Loans for Disadvantaged Student Program, or
-          Scholarships for Individuals with Exceptional Financial Need (DHHS).
-        %li
-          Individual has come from a social, cultural, or educational
-          environment (e.g., rural, inner city) that has recently, directly, and
-          demonstrably inhibited the individual from obtaining the knowledge,
-          skills, and abilities necessary to participate in a research career.
-
-.form-group
-  .col-md-offset-2.col-md-10
-    .checkbox
-      %label
-        = f.check_box :urm
-        Under-Represented Minority
-    %span.help-block
-      An applicant who identifies with any minority, ethnic, or racial
-      population that is underrepresented in scientific research, including:
-      Hispanic or Latino, American Indian or Alaska Native, Black or African
-      American, and Native Hawaiian or Pacific Islander.
-
-.form-group
-  = f.label :urm_types, 'Under-Represented Minority', class: 'col-md-2 control-label'
+.form-group.row
+  = form.label :urm_types, "Under-Represented Minority", class: "col-md-2 col-form-label"
   .col-md-10
-    = hidden_field_tag :set_urm_types, '1'
-    - Applicant::URM_TYPES.each do |name, value|
-      %label.checkbox-inline
-        = check_box_tag "applicant[urm_types][]", value, applicant.urm_types.include?(value)
-        = name
+    .form-control-plaintext
+      = hidden_field_tag :set_urm_types, '1'
+      - Applicant::URM_TYPES.each_with_index do |(name, value), index|
+        .custom-control.custom-checkbox
+          - id = "applicant_urm_types_#{index}"
+          = check_box_tag "applicant[urm_types][]", value, applicant.urm_types.include?(value), class: "custom-control-input", id: id
+          = form.label nil, name, for: id, class: "custom-control-label"
 
-.form-group
-  = f.label :marital_status, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.select :marital_status, [['---', nil]] + Applicant::MARITAL_STATUS, {}, class: 'form-control'
+= render "forms/horizontal/select", form: form, object: applicant, key: :marital_status, options: Applicant::MARITAL_STATUS, include_blank: "---"

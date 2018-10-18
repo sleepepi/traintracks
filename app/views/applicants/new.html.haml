@@ -1,3 +1,10 @@
-- @title = 'New Applicant'
+- @title = "New Applicant"
 
-= render 'form'
+- content_for :header, @title
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "applicants", applicants_path
+    %li.breadcrumb-muted new applicant
+
+.dashboard-container
+  = render "form", applicant: @applicant

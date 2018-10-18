@@ -1,3 +1,10 @@
-- @title = 'New Annual'
+- @title = "New Annual"
 
-= render 'form'
+- content_for :header, @title
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "annuals", annuals_path
+    %li.breadcrumb-muted new annual
+
+.dashboard-container
+  = render "form", annual: @annual

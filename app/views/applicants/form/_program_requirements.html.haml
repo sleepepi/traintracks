@@ -1,101 +1,15 @@
-.page-header
-  %h2 Additional Program Requirements
+.brand-title Additional Program Requirements
 
-.form-group
-  = f.label :research_in_progress_title, 'Research-In-Progress Title', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :research_in_progress_title, class: 'form-control'
-
-.form-group
-  = f.label :research_in_progress_date, 'Research-In-Progress Date', class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :research_in_progress_date, class: 'datepicker form-control', value: applicant.research_in_progress_date ? applicant.research_in_progress_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-
-.form-group
-  = f.label :research_in_progress_additional, 'Additional Research-In-Progress Titles and Dates', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :research_in_progress_additional, rows: 7, class: 'form-control'
-
-
-.form-group
-  = f.label :research_ethics_training_completed_date, 'Research Ethics Training Completed', class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :research_ethics_training_completed_date, class: 'datepicker form-control', value: applicant.research_ethics_training_completed_date ? applicant.research_ethics_training_completed_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-
-.form-group
-  = f.label :research_ethics_training_notes, 'Research Ethics Training Notes', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :research_ethics_training_notes, rows: 7, class: 'form-control'
-
-.form-group
-  = f.label :grant_writing_training_completed_date, 'Grant Writing Training Completed', class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :grant_writing_training_completed_date, class: 'datepicker form-control', value: applicant.grant_writing_training_completed_date ? applicant.grant_writing_training_completed_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-
-.form-group
-  = f.label :basic_research_statistics_course_completed_date, 'Basic Research Statistics Course Completed', class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :basic_research_statistics_course_completed_date, class: 'datepicker form-control', value: applicant.basic_research_statistics_course_completed_date ? applicant.basic_research_statistics_course_completed_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-    .callout.callout-info
-      Recommended for pre-docs, required for post-docs
-
-.form-group
-  = f.label :advanced_research_statistics_course_completed_date, 'Advanced Research Statistics Course Completed', class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :advanced_research_statistics_course_completed_date, class: 'datepicker form-control', value: applicant.advanced_research_statistics_course_completed_date ? applicant.advanced_research_statistics_course_completed_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-    .callout.callout-info
-      Recommended for pre-docs, required for post-docs
-
-.form-group
-  = f.label :neuroscience_course_completed_date, 'Neuroscience Course Completed', class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :neuroscience_course_completed_date, class: 'datepicker form-control', value: applicant.neuroscience_course_completed_date ? applicant.neuroscience_course_completed_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-
-.form-group
-  = f.label :hsoph_summer_session_course_completed_date, 'Harvard School of Public Health Summer Session Courses Completed', class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :hsoph_summer_session_course_completed_date, class: 'datepicker form-control', value: applicant.hsoph_summer_session_course_completed_date ? applicant.hsoph_summer_session_course_completed_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-
-.form-group
-  = f.label :individual_funding_submission_date, 'Submitted application for Individual Funding', class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :individual_funding_submission_date, class: 'datepicker form-control', value: applicant.individual_funding_submission_date ? applicant.individual_funding_submission_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-
-.form-group
-  = f.label :individual_funding_type, 'Individual Funding Type', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :individual_funding_type, rows: 7, class: 'form-control'
-
-.form-group
-  = f.label :last_idp_date, 'Last IDP', class: 'col-md-2 control-label'
-  .col-md-10
-    .input-group
-      = f.text_field :last_idp_date, class: 'datepicker form-control', value: applicant.last_idp_date ? applicant.last_idp_date.strftime('%m/%d/%Y') : ''
-      %span.input-group-addon
-        %span.glyphicon.glyphicon-calendar
-    .callout.callout-info
-      Recommended for predocs, required annually for postdocs
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :research_in_progress_title, key_name: "Research-In-Progress Title"
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :research_in_progress_date, key_name: "Research-In-Progress Date"
+= render "forms/horizontal/text_area", form: form, object: applicant, key: :research_in_progress_additional, key_name: "Additional Research-In-Progress Titles and Dates", rows: 7
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :research_ethics_training_completed_date, key_name: "Research Ethics Training Completed"
+= render "forms/horizontal/text_area", form: form, object: applicant, key: :research_ethics_training_notes, rows: 7
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :grant_writing_training_completed_date, key_name: "Grant Writing Training Completed"
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :basic_research_statistics_course_completed_date, key_name: "Basic Research Statistics Course Completed", help_text: "Recommended for pre-docs, required for post-docs."
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :advanced_research_statistics_course_completed_date, key_name: "Advanced Research Statistics Course Completed", help_text: "Recommended for pre-docs, required for post-docs."
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :neuroscience_course_completed_date, key_name: "Neuroscience Course Completed"
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :hsoph_summer_session_course_completed_date, key_name: "Harvard School of Public Health Summer Session Courses Completed"
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :individual_funding_submission_date, key_name: "Submitted application for Individual Funding"
+= render "forms/horizontal/text_area", form: form, object: applicant, key: :individual_funding_type, rows: 7
+= render "forms/horizontal/date_field", form: form, object: applicant, key: :last_idp_date, key_name: "Last IDP", help_text: "Recommended for predocs, required annually for postdocs"

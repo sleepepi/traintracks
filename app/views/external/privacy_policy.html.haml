@@ -1,5 +1,7 @@
 - @title = "Privacy Policy"
 
+- content_for :header, @title
+
 - full_name = ENV["website_name"]
 - short_name = full_name
 - support_email = ActionMailer::Base.smtp_settings[:email]

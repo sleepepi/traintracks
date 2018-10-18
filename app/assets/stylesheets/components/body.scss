@@ -1,24 +1,18 @@
-// General styles for html and body elements to account for header and footer
-
 html {
   min-height: 100%;
   position: relative;
 }
 
 body {
-  margin-bottom: $footer-height;
-  padding-top: $header-height;
-}
+  &.full-page {
+    margin-bottom: $footer-height;
+  }
 
-.brand-background {
-  // background-color: $purple;
-}
+  &.full-page-no-header {
+    margin-bottom: $footer-height;
+  }
 
-::selection {
-  // background-color: $purple;
-  // color: $purple-color;
-}
-
-:focus {
-  // outline-color: $purple !important;
+  &.full-page-no-header-no-footer {
+    margin-bottom: 0;
+  }
 }

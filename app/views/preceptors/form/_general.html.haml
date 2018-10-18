@@ -1,96 +1,24 @@
-.form-group
-  = f.label :first_name, class: 'col-md-2 control-label'
+= render "forms/horizontal/text_field", form: form, object: preceptor, key: :first_name
+= render "forms/horizontal/text_field", form: form, object: preceptor, key: :last_name
+= render "forms/horizontal/email_field", form: form, object: preceptor, key: :email
+- if user_signed_in? && current_user.administrator?
+  = render "forms/horizontal/select", form: form, object: preceptor, key: :status, options: Preceptor::STATUS, id: true
+= render "forms/horizontal/text_field", form: form, object: preceptor, key: :degree, help_text: "Example: M.D., Ph.D."
+
+.form-group.row
+  = form.label :hospital_affiliation, class: "col-md-2 col-form-label"
   .col-md-10
-    = f.text_field :first_name, class: 'form-control'
+    = form.text_field :hospital_affiliation, autocomplete: "off", data: { object: "typeahead", local: Hospital.current.order(:name).pluck(:name).uniq.to_json }, class: "form-control"
+    - if user_signed_in? && current_user.administrator?
+      = render "forms/help_text", help_text: "You can edit the #{link_to "list of hospitals", hospitals_path}.".html_safe
 
-.form-group
-  = f.label :last_name, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :last_name, class: 'form-control'
-
-.form-group
-  = f.label :email, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.email_field :email, class: 'form-control'
-
-- if user_signed_in? and current_user.administrator?
-  .form-group
-    = f.label :status, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.select :status, Preceptor::STATUS, {}, class: 'form-control'
-
-.form-group
-  = f.label :degree, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :degree, class: 'form-control'
-    .callout.callout-info
-      %h4 Example
-      %code
-        M.D.
-      %code
-        Ph.D.
-
-.form-group
-  = f.label :hospital_affiliation, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :hospital_affiliation, autocomplete: 'off', data: { object: 'typeahead', local: Hospital.current.order('name').pluck(:name).uniq.to_json }, class: 'form-control'
-    - if user_signed_in? and current_user.administrator?
-      .callout.callout-info
-        %h4 Manage Hospital List
-        You can edit the
-        = succeed '.' do
-          = link_to 'list of hospitals', hospitals_path, class: 'btn btn-xs btn-default'
-
-.form-group
-  = f.label :hospital_appointment, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :hospital_appointment, class: 'form-control'
-
-.form-group
-  = f.label :biosketch, 'NIH Biosketch (PDF, Word)', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.file_field :biosketch, class: 'form-control'
-    = f.hidden_field :biosketch_cache
-
-.form-group
-  = f.label :curriculum_vitae, 'Curriculum Vitae (PDF, Word)', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.file_field :curriculum_vitae, class: 'form-control'
-    = f.hidden_field :curriculum_vitae_cache
-
-.form-group
-  = f.label :other_support, 'Other support (PDF, Word)', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.file_field :other_support, class: 'form-control'
-    = f.hidden_field :other_support_cache
-    .callout.callout-info
-      %h4 Example Document
-      You can download an example
-      = link_to 'Other-Support.doc', "#{root_path}Other-Support.doc", class: 'btn btn-xs btn-default', target: '_blank'
-      as a template.
-
-- if user_signed_in? and current_user.administrator?
-  .form-group
-    = f.label :rank, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.select :rank, options_for_select([['---', nil]] + Preceptor::RANK), {}, class: 'form-control'
-
-.form-group
-  = f.label :research_interest, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :research_interest, rows: 7, class: 'form-control'
-
-.form-group
-  = f.label :program_role, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :program_role, class: 'form-control'
-
-.form-group
-  = f.label :publications, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :publications, rows: 14, class: 'form-control'
-
-.form-group
-  = f.label :grants, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :grants, rows: 14, class: 'form-control'
+= render "forms/horizontal/text_field", form: form, object: preceptor, key: :hospital_appointment
+= render "forms/horizontal/file_field", form: form, object: preceptor, key: :biosketch, key_name: "NIH Biosketch", help_text: "PDF, Word"
+= render "forms/horizontal/file_field", form: form, object: preceptor, key: :curriculum_vitae, help_text: "PDF, Word"
+= render "forms/horizontal/file_field", form: form, object: preceptor, key: :other_support, help_text: "PDF, Word. You can download an example #{link_to "Other-Support.doc", "#{root_path}Other-Support.doc", target: "_blank"} as a template.".html_safe
+- if user_signed_in? && current_user.administrator?
+  = render "forms/horizontal/select", form: form, object: preceptor, key: :rank, options: Preceptor::RANK, include_blank: "---", id: true
+= render "forms/horizontal/text_area", form: form, object: preceptor, key: :research_interest, rows: 7
+= render "forms/horizontal/text_field", form: form, object: preceptor, key: :program_role
+= render "forms/horizontal/text_area", form: form, object: preceptor, key: :publications, rows: 7
+= render "forms/horizontal/text_area", form: form, object: preceptor, key: :grants, rows: 7

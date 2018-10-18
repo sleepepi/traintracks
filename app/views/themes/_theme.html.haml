@@ -1,0 +1,4 @@
+- if params[:theme].in?(TrainTracks::THEMES.collect(&:second))
+  - @theme = params[:theme]
+- else
+  - @theme = "default"

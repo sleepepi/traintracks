@@ -1,24 +1,8 @@
-.page-header
-  %h2 Demographic Information
+.brand-title Demographic Information
 
-%dl.dl-horizontal
-  %dt Gender
-  %dd= applicant.gender
-
-  %dt Disabled
-  %dd= simple_check applicant.disabled
-
-  %dt Disadvantaged
-  %dd= simple_check applicant.disadvantaged
-
-  %dt Under-Represented Minority
-  %dd{ style: 'min-height: 60px;' }= simple_check applicant.urm
-
-  %dt Under-Represented Minority
-  %dd{ style: 'min-height: 60px;' }
-    %ul
-      - applicant.urm_types_names.each do |urm_type|
-        %li= urm_type
-
-  %dt Marital status
-  %dd= applicant.marital_status
+= render "forms/horizontal/show/text", object: applicant, key: :gender
+= render "forms/horizontal/show/check_box", object: applicant, key: :disabled
+= render "forms/horizontal/show/check_box", object: applicant, key: :disadvantaged
+= render "forms/horizontal/show/check_box", object: applicant, key: :urm, key_name: "Under-Represented Minority"
+= render "forms/horizontal/show/generic", title: "Under-Represented Minority", content: render("applicants/show/urm_types", applicant: applicant) if applicant.urm_types.present?
+= render "forms/horizontal/show/text", object: applicant, key: :marital_status

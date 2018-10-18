@@ -1,38 +1,30 @@
-.page-header
-  %h2
-    Submission Status
-    = link_to 'edit', '#', data: { object: 'modal-show', target: '#edit_submission_date' }, class: 'btn btn-xs btn-default'
+.brand-title
+  Submission Status
+  = link_to "#", data: { object: "modal-show", target: "#edit_submission_date" }, class: "btn btn-sm btn-light" do
+    = icon("fas", "pencil-alt")
+    edit
 
-%dl.dl-horizontal
-  %dt Applicant assurance
-  %dd{ style: 'min-height: 60px;' }= simple_check applicant.assurance
+= render "forms/horizontal/show/check_box", object: applicant, key: :assurance, key_name: "Applicant assurance"
 
-  - if applicant.originally_submitted_at == applicant.submitted_at
-    %dt Submitted
-    %dd.submission_date_container= simple_time applicant.submitted_at
-  - else
-    %dt Originally Submitted
-    %dd.submission_date_container{ style: 'min-height: 60px;' }= simple_time applicant.originally_submitted_at
+- if applicant.originally_submitted_at == applicant.submitted_at
+  = render "forms/horizontal/show/generic", title: "Submitted", content: simple_time(applicant.submitted_at)
+- else
+  = render "forms/horizontal/show/generic", title: "Originally Submitted", content: simple_time(applicant.originally_submitted_at)
+  = render "forms/horizontal/show/generic", title: "Resubmitted", content: simple_time(applicant.submitted_at)
 
-    %dt Resubmitted
-    %dd.submission_date_container= simple_time applicant.submitted_at
-
-#edit_submission_date.modal{ tabindex: '-1', role: 'dialog', aria: { hidden: 'true' } }
+#edit_submission_date.modal{ tabindex: "-1", role: "dialog", aria: { hidden: "true" } }
   .modal-dialog
     .modal-content
       .modal-header
         Update Submission Date
-        %a.close{ data: { dismiss: 'modal' } } &times;
+        %button.close{ type: "button", data: { dismiss: "modal" }, aria: { hidden: true } }= icon("fas", "times")
       .modal-body
-        = form_tag update_submitted_at_date_applicant_path(applicant), method: :post, remote: true, class: 'form-horizontal', id: 'update_submission_date_form' do
-          .form-group
-            = label_tag :submission_date, nil, class: 'col-md-2 control-label'
-            .col-md-10
-              .input-group
-                = text_field_tag :submission_date, applicant.originally_submitted_at ? applicant.originally_submitted_at.strftime('%m/%d/%Y') : '', class: 'datepicker form-control'
-                %span.input-group-addon
-                  %span.glyphicon.glyphicon-calendar
+        = form_tag update_submitted_at_date_applicant_path(applicant), method: :post, remote: true, class: "form-horizontal", id: "update_submission_date_form" do
+          .form-group.row
+            = label_tag :submission_date, nil, class: "col-md-auto col-form-label"
+            .col-md
+              = text_field_tag :submission_date, applicant.originally_submitted_at ? applicant.originally_submitted_at.strftime("%m/%d/%Y") : "", class: "datepicker form-control"
 
       .modal-footer
-        = link_to 'Close', '#', class: 'btn btn-default', data: { dismiss: 'modal' }
-        = link_to 'Update Submission Date', '#', class: 'btn btn-primary', data: { object: 'submit', target: '#update_submission_date_form' }
+        = link_to "Close", "#", class: "btn btn-light", data: { dismiss: "modal" }
+        = link_to "Update Submission Date", "#", class: "btn btn-primary", data: { object: "submit", target: "#update_submission_date_form" }

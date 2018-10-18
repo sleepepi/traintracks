@@ -1,13 +1,23 @@
-- @title = 'Hospitals'
-.page-header
-  %h1
-    = @title
-    = link_to 'Create Hospital', new_hospital_path, class: 'btn btn-xs btn-primary'
+- @title = "Hospitals"
 
-= form_tag hospitals_path, method: :get, class: 'form-inline' do
-  = hidden_field_tag :order, params[:order]
+- content_for :header do
+  .float-right
+    = link_to plus_or("New Hospital"), new_hospital_path, class: "btn btn-dark btn-shadow"
+  = @title
 
-  = text_field_tag 'search', params[:search], class: 'form-control'
-  = submit_tag 'Search', class: 'btn btn-primary', name: nil
+- content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 40, object_count: @hospitals.total_count
+  %ol
+    %li.breadcrumb-muted hospitals
 
-= render 'hospitals/hospitals'
+= form_with url: hospitals_path, method: :get, local: true, skip_enforcing_utf8: true, class: "mb-3" do |form|
+  = form.hidden_field :order, value: params[:order]
+  .input-group
+    = text_field_tag "search", params[:search], class: "form-control"
+    .input-group-append= submit_tag "Search", class: "btn btn-primary", name: nil
+
+- if @hospitals.present?
+  = render "hospitals/hospitals"
+- else
+  .jumbotron.jumbotron-custom-text
+    No hospitals found.

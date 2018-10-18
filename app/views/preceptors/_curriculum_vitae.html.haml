@@ -1,0 +1,4 @@
+- if preceptor.curriculum_vitae.size > 0
+  - full_url = "#{request.script_name}#{preceptor.curriculum_vitae.url}"
+  = link_to preceptor.curriculum_vitae_url.split("/").last, full_url, target: "_blank"
+  %span.badge.badge-light= number_to_human_size(preceptor.curriculum_vitae.size)

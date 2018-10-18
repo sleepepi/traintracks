@@ -1,26 +1,37 @@
-- @title = 'Annuals'
-.page-header
-  %h1
-    = @title
-    = link_to 'Create Annual', new_annual_path, class: 'btn btn-xs btn-primary'
+- @title = "Annuals"
 
-= form_tag annuals_path, method: :get, id: 'annuals_search', class: 'form-vertical' do
-  = hidden_field_tag :order, params[:order]
+- content_for :header do
+  .float-right
+    = link_to plus_or("New Annual"), new_annual_path, class: "btn btn-dark btn-shadow"
+  = @title
 
-  .row
-    .col-md-4.form-group
-      = label :search, 'Search', class: 'col-md-2 control-label'
-      .col-md-10
-        = text_field_tag 'search', params[:search], class: 'form-control', data: { object: 'filter' }
+- content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 40, object_count: @annuals.total_count
+  %ol
+    %li.breadcrumb-muted annuals
 
-    .col-md-4.form-group
-      = label :year, 'Year', class: 'col-md-2 control-label'
-      .col-md-10
-        = select_tag :year, options_for_select([["All", nil]] + Annual.pluck(:year).uniq.sort.reverse.collect{|year| [year, year]}), class: 'form-control'
+.dashboard-container
+  = form_with url: annuals_path, method: :get, local: true, id: "annuals_search", skip_enforcing_utf8: true do |form|
+    = form.hidden_field :order, value: params[:order]
 
-  .form-group
-    .col-md-offset-2.col-md-10
-      = submit_tag 'Search', class: 'btn btn-primary', name: nil
-      = link_to 'Export', '#', class: 'btn btn-default', data: { object: 'export', format: 'csv', target: '#annuals_search' }
+    .row
+      .col-md-4.form-group
+        = label :search, "Search", class: "col-md-2 control-label"
+        .col-md-10
+          = text_field_tag "search", params[:search], class: "form-control", data: { object: "filter" }
 
-= render 'annuals/annuals'
+      .col-md-4.form-group
+        = label :year, "Year", class: "col-md-2 control-label"
+        .col-md-10
+          = select_tag :year, options_for_select([["All", nil]] + Annual.pluck(:year).uniq.sort.reverse.collect{|year| [year, year]}), class: "form-control"
+
+    .form-group
+      .col-md-offset-2.col-md-10
+        = submit_tag "Search", class: "btn btn-primary", name: nil
+        = link_to "Export", "#", class: "btn btn-light", data: { object: "export", format: "csv", target: "#annuals_search" }
+
+- if @annuals.present?
+  = render "annuals/annuals"
+- else
+  .jumbotron.jumbotron-custom-text
+    No annuals found.

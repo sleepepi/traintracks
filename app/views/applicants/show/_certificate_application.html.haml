@@ -1,0 +1,4 @@
+- if applicant.certificate_application_url.present?
+  - full_url = "#{request.script_name}#{applicant.certificate_application.url}"
+  = link_to applicant.certificate_application_url.split("/").last, full_url, target: "_blank"
+  %span.badge.badge-light= number_to_human_size applicant.certificate_application.size

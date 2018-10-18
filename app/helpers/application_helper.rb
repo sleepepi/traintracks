@@ -2,22 +2,6 @@
 
 # Methods to help across all application views.
 module ApplicationHelper
-  # Prints out '6 hours ago, Yesterday, 2 weeks ago, 5 months ago, 1 year ago'
-  def recent_activity(past_time)
-    return '' unless past_time.is_a?(Time)
-    time_ago_in_words(past_time)
-    seconds_ago = (Time.zone.now - past_time)
-    color = if seconds_ago < 60.minute then '#6DD1EC'
-    elsif seconds_ago < 1.day then '#ADDD1E'
-    elsif seconds_ago < 2.day then '#CEDC34'
-    elsif seconds_ago < 1.week then '#CEDC34'
-    elsif seconds_ago < 1.month then '#DCAA24'
-    elsif seconds_ago < 1.year then '#C2692A'
-    else '#AA2D2F'
-    end
-    "<span style='color:#{color};font-weight:bold;font-variant:small-caps;'>#{time_ago_in_words(past_time)} ago</span>".html_safe
-  end
-
   def simple_date(past_date)
     return '' if past_date.blank?
     if past_date == Time.zone.today
@@ -45,7 +29,7 @@ module ApplicationHelper
   end
 
   def simple_check(checked)
-    checked ? '<span class="glyphicon glyphicon-ok"></span>'.html_safe : '<span class="glyphicon glyphicon-unchecked"></span>'.html_safe
+    checked ? icon("fas", "check-square") : icon("far", "square")
   end
 
   def th_sort_field(order, sort_field, display_name, extra_class: '')

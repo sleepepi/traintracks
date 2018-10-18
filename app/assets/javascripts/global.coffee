@@ -37,7 +37,6 @@
 
 @extensionsReady = ->
   datepickerReady()
-  notouchReady()
   tooltipsReady()
   typeaheadReady()
 
@@ -45,7 +44,7 @@
 @turbolinksReady = ->
   togglePostdocFields()
   setFocusToField("#search")
-  $('[data-object~="form-load"]').submit()
+  # $('[data-object~="form-load"]').submit()
   extensionsReady()
 
 # These functions only get called on the initial page visit (no turbolinks).

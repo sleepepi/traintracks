@@ -1,3 +1,11 @@
-- @title = "Edit Hospital: #{@hospital.name_was}"
+- @title = "Edit Hospital - #{@hospital.name_was}"
 
-= render 'form'
+- content_for :header, @hospital.name_was
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "hospitals", hospitals_path
+    %li= link_to @hospital.name_was.to_s.downcase, @hospital
+    %li.breadcrumb-muted edit
+
+.dashboard-container
+  = render "form", hospital: @hospital

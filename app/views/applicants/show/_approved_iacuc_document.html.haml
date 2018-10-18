@@ -1,0 +1,4 @@
+- if applicant.approved_iacuc_document_url.present?
+  - full_url = "#{request.script_name}#{applicant.approved_iacuc_document.url}"
+  = link_to applicant.approved_iacuc_document_url.split('/').last, full_url, target: '_blank'
+  %span.badge.badge-light= number_to_human_size(applicant.approved_iacuc_document.size)

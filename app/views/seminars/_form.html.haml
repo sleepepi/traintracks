@@ -1,58 +1,22 @@
-.page-header
-  %h1
-    = link_to 'Seminars', seminars_path
-    &middot;
-    = @title
-
-= form_for @seminar, html: { class: 'form-horizontal' } do |f|
-  - if @seminar.errors.any?
-    .callout.callout-danger
-      %h4
-        = pluralize @seminar.errors.count, 'error'
-        prohibited this seminar from being saved
-
-      %ul
-        - @seminar.errors.full_messages.each do |message|
-          %li= message
-
-  .form-group
-    = f.label :category, nil, class: 'col-md-2 control-label'
+= form_with model: seminar, local: true do |form|
+  .form-group.row
+    = form.label :category, nil, class: "col-md-2 col-form-label"
     .col-md-10
-      = f.text_field :category, autocomplete: "off", data: { object: 'typeahead', local: Seminar.current.pluck(:category).uniq.to_json }, class: 'form-control'
+      = form.text_field :category, autocomplete: "off", data: { object: "typeahead", local: Seminar.current.pluck(:category).uniq.to_json }, class: "form-control#{" is-invalid" if seminar.errors[:category].present?}"
+      = render "forms/invalid_feedback", object: seminar, key: :category
 
-  .form-group
-    = f.label :presenter, nil, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_field :presenter, class: 'form-control'
+  = render "forms/horizontal/text_field", form: form, object: seminar, key: :presenter
+  = render "forms/horizontal/text_field", form: form, object: seminar, key: :presentation_title
+  = render "forms/horizontal/date_field", form: form, object: seminar, key: :presentation_date
+  = render "forms/horizontal/text_field", form: form, object: seminar, key: :presentation_time, value: seminar.presentation_date&.strftime("%l:%M %p")&.strip
 
-  .form-group
-    = f.label :presentation_title, nil, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_field :presentation_title, class: 'form-control'
-
-  .form-group
-    = f.label :presentation_date, nil, class: 'col-md-2 control-label'
-    .col-md-10
-      .input-group
-        = f.text_field :presentation_date, class: 'datepicker form-control', value: @seminar.presentation_date ? @seminar.presentation_date.strftime('%m/%d/%Y') : ''
-        %span.input-group-addon
-          %span.glyphicon.glyphicon-calendar
-
-  .form-group
-    = f.label :presentation_time, nil, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_field :presentation_time, value: @seminar.presentation_date ? @seminar.presentation_date.strftime('%l:%M %p').strip : '', class: 'form-control'
-
-  .form-group
-    = f.label :duration, nil, class: 'col-md-2 control-label'
+  .form-group.row
+    = form.label :duration, nil, class: "col-md-2 col-form-label"
     .col-md-10
       .row
-        .col-xs-6
-          = f.number_field :duration, class: 'form-control'
-        .col-xs-6
-          = f.select :duration_units, Seminar::DURATION_UNITS, {}, class: 'form-control'
+        .col-6
+          = form.number_field :duration, class: "form-control"
+        .col-6
+          = form.select :duration_units, Seminar::DURATION_UNITS, {}, class: "form-control"
 
-  .form-group
-    .col-md-offset-2.col-md-10
-      = f.submit nil, class: 'btn btn-primary'
-      = link_to 'Cancel', @seminar.new_record? ? seminars_path : @seminar, class: 'btn btn-default'
+  = render "forms/horizontal/submit", form: form, object: seminar

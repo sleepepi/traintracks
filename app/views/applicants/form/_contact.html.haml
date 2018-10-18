@@ -1,37 +1,9 @@
-.page-header
-  %h2 Contact Information
+.brand-title Contact Information
 
-.form-group
-  = f.label :phone, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :phone, class: 'form-control'
-
-.form-group
-  = f.label :address1, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :address1, class: 'form-control'
-
-.form-group
-  = f.label :address2, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :address2, class: 'form-control'
-
-.form-group
-  = f.label :city, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :city, class: 'form-control'
-
-.form-group
-  = f.label :state, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :state, class: 'form-control'
-
-.form-group
-  = f.label :country, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :country, class: 'form-control'
-
-.form-group
-  = f.label :zip_code, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :zip_code, class: 'form-control'
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :phone
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :address1
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :address2
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :city
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :state
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :country
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :zip_code

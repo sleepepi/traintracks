@@ -1,64 +1,21 @@
-.page-header
-  %h2 Education / Experience
+.brand-title Education / Experience
 
-%dl.dl-horizontal
-  %dt Curriculum Vitae
-  %dd
-    - if applicant.curriculum_vitae_url.present?
-      - full_url = "#{request.script_name}#{applicant.curriculum_vitae.url}"
-      = link_to applicant.curriculum_vitae_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
-      = number_to_human_size applicant.curriculum_vitae.size
-
-  %dt Current institution
-  %dd{ style: 'min-height: 60px;' }= applicant.current_institution
-
-  %dt{ title: 'Department / Program' } Department / Program
-  %dd{ style: 'min-height: 60px;' }= applicant.department_program
-
-  %dt Current position
-  %dd= applicant.current_position
-
-  %dt Degrees earned
-  %dd
-    %ul
-      - applicant.degrees.each do |degree|
-        %li= render 'degrees/show', degree: degree
-
-  - unless applicant.postdoc?
-    %dt Degree sought
-    %dd= applicant.degree_sought
-
-    %dt Expected year
-    %dd= applicant.expected_year
-
-  - if applicant.postdoc?
-    %dt Residency
-    %dd= applicant.residency
-
-  %dt Research interests
-  %dd{ style: 'min-height: 60px;' }
-    %ul
-      - applicant.research_interests.each do |research_interest|
-        %li= research_interest
-
-  - if applicant.research_interests.include?('other')
-    %dt Research interests other
-    %dd= applicant.research_interests_other
-
-  %dt Preferred preceptor
-  %dd{ style: 'min-height: 60px;' }= link_to applicant.preferred_preceptor.name, applicant.preferred_preceptor if applicant.preferred_preceptor
-
-  %dt Second preferred preceptor
-  %dd{ style: 'min-height: 60px;' }= link_to applicant.preferred_preceptor_two.name, applicant.preferred_preceptor_two if applicant.preferred_preceptor_two
-
-  %dt Third preferred preceptor
-  %dd{ style: 'min-height: 60px;' }= link_to applicant.preferred_preceptor_three.name, applicant.preferred_preceptor_three if applicant.preferred_preceptor_three
-
-  %dt Primary preceptor
-  %dd{ style: 'min-height: 60px;' }= link_to applicant.primary_preceptor.name, applicant.primary_preceptor if applicant.primary_preceptor
-
-  %dt Secondary preceptor
-  %dd{ style: 'min-height: 60px;' }= link_to applicant.secondary_preceptor.name, applicant.secondary_preceptor if applicant.secondary_preceptor
-
-  %dt Previous NRSA Support
-  %dd= simple_check applicant.previous_nrsa_support
+= render "forms/horizontal/show/generic", title: "Curriculum Vitae", content: render("applicants/show/curriculum_vitae", applicant: applicant)
+= render "forms/horizontal/show/text", object: applicant, key: :current_institution
+= render "forms/horizontal/show/text", object: applicant, key: :department_program, key_name: "Department / Program"
+= render "forms/horizontal/show/text", object: applicant, key: :current_position
+= render "forms/horizontal/show/generic", title: "Degrees earned", content: render("applicants/show/degrees_earned", applicant: applicant)
+- if applicant.postdoc?
+  = render "forms/horizontal/show/text", object: applicant, key: :residency
+- else
+  = render "forms/horizontal/show/text", object: applicant, key: :degree_sought
+  = render "forms/horizontal/show/text", object: applicant, key: :expected_year
+= render "forms/horizontal/show/generic", title: "Research interests", content: render("applicants/show/research_interests", applicant: applicant)
+- if applicant.research_interests.include?('other')
+  = render "forms/horizontal/show/text", object: applicant, key: :research_interests_other, key_name: "Other Research Interest"
+= render "forms/horizontal/show/generic", title: "Preferred preceptor", content: link_to(applicant.preferred_preceptor.name, applicant.preferred_preceptor) if applicant.preferred_preceptor
+= render "forms/horizontal/show/generic", title: "Second preferred preceptor", content: link_to(applicant.preferred_preceptor_two.name, applicant.preferred_preceptor_two) if applicant.preferred_preceptor_two
+= render "forms/horizontal/show/generic", title: "Third preferred preceptor", content: link_to(applicant.preferred_preceptor_three.name, applicant.preferred_preceptor_three) if applicant.preferred_preceptor_three
+= render "forms/horizontal/show/generic", title: "Primary preceptor", content: link_to(applicant.primary_preceptor.name, applicant.primary_preceptor) if applicant.primary_preceptor
+= render "forms/horizontal/show/generic", title: "Secondary preceptor", content: link_to(applicant.secondary_preceptor.name, applicant.secondary_preceptor) if applicant.secondary_preceptor
+= render "forms/horizontal/show/check_box", object: applicant, key: :previous_nrsa_support, key_name: "Previous NRSA Support"

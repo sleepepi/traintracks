@@ -1,48 +1,24 @@
-.page-header
-  %h2 Exit Interview
+.brand-title Exit Interview
 
-- if current_user && current_user.administrator?
-  .callout.callout-info
-    %h4 Exit Interview Login
-    %code.text-primary.small= "#{ENV['website_url']}/applicants/exit_interview?auth_token=#{applicant.id_and_auth_token}"
+- if current_user&.administrator?
+  .mb-3
+    %strong Exit Interview Login
+    %code.text-primary.small= "#{ENV["website_url"]}/applicants/exit_interview?auth_token=#{applicant.id_and_auth_token}"
 
-%dl.dl-horizontal
-  %dt Future email
-  %dd= applicant.future_email
+= render "forms/horizontal/show/text", object: applicant, key: :future_email
+= render "forms/horizontal/show/text", object: applicant, key: :entrance_year
+= render "forms/horizontal/show/check_box", object: applicant, key: :t32_funded, key_name: "T32 funded"
+= render "forms/horizontal/show/generic", title: "T32 funded years", content: applicant.t32_funded_years.blank? ? "" : pluralize(applicant.t32_funded_years, "Year")
+= render "forms/horizontal/show/check_box", object: applicant, key: :academic_program_completed
+= render "forms/horizontal/show/generic", title: "Certificate Application", content: render("applicants/show/certificate_application", applicant: applicant)
 
-  %dt Entrance year
-  %dd= applicant.entrance_year
 
-  %dt T32 funded
-  %dd{ style: 'min-height: 60px;' }= simple_check applicant.t32_funded
+= render "forms/horizontal/show/text", object: applicant, key: :research_project_title
+= render "forms/horizontal/show/generic", title: "Laboratories", content: applicant.laboratories.join(", ")
+= render "forms/horizontal/show/check_box", object: applicant, key: :immediate_transition
 
-  %dt T32 funded years
-  %dd{ style: 'min-height: 60px;' }= applicant.t32_funded_years.blank? ? '' : pluralize(applicant.t32_funded_years, 'Year')
+= render "forms/horizontal/show/generic", title: "Transition position", content: applicant.transition_position.join(", ")
 
-  %dt Academic program completed
-  %dd{ style: 'min-height: 60px;' }= simple_check applicant.academic_program_completed
+= render "forms/horizontal/show/text", object: applicant, key: :transition_position_other
 
-  %dt Certificate Application
-  %dd{ style: 'min-height: 60px;' }
-    - if applicant.certificate_application_url.present?
-      - full_url = "#{request.script_name}#{applicant.certificate_application.url}"
-      = link_to applicant.certificate_application_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
-      = number_to_human_size applicant.certificate_application.size
-
-  %dt Research project title
-  %dd{ style: 'min-height: 60px;' }= applicant.research_project_title
-
-  %dt Laboratories
-  %dd{ style: 'min-height: 60px;' }= applicant.laboratories.join(', ')
-
-  %dt Immediate transition
-  %dd{ style: 'min-height: 60px;' }= simple_check applicant.immediate_transition
-
-  %dt Transition position
-  %dd{ style: 'min-height: 60px;' }= applicant.transition_position.join(', ')
-
-  %dt Transition position other
-  %dd{ style: 'min-height: 60px;' }= applicant.transition_position_other
-
-  %dt Feedback
-  %dd= applicant.termination_feedback
+= render "forms/horizontal/show/text", object: applicant, key: :termination_feedback, key_name: "Feedback"

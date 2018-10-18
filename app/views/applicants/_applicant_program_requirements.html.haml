@@ -1,20 +1,18 @@
-= render 'layouts/per_page', per_page: 40, object_count: @applicants.total_count
-
-%table.table.table-striped.table-bordered.table-hover
+%table.table.table-striped.table-bordered.table-hover.table-sticky.table-sm
   %thead
     %tr
-      = th_sort_field @order, 'applicants.last_name', 'Name'
-      = th_sort_field @order, 'applicants.training_period_start_date', 'Training Period Start Date'
-      = th_sort_field @order, 'applicants.research_in_progress_date', 'Research-In-Progress Date'
-      = th_sort_field @order, 'applicants.research_ethics_training_completed_date', 'Research Ethics Training Completed'
-      = th_sort_field @order, 'applicants.grant_writing_training_completed_date', 'Grant Writing Training Completed'
-      = th_sort_field @order, 'applicants.basic_research_statistics_course_completed_date', 'Basic Research Statistics Course Completed'
-      = th_sort_field @order, 'applicants.advanced_research_statistics_course_completed_date', 'Advanced Research Statistics Course Completed'
-      = th_sort_field @order, 'applicants.neuroscience_course_completed_date', 'Neuroscience Course'
-      = th_sort_field @order, 'applicants.hsoph_summer_session_course_completed_date', 'Harvard School of Public Health Summer Session Courses'
-      = th_sort_field @order, 'applicants.individual_funding_submission_date', 'Submitted application for Individual Funding'
-      = th_sort_field @order, 'applicants.last_idp_date', 'Last IDP'
-      %th Actions
+      = th_sort_field @order, "applicants.last_name", "Name"
+      = th_sort_field @order, "applicants.training_period_start_date", "Training Period Start Date"
+      = th_sort_field @order, "applicants.research_in_progress_date", "Research-In-Progress Date"
+      = th_sort_field @order, "applicants.research_ethics_training_completed_date", "Research Ethics Training Completed"
+      = th_sort_field @order, "applicants.grant_writing_training_completed_date", "Grant Writing Training Completed"
+      = th_sort_field @order, "applicants.basic_research_statistics_course_completed_date", "Basic Research Statistics Course Completed"
+      = th_sort_field @order, "applicants.advanced_research_statistics_course_completed_date", "Advanced Research Statistics Course Completed"
+      = th_sort_field @order, "applicants.neuroscience_course_completed_date", "Neuroscience Course"
+      = th_sort_field @order, "applicants.hsoph_summer_session_course_completed_date", "HSPH Summer Session Courses"
+      = th_sort_field @order, "applicants.individual_funding_submission_date", "Submitted application for Individual Funding"
+      = th_sort_field @order, "applicants.last_idp_date", "Last IDP"
+      %th.text-center Actions
 
   %tbody
     - @applicants.each_with_index do |applicant, index|
@@ -30,8 +28,7 @@
         %td.nowrap= applicant.hsoph_summer_session_course_completed_date
         %td.nowrap= applicant.individual_funding_submission_date
         %td.nowrap= applicant.last_idp_date
-        %td.nowrap
-          = link_to 'Edit', edit_applicant_path(applicant), class: 'btn btn-xs btn-default'
-          = link_to 'Delete', applicant, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Applicant #{applicant.name}?" }
+        %td.text-center
+          = render "layouts/edit_delete_dropdown", edit_url: edit_applicant_path(applicant), delete_url: applicant, delete_confirmation: "Delete #{applicant.name}?"
 
-.center= paginate @applicants, theme: 'bootstrap'
+.center-horizontally= paginate @applicants, theme: "bootstrap"

@@ -1,7 +1,7 @@
 json.version do
-  json.string TrainingGrant::VERSION::STRING
-  json.major TrainingGrant::VERSION::MAJOR
-  json.minor TrainingGrant::VERSION::MINOR
-  json.tiny TrainingGrant::VERSION::TINY
-  json.build TrainingGrant::VERSION::BUILD
+  json.string TrainTracks::VERSION::STRING
+  json.major TrainTracks::VERSION::MAJOR
+  json.minor TrainTracks::VERSION::MINOR
+  json.tiny TrainTracks::VERSION::TINY
+  json.build TrainTracks::VERSION::BUILD
 end

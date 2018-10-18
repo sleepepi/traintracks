@@ -1,0 +1,49 @@
+@keyframes fadein {
+  from {
+    opacity: 0;
+    top: -60px;
+  }
+
+  to {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+    top: 0;
+  }
+
+  to {
+    opacity: 0;
+    top: -60px;
+  }
+}
+
+.flash-bar {
+  left: 0;
+  padding: 16px;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  top: 0;
+  visibility: hidden;
+  z-index: $zindex-tooltip;
+
+  &.flash-bar-show {
+    animation: fadein 500ms, fadeout 500ms 4s;
+    animation-fill-mode: forwards;
+    visibility: visible;
+  }
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .flash-bar {
+      background-color: map-get($theme, brand-black);
+      color: map-get($theme, brand-white);
+    }
+  }
+}

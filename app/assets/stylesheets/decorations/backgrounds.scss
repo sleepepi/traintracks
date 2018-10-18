@@ -1,0 +1,40 @@
+.theme-bg {
+  transition: $transition-bg;
+}
+
+@each $name, $theme in $themes {
+  $selection-bg: map-get($theme, p200);
+  @if map-get($theme, selection-bg) {
+    $selection-bg: map-get($theme, selection-bg);
+  }
+
+  $selection-color: map-get($theme, body-color);
+  @if map-get($theme, selection-color) {
+    $selection-color: map-get($theme, selection-color);
+  }
+
+  .theme-#{$name}-bg {
+    background-color: map-get($theme, body-bg);
+    color: map-get($theme, body-color);
+
+    ::selection {
+      background-color: rgba($selection-bg, .99);
+      color: $selection-color;
+      text-shadow: none;
+    }
+
+    :focus {
+      border-color: lighten(map-get($theme, accent), 25%);
+      box-shadow: 0 0 0 0.2rem rgba(map-get($theme, accent), 0.25);
+      // border-color: lighten(map-get($theme, primary), 25%);
+      // box-shadow: 0 0 0 0.2rem rgba(map-get($theme, primary), 0.25);
+      outline-color: $selection-bg !important;
+    }
+  }
+
+  @if map-get($theme, footer-bg) and map-get($theme, body-focus) {
+    .theme-#{$name}-focus-bg {
+      background-image: linear-gradient(180deg, map-get($theme, footer-bg), map-get($theme, body-focus) 50%, map-get($theme, footer-bg));
+    }
+  }
+}

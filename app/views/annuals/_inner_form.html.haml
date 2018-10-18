@@ -1,60 +1,7 @@
-.form-group
-  = f.label :coursework_completed, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :coursework_completed, rows: 7, class: 'form-control'
-
-.form-group
-  = f.label :publications, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :publications, rows: 7, class: 'form-control'
-    .callout.callout-warning
-      %h4 Important
-      NIH-funded publications after April, 2008 must comply with the
-      = link_to 'NIH Public Access policy', 'https://www.countway.harvard.edu/menuNavigation/libraryServices/nihPublicAccess.html', target: '_blank'
-      by listing a PMCID.
-
-.form-group
-  = f.label :presentations, "Conferences, Presentations, Honors, and Fellowships", class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :presentations, rows: 7, class: 'form-control'
-
-.form-group
-  = f.label :research_description, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :research_description, rows: 7, class: 'form-control'
-
-.form-group
-  = f.label :degree_or_certifications_earned, "Degree or Certifications earned (Year) or Other Relevant Outcome", class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :degree_or_certifications_earned, rows: 7, class: 'form-control'
-    .callout.callout-info
-      %h4 Example
-      = succeed ',' do
-        %code Certificate of Clinical Investigation (2013)
-      %code Board Certification in Sleep Medicine (2013)
-
-.form-group
-  = f.label :source_of_support, nil, class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :source_of_support, class: 'form-control'
-    .callout.callout-info
-      %h4 Example
-      = succeed ',' do
-        %code NIH
-      = succeed ',' do
-        %code NHLBI
-      = succeed ',' do
-        %code Private Funding
-      %code None
-      %p Upload full NIH Grant information in your NIH Other Support Document.
-
-.form-group
-  = f.label :nih_other_support, 'NIH Other Support', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.file_field :nih_other_support, class: 'form-control'
-    = f.hidden_field :nih_other_support_cache
-    .callout.callout-info
-      %h4 Example Document
-      You can download an example
-      = link_to 'othersupport.pdf', 'http://grants.nih.gov/grants/funding/phs398/othersupport.pdf', target: '_blank', class: 'btn btn-xs btn-default'
-      as a template.
+= render "forms/horizontal/text_area", form: form, object: annual, key: :coursework_completed, rows: 7
+= render "forms/horizontal/text_area", form: form, object: annual, key: :publications, rows: 7, help_text: "NIH-funded publications after April, 2008 must comply with the #{link_to "NIH Public Access policy", "https://www.countway.harvard.edu/menuNavigation/libraryServices/nihPublicAccess.html", target: "_blank"} by listing a PMCID.".html_safe
+= render "forms/horizontal/text_area", form: form, object: annual, key: :presentations, key_name: "Conferences, Presentations, Honors, and Fellowships", rows: 7
+= render "forms/horizontal/text_area", form: form, object: annual, key: :research_description, rows: 7
+= render "forms/horizontal/text_area", form: form, object: annual, key: :degree_or_certifications_earned, key_name: "Degree or Certifications earned (Year) or Other Relevant Outcome", rows: 7, help_text: "Example: Certificate of Clinical Investigation (2013), Board Certification in Sleep Medicine (2013)"
+= render "forms/horizontal/text_field", form: form, object: annual, key: :source_of_support, help_text: "Example: NIH, NHLBI, Private Funding, None<br />Upload full NIH Grant information in your NIH Other Support Document.".html_safe
+= render "forms/horizontal/file_field", form: form, object: annual, key: :nih_other_support, key_name: "NIH Other Support", help_text: "You can download an example #{link_to "othersupport.pdf", "http://grants.nih.gov/grants/funding/phs398/othersupport.pdf", target: "_blank"} as a template.".html_safe

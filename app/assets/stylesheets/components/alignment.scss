@@ -1,17 +1,30 @@
-.center,
-.text-center {
-  text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
-
 .nowrap {
   white-space: nowrap;
 }
 
-.overflow-hidden {
+.overflow-hidden,
+.overflow-hover {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.overflow-hover {
+  @media (hover) {
+    &:hover {
+      overflow: visible;
+    }
+  }
+}
+
+.breakword {
+  word-break: break-word;
+
+  code {
+    white-space: pre-wrap;
+  }
+}
+
+.center-horizontally {
+  display: flex;
+  justify-content: center;
 }

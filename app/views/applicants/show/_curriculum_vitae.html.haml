@@ -1,0 +1,4 @@
+- if applicant.curriculum_vitae_url.present?
+  - full_url = "#{request.script_name}#{applicant.curriculum_vitae.url}"
+  = link_to applicant.curriculum_vitae_url.split("/").last, full_url, target: "_blank"
+  %span.badge.badge-light= number_to_human_size applicant.curriculum_vitae.size

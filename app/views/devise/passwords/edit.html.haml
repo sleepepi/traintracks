@@ -1,33 +1,21 @@
-- @title = 'Change your password'
+- @title = "Change your password"
 
-.sign-up-form
-  .sign-up-form-title
-    Change Password
+- @theme = "deep-red"
 
-  .center{ style: 'margin-bottom:20px' }
-    = render 'sites/resource_image'
+.page-box.last-box.d-flex.flex-column.justify-content-center.theme-bg{ class: "theme-#{@theme}-focus-bg" }
+  .container
+    %p.lead.text-center.text-white= @title
 
-  = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :patch, class: 'form-vertical' } do |f|
-    - if resource.errors.any?
-      .callout.callout-danger
-        %h4
-          The following
-          = 'error'.pluralize(resource.errors.count)
-          prevented your password from being changed
+    .sign-up-form
+      .sign-up-form-title
+        Change password
 
-        %ul
-          - resource.errors.full_messages.each do |msg|
-            %li= msg
+      .text-center.mb-3= render "sites/resource_image"
+      = form_with model: resource, as: resource_name, url: password_path(resource_name), method: :put, local: true do |form|
+        = form.hidden_field :reset_password_token
 
-    = f.hidden_field :reset_password_token
+        = render "forms/vertical/password_field", form: form, object: resource, key: :password, key_name: "New Password", autocomplete: "new-password"
+        = render "forms/vertical/password_field", form: form, object: resource, key: :password_confirmation, key_name: "Password Confirmation", autocomplete: "new-password"
 
-    .form-group
-      = f.label :password, 'New password', class: 'control-label'
-      = f.password_field :password, class: 'form-control'
-
-    .form-group
-      = f.label :password_confirmation, 'Confirm new password', class: 'control-label'
-      = f.password_field :password_confirmation, class: 'form-control'
-
-    .form-group
-      = f.submit 'Change my password', class: 'btn btn-success'
+        .form-group.submit-btn-container
+          = form.submit "Change my password", class: "btn btn-primary btn-block btn-shadow"

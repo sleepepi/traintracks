@@ -1,0 +1,8 @@
+// Themes
+
+@import 'themes/colors';
+@import 'themes/default';
+
+$themes: (
+  default: $default
+);

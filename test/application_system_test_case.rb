@@ -16,7 +16,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     @counter += 1
     relative_location = File.join(
       "docs",
-      TrainingGrant::VERSION::STRING,
+      TrainTracks::VERSION::STRING,
       "screenshots",
       "#{file_name}-#{format("%02d", @counter)}.png"
     )

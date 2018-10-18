@@ -1,9 +1,10 @@
-- if applicant.annuals.size > 0
-  .btn-toolbar
-    .btn-group
-      - applicant.annuals.reverse_each do |annual|
-        - if annual.year == Time.zone.today.year
-          </div><div class="btn-group">
-        = link_to "Year #{annual.year}", current_user ? edit_annual_path(annual) : edit_me_annual_path(annual) , class: "btn #{ annual.submitted? ? 'btn-default' : 'btn-primary' }"
-        - if annual.year == Time.zone.today.year
-          </div><div class="btn-group">
+- if applicant.annuals.present?
+  .dashboard-container
+    .btn-toolbar
+      .btn-group.mr-2
+        - applicant.annuals.reverse_each do |annual|
+          - if annual.year == Time.zone.today.year
+            </div><div class="btn-group mr-2">
+          = link_to "Year #{annual.year}", current_user ? edit_annual_path(annual) : edit_me_annual_path(annual) , class: "btn #{ annual.submitted? ? "btn-light" : "btn-primary" }"
+          - if annual.year == Time.zone.today.year
+            </div><div class="btn-group mr-2">

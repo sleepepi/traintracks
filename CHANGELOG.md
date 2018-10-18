@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Add updated Privacy Policy
+- **Gem Changes**
+  - Update to bootstrap 4.1.3
 
 ## 18.0.0 (April 17, 2018)
 

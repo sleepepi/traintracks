@@ -17,19 +17,19 @@
 
       - if current_user
         %form.navbar-form.navbar-right.hidden-xs
-          = link_to destroy_user_session_path, class: 'btn btn-default' do
+          = link_to destroy_user_session_path, class: 'btn btn-light' do
             Logout
       - elsif current_applicant
         %form.navbar-form.navbar-right.hidden-xs
-          = link_to destroy_applicant_session_path, class: 'btn btn-default' do
+          = link_to destroy_applicant_session_path, class: 'btn btn-light' do
             Logout
       - elsif current_preceptor
         %form.navbar-form.navbar-right.hidden-xs
-          = link_to destroy_preceptor_session_path, class: 'btn btn-default' do
+          = link_to destroy_preceptor_session_path, class: 'btn btn-light' do
             Logout
       - else
         %form.navbar-form.navbar-right.hidden-xs
-          = link_to 'Sign in', new_user_session_path, class: 'btn btn-default'
+          = link_to 'Sign in', new_user_session_path, class: 'btn btn-light'
 
       - if current_user
         %ul.nav.navbar-nav.navbar-right
@@ -46,7 +46,7 @@
           - if current_user.system_admin?
             %li.visible-xs= link_to 'Users', users_path
         %form.navbar-form.navbar-right.visible-xs
-          = link_to 'Logout', destroy_user_session_path, class: 'btn btn-default'
+          = link_to 'Logout', destroy_user_session_path, class: 'btn btn-light'
       - elsif current_applicant
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown.hidden-xs
@@ -56,7 +56,7 @@
             %ul.dropdown-menu{ role: 'menu' }
               %li.dropdown-header= current_applicant.email
         %form.navbar-form.navbar-right.visible-xs
-          = link_to 'Logout', destroy_applicant_session_path, class: 'btn btn-default'
+          = link_to 'Logout', destroy_applicant_session_path, class: 'btn btn-light'
       - elsif current_preceptor
         %ul.nav.navbar-nav.navbar-right
           %li.dropdown.hidden-xs
@@ -66,7 +66,7 @@
             %ul.dropdown-menu{ role: 'menu' }
               %li.dropdown-header= current_preceptor.email
         %form.navbar-form.navbar-right.visible-xs
-          = link_to 'Logout', destroy_preceptor_session_path, class: 'btn btn-default'
+          = link_to 'Logout', destroy_preceptor_session_path, class: 'btn btn-light'
       - else
         %form.navbar-form.navbar-right.visible-xs
-          = link_to 'Sign in', new_user_session_path, class: 'btn btn-default'
+          = link_to 'Sign in', new_user_session_path, class: 'btn btn-light'

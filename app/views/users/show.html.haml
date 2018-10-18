@@ -1,26 +1,22 @@
-- @title = @user.name
-.page-header
-  %h1
-    = link_to "Users", users_path
-    &middot;
-    = @title
-    - if current_user.system_admin?
-      = link_to "Edit User", edit_user_path(@user), class: 'btn btn-xs btn-default'
-      = link_to 'Delete User', @user, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete User #{@user.name}?" } unless current_user == @user
+- @title = "#{@user.name} - Users"
+- @menu_title = @user.name
 
-%dl.dl-horizontal
-  %dt Email
-  %dd= @user.email
+- content_for :header, @menu_title
 
-  %dt User Avatar
-  %dd= image_tag @user.avatar_url, class: 'img-rounded'
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "users", users_path
+    %li.breadcrumb-muted= @user.name.downcase
 
+- if current_user.system_admin?
+  .dashboard-container
+    = link_to "Edit User", edit_user_path(@user), class: "btn btn-sm btn-light"
+    = link_to "Delete User", @user, method: :delete, class: "btn btn-sm btn-outline-danger", data: { confirm: "Are you sure you want to delete User #{@user.name}?" } unless current_user == @user
+
+.dashboard-container
+  = render "forms/horizontal/show/text", object: @user, key: :email
+  = render "forms/horizontal/show/generic", title: "User Avatar", content: image_tag(@user.avatar_url, class: "rounded")
   - if current_user.system_admin?
-    %dt Status
-    %dd= @user.status
-
-    %dt System Admin
-    %dd= simple_check @user.system_admin?
-
-    %dt Administrator
-    %dd= simple_check @user.administrator?
+    = render "forms/horizontal/show/text", object: @user, key: :status
+    = render "forms/horizontal/show/check_box", object: @user, key: :system_admin
+    = render "forms/horizontal/show/check_box", object: @user, key: :administrator

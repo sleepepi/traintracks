@@ -1,0 +1,4 @@
+- if applicant.degrees.present?
+  %ul
+    - applicant.degrees.each do |degree|
+      %li= render "degrees/show", degree: degree

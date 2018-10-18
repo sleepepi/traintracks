@@ -1,24 +1,9 @@
-.page-header
-  %h2 Contact Information
+.brand-title Contact Information
 
-%dl.dl-horizontal
-  %dt Phone
-  %dd= applicant.phone
-
-  %dt Address1
-  %dd= applicant.address1
-
-  %dt Address2
-  %dd= applicant.address2
-
-  %dt City
-  %dd= applicant.city
-
-  %dt State
-  %dd= applicant.state
-
-  %dt Country
-  %dd= applicant.country
-
-  %dt Zip code
-  %dd= applicant.zip_code
+= render "forms/horizontal/show/text", object: applicant, key: :phone
+= render "forms/horizontal/show/text", object: applicant, key: :address1
+= render "forms/horizontal/show/text", object: applicant, key: :address2
+= render "forms/horizontal/show/text", object: applicant, key: :city
+= render "forms/horizontal/show/text", object: applicant, key: :state
+= render "forms/horizontal/show/text", object: applicant, key: :country
+= render "forms/horizontal/show/text", object: applicant, key: :zip_code

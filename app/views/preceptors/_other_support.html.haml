@@ -1,0 +1,4 @@
+- if preceptor.other_support.size > 0
+  - full_url = "#{request.script_name}#{preceptor.other_support.url}"
+  = link_to preceptor.other_support_url.split("/").last, full_url, target: "_blank"
+  %span.badge.badge-light= number_to_human_size(preceptor.other_support.size)

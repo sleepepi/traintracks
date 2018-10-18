@@ -1,3 +1,11 @@
-- @title = "Edit Applicant: #{@applicant.name_was}"
+- @title = "Edit Applicant - #{@applicant.name_was}"
 
-= render 'form'
+- content_for :header, @applicant.name_was
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "applicants", applicants_path
+    %li= link_to @applicant.name_was.to_s.downcase, @applicant
+    %li.breadcrumb-muted edit
+
+.dashboard-container
+  = render "form", applicant: @applicant

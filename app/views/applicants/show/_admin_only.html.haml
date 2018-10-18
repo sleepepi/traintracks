@@ -1,57 +1,20 @@
-.page-header
-  %h2 Administrator Only
+.brand-title Administrator Only
 
-%dl.dl-horizontal
-  %dt Reviewed
-  %dd= simple_check applicant.reviewed
-
-  %dt Review date
-  %dd= applicant.review_date
-
-  %dt Offered
-  %dd= simple_check applicant.offered
-
-  %dt Accepted
-  %dd= simple_check applicant.accepted
-
-  %dt Enrolled
-  %dd= simple_check applicant.enrolled
-
-  %dt CV number
-  %dd= applicant.cv_number
-
-  %dt Degree type
-  %dd= applicant.degree_type
-
-  %dt Trainee code
-  %dd= applicant.trainee_code
-
-  %dt Status
-  %dd= applicant.status
-
-  %dt Training grant years
-  %dd{ style: 'min-height: 60px;' }= applicant.training_grant_years
-
-  %dt Supported by Training Grant
-  %dd{ style: 'min-height: 60px;' }= simple_check applicant.supported_by_tg
-
-  %dt Training period start date
-  %dd{ style: 'min-height: 60px;' }= applicant.training_period_start_date
-
-  %dt Training period end date
-  %dd{ style: 'min-height: 60px;' }= applicant.training_period_end_date
-
-  %dt Notes
-  %dd= simple_format applicant.notes
-
-  %dt Curriculum Advisor
-  %dd= applicant.curriculum_advisor
-
-  %dt Most Recent Curriculum Advisor Meeting Date
-  %dd{ style: 'min-height: 80px;' }= applicant.most_recent_curriculum_advisor_meeting_date.strftime('%m/%d/%Y') rescue ''
-
-  %dt Past Curriculum Advisor Meetings
-  %dd{ style: 'min-height: 60px;' }= simple_format applicant.past_curriculum_advisor_meetings
-
-  %dt eRA Commons Username
-  %dd= applicant.era_commons_username
+= render "forms/horizontal/show/check_box", object: applicant, key: :reviewed
+= render "forms/horizontal/show/text", object: applicant, key: :review_date
+= render "forms/horizontal/show/check_box", object: applicant, key: :offered
+= render "forms/horizontal/show/check_box", object: applicant, key: :accepted
+= render "forms/horizontal/show/check_box", object: applicant, key: :enrolled
+= render "forms/horizontal/show/text", object: applicant, key: :cv_number, key_name: "CV number"
+= render "forms/horizontal/show/text", object: applicant, key: :degree_type
+= render "forms/horizontal/show/text", object: applicant, key: :trainee_code
+= render "forms/horizontal/show/text", object: applicant, key: :status
+= render "forms/horizontal/show/text", object: applicant, key: :training_grant_years
+= render "forms/horizontal/show/check_box", object: applicant, key: :supported_by_tg, key_name: "Supported by Training Grant"
+= render "forms/horizontal/show/text", object: applicant, key: :training_period_start_date
+= render "forms/horizontal/show/text", object: applicant, key: :training_period_end_date
+= render "forms/horizontal/show/markdown", object: applicant, key: :notes
+= render "forms/horizontal/show/text", object: applicant, key: :curriculum_advisor
+= render "forms/horizontal/show/generic", title: "Most recent curriculum advisor meeting", content: applicant.most_recent_curriculum_advisor_meeting_date&.strftime("%m/%d/%Y")
+= render "forms/horizontal/show/markdown", object: applicant, key: :past_curriculum_advisor_meetings
+= render "forms/horizontal/show/text", object: applicant, key: :era_commons_username, key_name: "eRA Commons Username"

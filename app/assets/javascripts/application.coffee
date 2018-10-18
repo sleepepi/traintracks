@@ -13,14 +13,17 @@
 # (https://github.com/rails/sprockets#sprockets-directives)
 # for details about supported directives.
 #
-#= require jquery3
-#= require jquery_ujs
-#= require bootstrap-sprockets
+#= require rails-ujs
+# require activestorage
 #= require turbolinks
-
+#
+# For Bootstrap
+#= require jquery3
+#= require popper
+#= require bootstrap
+#
 # External
-#= require external/bootstrap-datepicker.js
-#= require external/typeahead.js
-
+#= require_tree ./external
+#
 # Other
 #= require_tree .

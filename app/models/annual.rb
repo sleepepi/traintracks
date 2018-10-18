@@ -16,7 +16,7 @@ class Annual < ApplicationRecord
   scope :search, -> (arg) { where('annuals.applicant_id in (select applicants.id from applicants where LOWER(applicants.first_name) LIKE ? or LOWER(applicants.last_name) LIKE ? or LOWER(applicants.email) LIKE ?)', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%')).references(:applicants) }
 
   # Model Validation
-  validates :applicant_id, :user_id, :year, presence: true
+  validates :year, presence: true
   validates :year, uniqueness: { scope: [:applicant_id, :deleted] }
   validates :coursework_completed, :presentations, :publications,
             :research_description, :source_of_support,

@@ -1,0 +1,4 @@
+- if applicant.research_interests.present?
+  %ul
+    - applicant.research_interests.each do |research_interest|
+      %li= research_interest

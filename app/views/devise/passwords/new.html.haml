@@ -1,40 +1,24 @@
-- @title = 'Forgot your password?'
+- @title = "Forgot your password?"
 
-.sign-up-form
-  .sign-up-form-title
-    Reset Password for
-    - if resource_name == :preceptor
-      Preceptors
-    - elsif resource_name == :applicant
-      Applicants and Trainees
-    - elsif resource_name == :user
-      Admins
-  .center{ style: 'margin-bottom:20px' }
-    = render 'sites/resource_image'
+- @theme = "default"
 
-  %p.lead.center
-    Enter your email address to receive a password reset email. You may
-    = link_to 'contact us', contact_path
-    if you don't remember which email you used to register.
+.page-box.last-box.d-flex.flex-column.justify-content-center.theme-bg{ class: "theme-#{@theme}-focus-bg" }
+  .container
+    %p.lead.text-center.text-white= @title
 
-  = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'form-vertical' } do |f|
-    - if resource.errors.any?
-      .callout.callout-danger
-        %h4
-          Please enter a valid email
+    .sign-up-form
+      .sign-up-form-title
+        Reset password for
+        - if resource_name == :preceptor
+          Preceptors
+        - elsif resource_name == :applicant
+          Applicants and Trainees
+        - elsif resource_name == :user
+          Admins
 
-        %ul
-          - resource.errors.full_messages.each do |message|
-            %li= message
+      .text-center.mb-3= render "sites/resource_image"
+      = form_with model: resource, as: resource_name, url: password_path(resource_name), method: :post, local: true do |form|
+        = render "forms/vertical/email_field", form: form, object: resource, key: :email
 
-    .form-group
-      = f.label :email, class: 'control-label'
-      = f.email_field :email, class: 'form-control'
-
-    .form-group
-      = f.submit 'Send me reset password instructions', class: 'btn btn-success'
-
-%p.lead.center.text-muted
-  "The advantage of a bad memory is that one enjoys several times the same good things for the first time."
-  %br
-  ― Friedrich Nietzsche
+        .form-group.submit-btn-container
+          = form.submit "Send me reset password instructions", class: "btn btn-primary btn-block btn-shadow"

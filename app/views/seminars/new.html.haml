@@ -1,3 +1,10 @@
-- @title = 'New Seminar'
+- @title = "New Seminar"
 
-= render 'form'
+- content_for :header, @title
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "seminars", seminars_path
+    %li.breadcrumb-muted new seminar
+
+.dashboard-container
+  = render "form", seminar: @seminar

@@ -1,88 +1,88 @@
-- @title = 'Training Grant Overview'
-.page-header
-  %h1= @title
+- @title = "Training Grant Overview"
 
-%table{ style: 'width: 100%;' }
-  %tr
-    %td{ style: 'vertical-align: bottom;border: 0;' }
-      %table.table.table-striped
-        %thead
+- content_for :header, @title
+
+.dashboard-container
+  %table{ style: "width: 100%;" }
+    %tr
+      %td{ style: "vertical-align: bottom;border: 0;" }
+        %table.table.table-striped.table-borderless.table-hover
+          %thead
+            %tr
+              %th Outstanding Data Requests
+              %th
+          %tr{ style: "font-weight: bold;" }
+            %td Pending Applications
+            %td
+              - pending_applications = Applicant.current.where(reviewed: false)
+              = pending_applications.count
           %tr
-            %th Outstanding Data Requests
-            %th
-        %tr{ style: 'font-weight: bold;' }
-          %td Pending Applications
-          %td
-            - pending_applications = Applicant.current.where(reviewed: false)
-            = pending_applications.count
-        %tr
-          %td{ style: 'padding-left: 20px;' } Postdoc
-          %td= pending_applications.where(applicant_type: 'postdoc').count
-        %tr
-          %td{ style: 'padding-left: 20px;' } Predoc
-          %td= pending_applications.where(applicant_type: 'predoc').count
-        %tr
-          %td{ style: 'padding-left: 20px;' } Summer
-          %td= pending_applications.where(applicant_type: 'summer').count
-        %tr{ style: 'font-weight: bold;' }
-          %td Applications this calendar year
-          %td
-            - year_applicants = Applicant.current.where(submitted_at: Time.zone.now.at_beginning_of_year..Time.zone.now.at_end_of_year)
-            = year_applicants.count
-        %tr
-          %td{ style: 'padding-left: 20px;' } Postdoc
-          %td= year_applicants.where(applicant_type: 'postdoc').count
-        %tr
-          %td{ style: 'padding-left: 20px;' } Predoc
-          %td= year_applicants.where(applicant_type: 'predoc').count
-        %tr
-          %td{ style: 'padding-left: 20px;' } Summer
-          %td= year_applicants.where(applicant_type: 'summer').count
-        %tr{ style: 'font-weight: bold;' }
-          %td Acceptance rate this calendar year
-          %td= year_applicants.count == 0 ? 'N/A' : '%0.00f %' % (year_applicants.where(accepted: true).count * 100.0 / year_applicants.count)
+            %td{ style: "padding-left: 20px;" } Postdoc
+            %td= pending_applications.where(applicant_type: "postdoc").count
+          %tr
+            %td{ style: "padding-left: 20px;" } Predoc
+            %td= pending_applications.where(applicant_type: "predoc").count
+          %tr
+            %td{ style: "padding-left: 20px;" } Summer
+            %td= pending_applications.where(applicant_type: "summer").count
+          %tr{ style: "font-weight: bold;" }
+            %td Applications this calendar year
+            %td
+              - year_applicants = Applicant.current.where(submitted_at: Time.zone.now.at_beginning_of_year..Time.zone.now.at_end_of_year)
+              = year_applicants.count
+          %tr
+            %td{ style: "padding-left: 20px;" } Postdoc
+            %td= year_applicants.where(applicant_type: "postdoc").count
+          %tr
+            %td{ style: "padding-left: 20px;" } Predoc
+            %td= year_applicants.where(applicant_type: "predoc").count
+          %tr
+            %td{ style: "padding-left: 20px;" } Summer
+            %td= year_applicants.where(applicant_type: "summer").count
+          %tr{ style: "font-weight: bold;" }
+            %td Acceptance rate this calendar year
+            %td= year_applicants.count == 0 ? "N/A" : "%0.00f %" % (year_applicants.where(accepted: true).count * 100.0 / year_applicants.count)
 
-    %td{ style: 'vertical-align: bottom;border: 0;' }
-      %table.table.table-striped
-        %tr{ style: 'font-weight: bold;' }
-          %td Applications last calendar year
-          %td
-            - last_year_applicants = Applicant.current.where(submitted_at: (Time.zone.now - 1.year).at_beginning_of_year..(Time.zone.now - 1.year).at_end_of_year)
-            = last_year_applicants.count
-        %tr
-          %td{ style: 'padding-left: 20px;' } Postdoc
-          %td= last_year_applicants.where(applicant_type: 'postdoc').count
-        %tr
-          %td{ style: 'padding-left: 20px;' } Predoc
-          %td= last_year_applicants.where(applicant_type: 'predoc').count
-        %tr
-          %td{ style: 'padding-left: 20px;' } Summer
-          %td= last_year_applicants.where(applicant_type: 'summer').count
-        %tr{ style: 'font-weight: bold;' }
-          %td Acceptance rate last calendar year
-          %td= last_year_applicants.count == 0 ? 'N/A' : '%0.00f %' % (last_year_applicants.where(accepted: true).count * 100.0 / last_year_applicants.count)
+      %td{ style: "vertical-align: bottom;border: 0;" }
+        %table.table.table-striped.table-borderless.table-hover
+          %tr{ style: "font-weight: bold;" }
+            %td Applications last calendar year
+            %td
+              - last_year_applicants = Applicant.current.where(submitted_at: (Time.zone.now - 1.year).at_beginning_of_year..(Time.zone.now - 1.year).at_end_of_year)
+              = last_year_applicants.count
+          %tr
+            %td{ style: "padding-left: 20px;" } Postdoc
+            %td= last_year_applicants.where(applicant_type: "postdoc").count
+          %tr
+            %td{ style: "padding-left: 20px;" } Predoc
+            %td= last_year_applicants.where(applicant_type: "predoc").count
+          %tr
+            %td{ style: "padding-left: 20px;" } Summer
+            %td= last_year_applicants.where(applicant_type: "summer").count
+          %tr{ style: "font-weight: bold;" }
+            %td Acceptance rate last calendar year
+            %td= last_year_applicants.count == 0 ? "N/A" : "%0.00f %" % (last_year_applicants.where(accepted: true).count * 100.0 / last_year_applicants.count)
 
-%hr
+.dashboard-container
+  = form_with url: dashboard_path, method: :get, id: "applicants_search", class: "form-search", data: { object: "form-load" } do
+    .row
+      .col-md-4.form-group
+        = label :submitted_after, "Submitted After", class: "col-md-3 control-label"
+        .col-md-9
+          .input-group
+            = text_field_tag "submitted_after", Time.zone.today.at_beginning_of_year.strftime("%m/%d/%Y"), class: "datepicker form-control"
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+      .col-md-4.form-group
+        = label :submitted_before, "Submitted Before", class: "col-md-3 control-label"
+        .col-md-9
+          .input-group
+            = text_field_tag "submitted_before", Time.zone.today.at_end_of_year.strftime("%m/%d/%Y"), class: "datepicker form-control"
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+      .col-md-4
+        .form-group
+          .col-md-offset-3.col-md-9
+            = submit_tag "Submit", class: "btn btn-primary"
 
-= form_tag dashboard_path, method: :get, remote: true, id: "applicants_search", class: 'form-search', data: { object: 'form-load' } do
-  .row
-    .col-md-4.form-group
-      = label :submitted_after, 'Submitted After', class: 'col-md-3 control-label'
-      .col-md-9
-        .input-group
-          = text_field_tag 'submitted_after', Time.zone.today.at_beginning_of_year.strftime('%m/%d/%Y'), class: 'datepicker form-control'
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-calendar
-    .col-md-4.form-group
-      = label :submitted_before, 'Submitted Before', class: 'col-md-3 control-label'
-      .col-md-9
-        .input-group
-          = text_field_tag 'submitted_before', Time.zone.today.at_end_of_year.strftime('%m/%d/%Y'), class: 'datepicker form-control'
-          %span.input-group-addon
-            %span.glyphicon.glyphicon-calendar
-    .col-md-4
-      .form-group
-        .col-md-offset-3.col-md-9
-          = submit_tag 'Submit', class: 'btn btn-primary'
-
-#applicant_report_container
+  #applicant_report_container

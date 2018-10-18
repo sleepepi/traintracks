@@ -1,48 +1,25 @@
-.page-header
-  %h2 Annual Information
+.brand-title Annual Information
 
-- applicant.annuals.in_groups_of(2).each do |row_annuals|
-  .row
-    - row_annuals.each do |annual|
-      - if annual
-        .col-md-6
-          .page-header
-            %h3
-              Year
-              = annual.year
-              = link_to 'Edit', current_user ? edit_annual_path(annual) : edit_me_annual_path(annual), class: "btn btn-xs #{annual.submitted? ? 'btn-default' : 'btn-primary'}"
+- applicant.annuals.each do |annual|
+  .brand-subtitle
+    Year
+    = annual.year
+    = link_to current_user ? edit_annual_path(annual) : edit_me_annual_path(annual), class: "ml-2" do
+      = icon("fas", "edit")
+      Edit
 
-            - if current_user && current_user.administrator?
-              .callout.callout-info
-                %h4
-                  Annual
-                  = annual.year
-                  Login
-                %code.text-primary{ style: 'font-size:0.7em' }= "#{ENV['website_url']}/annuals/#{annual.id}/edit_me?auth_token=#{annual.applicant.id_and_auth_token}"
+  - if current_user&.administrator?
+    = render "forms/horizontal/show/generic", title: "Annual #{annual.year} Login", content: "<code class=\"text-primary\">#{ENV["website_url"]}/annuals/#{annual.id}/edit_me?auth_token=#{annual.applicant.id_and_auth_token}</code>".html_safe
 
-          %dl.dl-horizontal
+  = render "forms/horizontal/show/markdown", object: annual, key: :coursework_completed
+  = render "forms/horizontal/show/markdown", object: annual, key: :publications
 
-            %dt Coursework Completed
-            %dd{ style: 'min-height: 60px;' }= simple_format annual.coursework_completed
+  = render "forms/horizontal/show/markdown", object: annual, key: :presentations, key_name: "Conferences, Presentations, Honors, and Fellowships"
 
-            %dt Publications
-            %dd= simple_format annual.publications
+  = render "forms/horizontal/show/markdown", object: annual, key: :research_description
 
-            %dt Conferences, Presentations, Honors, and Fellowships
-            %dd{ style: 'min-height: 90px;' }= simple_format annual.presentations
+  = render "forms/horizontal/show/markdown", object: annual, key: :degree_or_certifications_earned, key_name: "Degree or Certifications earned (Year) or Other Relevant Outcome"
 
-            %dt Research Description
-            %dd{ style: 'min-height: 60px;' }= simple_format annual.research_description
+  = render "forms/horizontal/show/text", object: annual, key: :source_of_support
 
-            %dt Degree or Certifications earned (Year) or Other Relevant Outcome
-            %dd{ style: 'min-height: 60px;' }= simple_format annual.degree_or_certifications_earned
-
-            %dt Source of Support
-            %dd{ style: 'min-height: 60px;' }= annual.source_of_support
-
-            %dt NIH Other Support
-            %dd
-              - if annual.nih_other_support_url.present?
-                - full_url = "#{request.script_name}#{annual.nih_other_support.url}"
-                = link_to annual.nih_other_support_url.split('/').last, full_url, target: '_blank', class: 'btn btn-xs btn-default'
-                = number_to_human_size annual.nih_other_support.size
+  = render "forms/horizontal/show/generic", title: "NIH Other Support", content: render("annuals/nih_other_support", annual: annual)

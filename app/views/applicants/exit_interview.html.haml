@@ -1,28 +1,28 @@
-- @title = 'Exit Interview'
-.pull-right= link_to "Help", '#', class: 'btn btn-info', data: { object: 'modal-show', target: '#help_email_modal' }
+- @title = "Exit Interview"
 
-= form_for current_applicant, url: update_exit_interview_applicants_path, method: :post, html: { class: 'form-horizontal' } do |f|
-  - @applicant = current_applicant
+- content_for :header do
+  .float-right= link_to "Help", "#", class: "btn btn-info", data: { object: "modal-show", target: "#help_email_modal" }
+  = @title
 
-  - if @applicant.errors.any?
-    .callout.callout-danger
-      %h4
-        = pluralize @applicant.errors.count, 'error'
-        prohibited this exit interview from being saved
+.dashboard-container
+  = form_with model: current_applicant, url: update_exit_interview_applicants_path, method: :post, local: true do |form|
+    - @applicant = current_applicant
 
-      %ul
-        - @applicant.errors.full_messages.each do |message|
-          %li= message
+    - if @applicant.errors.any?
+      .bg-danger.text-white.p-3.rounded.mb-3
+        = pluralize @applicant.errors.count, "errors"
+        prohibited this exit interview from being saved.
 
-  = render 'applicants/form/termination', f: f, applicant: current_applicant
+    = render "applicants/form/termination", form: form, applicant: current_applicant
 
-  .form-group
-    .col-md-offset-2.col-md-10
-      %h4
-        Thank you for taking the time to complete this form.
+    .form-group.row
+      .col-md-2
+      .col-md-10
+        .p-3.mb-3.bg-light.border.border-dark.rounded
+          Thank you for taking the time to complete this form.
 
-      = hidden_field :applicant, :publish_termination, value: '1'
-      = f.submit 'Submit Exit Interview', class: 'btn btn-primary'
-      = link_to 'Cancel', dashboard_applicants_path, class: 'btn btn-default'
+        = hidden_field :applicant, :publish_termination, value: "1"
+        = form.submit "Submit Exit Interview", class: "btn btn-primary"
+        = link_to "Cancel", dashboard_applicants_path, class: "btn btn-light"
 
-= render 'applicants/help_modal', applicant: current_applicant, subject: 'Exit Interview'
+= render "applicants/help_modal", applicant: current_applicant, subject: "Exit Interview"

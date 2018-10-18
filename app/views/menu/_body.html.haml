@@ -1,0 +1,17 @@
+%ul.navbar-nav.mr-auto.display-small-scrolled
+  - if current_user
+    = render "menu/item", title: "Applicants And Trainees", path: applicants_path
+    = render "menu/item", title: "Annual Information", path: annuals_path
+    = render "menu/item", title: "Preceptors", path: preceptors_path
+    = render "menu/item", title: "Seminars", path: seminars_path
+    = render "menu/item", title: "Program Requirements", path: program_requirements_applicants_path
+
+%ul.navbar-nav
+  - if current_user || current_applicant || current_preceptor
+    = render "menu/dropdown_account"
+  - else
+    %li.nav-item{ class: current_page?(new_user_session_path) ? "active" : nil }
+      = link_to new_user_session_path, class: "nav-link" do
+        Sign in
+      - if current_page?(new_user_session_path)
+        %span.sr-only (current)

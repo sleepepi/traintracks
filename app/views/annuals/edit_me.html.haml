@@ -1,62 +1,53 @@
 - @title = "My #{@annual.year} Annual Information"
 
-.page-header
-  %h1
-    .pull-right
-      = link_to 'Help', '#', class: 'btn btn-info', data: { object: 'modal-show', target: '#help_email_modal' }
-    = @title
-  %p.lead
-    Please complete the fields below with your most recent information
-    (September
-    = @annual.year - 1
-    through September
-    = succeed ').' do
-      = @annual.year
-    If you have no new information to add, please write "N/A" in the field, as
-    it will not allow you to submit without completing all fields. If you do not
-    have an NIH Other Support, please attach a document that details your
-    current funding situation.
+- content_for :header do
+  .float-right= link_to "Help", "#", class: "btn btn-info", data: { object: "modal-show", target: "#help_email_modal" }
+  = @title
 
-- form_name = "edit_annual_#{@annual.id}"
-= form_for @annual, url: update_me_annual_path(@annual), method: :patch, html: { id: form_name, class: 'form-horizontal' } do |f|
-  - @applicant = current_applicant
+.dashboard-container.dashboard-container-border-accent
+  Please complete the fields below with your most recent information
+  (September
+  = @annual.year - 1
+  through September
+  = succeed ")." do
+    = @annual.year
+  If you have no new information to add, please write "N/A" in the field, as
+  it will not allow you to submit without completing all fields. If you do not
+  have an NIH Other Support, please attach a document that details your
+  current funding situation.
 
-  - if @applicant.errors.any?
-    .callout.callout-danger
-      %h4
-        = pluralize @applicant.errors.count, 'error'
-        prohibited this applicant from being saved
+- @applicant = current_applicant
 
-      %ul
-        - @applicant.errors.full_messages.each do |message|
-          %li= message
+- if @applicant.errors.any?
+  .bg-danger.text-white.p-3.rounded.mb-3
+    = pluralize @applicant.errors.count, "error"
+    prohibited this applicant from being saved.
 
-  - if @annual.errors.any?
-    .callout.callout-danger
-      %h4
-        = pluralize @annual.errors.count, 'error'
-        prohibited this form from being saved
+- if @annual.errors.any?
+  .bg-danger.text-white.p-3.rounded.mb-3
+    = pluralize @annual.errors.count, "error"
+    prohibited this form from being saved.
 
-      %ul
-        - @annual.errors.full_messages.each do |message|
-          %li= message
+.dashboard-container
+  - form_name = "edit_annual_#{@annual.id}"
+  = form_for @annual, url: update_me_annual_path(@annual), method: :patch, html: { id: form_name, class: "form-horizontal" } do |form|
 
-  = render 'annuals/form/contact'
+    = render "annuals/form/contact", form: form, applicant: @applicant
 
-  = render 'annuals/form/education'
+    = render "annuals/form/education", form: form, applicant: @applicant
 
-  .page-header
-    %h2 Annual Information
+    .brand-title Annual Information
 
-  = render 'inner_form', f: f
+    = render "annuals/inner_form", form: form, annual: @annual
 
-  .form-group
-    .col-md-offset-2.col-md-10
-      = hidden_field :applicant, :publish_annual, value: '0'
-      = f.hidden_field :publish, value: '0'
-      = link_to 'Save Draft', '#', data: { object: 'annual-save', publish: '0', target: "##{form_name}" }, class: 'btn btn-warning'
-      = link_to 'Submit Annual Information', '#', data: { object: 'annual-save', publish: '1', target: "##{form_name}" }, class: 'btn btn-primary'
+    .form-group.row
+      .col-md-2
+      .col-md-10
+        = hidden_field :applicant, :publish_annual, value: "0"
+        = form.hidden_field :publish, value: "0"
+        = link_to "Save Draft", "#", data: { object: "annual-save", publish: "0", target: "##{form_name}" }, class: "btn btn-warning"
+        = link_to "Submit Annual Information", "#", data: { object: "annual-save", publish: "1", target: "##{form_name}" }, class: "btn btn-primary"
 
-      = link_to 'Cancel', dashboard_applicants_path, class: 'btn btn-default'
+        = link_to "Cancel", dashboard_applicants_path, class: "btn btn-light"
 
-= render 'applicants/help_modal', applicant: current_applicant, subject: 'Updating Annual Information'
+= render "applicants/help_modal", applicant: current_applicant, subject: "Updating Annual Information"

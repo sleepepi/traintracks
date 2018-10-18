@@ -1,0 +1,50 @@
+- if false
+  %footer.dark-texture
+    .container
+      .row
+        .col-sm-3.col-xs-6
+          %h4 Train Tracks
+          %ul.list-unstyled
+            %li= link_to "Home", root_path
+            %li= link_to "About", about_path
+            %li= link_to "Privacy Policy", privacy_policy_path
+        .col-sm-3.col-xs-6
+          %h4 New To Site
+          %ul.list-unstyled
+            %li= link_to "New Applicant Registration", new_applicant_registration_path
+            %li= link_to "I forgot my password!", forgot_my_password_path
+        .col-sm-3.col-xs-6
+          %h4 Administrative
+          %ul.list-unstyled
+            %li= link_to "New Admin Registration", new_user_registration_path
+            %li= link_to "Seminar Attendance", attendance_seminars_path(status: "current")
+        .col-sm-3.col-xs-6
+          %h4 Support
+          %ul.list-unstyled
+            %li= link_to "Contact Us", contact_path
+
+      %h4{ style: "margin-top:20px" }
+        &copy;
+        = Date.today.year
+        Division of Sleep And Circadian Disorders
+
+.footer-container.footer-custom
+  %div{ class: @container.presence || "container" }
+    .footer
+      .nowrap.row
+
+        .col
+          &copy;
+          .d-none.d-sm-inline= Time.zone.today.year
+          = link_to ENV["website_name"], root_path
+
+        .col.text-center.d-none.d-sm-block
+          - if false
+            %small.px-2= link_to "Terms", terms_and_conditions_path
+          %small.px-2= link_to "Privacy", privacy_policy_path
+
+        .col.text-right
+          .d-none.d-md-inline
+            Division of Sleep And Circadian Disorders
+          .d-inline.d-md-none
+            Brigham Sleep

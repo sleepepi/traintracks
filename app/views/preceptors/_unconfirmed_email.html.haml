@@ -1,0 +1,5 @@
+= preceptor.unconfirmed_email
+= link_to "Resend confirmation instructions", confirmation_path(preceptor, preceptor: { email: preceptor.unconfirmed_email }), method: :post, class: 'btn btn-sm btn-light'
+.alert.alert-info
+  %strong Heads up!
+  This email will remain unconfirmed until you click the link in the "Confirmation instructions" email sent to your account.

@@ -1,44 +1,45 @@
-- @title = 'Applicant/Trainee Dashboard'
-.page-header
-  %h1
-    .pull-right= link_to 'Help', '#', class: 'btn btn-info', data: { object: 'modal-show', target: '#help_email_modal' }
-    = @title
-    - if current_applicant.submitted_at.blank?
-      = link_to 'Edit Application', edit_me_applicants_path, class: 'btn btn-xs btn-default'
-      %span.label.label-warning Draft
-    = link_to 'Exit Interview', exit_interview_applicants_path, class: 'btn btn-xs btn-default' if current_applicant.enrolled?
+- @title = "Applicant/Trainee Dashboard"
 
-= render 'annuals/menu_bar', applicant: current_applicant
+- content_for :header do
+  .float-right= link_to "Help", "#", class: "btn btn-info", data: { object: "modal-show", target: "#help_email_modal" }
+  = @title
+
+.dashboard-container
+  - if current_applicant.submitted_at.blank?
+    = link_to "Edit Application", edit_me_applicants_path, class: "btn btn-sm btn-primary"
+    %span.badge.badge-warning Draft
+  = link_to "Exit Interview", exit_interview_applicants_path, class: "btn btn-sm btn-primary" if current_applicant.enrolled?
+
+= render "annuals/menu_bar", applicant: current_applicant
 
 - if current_applicant.submitted_at.present?
-  .jumbotron{ style: 'margin-top: 20px;' }
+  .jumbotron.jumbotron-action.jumbotron-shadow.jumbotron-custom-text
     %h1 Congratulations!
     %p
       Your application was submitted
-      = succeed '.' do
+      = succeed "." do
         %span.label.label-success= simple_time current_applicant.submitted_at
 
-.row
-  .col-md-6
-    = render 'applicants/show/general', applicant: current_applicant
+.dashboard-container
+  = render "applicants/show/general", applicant: current_applicant
 
-  .col-md-6
-    = render 'applicants/show/education', applicant: current_applicant
+.dashboard-container
+  = render "applicants/show/education", applicant: current_applicant
 
-.row
-  .col-md-6
-    = render 'applicants/show/contact', applicant: current_applicant
+.dashboard-container
+  = render "applicants/show/contact", applicant: current_applicant
 
-  .col-md-6
-    = render 'applicants/show/demographic', applicant: current_applicant
+.dashboard-container
+  = render "applicants/show/demographic", applicant: current_applicant
 
-.row
-  .col-md-6
-    = render 'applicants/show/progress_report_data', applicant: current_applicant
-  - if current_applicant.enrolled?
-    .col-md-6
-      = render 'applicants/show/termination', applicant: current_applicant
+.dashboard-container
+  = render "applicants/show/progress_report_data", applicant: current_applicant
 
-= render 'annuals/index', applicant: current_applicant
+- if current_applicant.enrolled?
+  .dashboard-container
+    = render "applicants/show/termination", applicant: current_applicant
 
-= render 'applicants/help_modal', applicant: current_applicant, subject: 'Dashboard'
+.dashboard-container
+  = render "annuals/index", applicant: current_applicant
+
+= render "applicants/help_modal", applicant: current_applicant, subject: "Dashboard"

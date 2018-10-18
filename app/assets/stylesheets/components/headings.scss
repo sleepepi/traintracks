@@ -1,13 +1,147 @@
-// TODO: Remove bootstrap temp variables.
-$spacer: 1rem;
-$spacers: (
-  0: 0,
-  1: ($spacer * .25),
-  2: ($spacer * .5),
-  3: $spacer,
-  4: ($spacer * 1.5),
-  5: ($spacer * 3)
-);
+.page-heading {
+  font-variant: small-caps;
+  font-weight: 300;
+  letter-spacing: .25rem;
+  position: relative;
+  text-shadow: none;
+  word-break: break-word;
+
+  .btn,
+  .dropdown-menu {
+    text-shadow: none;
+  }
+
+  code {
+    text-shadow: none;
+  }
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .page-heading {
+      text-shadow: 0 2px 3px map-get($theme, shadow-color);
+
+      > a:not([class]) {
+        color: map-get($theme, p200);
+
+        &:hover {
+          color: darken(map-get($theme, p200), 10%);
+        }
+      }
+    }
+  }
+}
+
+.header-container {
+  padding: 20px 0;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .dropdown,
+  .float-right {
+    font-variant: normal;
+    letter-spacing: normal;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .header-container {
+    h1 {
+      font-size: 38px;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .header-container {
+    h1 {
+      font-size: 41px;
+    }
+  }
+}
+
+@each $name, $theme in $themes {
+  $header-bg: map-get($theme, p800);
+  @if map-get($theme, header-bg) {
+    $header-bg: map-get($theme, header-bg);
+  }
+
+  .theme-#{$name}-bg {
+    .header-container {
+      background-color: $header-bg;
+      @if map-get($theme, header-border) {
+        border-bottom: 2px solid map-get($theme, header-border);
+      }
+      color: map-get($theme, brand-white);
+
+      &.header-container-no-border {
+        border: 0;
+      }
+    }
+  }
+}
+
+.header-container-hide {
+  h1 {
+    visibility: hidden;
+  }
+}
+
+.top-menu {
+  position: sticky;
+  top: 0;
+  z-index: $zindex-fixed;
+
+  .navbar-show-scrolled {
+    display: none;
+  }
+
+  &.navbar-scrolled {
+    @include media-breakpoint-down(md) {
+      .display-small-scrolled {
+        display: block;
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      .menu-body {
+        flex: initial;
+        white-space: nowrap;
+      }
+
+      .display-small-scrolled {
+        display: none;
+      }
+    }
+
+    .display-lg-scrolled {
+      display: none;
+    }
+
+    .navbar-hide-scrolled {
+      display: none;
+    }
+
+    .navbar-show-scrolled {
+      display: block;
+      flex: 1 1 70%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
 
 .brand-title {
   border-bottom: 2px solid transparent;
@@ -30,8 +164,7 @@ $spacers: (
   margin-bottom: map-get($spacers, 2);
 }
 
-// @include media-breakpoint-up(sm) {
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .brand-title {
     font-size: 1.75rem;
   }
@@ -45,17 +178,9 @@ $spacers: (
   }
 }
 
-// TODO: Remove this and replace with "themed" color below.
-.brand-title,
-.brand-subtitle {
-  border-color: $brand-primary;
+@each $name, $theme in $themes {
+  .brand-title,
+  .brand-subtitle {
+    border-color: map-get($theme, p500); // $p200-orange;
+  }
 }
-
-// @each $name, $theme in $themes {
-//   .theme-#{$name}-bg {
-//     .brand-title,
-//     .brand-subtitle {
-//       border-color: map-get($theme, p500); // $p200-orange;
-//     }
-//   }
-// }

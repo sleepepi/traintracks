@@ -1,94 +1,73 @@
-.page-header
-  %h2 Exit Interview
+.brand-title Exit Interview
 
-.form-group
-  = f.label :future_email, '1. What email address can we reach you at in the future?', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.email_field :future_email, class: 'form-control'
+= render "forms/horizontal/email_field", form: form, object: applicant, key: :future_email, key_name: "1. What email address can we reach you at in the future?"
 
-.form-group
-  = f.label :entrance_year, '2. What year did you enter the program?', class: 'col-md-2 control-label'
+.form-group.row
+  = form.label :entrance_year, "2. What year did you enter the program?", class: "col-md-2 col-form-label"
   .col-md-10
-    = f.number_field :entrance_year, class: 'form-control'
+    = form.number_field :entrance_year, class: "form-control"
 
-.form-group
-  = f.label :t32_funded, '3. Were you funded by the T32 grant?', class: 'col-md-2 control-label'
+.form-group.row
+  = form.label :t32_funded, "3. Were you funded by the T32 grant?", class: "col-md-2 col-form-label"
   .col-md-10
-    - [['Yes', '1'], ['No', '0']].each do |name, value|
-      - selected = ((value == '1' && applicant.t32_funded == true) || (value == '0' && applicant.t32_funded == false))
-      %label.radio-inline
-        = f.radio_button :t32_funded, value, checked: selected
-        = name
+    .form-control-plaintext
+      - [["Yes", "1"], ["No", "0"]].each do |name, value|
+        - selected = ((value == "1" && applicant.t32_funded == true) || (value == "0" && applicant.t32_funded == false))
+        .custom-control.custom-radio.custom-control-inline
+          - id = "t32_funded_#{value}"
+          = form.radio_button :t32_funded, value, checked: selected, class: "custom-control-input", id: id
+          = form.label nil, name, for: id, class: "custom-control-label"
 
-.form-group
-  = f.label :t32_funded_years, '3. a. If yes, how many years?', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.select :t32_funded_years, [['---', nil]] + (1..5).collect{|i| [pluralize(i, 'Year'), i]}, {}, class: 'form-control'
-    .callout.callout-info
-      %h4 Calculating Total Years
-      %p Please round up, e.g. 1.5 years = 2 years.
-      %p
-        If supported for both pre- and postdoctoral training, list the number of
-        postdoctoral training years.
+= render "forms/horizontal/select", form: form, object: applicant, key: :t32_funded_years, key_name: "3. a. If yes, how many years?", options: (1..5).collect { |i| [pluralize(i, "Year"), i] }, include_blank: "---", id: true, help_text: "Calculating Total Years: Please round up, e.g. 1.5 years = 2 years. If supported for both pre- and postdoctoral training, list the number of postdoctoral training years."
 
-.form-group
-  = f.label :academic_program_completed, '4. Did you complete the entire academic program?', class: 'col-md-2 control-label'
+.form-group.row
+  = form.label :academic_program_completed, "4. Did you complete the entire academic program?", class: "col-md-2 col-form-label"
   .col-md-10
-    - [['Yes', '1'], ['No', '0']].each do |name, value|
-      - selected = ((value == '1' && applicant.academic_program_completed == true) || (value == '0' && applicant.academic_program_completed == false))
-      %label.radio-inline
-        = f.radio_button :academic_program_completed, value, checked: selected
-        = name
+    .form-control-plaintext
+      - [["Yes", "1"], ["No", "0"]].each do |name, value|
+        - selected = ((value == "1" && applicant.academic_program_completed == true) || (value == "0" && applicant.academic_program_completed == false))
+        .custom-control.custom-radio.custom-control-inline
+          - id = "academic_program_completed_#{value}"
+          = form.radio_button :academic_program_completed, value, checked: selected, class: "custom-control-input", id: id
+          = form.label nil, name, for: id, class: "custom-control-label"
 
-.form-group
-  = f.label :certificate_application, '4. a. If so, please download, complete, and reattach the following form to apply for a Certificate in Sleep Medicine.', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.file_field :certificate_application, class: 'form-control'
-    = f.hidden_field :certificate_application_cache
-    .callout.callout-info
-      %h4 Example Document
-      You can download an example
-      = link_to 'Certificate Program', 'https://sleep.med.harvard.edu/training/research-training-program/certificate', class: 'btn btn-xs btn-default', target: '_blank'
-      as a template.
+= render "forms/horizontal/file_field", form: form, object: applicant, key: :certificate_application, key_name: "4. a. If so, please download, complete, and reattach the following form to apply for a Certificate in Sleep Medicine.", help_text: "You can download an example #{link_to "Certificate Program", "https://sleep.med.harvard.edu/training/research-training-program/certificate", target: "_blank"} as a template.".html_safe
 
-.form-group
-  = f.label :research_project_title, '5. What was the title of the research project that you worked on during your training?', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :research_project_title, class: 'form-control'
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :research_project_title, key_name: "5. What was the title of the research project that you worked on during your training?"
 
-.form-group
-  = f.label :laboratories, '6. In which type of laboratory did you work? Select all that apply.', class: 'col-md-2 control-label'
+.form-group.row
+  = form.label :laboratories, "6. In which type of laboratory did you work? Select all that apply.", class: "col-md-2 col-form-label"
   .col-md-10
-    = hidden_field_tag :set_laboratories, '1'
-    - Applicant::LABORATORIES.each do |name, value|
-      %label.checkbox-inline
-        = check_box_tag "applicant[laboratories][]", value, applicant.laboratories.include?(value)
-        = name
+    .form-control-plaintext
+      = hidden_field_tag :set_laboratories, "1"
+      - Applicant::LABORATORIES.each_with_index do |(name, value), index|
+        .custom-control.custom-checkbox.custom-control-inline
+          - id = "applicant_laboratories_#{index}"
+          = check_box_tag "applicant[laboratories][]", value, applicant.laboratories.include?(value), class: "custom-control-input", id: id
+          = form.label nil, name, for: id, class: "custom-control-label"
 
-.form-group
-  = f.label :immediate_transition, "7. Are you transitioning directly to a new position?", class: 'col-md-2 control-label'
+.form-group.row
+  = form.label :immediate_transition, "7. Are you transitioning directly to a new position?", class: "col-md-2 col-form-label"
   .col-md-10
-    - [['Yes', '1'], ['No', '0']].each do |name, value|
-      - selected = ((value == '1' and applicant.immediate_transition == true) or (value == '0' and applicant.immediate_transition == false))
-      %label.radio-inline
-        = f.radio_button :immediate_transition, value, checked: selected
-        = name
+    .form-control-plaintext
+      - [["Yes", "1"], ["No", "0"]].each do |name, value|
+        - selected = ((value == "1" && applicant.immediate_transition == true) || (value == "0" && applicant.immediate_transition == false))
+        .custom-control.custom-radio.custom-control-inline
+          - id = "immediate_transition_#{value}"
+          = form.radio_button :immediate_transition, value, checked: selected, class: "custom-control-input", id: id
+          = form.label nil, name, for: id, class: "custom-control-label"
 
-.form-group
-  = f.label :transition_position, "7. a. If yes, select all that apply.", class: 'col-md-2 control-label'
+.form-group.row
+  = form.label :transition_position, "7. a. If yes, select all that apply.", class: "col-md-2 col-form-label"
   .col-md-10
-    = hidden_field_tag :set_transition_position, '1'
-    - Applicant::TRANSITION_POSITIONS.each do |name, value|
-      %label.checkbox-inline
-        = check_box_tag "applicant[transition_position][]", value, applicant.transition_position.include?(value)
-        = name
+    .form-control-plaintext
+      = hidden_field_tag :set_transition_position, "1"
+      - Applicant::TRANSITION_POSITIONS.each_with_index do |(name, value), index|
+        .custom-control.custom-checkbox.custom-control-inline
+          - id = "applicant_transition_position_#{index}"
+          = check_box_tag "applicant[transition_position][]", value, applicant.transition_position.include?(value), class: "custom-control-input", id: id
+          = form.label nil, name, for: id, class: "custom-control-label"
 
-.form-group
-  = f.label :transition_position_other, '7. b. If other, describe:', class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_field :transition_position_other, class: 'form-control'
+= render "forms/horizontal/text_field", form: form, object: applicant, key: :transition_position_other, key_name: "7. b. If other, describe:"
 
-.form-group
-  = f.label :termination_feedback, "8. Please include any other feedback you may have about your experience in the Training Program in Sleep, Circadian, and Respiratory Neurobiology.", class: 'col-md-2 control-label'
-  .col-md-10
-    = f.text_area :termination_feedback, rows: 7, class: 'form-control'
+= render "forms/horizontal/text_area", form: form, object: applicant, key: :termination_feedback, key_name: "8. Please include any other feedback you may have about your experience in the Training Program in Sleep, Circadian, and Respiratory Neurobiology.", rows: 7

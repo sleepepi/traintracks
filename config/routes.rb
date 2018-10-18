@@ -11,6 +11,13 @@ Rails.application.routes.draw do
   end
 
   devise_for :applicants,
+             controllers: {
+               confirmations: "confirmations",
+               passwords: "passwords",
+               registrations: "registrations",
+               sessions: "sessions",
+               unlocks: "unlocks"
+             },
              path: "trainee",
              path_names: { sign_up: "register", sign_in: "login" }
 
@@ -42,6 +49,13 @@ Rails.application.routes.draw do
   resources :hospitals
 
   devise_for :preceptors,
+               controllers: {
+               confirmations: "confirmations",
+               passwords: "passwords",
+               registrations: "registrations",
+               sessions: "sessions",
+               unlocks: "unlocks"
+             },
              path: "preceptor",
              path_names: { sign_up: "register", sign_in: "login" }
 
@@ -65,7 +79,12 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, path_names: { sign_up: "register", sign_in: "login" }, path: ""
+  devise_for :users,
+             controllers: {
+               sessions: "sessions",
+             },
+             path_names: { sign_up: "register", sign_in: "login" },
+             path: ""
 
   resources :users
 

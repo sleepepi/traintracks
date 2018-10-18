@@ -1,0 +1,37 @@
+.page-box {
+  @include remove-last-child-bottom-margin;
+
+  min-height: 960px;
+  padding: map-get($spacers, 3) 0;
+  position: relative;
+}
+
+.full-page {
+  .page-box {
+    min-height: calc(100vh - #{$header-height});
+
+    &.last-box {
+      min-height: calc(100vh - #{$header-height} - #{$footer-height});
+    }
+  }
+}
+
+.full-page-no-header {
+  .page-box {
+    min-height: 100vh;
+
+    &.last-box {
+      min-height: calc(100vh - #{$footer-height});
+    }
+  }
+}
+
+.full-page-no-header-no-footer {
+  .page-box {
+    min-height: 100vh;
+
+    &.last-box {
+      min-height: 100vh;
+    }
+  }
+}

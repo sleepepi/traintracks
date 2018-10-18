@@ -1,11 +1,48 @@
-- @title = 'Users'
-.page-header
-  %h1= @title
+- @title = "Users"
 
-= form_tag users_path, method: :get, class: 'form-inline' do
-  = hidden_field_tag :order, params[:order]
+- content_for :header, @title
 
-  = text_field_tag 'search', params[:search], class: 'form-control'
-  = submit_tag 'Search', class: 'btn btn-primary', name: nil
+- content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 40, object_count: @users.total_count
+  %ol
+    %li.breadcrumb-muted users
 
-= render 'users/users'
+= form_with url: users_path, method: :get, local: true, skip_enforcing_utf8: true, class: "mb-3" do |form|
+  = form.hidden_field :order, value: params[:order]
+  .input-group
+    = text_field_tag "search", params[:search], class: "form-control"
+    .input-group-append= submit_tag "Search", class: "btn btn-primary", name: nil
+
+- if @users.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-hover.table-sticky.table-sm
+      %thead
+        %tr
+          = th_sort_field @order, "users.last_name", "Name", extra_class: "nowrap"
+          = th_sort_field @order, "users.email", "Email", extra_class: "nowrap"
+          = th_sort_field @order, "users.current_sign_in_at", "Activity", extra_class: "text-center"
+          - if current_user.system_admin?
+            = th_sort_field @order, "users.status", "Status", extra_class: "text-center"
+            = th_sort_field @order, "users.system_admin", "System Admin", extra_class: "nowrap text-center"
+            = th_sort_field @order, "users.administrator", "Administrator", extra_class: "text-center"
+            %th.text-center Actions
+
+      - @users.each do |user|
+        %tr
+          %td
+            = image_tag user.avatar_url(18), style: "vertical-align: text-bottom;"
+            = link_to user.name, user
+          %td= user.email
+          %td.text-center
+            %small= abbreviated_time user.current_sign_in_at
+          - if current_user.system_admin?
+            %td.text-center= user.status
+            %td.text-center= simple_check user.system_admin?
+            %td.text-center= simple_check user.administrator?
+            %td.text-center
+              = render "layouts/edit_delete_dropdown", edit_url: edit_user_path(user), delete_url: user, delete_confirmation: "Delete #{user.name}?"
+
+  .center-horizontally= paginate @users, theme: "bootstrap"
+- else
+  .jumbotron.jumbotron-custom-text
+    No users found.

@@ -1,12 +1,16 @@
-- @title = @hospital.name
-.page-header
-  %h1
-    = link_to 'Hospitals', hospitals_path
-    &middot;
-    = @title
-  = link_to 'Edit Hospital', edit_hospital_path(@hospital), class: 'btn btn-xs btn-default'
-  = link_to 'Delete Hospital', @hospital, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Hospital #{@hospital.name}?" }
+- @title = "#{@hospital.name} - Hospitals"
+- @menu_title = @hospital.name
 
-%dl.dl-horizontal
-  %dt Name
-  %dd= @hospital.name
+- content_for :header, @menu_title
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "hospitals", hospitals_path
+    %li.breadcrumb-muted= @hospital.name.downcase
+
+.dashboard-container
+  = link_to "Edit Hospital", edit_hospital_path(@hospital), class: "btn btn-sm btn-light"
+  = link_to "Delete Hospital", @hospital, method: :delete, class: "btn btn-sm btn-outline-danger", data: { confirm: "Delete #{@hospital.name}?" }
+
+.dashboard-container
+  = render "forms/horizontal/show/text", object: @hospital, key: :name

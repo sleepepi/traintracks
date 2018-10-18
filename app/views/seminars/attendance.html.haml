@@ -1,18 +1,22 @@
-- @title = 'Attendance Tracking'
-.page-header
-  %h1
-    = link_to "Seminars", seminars_path
-    &middot;
-    = @title
+- @title = "Attendance Tracking"
 
-= form_tag attendance_seminars_path, method: :get, id: 'attendance_form', class: 'form-inline' do
-  = hidden_field_tag :status, params[:status]
-  = select_tag :year, options_for_select(Seminar.current.pluck(:presentation_date).collect{|i|i ? (i.month > 6 ? i.year + 1 : i.year) : nil}.uniq.compact.sort.collect{|i| ["July #{i-1} to June #{i}",i]}, @year), class: 'form-control'
-  = select_tag :status, options_for_select([['All Trainees', nil]] + Applicant::STATUS, params[:status]), class: 'form-control'
-  = submit_tag 'Search', class: 'btn btn-primary', name: nil
-  = link_to 'Export CSV', '#', data: { object: 'export', target: '#attendance_form', format: 'csv' }, class: 'btn btn-default'
+- content_for :header, @title
 
-%table.table.table-striped.table-condensed
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "seminars", seminars_path
+    %li.breadcrumb-muted attendance tracking
+
+.dashboard-container
+  = form_with url: attendance_seminars_path, method: :get, local: true, id: "attendance_form", skip_enforcing_utf8: true, class: "form-inline" do |form|
+    = form.hidden_field :status, value: params[:status]
+    = select_tag :year, options_for_select(Seminar.current.pluck(:presentation_date).collect{|i|i ? (i.month > 6 ? i.year + 1 : i.year) : nil}.uniq.compact.sort.collect{|i| ["July #{i-1} to June #{i}",i]}, @year), class: "form-control mr-3"
+    = select_tag :status, options_for_select([["All Trainees", nil]] + Applicant::STATUS, params[:status]), class: "form-control mr-3"
+    = submit_tag "Search", class: "btn btn-primary mr-3", name: nil
+    = link_to "Export CSV", "#", data: { object: "export", target: "#attendance_form", format: "csv" }, class: "btn btn-light"
+
+%table.table.table-striped.table-sm.table-bordered
+  %col{ width: "1px" }
   %thead
     %tr
       %th
@@ -26,27 +30,27 @@
       - @seminars.group_by{|s| s.category}.each do |category, seminars|
         %th{ style: "border-left: 1px solid gray" }
         - seminars.sort_by{ |s| s.presentation_date }.each do |seminar|
-          %th{ style: "white-space:nowrap" }
-            %span{ rel: "tooltip", title: [(seminar.presentation_date ? seminar.presentation_date.strftime("%Y-%m-%d") : ''), seminar.presentation_title, seminar.presenter].select{|i| not i.blank?}.join(' - ') }
+          %th.text-center.nowrap
+            %span{ rel: "tooltip", title: [(seminar.presentation_date ? seminar.presentation_date.strftime("%Y-%m-%d") : ""), seminar.presentation_title, seminar.presenter].select{|i| not i.blank?}.join(" - ") }
               = link_to seminar.presentation_date.strftime("%-m/%-d"), seminar if seminar.presentation_date
   %tfoot
     %tr
       %th{ style: "font:inherit" }
         Total
-      - @seminars.group_by{|s| s.category}.each do |category, seminars|
+      - @seminars.group_by { |s| s.category }.each do |category, seminars|
         %th{ style: "border-left: 1px solid gray" }
         - seminars.sort_by{ |s| s.presentation_date }.each do |seminar|
-          %th{ style: "white-space:nowrap" }
+          %th.text-center.nowrap
             = seminar.applicants.where(id: @applicants.where("(DATE(training_period_start_date) <= ? or training_period_start_date IS NULL) and (DATE(training_period_end_date) >= ? or training_period_end_date IS NULL)", seminar.presentation_date, seminar.presentation_date).select(:id)).count
   %tbody
-    - @applicants.order('last_name, first_name').each do |applicant|
+    - @applicants.order("last_name, first_name").each do |applicant|
       %tr
-        %td= link_to applicant.reverse_name, applicant
+        %td.nowrap= link_to applicant.reverse_name, applicant
         - @seminars.group_by{|s| s.category}.each do |category, seminars|
           - percent = applicant.seminars_attended_percentage(seminars)
           - count = applicant.eligible_seminars(seminars).count
-          %td{ style: "border-left: 1px solid gray", class: "#{(percent < 50 and count > 0) ? 'error' : ((percent < 70 and count > 0) ? 'warning' : '')}" }
+          %td{ style: "border-left: 1px solid gray", class: "#{(percent < 50 and count > 0) ? "error" : ((percent < 70 and count > 0) ? "warning" : "")}" }
             = "#{percent}%" if count > 0
           - seminars.sort_by{ |s| s.presentation_date }.each do |seminar|
-            %td{ id: "applicant_#{applicant.id}_seminar_#{seminar.id}_attendance" }
-              = render 'seminars/attendance', applicant: applicant, seminar: seminar
+            %td.text-center{ id: "applicant_#{applicant.id}_seminar_#{seminar.id}_attendance" }
+              = render "seminars/attendance", applicant: applicant, seminar: seminar

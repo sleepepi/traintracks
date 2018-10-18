@@ -1,3 +1,13 @@
-- @title = "Edit Annual: #{@annual.name_was}"
+- @title = "Edit Annual - #{@annual.applicant.name}, Year #{@annual.name} - Annuals"
+- @menu_title = "Edit Annual - #{@annual.applicant.name}, Year #{@annual.name}"
 
-= render 'form'
+- content_for :header, "#{@annual.applicant.name}, Year #{@annual.name}"
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "annuals", annuals_path
+    %li= link_to @annual.applicant.name.downcase, @annual.applicant
+    %li= link_to "year #{@annual.name_was.to_s.downcase}", @annual
+    %li.breadcrumb-muted edit
+
+.dashboard-container
+  = render "form", annual: @annual

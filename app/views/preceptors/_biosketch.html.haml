@@ -1,0 +1,4 @@
+- if preceptor.biosketch.size > 0
+  - full_url = "#{request.script_name}#{preceptor.biosketch.url}"
+  = link_to preceptor.biosketch_url.split("/").last, full_url, target: "_blank"
+  %span.badge.badge-light= number_to_human_size(preceptor.biosketch.size)

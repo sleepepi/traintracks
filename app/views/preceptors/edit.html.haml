@@ -1,3 +1,11 @@
-- @title = "Edit Preceptor: #{@preceptor.name}"
+- @title = "Edit Preceptor - #{@preceptor.name_was}"
 
-= render 'form'
+- content_for :header, @preceptor.name_was
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "preceptors", preceptors_path
+    %li= link_to @preceptor.name_was.to_s.downcase, @preceptor
+    %li.breadcrumb-muted edit
+
+.dashboard-container
+  = render "form", preceptor: @preceptor

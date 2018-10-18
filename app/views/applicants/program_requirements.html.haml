@@ -1,22 +1,25 @@
-- @title = 'Program Requirements'
-.page-header
-  %h1
-    = link_to 'Applicants and Trainees', applicants_path
-    &middot;
-    = @title
+- @title = "Program Requirements"
 
-= form_tag program_requirements_applicants_path, method: :get, id: 'applicants_search', class: 'form-vertical' do
-  = hidden_field_tag :order, params[:order]
+- content_for :header, @title
 
-  .row
-    .col-md-4.form-group
-      = label :search, 'Search', class: 'col-md-2 control-label'
-      .col-md-10
-        = text_field_tag 'search', params[:search], class: 'form-control', data: { object: 'filter' }
 
-  .form-group
-    = submit_tag 'Search', class: 'btn btn-primary', name: nil
-    = link_to 'Export', '#', class: 'btn btn-default', data: { object: 'export', format: 'csv', target: '#applicants_search' }
-    = link_to 'Reset', program_requirements_applicants_path, class: 'btn btn-default'
+- content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 40, object_count: @applicants.total_count
+  %ol
+    %li= link_to "applicants", applicants_path
+    %li.breadcrumb-muted program requirements
 
-= render 'applicants/applicant_program_requirements'
+
+= form_with url: program_requirements_applicants_path, method: :get, local: true, id: "applicants_search", skip_enforcing_utf8: true, class: "mb-3" do |form|
+  = form.hidden_field :order, value: params[:order]
+  .input-group
+    = text_field_tag "search", params[:search], class: "form-control"
+    .input-group-append= submit_tag "Search", class: "btn btn-primary", name: nil
+    .input-group-append= link_to "Export", "#", class: "btn btn-light", data: { object: "export", format: "csv", target: "#applicants_search" }
+    .input-group-append= link_to "Reset", program_requirements_applicants_path, class: "btn btn-light"
+
+- if @applicants.present?
+  = render "applicants/applicant_program_requirements"
+- else
+  .jumbotron.jumbotron-custom-text
+    No applicants found.

@@ -1,0 +1,29 @@
+!!!
+%html{ lang: "en" }
+  %head
+    %meta{ charset: "utf-8" }
+    %meta{ content: "IE=Edge,chrome=1", http: { equiv: "X-UA-Compatible" } }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1, shrink-to-fit=no" }
+    = render "layouts/meta/general"
+    -# Don't cache any pages
+    %meta{ name: "turbolinks-cache-control", content: "no-cache" }
+    %title= [@title, ENV["website_name"]].compact.join(" - ").html_safe
+    = favicon_link_tag
+    = csrf_meta_tags
+    = csp_meta_tag
+    = action_cable_meta_tag
+    = stylesheet_link_tag "application", media: "all", data: { turbolinks_track: "reload" }
+    = javascript_include_tag "application", data: { turbolinks_track: "reload" }
+  - render("themes/theme") unless @theme
+  %body#top.full-page.theme-bg{ class: "theme-#{@theme.presence || "default"}-bg", data: { theme: @theme } }
+    = render "layouts/features/service_announcement", container: @container.presence
+    = render "layouts/features/flash_bar"
+    #top-menu.top-menu= render "menu/menu", container: @container.presence
+    - if content_for?(:header)
+      .header-container{ class: content_for?(:tabs) ? "header-container-no-border" : nil }
+        %div{ class: @container.presence || "container" }
+          %h1.page-heading
+            = yield :header
+    = yield
+    = yield :footer
+    = render "layouts/footer", container: @container.presence

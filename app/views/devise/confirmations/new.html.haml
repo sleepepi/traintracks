@@ -1,31 +1,18 @@
-- @title = 'Resend confirmation instructions'
+- @title = "Resend confirmation instructions"
 
-.sign-up-form
-  .sign-up-form-title
-    Resend Confirmation Email
+- @theme = "default"
 
-  .center{ style: 'margin-bottom:20px' }
-    = render 'sites/resource_image'
+.page-box.last-box.d-flex.flex-column.justify-content-center.theme-bg{ class: "theme-#{@theme}-focus-bg" }
+  .container
+    %p.lead.text-center.text-white= @title
 
-  %p.lead.center
-    Enter your email address to receive a new confirmation email. You may
-    = link_to 'contact us', contact_path
-    if you don't remember which email you used to register.
+    .sign-up-form
+      .sign-up-form-title
+        Confirm my account
 
-  = form_for resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: 'form-vertical' } do |f|
-    - if resource.errors.any?
-      .callout.callout-danger
-        %h4
-          Please enter a valid email
+      .text-center.mb-3= render "sites/resource_image"
+      = form_with model: resource, as: resource_name, url: confirmation_path(resource_name), method: :post, local: true do |form|
+        = render "forms/vertical/email_field", form: form, object: resource, key: :email
 
-        %ul
-          - resource.errors.full_messages.each do |msg|
-            %li= msg
-
-
-    .form-group
-      = f.label :email, class: 'control-label'
-      = f.email_field :email, class: 'form-control'
-
-    .form-group
-      = f.submit 'Resend confirmation instructions', class: 'btn btn-success'
+        .form-group.submit-btn-container
+          = form.submit "Resend confirmation instructions", class: "btn btn-primary btn-block btn-shadow"

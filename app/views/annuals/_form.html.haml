@@ -1,35 +1,9 @@
-.page-header
-  %h1
-    = link_to 'Annuals', annuals_path
-    &middot;
-    = @title
-
-= form_for @annual, html: { class: 'form-horizontal' } do |f|
-  - if @annual.errors.any?
-    .callout.callout-danger
-      %h4
-        = pluralize @annual.errors.count, 'error'
-        prohibited this annual from being saved
-
-      %ul
-        - @annual.errors.full_messages.each do |message|
-          %li= message
-
-  .form-group
-    = f.label :applicant_id, nil, class: 'col-md-2 control-label'
+= form_with model: annual, local: true do |form|
+  = form.hidden_field :publish, value: 0
+  = render "forms/horizontal/select", form: form, object: annual, key: :applicant_id, options: Applicant.current.order("last_name, first_name").collect { |a| [a.name, a.id] }, include_blank: "---", id: true
+  .form-group.row
+    = form.label :year, nil, class: "col-md-2 col-form-label"
     .col-md-10
-      = f.select :applicant_id, [['---', nil]] + Applicant.current.order('last_name, first_name').collect{|a| [a.name, a.id]}, {}, class: 'form-control'
-
-  .form-group
-    = f.label :year, nil, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.number_field :year, class: 'form-control'
-
-  = render 'inner_form', f: f
-
-  = f.hidden_field :publish, value: 0
-
-  .form-group
-    .col-md-offset-2.col-md-10
-      = f.submit nil, class: 'btn btn-primary'
-      = link_to 'Cancel', @annual.new_record? ? annuals_path : @annual, class: 'btn btn-default'
+      = form.number_field :year, class: "form-control"
+  = render "inner_form", form: form, annual: annual
+  = render "forms/horizontal/submit", form: form, object: annual

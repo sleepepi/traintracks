@@ -1,14 +1,24 @@
-- @title = 'Seminars'
-.page-header
-  %h1
-    = @title
-    = link_to 'Create Seminar', new_seminar_path, class: 'btn btn-xs btn-primary'
-    = link_to 'Attendance Tracking', attendance_seminars_path(status: 'current'), class: 'btn btn-xs btn-default'
+- @title = "Seminars"
 
-= form_tag seminars_path, method: :get, class: 'form-inline' do
-  = hidden_field_tag :order, params[:order]
+- content_for :header do
+  .float-right
+    = link_to plus_or("New Seminar"), new_seminar_path, class: "btn btn-dark btn-shadow"
+    = link_to "Attendance Tracking", attendance_seminars_path(status: "current"), class: "btn btn-dark"
+  = @title
 
-  = text_field_tag 'search', params[:search], class: 'form-control'
-  = submit_tag 'Search', class: 'btn btn-primary', name: nil
+- content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 40, object_count: @seminars.total_count
+  %ol
+    %li.breadcrumb-muted seminars
 
-= render 'seminars/seminars'
+= form_with url: seminars_path, method: :get, local: true, id: "seminars_search", skip_enforcing_utf8: true, class: "mb-3" do |form|
+  = form.hidden_field :order, value: params[:order]
+  .input-group
+    = text_field_tag "search", params[:search], class: "form-control"
+    .input-group-append= submit_tag "Search", class: "btn btn-primary", name: nil
+
+- if @seminars.present?
+  = render "seminars/seminars"
+- else
+  .jumbotron.jumbotron-custom-text
+    No seminars found.

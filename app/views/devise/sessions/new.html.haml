@@ -1,78 +1,97 @@
-- @title = 'Login'
+- @title = "Login"
 
+- @theme = "default"
 - display_splash = params[:user].nil? && resource_name == :user
 
-#choose-role{ style: "#{'display:none' unless display_splash}" }
-  %h1 Welcome to Train Tracks!
+.page-box.last-box.d-flex.flex-column.justify-content-center{ class: "theme-#{@theme}-focus-bg" }
+  .container
 
-  %p.lead Please select your role below to get started.
+    #choose-role{ style: "#{"display:none" unless display_splash}" }
+      %h1 Welcome to Train Tracks!
 
-  %h2 I am...
+      %p.lead Please select your role below to get started.
 
-  .row
-    .col-sm-4
-      .panel.panel-default
-        .panel-heading{ style: "overflow:hidden" }
-          .panel-title{ style: "white-space:nowrap" }
-            Applicant or Trainee
-        .panel-body.bg-hover{ style: "position:relative" }
-          .center{ style: "padding-bottom:5px;height:145px;line-height:145px" }
-            = link_to new_applicant_session_path do
-              .zoom-hover= image_tag 'student.png', style: 'max-width:100%;max-height:140px'
-    .col-sm-4
-      .panel.panel-default
-        .panel-heading{ style: "overflow:hidden" }
-          .panel-title{ style: "white-space:nowrap" }
-            Preceptor
-        .panel-body.bg-hover{ style: "position:relative" }
-          .center{ style: "padding-bottom:5px;height:145px;line-height:145px" }
-            = link_to new_preceptor_session_path do
-              .zoom-hover= image_tag 'preceptor.png', style: 'max-width:100%;max-height:140px'
-    .col-sm-4
-      .panel.panel-default
-        .panel-heading{ style: "overflow:hidden" }
-          .panel-title{ style: "white-space:nowrap" }
-            Administrator
-        .panel-body.bg-hover{ style: "position:relative" }
-          .center{ style: "padding-bottom:5px;height:145px;line-height:145px" }
-            = link_to '#', data: { object: 'show-administrator-login' } do
-              .zoom-hover= image_tag 'administrator.png', style: 'max-width:100%;max-height:140px'
+      %h2 I am...
 
-#administrator-login{ style: "#{'display:none' if display_splash}" }
-  .sign-up-form
-    .sign-up-form-title
-      Sign in for
-      - if resource_name == :preceptor
-        Preceptors
-      - elsif resource_name == :applicant
-        Applicants and Trainees
-      - elsif resource_name == :user
-        Admins
+      .row
+        .col-sm-4
+          .card
+            .card-header.overflow-hidden.nowrap
+              Applicant or Trainee
+            .card-body.bg-hover
+              .text-center
+                = link_to new_applicant_session_path do
+                  .zoom-hover= image_tag "student.png", style: "max-width:100%;max-height:140px"
+        .col-sm-4
+          .card
+            .card-header.overflow-hidden.nowrap
+              Preceptor
+            .card-body.bg-hover
+              .text-center
+                = link_to new_preceptor_session_path do
+                  .zoom-hover= image_tag "preceptor.png", style: "max-width:100%;max-height:140px"
+        .col-sm-4
+          .card
+            .card-header.overflow-hidden.nowrap
+              Administrator
+            .card-body.bg-hover
+              .text-center
+                = link_to "#", data: { object: "show-administrator-login" } do
+                  .zoom-hover= image_tag "administrator.png", style: "max-width:100%;max-height:140px"
 
-    .center{ style: 'margin-bottom:20px' }
-      = render 'sites/resource_image'
+    #administrator-login{ style: "#{"display:none" if display_splash}" }
+      .sign-up-form
+        .sign-up-form-title
+          Sign in for
+          - if resource_name == :preceptor
+            Preceptors
+          - elsif resource_name == :applicant
+            Applicants and Trainees
+          - elsif resource_name == :user
+            Admins
 
-    = form_for resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-vertical' } do |f|
-      .form-group
-        = f.label :email, class: 'control-label'
-        = f.email_field :email, class: 'form-control'
+        .text-center.mb-3= render "sites/resource_image"
 
-      .form-group
-        = f.label :password, class: 'control-label'
-        = link_to "(Forgot password?)", new_password_path(resource_name), tabindex: '-1'
-        = f.password_field :password, class: 'form-control', autocomplete: 'off'
+        = form_with model: resource, as: resource_name, url: session_path(resource_name), local: true do |form|
+          .form-group
+            = form.label :email
+            = form.email_field :email, class: "form-control#{" is-invalid" if flash[:alert].present?}", autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
 
-      .form-group
-        = f.submit "Sign in", class: 'btn btn-success'
+          .form-group
+            = form.label :password
+            %small= link_to "(Forgot password?)", new_password_path(resource_name), tabindex: "-1"
+            = form.password_field :password, class: "form-control#{" is-invalid" if flash[:alert].present?}", autocomplete: "current-password"
+            - if flash[:alert].present?
+              .invalid-feedback= flash[:alert].html_safe
 
-  .center
-    %h2 Other Useful Links
+          .form-group.submit-btn-container
+            = form.submit "Sign in", class: "btn btn-primary btn-block btn-shadow"
 
-    - if devise_mapping.registerable? && controller_name != 'registrations'
-      = link_to "Sign up", new_registration_path(resource_name), class: 'btn btn-primary btn-xs'
+          - flash[:alert] = nil
 
-    - if devise_mapping.confirmable? && controller_name != 'confirmations'
-      = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name), class: 'btn btn-default btn-xs'
+        - if false
+          = form_for resource, as: resource_name, url: session_path(resource_name), html: { class: "form-vertical" } do |f|
+            .form-group
+              = f.label :email, class: "control-label"
+              = f.email_field :email, class: "form-control"
 
-    - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
-      = link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name), class: 'btn btn-default btn-xs'
+            .form-group
+              = f.label :password, class: "control-label"
+              = link_to "(Forgot password?)", new_password_path(resource_name), tabindex: "-1"
+              = f.password_field :password, class: "form-control", autocomplete: "off"
+
+            .form-group
+              = f.submit "Sign in", class: "btn btn-success"
+
+      .sign-up-form
+        %strong Other Useful Links
+
+        %ul.list-unstyled
+          - if devise_mapping.registerable? && controller_name != "registrations"
+            %li= link_to "Sign up", new_registration_path(resource_name)
+
+          - if devise_mapping.confirmable? && controller_name != "confirmations"
+            %li= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
+
+          - if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != "unlocks"
+            %li= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name)

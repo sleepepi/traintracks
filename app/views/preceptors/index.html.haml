@@ -1,14 +1,24 @@
-- @title = 'Preceptors'
-.page-header
-  %h1
-    = @title
-    = link_to "Create Preceptor", new_preceptor_path, class: 'btn btn-xs btn-primary'
+- @title = "Preceptors"
 
-= form_tag preceptors_path, method: :get, id: "preceptors_search", class: 'form-inline' do
-  = hidden_field_tag :order, params[:order]
+- content_for :header do
+  .float-right
+    = link_to plus_or("New Preceptor"), new_preceptor_path, class: "btn btn-dark btn-shadow"
+  = @title
 
-  = text_field_tag 'search', params[:search], class: 'form-control'
-  = submit_tag 'Search', class: 'btn btn-primary', name: nil
-  = link_to 'Export', '#', class: 'btn btn-default', data: { object: 'export', format: 'csv', target: '#preceptors_search' }
+- content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 40, object_count: @preceptors.total_count
+  %ol
+    %li.breadcrumb-muted preceptors
 
-= render 'preceptors/preceptors'
+= form_with url: preceptors_path, method: :get, local: true, id: "preceptors_search", skip_enforcing_utf8: true, class: "mb-3" do |form|
+  = form.hidden_field :order, value: params[:order]
+  .input-group
+    = text_field_tag "search", params[:search], class: "form-control"
+    .input-group-append= submit_tag "Search", class: "btn btn-primary", name: nil
+    .input-group-append= link_to "Export", "#", class: "btn btn-outline-primary", data: { object: "export", format: "csv", target: "#preceptors_search" }
+
+- if @preceptors.present?
+  = render "preceptors/preceptors"
+- else
+  .jumbotron.jumbotron-custom-text
+    No preceptors found.

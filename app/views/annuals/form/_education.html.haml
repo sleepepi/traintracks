@@ -1,38 +1,41 @@
-.page-header
-  %h2 Education / Experience
+.brand-title Education / Experience
 
-.form-group
-  = label :applicant, :curriculum_vitae, 'Upload Curriculum Vitae (PDF, Word)', class: 'col-md-2 control-label'
+.form-group.row
+  = label :applicant, :curriculum_vitae, "Upload Curriculum Vitae (PDF, Word)", class: "col-md-2 col-form-label"
   .col-md-10
-    = file_field :applicant, :curriculum_vitae, class: 'form-control'
+    .custom-file
+      = label :applicant, :curriculum_vitae, "Choose file", class: "custom-file-label"
+      = file_field :applicant, :curriculum_vitae, class: "custom-file-input#{" is-invalid" if applicant.errors[:curriculum_vitae].present?}"
     = hidden_field :applicant, :curriculum_vitae_cache
-    %span.help-inline= @applicant.curriculum_vitae_url.split('/').last if @applicant.curriculum_vitae_url.present? && @applicant.curriculum_vitae_cache.blank?
 
-.form-group
-  = label :applicant, :current_institution, nil, class: 'col-md-2 control-label'
+.form-group.row
+  = label :applicant, :current_institution, nil, class: "col-md-2 col-form-label"
   .col-md-10
-    = text_field :applicant, :current_institution, class: 'form-control'
+    = text_field :applicant, :current_institution, class: "form-control#{" is-invalid" if applicant.errors[:current_institution].present?}"
+    = render "forms/invalid_feedback", object: applicant, key: :current_institution
 
-.form-group
-  = label :applicant, :department_program, 'Department / Program', class: 'col-md-2 control-label'
+.form-group.row
+  = label :applicant, :department_program, "Department / Program", class: "col-md-2 col-form-label"
   .col-md-10
-    = text_field :applicant, :department_program, class: 'form-control'
+    = text_field :applicant, :department_program, class: "form-control#{" is-invalid" if applicant.errors[:department_program].present?}"
+    = render "forms/invalid_feedback", object: applicant, key: :department_program
 
-.form-group
-  = label :applicant, :current_position, nil, class: 'col-md-2 control-label'
+.form-group.row
+  = label :applicant, :current_position, nil, class: "col-md-2 col-form-label"
   .col-md-10
-    = text_field :applicant, :current_position, class: 'form-control'
+    = text_field :applicant, :current_position, class: "form-control#{" is-invalid" if applicant.errors[:current_position].present?}"
+    = render "forms/invalid_feedback", object: applicant, key: :current_position
 
-.form-group
-  = label :applicant, :degrees, nil, class: 'col-md-2 control-label'
+.form-group.row
+  = label :applicant, :degrees, nil, class: "col-md-2 col-form-label"
   .col-md-10
     #degrees_container
-      = hidden_field_tag :set_degree_hashes, '1'
+      = hidden_field_tag :set_degree_hashes, "1"
       - if @applicant.degrees_or_params(params).size == 0
         - degree = @applicant.degrees.new
-        = render 'degrees/form', degree: degree
+        = render "degrees/form", degree: degree
       - else
         - @applicant.degrees_or_params(params).each do |degree|
-          = render 'degrees/form', degree: degree
+          = render "degrees/form", degree: degree
 
-    = link_to 'add more', add_degree_applicants_path, method: :post, remote: true, class: 'btn btn-xs btn-default'
+    = link_to "add more", add_degree_applicants_path, method: :post, remote: true, class: "btn btn-sm btn-light"
