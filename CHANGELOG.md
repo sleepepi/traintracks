@@ -7,6 +7,7 @@
   - Update to rails 5.2.1
   - Update to mysql2 0.5.2
   - Update to bootstrap 4.1.3
+  - Update to carrierwave 1.2.3
 
 ## 18.0.0 (April 17, 2018)
 
