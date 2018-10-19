@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Add updated Privacy Policy
+  - Updated interface for applicants, preceptors, and admins
 - **Gem Changes**
   - Update to rails 5.2.1
   - Update to mysql2 0.5.2
