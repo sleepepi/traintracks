@@ -52,3 +52,41 @@ module Rack
     end
   end
 end
+
+# Add helper method to login user.
+class ActionDispatch::SystemTestCase
+  def visit_login_as_user(user, screenshot_name = nil)
+    password = "PASSword2"
+    user.update(password: password, password_confirmation: password)
+    visit new_user_session_url
+    screenshot(screenshot_name) if screenshot_name.present?
+    click_element("[data-object=show-administrator-login]")
+    screenshot(screenshot_name) if screenshot_name.present?
+    fill_in "user[email]", with: user.email
+    fill_in "user[password]", with: user.password
+    screenshot(screenshot_name) if screenshot_name.present?
+    click_form_submit
+  end
+
+  def visit_login_as_applicant(applicant, screenshot_name = nil)
+    password = "PASSword2"
+    applicant.update(password: password, password_confirmation: password)
+    visit new_applicant_session_url
+    screenshot(screenshot_name) if screenshot_name.present?
+    fill_in "applicant[email]", with: applicant.email
+    fill_in "applicant[password]", with: applicant.password
+    screenshot(screenshot_name) if screenshot_name.present?
+    click_form_submit
+  end
+
+  def visit_login_as_preceptor(preceptor, screenshot_name = nil)
+    password = "PASSword2"
+    preceptor.update(password: password, password_confirmation: password)
+    visit new_preceptor_session_url
+    screenshot(screenshot_name) if screenshot_name.present?
+    fill_in "preceptor[email]", with: preceptor.email
+    fill_in "preceptor[password]", with: preceptor.password
+    screenshot(screenshot_name) if screenshot_name.present?
+    click_form_submit
+  end
+end

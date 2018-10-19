@@ -6,8 +6,12 @@
   = form_with model: current_preceptor, url: update_me_preceptors_path, method: :patch, local: true do |form|
     - if current_preceptor.errors.any?
       .bg-danger.text-white.p-3.rounded.mb-3
-        = pluralize(current_preceptor.errors.count, "error")
+        = pluralize current_preceptor.errors.count, "error"
         prohibited this preceptor from being saved.
+
+        %ul
+          - current_preceptor.errors.full_messages.each do |message|
+            %li= message
 
     = render "preceptors/form/general", form: form, preceptor: current_preceptor
 

@@ -23,10 +23,18 @@
     = pluralize @applicant.errors.count, "error"
     prohibited this applicant from being saved.
 
+    %ul
+      - @applicant.errors.full_messages.each do |message|
+        %li= message
+
 - if @annual.errors.any?
   .bg-danger.text-white.p-3.rounded.mb-3
     = pluralize @annual.errors.count, "error"
     prohibited this form from being saved.
+
+    %ul
+      - @annual.errors.full_messages.each do |message|
+        %li= message
 
 .dashboard-container
   - form_name = "edit_annual_#{@annual.id}"

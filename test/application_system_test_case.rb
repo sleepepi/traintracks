@@ -31,4 +31,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   def click_element(selector)
     page.execute_script("$(\"#{selector}\").click();")
   end
+
+  def scroll_down
+    page.execute_script("window.scrollBy(0, $(window).height());")
+  end
 end

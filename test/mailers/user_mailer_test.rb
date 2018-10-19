@@ -37,8 +37,8 @@ class UserMailerTest < ActionMailer::TestCase
   test 'annual submitted email' do
     annual = annuals(:one)
     email = UserMailer.annual_submitted(annual).deliver_now
-    assert_equal 'FirstName MyString LastName Submitted Annual Update', email.subject
-    assert_match(/FirstName MyString LastName has submitted a profile update\./, email.encoded)
+    assert_equal 'FirstName MI LastName Submitted Annual Update', email.subject
+    assert_match(/FirstName MI LastName has submitted a profile update\./, email.encoded)
   end
 
   test 'help email' do
@@ -48,7 +48,7 @@ class UserMailerTest < ActionMailer::TestCase
     assert !ActionMailer::Base.deliveries.empty?
     # Test the body of the sent email contains what we expect it to
     assert_equal ['applicant_one@example.com'], email.reply_to
-    assert_equal 'Help Me With... - FirstName MyString LastName', email.subject
+    assert_equal 'Help Me With... - FirstName MI LastName', email.subject
     assert_match(/Body/, email.encoded)
   end
 

@@ -12,6 +12,10 @@
         = pluralize current_applicant.errors.count, "error"
         prohibited this applicant from being saved.
 
+        %ul
+          - current_applicant.errors.full_messages.each do |message|
+            %li= message
+
     = render "applicants/form/general", form: form, applicant: current_applicant
     = render "applicants/form/contact", form: form, applicant: current_applicant
     = render "applicants/form/education", form: form, applicant: current_applicant

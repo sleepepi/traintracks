@@ -17,7 +17,7 @@ class PreceptorsController < ApplicationController
 
   def update_me
     if current_preceptor.update(preceptor_params)
-      redirect_to dashboard_preceptors_path, notice: 'Preceptor information successfully updated.'
+      redirect_to dashboard_preceptors_path, notice: "Preceptor information successfully updated."
     else
       render :edit_me
     end
