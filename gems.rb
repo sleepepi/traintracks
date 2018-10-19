@@ -5,7 +5,7 @@ source "https://rubygems.org"
 gem "rails",                "5.2.1"
 
 # Database Adapter
-gem "mysql2",               "0.5.1"
+gem "mysql2",               "0.5.2"
 
 # Gems used by project
 gem "autoprefixer-rails"
