@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "rails",                "5.2.0"
+gem "rails",                "5.2.1"
 
 # Database Adapter
 gem "mysql2",               "0.5.1"
