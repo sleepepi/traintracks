@@ -1,3 +1,4 @@
 @datepickerReady = ->
-  $('.datepicker').datepicker('remove')
-  $('.datepicker').datepicker(autoclose: true)
+  $(".datepicker-dropdown").remove()
+  $(".datepicker").datepicker("remove")
+  $(".datepicker").datepicker(autoclose: true)

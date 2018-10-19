@@ -19,7 +19,7 @@
         Update Submission Date
         %button.close{ type: "button", data: { dismiss: "modal" }, aria: { hidden: true } }= icon("fas", "times")
       .modal-body
-        = form_tag update_submitted_at_date_applicant_path(applicant), method: :post, remote: true, class: "form-horizontal", id: "update_submission_date_form" do
+        = form_with url: update_submitted_at_date_applicant_path(applicant), method: :post, class: "form-horizontal", id: "update_submission_date_form" do |form|
           .form-group.row
             = label_tag :submission_date, nil, class: "col-md-auto col-form-label"
             .col-md
@@ -27,4 +27,4 @@
 
       .modal-footer
         = link_to "Close", "#", class: "btn btn-light", data: { dismiss: "modal" }
-        = link_to "Update Submission Date", "#", class: "btn btn-primary", data: { object: "submit", target: "#update_submission_date_form" }
+        = link_to "Update Submission Date", "#", class: "btn btn-primary", data: { object: "submit-js", target: "#update_submission_date_form" }
