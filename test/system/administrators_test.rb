@@ -43,4 +43,25 @@ class AdministratorsTest < ApplicationSystemTestCase
     scroll_down
     screenshot("visit-applicant-page")
   end
+
+  test "visit annuals index" do
+    visit_login_as_user(@administrator)
+    click_on "Annual Information"
+    screenshot("visit-annuals-index")
+    assert_selector "h1", text: "Annuals"
+  end
+
+  test "visit seminars index" do
+    visit_login_as_user(@administrator)
+    click_on "Seminars"
+    screenshot("visit-seminars-index")
+    assert_selector "h1", text: "Seminars"
+  end
+
+  test "visit program requirements" do
+    visit_login_as_user(@administrator)
+    click_on "Program Requirements"
+    screenshot("visit-program-requirements")
+    assert_selector "h1", text: "Program Requirements"
+  end
 end
