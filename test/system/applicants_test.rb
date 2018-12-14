@@ -8,6 +8,18 @@ class ApplicantsTest < ApplicationSystemTestCase
     @applicant = applicants(:one)
   end
 
+  test "register as applicant" do
+    visit new_applicant_registration_url
+    fill_in "applicant[first_name]", with: "Joe"
+    fill_in "applicant[last_name]", with: "Schmoe"
+    fill_in "applicant[email]", with: "jschmoe@example.com"
+    fill_in "applicant[password]", with: "1234567890"
+    screenshot("register-as-applicant")
+    click_on("Next step")
+    assert_selector "h1", text: "Welcome to Train Tracks!"
+    screenshot("register-as-applicant")
+  end
+
   test "visit applicant dashboard" do
     visit_login_as_applicant(@applicant, "visit-applicant-dashboard")
     screenshot("visit-applicant-dashboard")
