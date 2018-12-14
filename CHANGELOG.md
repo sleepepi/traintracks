@@ -1,5 +1,8 @@
 ## 19.0.1
 
+### Bug Fix
+- Fix bug that prevented applicants from registering
+
 ## 19.0.0 (October 22, 2018)
 
 ### Enhancements
