@@ -5,4 +5,4 @@
     - attended = (applicant.seminars.where(id: seminar.id).count == 1)
     = link_to simple_check(attended), attended_seminar_path(seminar, attended: (attended ? '0' : '1'), applicant_id: applicant.id), method: :post, remote: true
 - else
-  %span.glyphicon.glyphicon-option-horizontal.text-muted{ rel: "tooltip", title: "Training Period From #{applicant.training_period_start_date} To #{applicant.training_period_end_date}", data: { placement: "right" } }
+  = icon("fas", "ellipsis-h", class: "text-muted", rel: "tooltip", title: "Training Period From #{applicant.training_period_start_date} To #{applicant.training_period_end_date}", data: { placement: "right" })

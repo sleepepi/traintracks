@@ -3,6 +3,7 @@
 ### Enhancements
 - **Gem Changes**
   - Update to rails 5.2.2
+  - Update to font-awesome-sass 5.5.0
 
 ### Bug Fix
 - Fix bug that prevented applicants from registering

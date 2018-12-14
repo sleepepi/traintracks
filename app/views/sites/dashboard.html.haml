@@ -66,21 +66,21 @@
 .dashboard-container
   = form_with url: dashboard_path, method: :get, id: "applicants_search", class: "form-search", data: { object: "form-load" } do
     .row
-      .col-md-4.form-group
+      .col.form-group
         = label :submitted_after, "Submitted After", class: "col-md-3 control-label"
         .col-md-9
           .input-group
             = text_field_tag "submitted_after", Time.zone.today.at_beginning_of_year.strftime("%m/%d/%Y"), class: "datepicker form-control"
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-calendar
-      .col-md-4.form-group
+            .input-group-append
+              .input-group-text= icon("fas", "calendar-alt")
+      .col.form-group
         = label :submitted_before, "Submitted Before", class: "col-md-3 control-label"
         .col-md-9
           .input-group
             = text_field_tag "submitted_before", Time.zone.today.at_end_of_year.strftime("%m/%d/%Y"), class: "datepicker form-control"
-            %span.input-group-addon
-              %span.glyphicon.glyphicon-calendar
-      .col-md-4
+            .input-group-append
+              .input-group-text= icon("fas", "calendar-alt")
+      .col
         .form-group
           .col-md-offset-3.col-md-9
             = submit_tag "Submit", class: "btn btn-primary"
