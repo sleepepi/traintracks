@@ -1,4 +1,4 @@
-## 19.0.1
+## 19.0.1 (December 14, 2018)
 
 ### Enhancements
 - **Gem Changes**
