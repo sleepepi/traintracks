@@ -59,10 +59,10 @@ Edit Cron Jobs `sudo crontab -e` to run the task
 
 ```
 SHELL=/bin/bash
-0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/traintracks && /usr/local/rvm/gems/ruby-2.6.1/bin/bundle exec rake seminar_reminder_email RAILS_ENV=production
+0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/traintracks && rvm 2.6.1 && rails seminar_reminder_email RAILS_ENV=production
 ```
 
-## Contributing to Training Grant
+## Contributing to Train Tracks
 
 - Check out the latest master to make sure the feature hasn't been implemented
   or the bug hasn't been fixed yet
