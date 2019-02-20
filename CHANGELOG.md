@@ -3,6 +3,11 @@
 ### Enhancements
 - **Gem Changes**
   - Update to ruby 2.6.1
+  - Update to rails 6.0.0.beta1
+  - Update to bootstrap 4.3.1
+  - Update to carrierwave 1.3.1
+  - Update to devise 4.6.1
+  - Update to font-awesome-sass 5.6.1
 
 ## 19.0.1 (December 14, 2018)
 

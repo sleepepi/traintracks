@@ -4,7 +4,7 @@ require "test_helper"
 
 SimpleCov.command_name "test:integration"
 
-# Tests to assure that user navigation is working as intended
+# Tests to assure that user navigation is working as intended.
 class NavigationTest < ActionDispatch::IntegrationTest
   def setup
     @valid = users(:valid)
@@ -13,7 +13,7 @@ class NavigationTest < ActionDispatch::IntegrationTest
   end
 
   test "root navigation redirected to login page" do
-    get "/"
+    get root_url
     assert_redirected_to new_user_session_path
     assert_equal I18n.t("devise.failure.unauthenticated"), flash[:alert]
   end

@@ -16,7 +16,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
-# Set up ActionController tests
+# Set up ActionController tests.
 class ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
@@ -26,7 +26,7 @@ class ActionController::TestCase
   end
 end
 
-# Set up ActionDispatch tests
+# Set up ActionDispatch tests.
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
@@ -46,7 +46,7 @@ end
 
 module Rack
   module Test
-    # Allow files to be uploaded in tests
+    # Allow files to be uploaded in tests.
     class UploadedFile
       attr_reader :tempfile
     end
