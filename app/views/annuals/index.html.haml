@@ -11,7 +11,7 @@
     %li.breadcrumb-muted annuals
 
 .dashboard-container
-  = form_with url: annuals_path, method: :get, local: true, id: "annuals_search", skip_enforcing_utf8: true do |form|
+  = form_with url: annuals_path, method: :get, local: true, id: "annuals_search" do |form|
     = form.hidden_field :order, value: params[:order]
 
     .row

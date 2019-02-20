@@ -10,7 +10,7 @@
     %li.breadcrumb-muted program requirements
 
 
-= form_with url: program_requirements_applicants_path, method: :get, local: true, id: "applicants_search", skip_enforcing_utf8: true, class: "mb-3" do |form|
+= form_with url: program_requirements_applicants_path, method: :get, local: true, id: "applicants_search", class: "mb-3" do |form|
   = form.hidden_field :order, value: params[:order]
   .input-group
     = text_field_tag "search", params[:search], class: "form-control"

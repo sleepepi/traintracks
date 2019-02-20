@@ -8,7 +8,7 @@
     %li.breadcrumb-muted attendance tracking
 
 .dashboard-container
-  = form_with url: attendance_seminars_path, method: :get, local: true, id: "attendance_form", skip_enforcing_utf8: true, class: "form-inline" do |form|
+  = form_with url: attendance_seminars_path, method: :get, local: true, id: "attendance_form", class: "form-inline" do |form|
     = form.hidden_field :status, value: params[:status]
     = select_tag :year, options_for_select(Seminar.current.pluck(:presentation_date).collect{|i|i ? (i.month > 6 ? i.year + 1 : i.year) : nil}.uniq.compact.sort.collect{|i| ["July #{i-1} to June #{i}",i]}, @year), class: "form-control mr-3"
     = select_tag :status, options_for_select([["All Trainees", nil]] + Applicant::STATUS, params[:status]), class: "form-control mr-3"
