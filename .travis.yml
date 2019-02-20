@@ -1,9 +1,8 @@
 language: ruby
 rvm:
-- 2.5.1
+- 2.6.1
 - ruby-head
 gemfile: "gems.rb"
-before_install: gem install bundler --no-document # Fixes ruby 2.5.1 tests
 before_script:
 - "ruby lib/initial_setup.rb ../.travis_setup"
 - "mysql -e 'create database training_grant_test;'"
