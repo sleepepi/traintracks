@@ -9,22 +9,24 @@ en:
     failure:
       already_authenticated: "" # "You are already signed in."
       inactive: "Your account is not activated yet."
-      invalid: "Invalid email or password."
-      locked: "Your account is locked."
+      invalid: "Wrong email or password. Did you forget your password?"
+      locked: "Your account is locked. Resend unlock instructions."
       last_attempt: "You have one more attempt before your account is locked."
-      not_found_in_database: "Invalid email or password."
-      timeout: "Your session expired. Please sign in again to continue."
+      not_found_in_database: "Wrong email or password. Did you forget your password?"
+      timeout: "" # "Your session expired. Please sign in again to continue."
       unauthenticated: "" # "You need to sign in or sign up before continuing."
-      unconfirmed: "You have to confirm your email address before continuing."
+      unconfirmed: "You have to <a href=\"confirmation/new\">confirm your email address</a> before continuing."
     mailer:
       confirmation_instructions:
-        subject: "Confirmation instructions"
+        subject: "Confirm your Train Tracks email address"
       reset_password_instructions:
-        subject: "Reset password instructions"
+        subject: "Reset password for your Train Tracks account"
       unlock_instructions:
-        subject: "Unlock instructions"
+        subject: "Unlock your Train Tracks account"
+      email_changed:
+        subject: "Your Train Tracks email changed"
       password_change:
-        subject: "Password Changed"
+        subject: "Your Train Tracks password changed"
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."
@@ -52,7 +54,7 @@ en:
       unlocked: "Your account has been unlocked successfully. Please sign in to continue."
   errors:
     messages:
-      already_confirmed: "was already confirmed, please try signing in"
+      already_confirmed: "was already confirmed, please try <a href=\"login\">signing in</a>."
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "has expired, please request a new one"
       not_found: "not found"

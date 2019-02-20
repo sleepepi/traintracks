@@ -1,6 +1,8 @@
 ## 20.0.0
 
 ### Enhancements
+- **Email Changes**
+  - Update email subject lines to include Train Tracks
 - **Gem Changes**
   - Update to ruby 2.6.1
   - Update to rails 6.0.0.beta1
