@@ -1,6 +1,8 @@
 ## 20.0.0
 
 ### Enhancements
+- **General Changes**
+  - Improved display of applicants index
 - **Email Changes**
   - Update email subject lines to include Train Tracks
 - **Gem Changes**

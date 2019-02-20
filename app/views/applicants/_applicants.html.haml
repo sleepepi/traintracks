@@ -2,31 +2,32 @@
   %thead
     %tr
       = th_sort_field @order, "applicants.last_name", "Name"
-      = th_sort_field @order, "applicants.email", "Email"
-      = th_sort_field @order, "applicants.applicant_type", "Type"
-      = th_sort_field @order, "applicants.reviewed", "Reviewed"
-      = th_sort_field @order, "applicants.enrolled", "Enrolled"
-      = th_sort_field @order, "applicants.status", "Status"
-      %th Supported by TG
-      = th_sort_field @order, "applicants.training_period_start_date", "Training Period Start Date"
-      = th_sort_field @order, "applicants.submitted_at", "Submitted"
-      = th_sort_field @order, "applicants.current_sign_in_at", "Activity"
+      = th_sort_field @order, "applicants.applicant_type", "Type", extra_class: "text-center"
+      = th_sort_field @order, "applicants.reviewed", "Reviewed", extra_class: "text-center"
+      = th_sort_field @order, "applicants.enrolled", "Enrolled", extra_class: "text-center"
+      = th_sort_field @order, "applicants.status", "Status", extra_class: "text-center"
+      %th.text-center Supported by TG
+      = th_sort_field @order, "applicants.training_period_start_date", "Start Date", extra_class: "text-center"
+      = th_sort_field @order, "applicants.submitted_at", "Submitted", extra_class: "text-center"
+      = th_sort_field @order, "applicants.current_sign_in_at", "Activity", extra_class: "text-center"
       %th.text-center Actions
 
   %tbody
     - @applicants.each_with_index do |applicant, index|
-      %tr
-        %td= link_to applicant.name, applicant
-        %td= applicant.email
-        %td= applicant.applicant_type
+      %tr.tr-align-middle
+        %td
+          %div= link_to applicant.name, applicant
+          .small.text-muted
+            = applicant.email
+            &nbsp;
+        %td.small.nowrap.text-center= applicant.applicant_type
         %td.text-center= simple_check applicant.reviewed
         %td.text-center= simple_check applicant.enrolled
-        %td= applicant.status
+        %td.small.nowrap.text-center= applicant.status
         %td.text-center= simple_check applicant.supported_by_tg
-        %td= applicant.training_period_start_date.strftime("%b %d, %Y") if applicant.training_period_start_date
-        %td= simple_time applicant.submitted_at
-        %td
-          %small= abbreviated_time applicant.current_sign_in_at
+        %td.small.nowrap.text-center= applicant.training_period_start_date&.strftime("%b %d, %Y")
+        %td.small.nowrap.text-center= applicant.submitted_at&.strftime("%b %d, %Y")
+        %td.small.nowrap.text-center= abbreviated_time applicant.current_sign_in_at
         %td.text-center
           = render "layouts/edit_delete_dropdown", edit_url: edit_applicant_path(applicant), delete_url: applicant, delete_confirmation: "Delete #{applicant.name}?"
 
