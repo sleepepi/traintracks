@@ -5,7 +5,7 @@ rvm:
 gemfile: "gems.rb"
 before_script:
 - "ruby lib/initial_setup.rb ../.travis_setup"
-- "mysql -e 'create database training_grant_test;'"
+- "mysql -e 'create database train_tracks_test;'"
 - "rails db:migrate"
 matrix:
   allow_failures:

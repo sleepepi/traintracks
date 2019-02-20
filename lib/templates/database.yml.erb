@@ -1,15 +1,19 @@
-# MySQL.  Versions 4.1 and 5.0 are recommended.
+# MySQL. Versions 5.5.8 and up are supported.
 #
-# Install the MySQL driver:
+# Install the MySQL driver
 #   gem install mysql2
 #
+# Ensure the MySQL gem is defined in your Gemfile
+#   gem "mysql2"
+#
 # And be sure to use new-style password hashing:
-#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+#   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
+#
 development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: training_grant_development
+  database: train_tracks_development
   pool: 5
   username: <%= print "Enter Database Username: "; u = gets.chomp(); u %>
   <%= print "Enter Database Password: "; p = gets.chomp(); if p == '' then p = '# password:' else p = "password: #{p}" end; p %>
@@ -23,7 +27,7 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: training_grant_test
+  database: train_tracks_test
   pool: 5
   username: <%= u %>
   <%= p %>
@@ -34,7 +38,7 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: training_grant_production
+  database: train_tracks_production
   pool: 5
   username: <%= u %>
   <%= p %>
