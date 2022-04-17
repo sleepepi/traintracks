@@ -59,7 +59,7 @@ Edit Cron Jobs `sudo crontab -e` to run the task
 
 ```
 SHELL=/bin/bash
-0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/traintracks && rvm 2.6.1 && rails seminar_reminder_email RAILS_ENV=production
+0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/traintracks && rvm 3.0.2 && rails seminar_reminder_email RAILS_ENV=production
 ```
 
 ## Contributing to Train Tracks

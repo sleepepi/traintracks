@@ -90,7 +90,7 @@ class UserMailer < ApplicationMailer
     setup_email
     @applicant = applicant
     @preceptors = [applicant.preferred_preceptor, applicant.preferred_preceptor_two, applicant.preferred_preceptor_three].compact.uniq
-    attachments["#{applicant.curriculum_vitae_url.split('/').last}"] = File.read(applicant.curriculum_vitae.path.to_s) if File.exists?(applicant.curriculum_vitae.path.to_s)
+    attachments["#{applicant.curriculum_vitae_url.split('/').last}"] = File.read(applicant.curriculum_vitae.path.to_s) if File.exist?(applicant.curriculum_vitae.path.to_s)
     @email_to = @preceptors.collect(&:email).join(', ')
     mail(to: @preceptors.collect{|p| "#{p.name} <#{p.email}>"}.join(", "),
          cc: (defined?(ENV['tg_admin_email']) and not ENV['tg_admin_email'].blank?) ? ENV['tg_admin_email'] : nil,

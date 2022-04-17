@@ -42,7 +42,7 @@ class AnnualsControllerTest < ActionController::TestCase
       country: @applicant.country,
       zip_code: @applicant.zip_code,
       # Education
-      curriculum_vitae: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.pdf'),
+      curriculum_vitae: fixture_file_upload('../../support/applicants/curriculum_vitae/test_01.pdf'),
       current_institution: @applicant.current_institution,
       department_program: @applicant.department_program,
       current_position: @applicant.current_position,

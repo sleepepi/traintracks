@@ -52,7 +52,7 @@ class ApplicantsControllerTest < ActionController::TestCase
       country: @applicant.country,
       zip_code: @applicant.zip_code,
       # Education
-      curriculum_vitae: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.pdf'),
+      curriculum_vitae: fixture_file_upload('../../support/applicants/curriculum_vitae/test_01.pdf'),
       current_institution: @applicant.current_institution,
       department_program: @applicant.department_program,
       current_position: @applicant.current_position,
@@ -326,7 +326,7 @@ class ApplicantsControllerTest < ActionController::TestCase
     patch :update_me, params: {
       applicant: applicant_params.merge(
         publish: '1',
-        curriculum_vitae: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.doc')
+        curriculum_vitae: fixture_file_upload('../../support/applicants/curriculum_vitae/test_01.doc')
       )
     }
     assert_equal [], @controller.current_applicant.errors.full_messages
@@ -339,7 +339,7 @@ class ApplicantsControllerTest < ActionController::TestCase
     patch :update_me, params: {
       applicant: applicant_params.merge(
         publish: '1',
-        curriculum_vitae: fixture_file_upload('../../test/support/applicants/curriculum_vitae/test_01.docx')
+        curriculum_vitae: fixture_file_upload('../../support/applicants/curriculum_vitae/test_01.docx')
       )
     }
     assert_equal [], @controller.current_applicant.errors.full_messages

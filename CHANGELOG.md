@@ -1,4 +1,14 @@
 ## 21.0.0
+- **Gem Changes**
+  - Update to ruby 3.0.2
+  - Update to rails 6.1.4.4
+  - Update to mysql 0.5.3
+  - Update to carrierwave 2.2.1
+  - Update to devise 4.8.0
+  - Update to figaro 1.2.0
+  - Update to font-awesome-sass 5.12.0
+  - Update to haml 5.2.1
+  - Update to kaminari 1.2.1
 
 ## 20.0.0 (February 21, 2019)
 
