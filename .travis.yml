@@ -3,6 +3,8 @@ rvm:
 - 3.0.2
 - ruby-head
 gemfile: "gems.rb"
+before_install:
+  - nvm install 10
 before_script:
 - "ruby lib/initial_setup.rb ../.travis_setup"
 - "mysql -e 'create database train_tracks_test;'"
