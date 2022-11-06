@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/sleepepi/traintracks/badges/gpa.svg)](https://codeclimate.com/github/sleepepi/traintracks)
 
 Train Tracks manages new applicants, trainees, and preceptors over a 15-year
-time period. Using Rails 6.0+ and Ruby 2.6+.
+time period. Using Rails 6.0+ and Ruby 3.1+.
 
 ## Installation
 
@@ -59,7 +59,7 @@ Edit Cron Jobs `sudo crontab -e` to run the task
 
 ```
 SHELL=/bin/bash
-0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/traintracks && rvm 3.0.2 && rails seminar_reminder_email RAILS_ENV=production
+0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/traintracks && rvm 3.1.2 && rails seminar_reminder_email RAILS_ENV=production
 ```
 
 ## Contributing to Train Tracks

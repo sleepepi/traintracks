@@ -1,6 +1,6 @@
 ## 21.0.0
 - **Gem Changes**
-  - Update to ruby 3.0.2
+  - Update to ruby 3.1.2
   - Update to rails 6.1.4.4
   - Update to mysql 0.5.3
   - Update to carrierwave 2.2.1
