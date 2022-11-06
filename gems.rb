@@ -17,6 +17,9 @@ gem "figaro",                     "~> 1.2.0"
 gem "font-awesome-sass",          "~> 5.12.0"
 gem "haml",                       "~> 5.2.1"
 gem "kaminari",                   "~> 1.2.1"
+gem "net-imap",                   require: false
+gem "net-pop",                    require: false
+gem "net-smtp",                   require: false
 
 # Rails defaults.
 gem "coffee-rails",               "~> 5.0"
